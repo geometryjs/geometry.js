@@ -131,7 +131,7 @@ namespace GeometryJS {
         intersects(point: Point): boolean;
         intersects(other: Point | Line): boolean {
             if (other instanceof Point) return this.equals(other);
-            if (other instanceof Line) throw new NotImplementedError("Line - Point intersect");
+            if (other instanceof Line) return helpers.Intersects.PointLine(this, other);
             throw new InvalidArgumentError("Base", other);
         }
 
@@ -140,7 +140,7 @@ namespace GeometryJS {
         getIntersections(other: Point): [Point] | [];
         getIntersections(other: Point | Line): [Point] | [] {
             if (other instanceof Point) return this.equals(other) ? [this] : [];
-            if (other instanceof Line) throw new NotImplementedError("Line - Point intersect");
+            if (other instanceof Line) return this.intersects(other) ? [this] : [];
             throw new InvalidArgumentError("Base", other);
         }
     }
@@ -201,7 +201,8 @@ namespace GeometryJS {
 
         getIntersections(other: Point | Line): Array<Base> {
             if (other instanceof Point) return this.intersects(other) ? [other] : [];
-            if (other instanceof Line) return helpers.
+            if (other instanceof Line) return helpers.GetIntersections.LineLine(this, other);
+            throw new InvalidArgumentError("Base", other);
         }
 
         isParalel(other: Line): boolean {
@@ -310,8 +311,8 @@ namespace GeometryJS {
         }
         export namespace GetIntersections {
             export function LineLine(l1: Line, l2: Line): [Line] | [Point] | [] {
-                if (l1.isParalel(l2)) return [];
                 if (l1.equals(l2)) return [l1];
+                if (l1.isParalel(l2)) return [];
                 if (l1.plane !== l2.plane) throw new PlaneError(l1.plane, l2.plane);
                 const b = [l1.a, l1.b].sort((a, b) => a.dist(l2) - b.dist(l2))[0]; // Point B is the closer point to the second line
                 const a = b == l1.a ? l1.b : l1.a; // Point A is the other point from line1
