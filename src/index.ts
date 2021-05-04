@@ -33,6 +33,10 @@ namespace GeometryJS {
             secondPlane.link(object);
             return object;
         }
+        /**
+         * Links an object the this plane
+         * @param object The object
+         */
         public link(object: Base): typeof object {
             if (!this.objects.includes(object)) this.objects.push(object);
             object.plane = this;
