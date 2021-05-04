@@ -52,8 +52,8 @@ namespace GeometryJS {
          * @param y The y coordinate
          * @returns The created Point
          */
-        createPoint(x: number, y: number): Point {
-            const p = new Point(this, x, y);
+        createPoint(x: number, y: number): FreePoint {
+            const p = new FreePoint(this, x, y);
             this.link(p);
             return p;
         }
@@ -73,25 +73,25 @@ namespace GeometryJS {
         abstract equals(object: this): boolean;
 
         abstract dist(): number;
-        abstract dist(point: PointBase | LineBase): number;
+        abstract dist(point: Point | Line): number;
 
         /**
          * Checks, whether this object intersects a Point
          * @param other The object to calculate the intersect with
          */
-        abstract intersects(other: PointBase | LineBase): boolean;
+        abstract intersects(other: Point | Line): boolean;
 
         /**
          * Calculates all the intersections between this object and a Point
          * @param other The object to calculate the intersections with
          */
-        abstract getIntersections(other: PointBase | LineBase): Array<Base>;
+        abstract getIntersections(other: Point | Line): Array<Base>;
     }
     //! Points
     /**
      * Point base class
      */
-    export abstract class PointBase extends Base {
+    export abstract class Point extends Base {
 
         abstract get x(): number;
 
@@ -105,41 +105,41 @@ namespace GeometryJS {
          * Returns the distance between two points
          * @param point The second point
          */
-        dist(point: PointBase): number;
+        dist(point: Point): number;
         /**
          * Returns the distance between this point and another object
          * @param object The secondary object
          */
-        dist(object?: PointBase | LineBase): number {
+        dist(object?: Point | Line): number {
             if (!object) return Math.sqrt(this.x * this.x + this.y * this.y);
-            if (object instanceof GeometryJS.PointBase) {
+            if (object instanceof GeometryJS.Point) {
                 const dx = object.x - this.x;
                 const dy = object.y - this.y;
                 return Math.sqrt(dx * dx + dy * dy);
             }
-            if (object instanceof LineBase) return helpers.Distance.PointLine(this, object);
+            if (object instanceof Line) return helpers.Distance.PointLine(this, object);
             throw new InvalidArgumentError("undefined | Base", object);
         }
-        equals(object: PointBase): boolean {
-            if (object instanceof PointBase) return equals(object.x, this.x) && equals(object.y, this.y);
-            throw new InvalidArgumentError("PointBase", object);
+        equals(object: Point): boolean {
+            if (object instanceof Point) return equals(object.x, this.x) && equals(object.y, this.y);
+            throw new InvalidArgumentError("Point", object);
         }
 
 
-        intersects(point: LineBase): boolean;
-        intersects(point: PointBase): boolean;
-        intersects(other: PointBase | LineBase): boolean {
-            if (other instanceof PointBase) return this.equals(other);
-            if (other instanceof LineBase) throw new NotImplementedError("Line - Point intersect");
+        intersects(point: Line): boolean;
+        intersects(point: Point): boolean;
+        intersects(other: Point | Line): boolean {
+            if (other instanceof Point) return this.equals(other);
+            if (other instanceof Line) throw new NotImplementedError("Line - Point intersect");
             throw new InvalidArgumentError("Base", other);
         }
 
 
-        getIntersections(other: LineBase): [PointBase] | [];
-        getIntersections(other: PointBase): [PointBase] | [];
-        getIntersections(other: PointBase | LineBase): [PointBase] | [] {
-            if (other instanceof PointBase) return this.equals(other) ? [this] : [];
-            if (other instanceof LineBase) throw new NotImplementedError("Line - Point intersect");
+        getIntersections(other: Line): [Point] | [];
+        getIntersections(other: Point): [Point] | [];
+        getIntersections(other: Point | Line): [Point] | [] {
+            if (other instanceof Point) return this.equals(other) ? [this] : [];
+            if (other instanceof Line) throw new NotImplementedError("Line - Point intersect");
             throw new InvalidArgumentError("Base", other);
         }
     }
@@ -147,7 +147,7 @@ namespace GeometryJS {
     /**
      * A class representing a freely movable point
      */
-    export class Point extends PointBase {
+    export class FreePoint extends Point {
         public plane: Plane;
         protected _x: number
         protected _y: number
@@ -168,9 +168,9 @@ namespace GeometryJS {
     /**
      * Line base class
      */
-    export abstract class LineBase extends Base {
-        abstract get a(): PointBase;
-        abstract get b(): PointBase;
+    export abstract class Line extends Base {
+        abstract get a(): Point;
+        abstract get b(): Point;
 
         get dx(): number {
             return Math.abs(this.a.x - this.b.x);
@@ -178,27 +178,27 @@ namespace GeometryJS {
         get dy(): number {
             return Math.abs(this.a.y - this.b.y);
         }
-        equals(other: LineBase): boolean {
-            if (other instanceof LineBase) return (this.a.equals(other.a) && this.b.equals(other.b) || this.a.equals(other.b) && this.b.equals(other.a));
-            throw new InvalidArgumentError("LineBase", other);
+        equals(other: Line): boolean {
+            if (other instanceof Line) return (this.a.equals(other.a) && this.b.equals(other.b) || this.a.equals(other.b) && this.b.equals(other.a));
+            throw new InvalidArgumentError("Line", other);
         }
         dist(): number;
-        dist(other?: PointBase | LineBase): number {
-            if (other instanceof LineBase) helpers.Distance.PointLine(other.a, this);
-            if (other instanceof PointBase) helpers.Distance.PointLine(other, this);
+        dist(other?: Point | Line): number {
+            if (other instanceof Line) helpers.Distance.PointLine(other.a, this);
+            if (other instanceof Point) helpers.Distance.PointLine(other, this);
             throw new InvalidArgumentError("Base", other);
         }
 
-        isParalel(other: LineBase): boolean {
+        isParalel(other: Line): boolean {
             return equals(this.dx / this.dy, other.dx / other.dy);
         }
     }
-    export class Line extends LineBase {
-        protected _a: PointBase;
-        protected _b: PointBase;
+    export class TwoPointLine extends Line {
+        protected _a: Point;
+        protected _b: Point;
 
         public plane: Plane;
-        constructor(a: PointBase, b: PointBase) {
+        constructor(a: Point, b: Point) {
             super();
             if (a.plane !== b.plane) throw new PlaneError(a.plane, b.plane);
             this.plane = a.plane;
@@ -206,11 +206,11 @@ namespace GeometryJS {
             this._b = b;
         }
 
-        get a(): PointBase { return this._a; }
-        set a(value: PointBase) { this._a = value; }
+        get a(): Point { return this._a; }
+        set a(value: Point) { this._a = value; }
 
-        get b(): PointBase { return this._b; }
-        set b(value: PointBase) { this._b = value; }
+        get b(): Point { return this._b; }
+        set b(value: Point) { this._b = value; }
 
     }
 
@@ -295,7 +295,7 @@ namespace GeometryJS {
 
         }
         export namespace Distance {
-            export function PointLine(point: PointBase, line: LineBase): number {
+            export function PointLine(point: Point, line: Line): number {
                 const ap = point.dist(line.a); // |AP|
                 const bp = point.dist(line.b); // |BP|
                 const ab = line.a.dist(line.b); // |AB|
