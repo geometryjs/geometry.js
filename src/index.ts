@@ -15,7 +15,7 @@ namespace GeometryJS {
          */
         readonly objects: Array<Base> = [];
         public isLinked(object: Base): boolean {
-            return this.objects.includes(object);
+            return this.objects.includes(object) && object.plane == this;
         }
         public relink(object: Base, secondPlane: Plane): typeof object {
             const i = this.objects.indexOf(object);
