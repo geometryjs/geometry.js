@@ -21,6 +21,11 @@ namespace GeometryJS {
         public isLinked(object: Base): boolean {
             return this.objects.includes(object) && object.plane == this;
         }
+        /**
+         * Relinks the object to another plane
+         * @param object The object
+         * @param secondPlane new plane
+         */
         public relink(object: Base, secondPlane: Plane): typeof object {
             const i = this.objects.indexOf(object);
             if (i === -1) return object;
