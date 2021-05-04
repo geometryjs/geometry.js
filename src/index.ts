@@ -1,3 +1,4 @@
+
 namespace GeometryJS {
     /**
      * URL for the github repository of the library
@@ -20,11 +21,12 @@ namespace GeometryJS {
             const i = this.objects.indexOf(object);
             if (i === -1) return object;
             this.objects.splice(i, 1);
-
+            secondPlane.link(object);
             return object;
         }
-        public link(object: Base): typeof object { 
-            this.objects.push(object);
+        public link(object: Base): typeof object {
+            if (!this.objects.includes(object)) this.objects.push(object);
+            object.plane = this;
             return object;
         }
         createPoint(x: number, y: number): Point {
@@ -198,7 +200,7 @@ namespace GeometryJS {
 
         }
         export namespace GetIntersections {
-            
+
         }
     }
 }
