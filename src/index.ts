@@ -71,12 +71,23 @@ namespace GeometryJS {
         abstract dist(): number;
         abstract dist(point: PointBase): number;
 
+
+        /**
+         * Checks, whether this object intersects a Line
+         * @param line The Line to calculate the intersect with
+         */
+         abstract intersects(line: LineBase): boolean;
         /**
          * Checks, whether this object intersects a Point
          * @param point The Point to calculate the intersect with
          */
         abstract intersects(point: PointBase): boolean;
 
+        /**
+         * Calculates all the intersections between this object and a Point
+         * @param line The Line to calculate the intersections with
+         */
+         abstract getIntersections(line: LineBase): Array<Base>;
         /**
          * Calculates all the intersections between this object and a Point
          * @param point The Point to calculate the intersections with
