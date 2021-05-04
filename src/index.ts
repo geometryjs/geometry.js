@@ -117,7 +117,7 @@ namespace GeometryJS {
                 const dy = object.y - this.y;
                 return Math.sqrt(dx * dx + dy * dy);
             }
-            if (object instanceof LineBase) throw new NotImplementedError("Line - Point intersect");
+            if (object instanceof LineBase) return helpers.Distance.PointLine(this, object);
             throw new InvalidArgumentError("undefined | Base", object);
         }
         equals(object: PointBase): boolean {
