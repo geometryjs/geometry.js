@@ -47,7 +47,7 @@ namespace GeometryJS {
                 const dy = object.y - this.y;
                 return Math.sqrt(dx * dx + dy * dy);
             }
-            throw new InvalidArgumentError("undefined | Point", typeof object);
+            throw new InvalidArgumentError("undefined | Point", object);
         }
         /**
          * Checks if the two objects represent the same thing
@@ -55,7 +55,8 @@ namespace GeometryJS {
          * @returns 
          */
         equals(object: PointBase): boolean {
-            return object.x === this.x && object.y === this.y;
+            if (object instanceof PointBase) return object.x === this.x && object.y === this.y;
+            throw new InvalidArgumentError("PointBase", object);
         }
     }
 
@@ -115,7 +116,9 @@ namespace GeometryJS {
     export class InvalidArgumentError extends Error {
         readonly expectedType: string;
         readonly actualType: string;
-        constructor(expectedType: string, actualType: string) {
+        constructor(expectedType: string, actualType: string | any) {
+            if (actualType?.type) actualType = actualType.type;
+            else if (typeof actualType != "string") actualType = typeof actualType;
             super(`Invalid argument type. Expected '${expectedType}' but got '${actualType}'`);
 
             if (window.Error.captureStackTrace as any) {
