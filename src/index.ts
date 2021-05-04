@@ -12,6 +12,10 @@ namespace GeometryJS {
     }
     //! Base
     export abstract class Base {
+        readonly type: string;
+        constructor() {
+            this.type = this.constructor.name;
+        }
         abstract dist(): number;
         abstract dist(point: Point): number;
         abstract equals(object: this): boolean;
