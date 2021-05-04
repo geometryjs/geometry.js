@@ -103,7 +103,7 @@ namespace GeometryJS {
         readonly expectedType: string;
         readonly actualType: string;
         constructor(expectedType: string, actualType: string) {
-            super(`Invalid argument type. Expected ${expectedType} but got ${actualType}`);
+            super(`Invalid argument type. Expected '${expectedType}' but got '${actualType}'`);
 
             if (window.Error.captureStackTrace as any) {
                 window.Error.captureStackTrace(this, InvalidArgumentError);
