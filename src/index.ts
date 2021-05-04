@@ -19,7 +19,9 @@ namespace GeometryJS {
         abstract get y(): number;
     }
 
-
+    /**
+     * A class representing a freely movable point
+     */
     export class Point extends PointBase {
         public plane: Plane;
         protected _x: number
