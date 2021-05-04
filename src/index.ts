@@ -11,20 +11,14 @@ namespace GeometryJS {
     /**
      * Default class describing a point
      */
-    export class Point {
-        private _x: number;
-        private _y: number;
-        public plane: Plane;
-        constructor(plane: Plane, x: number, y: number) {
-            this.plane = plane;
-            this._x = x;
-            this._y = y;
-        }
-        
-        get x(): number { return this._x; }
-        set x(value: number) { this._x = value; }
+    export abstract class PointBase {
+        public abstract plane: Plane;
 
-        get y(): number { return this._y; }
-        set y(value: number) { this._y = value; }
+        abstract get x(): number;
+        abstract set x(value: number);
+
+        abstract get y(): number;
+        abstract set y(value: number);
     }
+
 }
