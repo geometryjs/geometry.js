@@ -22,6 +22,8 @@ namespace GeometryJS {
         abstract dist(point: PointBase): number;
 
         abstract intersects(point: PointBase): boolean;
+
+        abstract getIntersects(point: PointBase): Array<Base>;
     }
     //! Points
     /**
@@ -68,6 +70,12 @@ namespace GeometryJS {
         intersects(point: Point): boolean;
         intersects(other: Base): boolean {
             if (other instanceof PointBase) return this.equals(other);
+            throw new InvalidArgumentError("Base", other);
+        }
+
+        getIntersects(other: PointBase): [PointBase] | [];
+        getIntersects(other: Base): [PointBase] | [] {
+            if (other instanceof PointBase) return this.equals(other) ? [this] : [];
             throw new InvalidArgumentError("Base", other);
         }
     }
