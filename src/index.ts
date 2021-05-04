@@ -320,4 +320,14 @@ namespace GeometryJS {
     export function cosineTheorem(a: number, b: number, angle: number): number {
         return Math.sqrt(a * a + b * b - 2 * a * b * Math.cos(angle));
     }
+    /**
+     * A function that calculates the cosine theorem
+     * @param a Length of the one side
+     * @param b Length of the second side
+     * @param c Length of the third side
+     * @returns Size of the angle opposed to the side c
+     */
+    export function cosineTheoremAngle(a: number, b: number, c: number): number {
+        return Math.acos((a * a + b * b - c * c) / 2 * a * b);
+    }
 }
