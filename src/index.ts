@@ -32,7 +32,11 @@ namespace GeometryJS {
          */
         abstract intersects(point: PointBase): boolean;
 
-        abstract getIntersects(point: PointBase): Array<Base>;
+        /**
+         * Calculates all the intersections between this object and a Point
+         * @param point The Point to calculate the intersections with
+         */
+        abstract getIntersects(point: PointBase): [PointBase] | [];
     }
     //! Points
     /**
@@ -71,7 +75,7 @@ namespace GeometryJS {
             if (object instanceof PointBase) return object.x === this.x && object.y === this.y;
             throw new InvalidArgumentError("PointBase", object);
         }
-        intersects(point: Point): boolean;
+        intersects(point: PointBase): boolean;
         intersects(other: Base): boolean {
             if (other instanceof PointBase) return this.equals(other);
             throw new InvalidArgumentError("Base", other);
