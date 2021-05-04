@@ -42,6 +42,12 @@ namespace GeometryJS {
             object.plane = this;
             return object;
         }
+        /**
+         * Creates a movable point on in this plane and links it to it
+         * @param x The x coordinate
+         * @param y The y coordinate
+         * @returns The created Point
+         */
         createPoint(x: number, y: number): Point {
             const p = new Point(this, x, y);
             this.link(p);
