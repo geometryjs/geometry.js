@@ -14,6 +14,10 @@ namespace GeometryJS {
          * All the objects linked to this plane
          */
         readonly objects: Array<Base> = [];
+        /**
+         * Checks if an object is linked to this plane
+         * @param object The object
+         */
         public isLinked(object: Base): boolean {
             return this.objects.includes(object) && object.plane == this;
         }
