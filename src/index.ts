@@ -184,7 +184,9 @@ namespace GeometryJS {
         }
         dist(): number;
         dist(other?: PointBase | LineBase): number {
-            if (other instanceof LineBase) return this.isParalel(other) ? : 0
+            if (other instanceof LineBase) helpers.Distance.PointLine(other.a, this);
+            if (other instanceof PointBase) helpers.Distance.PointLine(other, this);
+            throw new InvalidArgumentError("Base", other);
         }
 
         isParalel(other: LineBase): boolean {
@@ -293,12 +295,23 @@ namespace GeometryJS {
 
         }
         export namespace Distance {
-            export function PointLine(point: Point, line: Line): number {
-                const ap = point.dist(line.a);
-                const bp = point.dist(line.b);
-                const ab = line.a.dist(line.b);
+            export function PointLine(point: PointBase, line: LineBase): number {
+                const ap = point.dist(line.a); // |AP|
+                const bp = point.dist(line.b); // |BP|
+                const ab = line.a.dist(line.b); // |AB|
 
+                const abp = cosineTheoremAngle(bp, ab, ap); // |ABP|
+                const pbd = Math.PI - abp; // |PBD|
+                const bd = Math.cos(pbd) * bp; // |BD|
 
+                const angleAB = Math.atan2(line.a.y - line.b.y, line.a.x - line.b.x);
+                const dx = Math.cos(angleAB) * bd;
+                const dy = Math.sin(angleAB) * bd;
+
+                const x = line.b.x + dx;
+                const y = line.b.y + dy;
+
+                return Math.sqrt((point.x - x) ** 2 + (point.y - y) ** 2);
             }
         }
     }
