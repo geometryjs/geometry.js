@@ -169,4 +169,13 @@ namespace GeometryJS {
             this.name = "NotImplementedError";
         }
     }
+    //! Intersects
+    namespace helpers {
+        export namespace Intersects {
+
+        }
+        export namespace GetIntersections {
+            
+        }
+    }
 }
