@@ -57,6 +57,11 @@ namespace GeometryJS {
             this.link(p);
             return p;
         }
+        createLine(a: Point, b: Point): TwoPointLine {
+            const l = new TwoPointLine(a, b);
+            this.link(l);
+            return l;
+        } 
     }
     //! Base
     export abstract class Base {
