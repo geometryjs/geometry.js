@@ -40,7 +40,7 @@ namespace GeometryJS {
             if (object instanceof GeometryJS.Point) {
                 const dx = object.x - this.x;
                 const dy = object.y - this.y;
-                return Math.sqrt(dx*dx + dy*dy);
+                return Math.sqrt(dx * dx + dy * dy);
             }
         }
     }
