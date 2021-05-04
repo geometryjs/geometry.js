@@ -19,9 +19,9 @@ namespace GeometryJS {
         abstract equals(object: this): boolean;
 
         abstract dist(): number;
-        abstract dist(point: Point): number;
+        abstract dist(point: PointBase): number;
 
-        abstract intersects(point: Point): boolean;
+        abstract intersects(point: PointBase): boolean;
     }
     //! Points
     /**
@@ -42,19 +42,19 @@ namespace GeometryJS {
          * Returns the distance between two points
          * @param point The second point
          */
-        dist(point: Point): number;
+        dist(point: PointBase): number;
         /**
          * Returns the distance between this point and another object
          * @param object The secondary object
          */
-        dist(object?: Point): number {
+        dist(object?: PointBase): number {
             if (!object) return Math.sqrt(this.x * this.x + this.y * this.y);
-            if (object instanceof GeometryJS.Point) {
+            if (object instanceof GeometryJS.PointBase) {
                 const dx = object.x - this.x;
                 const dy = object.y - this.y;
                 return Math.sqrt(dx * dx + dy * dy);
             }
-            throw new InvalidArgumentError("undefined | Point", object);
+            throw new InvalidArgumentError("undefined | Base", object);
         }
         /**
          * Checks if the two objects represent the same thing
