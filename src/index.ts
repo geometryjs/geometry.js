@@ -9,6 +9,25 @@ namespace GeometryJS {
      */
     export class Plane {
         readonly type = "Plane";
+        readonly objects: Array<Base> = [];
+        public isLinked(object: Base): boolean {
+            return this.objects.includes(object);
+        }
+        public unlink(object: Base): typeof object {
+            const i = this.objects.indexOf(object);
+            if (i === -1) return object;
+            this.objects.splice(i, 1);
+            return object;
+        }
+        public link(object: Base): typeof object { 
+            this.objects.push(object);
+            return object;
+        }
+        createPoint(x: number, y: number): Point {
+            const p = new Point(this, x, y);
+            this.link(p);
+            return p;
+        }
     }
     //! Base
     export abstract class Base {
