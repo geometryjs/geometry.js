@@ -65,4 +65,38 @@ namespace GeometryJS {
         get y(): number { return this._y; }
         set y(value: number) { this._y = value; }
     }
+
+    //! Errors 
+    /**
+     * A generic GeometryJS Error
+     */
+    export class Error extends window.Error {
+        /**
+         * Date telling you, when the error occurred.
+         */
+        public date: Date;
+        constructor(message: string) {
+            super(message);
+
+            if (window.Error.captureStackTrace as any) {
+                window.Error.captureStackTrace(this, Error);
+            }
+
+            this.name = "Error";
+            this.date = new Date();
+        }
+
+        toString(): string {
+            return `GeometryJS ${this.name} at ${this.date.getHours()}:${this.date.getMinutes()}:${this.date.getSeconds()}.${this.date.getMilliseconds()}.`;
+        }
+        toJSON(): {
+            name: string,
+            date: number
+        } {
+            return {
+                name: this.name,
+                date: this.date.getTime()
+            }
+        }
+    }
 }
