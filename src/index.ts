@@ -353,6 +353,7 @@ namespace GeometryJS {
         }
         export namespace Distance {
             export function PointLine(point: Point, line: Line): number {
+                if (point.intersects(line)) return 0;
                 const ap = point.dist(line.a); // |AP|
                 const bp = point.dist(line.b); // |BP|
                 const ab = line.a.dist(line.b); // |AB|
