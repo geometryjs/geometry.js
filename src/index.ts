@@ -73,7 +73,7 @@ namespace GeometryJS {
         abstract equals(object: this): boolean;
 
         abstract dist(): number;
-        abstract dist(point: PointBase): number;
+        abstract dist(point: PointBase | LineBase): number;
 
         /**
          * Checks, whether this object intersects a Point
@@ -110,13 +110,14 @@ namespace GeometryJS {
          * Returns the distance between this point and another object
          * @param object The secondary object
          */
-        dist(object?: PointBase): number {
+        dist(object?: PointBase | LineBase): number {
             if (!object) return Math.sqrt(this.x * this.x + this.y * this.y);
             if (object instanceof GeometryJS.PointBase) {
                 const dx = object.x - this.x;
                 const dy = object.y - this.y;
                 return Math.sqrt(dx * dx + dy * dy);
             }
+            if (object instanceof LineBase) throw new NotImplementedError("Line - Point intersect");
             throw new InvalidArgumentError("undefined | Base", object);
         }
         equals(object: PointBase): boolean {
@@ -180,6 +181,10 @@ namespace GeometryJS {
         equals(other: LineBase): boolean {
             if (other instanceof LineBase) return (this.a.equals(other.a) && this.b.equals(other.b) || this.a.equals(other.b) && this.b.equals(other.a));
             throw new InvalidArgumentError("LineBase", other);
+        }
+        dist(): number;
+        dist(other?: PointBase | LineBase): number {
+            if (other instanceof LineBase) return this.isParalel(other) ? : 0
         }
 
         isParalel(other: LineBase): boolean {
@@ -287,6 +292,15 @@ namespace GeometryJS {
         export namespace GetIntersections {
 
         }
+        export namespace Distance {
+            export function PointLine(point: Point, line: Line): number {
+                const ap = point.dist(line.a);
+                const bp = point.dist(line.b);
+                const ab = line.a.dist(line.b);
+
+
+            }
+        }
     }
     /**
      * Compares two numbers according to set decimal precision
@@ -295,5 +309,15 @@ namespace GeometryJS {
      */
     export function equals(a: number, b: number): boolean {
         return a.toPrecision(precision) === b.toPrecision(precision);
+    }
+    /**
+     * A function that calculates the cosine theorem
+     * @param a Length of one side
+     * @param b Length of the other side
+     * @param angle The angle between the two sides
+     * @returns Length of the third side
+     */
+    export function cosineTheorem(a: number, b: number, angle: number): number {
+        return Math.sqrt(a * a + b * b - 2 * a * b * Math.cos(angle));
     }
 }
