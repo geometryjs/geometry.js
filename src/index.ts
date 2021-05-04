@@ -120,7 +120,7 @@ namespace GeometryJS {
             throw new InvalidArgumentError("PointBase", object);
         }
 
-        
+
         intersects(point: LineBase): boolean;
         intersects(point: PointBase): boolean;
         intersects(other: PointBase | LineBase): boolean {
@@ -167,6 +167,12 @@ namespace GeometryJS {
         abstract get a(): PointBase;
         abstract get b(): PointBase;
 
+        get dx(): number { 
+            return Math.abs(this.a.x - this.b.x);
+        }
+        get dy(): number {
+            return Math.abs(this.a.y - this.b.y);
+        }
         equals(other: LineBase): boolean {
             if (other instanceof LineBase) return (this.a.equals(other.a) && this.b.equals(other.b) || this.a.equals(other.b) && this.b.equals(other.a));
             throw new InvalidArgumentError("LineBase", other);
