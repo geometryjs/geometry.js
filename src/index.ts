@@ -14,6 +14,7 @@ namespace GeometryJS {
     export abstract class Base {
         abstract dist(): number;
         abstract dist(point: Point): number;
+        abstract equals(object: this): boolean;
     }
     //! Points
     /**
@@ -47,6 +48,9 @@ namespace GeometryJS {
                 return Math.sqrt(dx * dx + dy * dy);
             }
             throw new InvalidArgumentError("undefined | Point", typeof object);
+        }
+        equals(object: PointBase): boolean {
+            return object.x === this.x && object.y === this.y;
         }
     }
 
