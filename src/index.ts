@@ -106,6 +106,7 @@ namespace GeometryJS {
          * @param point The second point
          */
         dist(point: Point): number;
+        dist(line: Line): number;
         /**
          * Returns the distance between this point and another object
          * @param object The secondary object
@@ -196,6 +197,11 @@ namespace GeometryJS {
             if (other instanceof Point) return helpers.Intersects.PointLine(other, this);
             if (other instanceof Line) return !this.isParalel(other);
             throw new InvalidArgumentError("Base", other);
+        }
+
+        getIntersections(other: Point | Line): Array<Base> {
+            if (other instanceof Point) return this.intersects(other) ? [other] : [];
+            if (other instanceof Line) return helpers.
         }
 
         isParalel(other: Line): boolean {
@@ -303,7 +309,35 @@ namespace GeometryJS {
             }
         }
         export namespace GetIntersections {
+            export function LineLine(l1: Line, l2: Line): [Line] | [Point] | [] {
+                if (l1.isParalel(l2)) return [];
+                if (l1.equals(l2)) return [l1];
+                if (l1.plane !== l2.plane) throw new PlaneError(l1.plane, l2.plane);
+                const b = [l1.a, l1.b].sort((a, b) => a.dist(l2) - b.dist(l2))[0]; // Point B is the closer point to the second line
+                const a = b == l1.a ? l1.b : l1.a; // Point A is the other point from line1
+                const d = [l2.a, l2.b].sort((a, b) => a.dist(l1) - b.dist(l1))[0]; // Point D is the closer point to the first line
+                const c = d == l2.a ? l2.b : l2.a; // Point C is the other point from line
 
+                const bd = b.dist(d); // |BD|
+                const cd = c.dist(b); // |CD|
+                const bc = c.dist(b); // |BC| 
+                const ab = a.dist(b); // |AB|
+                const ad = a.dist(d); // |AD|
+
+                const cdb = cosineTheoremAngle(bd, cd, bc); // |CDB|
+                const abd = cosineTheoremAngle(ab, bd, ad); // |ABD|
+
+                const de = sineTheorem(bd, - Math.PI + cdb + abd, Math.PI - abd); // |DE|
+
+                const dr = de / cd; // Distance ratio
+                const dx = dr * (d.x - c.x);
+                const dy = dr * (d.y - c.y);
+
+                const x = d.x + dx;
+                const y = d.y + dy;
+
+                return [l1.plane.createPoint(x, y)];
+            }
         }
         export namespace Distance {
             export function PointLine(point: Point, line: Line): number {
@@ -315,9 +349,9 @@ namespace GeometryJS {
                 const pbd = Math.PI - abp; // |PBD|
                 const bd = Math.cos(pbd) * bp; // |BD|
 
-                const angleAB = Math.atan2(line.a.y - line.b.y, line.a.x - line.b.x);
-                const dx = Math.cos(angleAB) * bd;
-                const dy = Math.sin(angleAB) * bd;
+                const dr = bp / ab;
+                const dx = dr * (line.b.x - line.a.x)
+                const dy = dr * (line.b.y - line.a.y)
 
                 const x = line.b.x + dx;
                 const y = line.b.y + dy;
@@ -364,5 +398,15 @@ namespace GeometryJS {
     export function onOneLine(ab: number, bc: number, ca: number): boolean {
         const s = [ab, bc, ca].sort((a, b) => a - b);
         return equals(s[2], s[1] + s[0]);
+    }
+    /**
+     * A function that calculates the sine theorem
+     * @param a The length of the side a
+     * @param alpha Angle alpha
+     * @param beta Angle beta
+     * @returns Length of the side b
+     */
+    export function sineTheorem(a: number, alpha: number, beta: number): number {
+        return a * (Math.sin(beta) / Math.sin(alpha));
     }
 }
