@@ -8,7 +8,7 @@ namespace GeometryJS {
      * Class describing a 2D plane.
      */
     export class Plane {
-
+        readonly type = "Plane";
     }
     //! Base
     export abstract class Base {
