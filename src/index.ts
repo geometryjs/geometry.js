@@ -152,6 +152,13 @@ namespace GeometryJS {
         get y(): number { return this._y; }
         set y(value: number) { this._y = value; }
     }
+    //! Lines
+    /**
+     * Line base class
+     */
+    export abstract class LineBase extends Base {
+
+    }
 
     //! Errors 
     /**
