@@ -159,6 +159,11 @@ namespace GeometryJS {
     export abstract class LineBase extends Base {
         abstract get a(): PointBase;
         abstract get b(): PointBase;
+
+        equals(other: LineBase): boolean {
+            if (other instanceof LineBase) return (this.a.equals(other.a) && this.b.equals(other.b) || this.a.equals(other.b) && this.b.equals(other.a));
+            throw new InvalidArgumentError("LineBase", other);
+        }
     }
     export class Line extends LineBase {
         protected _a: PointBase;
