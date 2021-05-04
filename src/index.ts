@@ -196,7 +196,7 @@ namespace GeometryJS {
         }
         dist(): number;
         dist(other?: Point | Line): number {
-            if (other instanceof Line) return helpers.Distance.PointLine(other.a, this);
+            if (other instanceof Line) return helpers.Distance.LineLine(other, this);
             if (other instanceof Point) return helpers.Distance.PointLine(other, this);
             throw new InvalidArgumentError("Base", other);
         }
@@ -370,6 +370,11 @@ namespace GeometryJS {
                 const y = line.b.y + dy;
 
                 return Math.sqrt((point.x - x) ** 2 + (point.y - y) ** 2);
+            }
+            export function LineLine(l1: Line, l2: Line): number {
+                if (l1.equals(l2)) return 0;
+                if (!l1.isParalel(l2)) return 0;
+                return helpers.Distance.PointLine(l1.a, l2);
             }
         }
     }
