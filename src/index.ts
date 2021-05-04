@@ -4,6 +4,10 @@ namespace GeometryJS {
      * URL for the github repository of the library
      */
     const githubURL = "https://github.com/geometryjs/geometry.js";
+    /**
+     * Decimal precision used for float correction
+     */
+    const precision = 15;
     //! 2D
     /**
      * Class describing a 2D plane.
@@ -116,7 +120,7 @@ namespace GeometryJS {
             throw new InvalidArgumentError("undefined | Base", object);
         }
         equals(object: PointBase): boolean {
-            if (object instanceof PointBase) return object.x === this.x && object.y === this.y;
+            if (object instanceof PointBase) return equals(object.x, this.x) && equals(object.y, this.y);
             throw new InvalidArgumentError("PointBase", object);
         }
 
@@ -167,7 +171,7 @@ namespace GeometryJS {
         abstract get a(): PointBase;
         abstract get b(): PointBase;
 
-        get dx(): number { 
+        get dx(): number {
             return Math.abs(this.a.x - this.b.x);
         }
         get dy(): number {
@@ -176,6 +180,10 @@ namespace GeometryJS {
         equals(other: LineBase): boolean {
             if (other instanceof LineBase) return (this.a.equals(other.a) && this.b.equals(other.b) || this.a.equals(other.b) && this.b.equals(other.a));
             throw new InvalidArgumentError("LineBase", other);
+        }
+
+        isParalel(other: LineBase): boolean {
+            return equals(this.dx / this.dy, other.dx / other.dy);
         }
     }
     export class Line extends LineBase {
@@ -193,7 +201,7 @@ namespace GeometryJS {
 
         get a(): PointBase { return this._a; }
         set a(value: PointBase) { this._a = value; }
-        
+
         get b(): PointBase { return this._b; }
         set b(value: PointBase) { this._b = value; }
 
@@ -279,5 +287,13 @@ namespace GeometryJS {
         export namespace GetIntersections {
 
         }
+    }
+    /**
+     * Compares two numbers according to set decimal precision
+     * @param a First number
+     * @param b Second number
+     */
+    export function equals(a: number, b: number): boolean {
+        return a.toPrecision(precision) === b.toPrecision(precision);
     }
 }
