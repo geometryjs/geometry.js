@@ -343,4 +343,15 @@ namespace GeometryJS {
     export function cosineTheoremAngle(a: number, b: number, c: number): number {
         return Math.acos((a * a + b * b - c * c) / 2 * a * b);
     }
+    /**
+     * A function, that determines, whether or not three points lay on one line based on the distance between them
+     * @param ab Distance between A and B |AB|
+     * @param bc Distance between B and C |BC|
+     * @param ca Distance between C and A |CA|
+     * @return Whether all the points lay on the same line
+     */
+    export function onOneLine(ab: number, bc: number, ca: number): boolean {
+        const s = [ab, bc, ca].sort((a, b) => a - b);
+        return equals(s[2], s[1] + s[0]);
+    }
 }
