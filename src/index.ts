@@ -6,12 +6,16 @@ namespace GeometryJS {
     export class Plane {
 
     }
-
+    //! Base
+    export abstract class Base {
+        abstract dist(): number;
+        abstract dist(point: Point): number;
+    }
     //! Points
     /**
      * Point base class
      */
-    export abstract class PointBase {
+    export abstract class PointBase extends Base {
         public abstract plane: Plane;
 
         abstract get x(): number;
