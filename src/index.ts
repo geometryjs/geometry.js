@@ -157,7 +157,15 @@ namespace GeometryJS {
      * Line base class
      */
     export abstract class LineBase extends Base {
-
+        
+    }
+    export class Line extends LineBase {
+        public plane: Plane;
+        constructor(a: PointBase, b: PointBase) {
+            super();
+            if (a.plane !== b.plane) throw new PlaneError(a.plane, b.plane); 
+            this.plane = a.plane; 
+        }
     }
 
     //! Errors 
@@ -218,6 +226,18 @@ namespace GeometryJS {
             }
 
             this.name = "NotImplementedError";
+        }
+    }
+    export class PlaneError extends Error {
+        readonly planes: Array<Plane>;
+        constructor(...planes: Array<Plane>) {
+            super(`Unable to perform this action on objects on different planes.`);
+
+            if (window.Error.captureStackTrace as any) {
+                window.Error.captureStackTrace(this, InvalidArgumentError);
+            }
+            this.planes = planes;
+            this.name = "PlaneError";
         }
     }
     //! Helpers
