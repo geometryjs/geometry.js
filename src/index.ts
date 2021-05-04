@@ -16,6 +16,11 @@ namespace GeometryJS {
         constructor() {
             this.type = this.constructor.name;
         }
+        /**
+         * Checks if the two objects represent the same thing
+         * @param object The second object
+         * @returns 
+         */
         abstract equals(object: this): boolean;
 
         abstract dist(): number;
@@ -58,11 +63,6 @@ namespace GeometryJS {
             }
             throw new InvalidArgumentError("undefined | Base", object);
         }
-        /**
-         * Checks if the two objects represent the same thing
-         * @param object The second Point object
-         * @returns 
-         */
         equals(object: PointBase): boolean {
             if (object instanceof PointBase) return object.x === this.x && object.y === this.y;
             throw new InvalidArgumentError("PointBase", object);
