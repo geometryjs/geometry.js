@@ -1,4 +1,8 @@
 namespace GeometryJS {
+    /**
+     * URL for the github repository of the library
+     */
+    const githubURL = "https://github.com/geometryjs/geometry.js";
     //! 2D
     /**
      * Class describing a 2D plane.
@@ -112,6 +116,17 @@ namespace GeometryJS {
             this.name = "InvalidArgumentError";
             this.expectedType = expectedType;
             this.actualType = actualType;
+        }
+    }
+    export class NotImplementedError extends Error {
+        constructor(feature: string) {
+            super(`${feature} has not been yet implemented. For more information visit ${githubURL}.`);
+
+            if (window.Error.captureStackTrace as any) {
+                window.Error.captureStackTrace(this, InvalidArgumentError);
+            }
+
+            this.name = "NotImplementedError";
         }
     }
 }
