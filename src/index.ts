@@ -49,6 +49,11 @@ namespace GeometryJS {
             }
             throw new InvalidArgumentError("undefined | Point", typeof object);
         }
+        /**
+         * Checks if the two objects represent the same thing
+         * @param object The second Point object
+         * @returns 
+         */
         equals(object: PointBase): boolean {
             return object.x === this.x && object.y === this.y;
         }
