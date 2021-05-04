@@ -9,7 +9,7 @@ namespace GeometryJS {
 
     //! Points
     /**
-     * Default class describing a point
+     * Point base class
      */
     export abstract class PointBase {
         public abstract plane: Plane;
@@ -20,5 +20,6 @@ namespace GeometryJS {
         abstract get y(): number;
         abstract set y(value: number);
     }
+
 
 }
