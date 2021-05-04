@@ -17,6 +17,28 @@ namespace GeometryJS {
         abstract get x(): number;
 
         abstract get y(): number;
+
+        /**
+         * Returns the distance from the origin [0, 0]
+         */
+        dist(): number;
+        /**
+         * Returns the distance between two points
+         * @param point The second point
+         */
+        dist(point: Point): number;
+        /**
+         * Returns the distance between this point and another object
+         * @param object The secondary object
+         */
+        dist(object?: Point): number {
+            if (!object) return Math.sqrt(this.x * this.x + this.y * this.y);
+            if (object instanceof GeometryJS.Point) {
+                const dx = object.x - this.x;
+                const dy = object.y - this.y;
+                return Math.sqrt(dx*dx + dy*dy);
+            }
+        }
     }
 
     /**
