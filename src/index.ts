@@ -361,7 +361,7 @@ namespace GeometryJS {
                 const pbd = Math.PI - abp; // |PBD|
                 const bd = Math.cos(pbd) * bp; // |BD|
 
-                const dr = bp / ab;
+                const dr = bd / ab;
                 const dx = dr * (line.b.x - line.a.x)
                 const dy = dr * (line.b.y - line.a.y)
 
