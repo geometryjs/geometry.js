@@ -57,6 +57,12 @@ namespace GeometryJS {
             this.link(p);
             return p;
         }
+        /**
+         * Create a line based on two points 
+         * @param a The first point
+         * @param b The second point
+         * @returns The created line
+         */
         createLine(a: Point, b: Point): TwoPointLine {
             const l = new TwoPointLine(a, b);
             this.link(l);
