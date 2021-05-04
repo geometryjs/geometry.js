@@ -9,14 +9,18 @@ namespace GeometryJS {
      */
     export class Plane {
         readonly type = "Plane";
+        /**
+         * All the objects linked to this plane
+         */
         readonly objects: Array<Base> = [];
         public isLinked(object: Base): boolean {
             return this.objects.includes(object);
         }
-        public unlink(object: Base): typeof object {
+        public relink(object: Base, secondPlane: Plane): typeof object {
             const i = this.objects.indexOf(object);
             if (i === -1) return object;
             this.objects.splice(i, 1);
+
             return object;
         }
         public link(object: Base): typeof object { 
@@ -31,6 +35,7 @@ namespace GeometryJS {
     }
     //! Base
     export abstract class Base {
+        public abstract plane: Plane;
         readonly type: string;
         constructor() {
             this.type = this.constructor.name;
@@ -62,7 +67,6 @@ namespace GeometryJS {
      * Point base class
      */
     export abstract class PointBase extends Base {
-        public abstract plane: Plane;
 
         abstract get x(): number;
 
