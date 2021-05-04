@@ -157,15 +157,28 @@ namespace GeometryJS {
      * Line base class
      */
     export abstract class LineBase extends Base {
-        
+        abstract get a(): PointBase;
+        abstract get b(): PointBase;
     }
     export class Line extends LineBase {
+        protected _a: PointBase;
+        protected _b: PointBase;
+
         public plane: Plane;
         constructor(a: PointBase, b: PointBase) {
             super();
-            if (a.plane !== b.plane) throw new PlaneError(a.plane, b.plane); 
-            this.plane = a.plane; 
+            if (a.plane !== b.plane) throw new PlaneError(a.plane, b.plane);
+            this.plane = a.plane;
+            this._a = a;
+            this._b = b;
         }
+
+        get a(): PointBase { return this._a; }
+        set a(value: PointBase) { this._a = value; }
+        
+        get b(): PointBase { return this._b; }
+        set b(value: PointBase) { this._b = value; }
+
     }
 
     //! Errors 
