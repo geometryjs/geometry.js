@@ -16,9 +16,12 @@ namespace GeometryJS {
         constructor() {
             this.type = this.constructor.name;
         }
+        abstract equals(object: this): boolean;
+
         abstract dist(): number;
         abstract dist(point: Point): number;
-        abstract equals(object: this): boolean;
+
+        abstract intersects(point: Point): boolean;
     }
     //! Points
     /**
@@ -61,6 +64,11 @@ namespace GeometryJS {
         equals(object: PointBase): boolean {
             if (object instanceof PointBase) return object.x === this.x && object.y === this.y;
             throw new InvalidArgumentError("PointBase", object);
+        }
+        intersects(point: Point): boolean;
+        intersects(other: Base): boolean {
+            if (other instanceof PointBase) return this.equals(other);
+            throw new InvalidArgumentError("Base", other);
         }
     }
 
