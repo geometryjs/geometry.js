@@ -42,6 +42,7 @@ namespace GeometryJS {
                 const dy = object.y - this.y;
                 return Math.sqrt(dx * dx + dy * dy);
             }
+            throw new InvalidArgumentError("undefined | Point", typeof object);
         }
     }
 
