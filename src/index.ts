@@ -184,8 +184,17 @@ namespace GeometryJS {
         }
         dist(): number;
         dist(other?: Point | Line): number {
-            if (other instanceof Line) helpers.Distance.PointLine(other.a, this);
-            if (other instanceof Point) helpers.Distance.PointLine(other, this);
+            if (other instanceof Line) return helpers.Distance.PointLine(other.a, this);
+            if (other instanceof Point) return helpers.Distance.PointLine(other, this);
+            throw new InvalidArgumentError("Base", other);
+        }
+
+
+        intersects(point: Point): boolean;
+        intersects(line: Line): boolean;
+        intersects(other: Point | Line): boolean {
+            if (other instanceof Point) return helpers.Intersects.PointLine(other, this);
+            if (other instanceof Line) return !this.isParalel(other);
             throw new InvalidArgumentError("Base", other);
         }
 
@@ -289,7 +298,9 @@ namespace GeometryJS {
     //! Helpers
     namespace helpers {
         export namespace Intersects {
-
+            export function PointLine(point: Point, line: Line): boolean {
+                return onOneLine(point.dist(line.a), point.dist(line.b), line.b.dist(line.a));
+            }
         }
         export namespace GetIntersections {
 
