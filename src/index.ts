@@ -71,28 +71,17 @@ namespace GeometryJS {
         abstract dist(): number;
         abstract dist(point: PointBase): number;
 
-
-        /**
-         * Checks, whether this object intersects a Line
-         * @param line The Line to calculate the intersect with
-         */
-         abstract intersects(line: LineBase): boolean;
         /**
          * Checks, whether this object intersects a Point
-         * @param point The Point to calculate the intersect with
+         * @param other The object to calculate the intersect with
          */
-        abstract intersects(point: PointBase): boolean;
+        abstract intersects(other: PointBase | LineBase): boolean;
 
         /**
          * Calculates all the intersections between this object and a Point
-         * @param line The Line to calculate the intersections with
+         * @param other The object to calculate the intersections with
          */
-         abstract getIntersections(line: LineBase): Array<Base>;
-        /**
-         * Calculates all the intersections between this object and a Point
-         * @param point The Point to calculate the intersections with
-         */
-        abstract getIntersections(point: PointBase): [PointBase] | [];
+        abstract getIntersections(other: PointBase | LineBase): Array<Base>;
     }
     //! Points
     /**
@@ -130,15 +119,18 @@ namespace GeometryJS {
             if (object instanceof PointBase) return object.x === this.x && object.y === this.y;
             throw new InvalidArgumentError("PointBase", object);
         }
+        intersects(point: LineBase): boolean;
         intersects(point: PointBase): boolean;
-        intersects(other: Base): boolean {
+        intersects(other: PointBase | LineBase): boolean {
             if (other instanceof PointBase) return this.equals(other);
+            if (other instanceof LineBase) throw new NotImplementedError("Line - Point intersect");
             throw new InvalidArgumentError("Base", other);
         }
-
+        getIntersections(other: LineBase): [PointBase] | [];
         getIntersections(other: PointBase): [PointBase] | [];
-        getIntersections(other: Base): [PointBase] | [] {
+        getIntersections(other: PointBase | LineBase): [PointBase] | [] {
             if (other instanceof PointBase) return this.equals(other) ? [this] : [];
+            if (other instanceof LineBase) throw new NotImplementedError("Line - Point intersect");
             throw new InvalidArgumentError("Base", other);
         }
     }
