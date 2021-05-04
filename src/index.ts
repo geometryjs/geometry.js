@@ -119,6 +119,8 @@ namespace GeometryJS {
             if (object instanceof PointBase) return object.x === this.x && object.y === this.y;
             throw new InvalidArgumentError("PointBase", object);
         }
+
+        
         intersects(point: LineBase): boolean;
         intersects(point: PointBase): boolean;
         intersects(other: PointBase | LineBase): boolean {
@@ -126,6 +128,8 @@ namespace GeometryJS {
             if (other instanceof LineBase) throw new NotImplementedError("Line - Point intersect");
             throw new InvalidArgumentError("Base", other);
         }
+
+
         getIntersections(other: LineBase): [PointBase] | [];
         getIntersections(other: PointBase): [PointBase] | [];
         getIntersections(other: PointBase | LineBase): [PointBase] | [] {
