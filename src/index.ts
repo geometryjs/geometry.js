@@ -377,13 +377,58 @@ namespace GeometryJS {
         }
     }
     //! Drawers
+    /**
+     * An sbtract class representing a drawer and all the methods extending classes need to implement
+     */
     export abstract class Drawer {
+        /**
+         * A function that draws a line, that goes thru point A and B
+         * @param ax X coordinate of the A point
+         * @param ay Y coordinate of the A point
+         * @param bx X coordinate of the B point
+         * @param by Y coordinate of the B point
+         */
         abstract line(ax: number, ay: number, bx: number, by: number): void;
+        /**
+         * A function that draws a point from it's X and Y coordinates
+         * @param x The X coordinate
+         * @param y The Y coordinate
+         */
         abstract point(x: number, y: number): void;
+        /**
+         * A function that draws a circle with a radius and a center
+         * @param x The X coordinate of the center of the circle
+         * @param y The Y coordinate of the center of the circle
+         * @param radius The radius of the circle
+         */
         abstract circle(x: number, y: number, radius: number): void;
+        /**
+         * A function that draws a ray, that ends in the first point a whos direction is given by the second point
+         * @param ax The X coordinate of the ending point of the ray
+         * @param ay The Y coordinate of the ending point of the ray
+         * @param bx The X coordinate of a second point of the ray
+         * @param by The Y coordinate of a second point of the ray
+         */
         abstract ray(ax: number, ay: number, bx: number, by: number): void;
+        /**
+         * A function that draws a segemnt, that starts in the point A and ends in the point B
+         * @param ax X coordinate of the A point
+         * @param ay Y coordinate of the A point
+         * @param bx X coordinate of the B point
+         * @param by Y coordinate of the B point
+         */
         abstract segment(ax: number, ay: number, bx: number, by: number): void;
-        abstract func(func: (x: number) => number): void;
+        /**
+         * A function that graphs a continuous mathematical function 
+         * @param func The continuous mathematical function
+         */
+        abstract continuousFunc(func: (x: number) => number): void;
+        /**
+         * A function that graphs a not continuous mathematical function
+         * @param func The not continuous mathematical function
+         */
+        abstract notContinuousFunc(func: (x: number) => number): void;
+
     }
     /**
      * Compares two numbers according to set decimal precision
