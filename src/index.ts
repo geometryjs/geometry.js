@@ -424,10 +424,10 @@ namespace GeometryJS {
          */
         abstract continuousFunc(func: (x: number) => number): void;
         /**
-         * A function that graphs a not continuous mathematical function
-         * @param func The not continuous mathematical function
+         * A function that graphs a discontinuous mathematical function
+         * @param func The discontinuous mathematical function
          */
-        abstract notContinuousFunc(func: (x: number) => number): void;
+        abstract discontinuousFunc(func: (x: number) => number): void;
 
     }
     /**
