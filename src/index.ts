@@ -376,6 +376,10 @@ namespace GeometryJS {
             }
         }
     }
+    //! Drawes
+    export abstract class Drawer {
+        
+    }
     /**
      * Compares two numbers according to set decimal precision
      * @param a First number
