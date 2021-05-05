@@ -378,7 +378,12 @@ namespace GeometryJS {
     }
     //! Drawes
     export abstract class Drawer {
-        
+        abstract line(ax: number, ay: number, bx: number, by: number): void;
+        abstract point(x: number, y: number): void;
+        abstract circle(x: number, y: number, radius: number): void;
+        abstract ray(ax: number, ay: number, bx: number, by: number): void;
+        abstract segment(ax: number, ay: number, bx: number, by: number): void;
+        abstract func(func: (x: number) => number): void;
     }
     /**
      * Compares two numbers according to set decimal precision
