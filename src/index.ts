@@ -376,7 +376,7 @@ namespace GeometryJS {
             }
         }
     }
-    //! Drawes
+    //! Drawers
     export abstract class Drawer {
         abstract line(ax: number, ay: number, bx: number, by: number): void;
         abstract point(x: number, y: number): void;
