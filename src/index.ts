@@ -67,7 +67,7 @@ namespace GeometryJS {
             const l = new TwoPointLine(a, b);
             this.link(l);
             return l;
-        } 
+        }
     }
     //! Base
     export abstract class Base {
@@ -325,10 +325,8 @@ namespace GeometryJS {
                 if (l1.equals(l2)) return [l1];
                 if (l1.isParalel(l2)) return [];
                 if (l1.plane !== l2.plane) throw new PlaneError(l1.plane, l2.plane);
-                const b = [l1.a, l1.b].sort((a, b) => a.dist(l2) - b.dist(l2))[0]; // Point B is the closer point to the second line
-                const a = b == l1.a ? l1.b : l1.a; // Point A is the other point from line1
-                const d = [l2.a, l2.b].sort((a, b) => a.dist(l1) - b.dist(l1))[0]; // Point D is the closer point to the first line
-                const c = d == l2.a ? l2.b : l2.a; // Point C is the other point from line
+                const [a, b] = [l1.a, l1.b].sort((a, b) => a.dist(l2) - b.dist(l2)); // Point B is the closer point to the second line
+                const [d, c] = [l2.a, l2.b].sort((a, b) => a.dist(l1) - b.dist(l1)); // Point D is the closer point to the first line
 
                 const bd = b.dist(d); // |BD|
                 const cd = c.dist(b); // |CD|
