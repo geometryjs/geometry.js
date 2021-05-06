@@ -183,7 +183,8 @@ namespace GeometryJS {
             this.line = line;
         }
         set y(value: number) {
-            if (this.line.dy == 0 && this._y != value) throw new ImpossibleAssignementError("You cannot change the x coordinate of point on a horizontal line.");
+            if (this._y == value) return;
+            if (this.line.dy == 0) throw new ImpossibleAssignementError("You cannot change the x coordinate of point on a horizontal line.");
             const dy = this.line.a.y - this.line.b.y; // Line dx with sign
             const dx = this.line.a.x - this.line.b.x; // Line dy with sign
             const dyN = this.line.a.y - value; // Difference in y for new point and A
@@ -193,7 +194,8 @@ namespace GeometryJS {
             this._y = value;
         }
         set x(value: number) {
-            if (this.line.dx == 0 && this._x != value) throw new ImpossibleAssignementError("You cannot change the x coordinate of point on a vertical line.");
+            if (this._x == value) return;
+            if (this.line.dx == 0) throw new ImpossibleAssignementError("You cannot change the x coordinate of point on a vertical line.");
             const dy = this.line.a.y - this.line.b.y; // Line dx with sign
             const dx = this.line.a.x - this.line.b.x; // Line dy with sign
             const dxN = this.line.a.x - value; // Difference in y for new point and A
