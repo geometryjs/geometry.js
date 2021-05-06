@@ -387,6 +387,18 @@ namespace GeometryJS {
             this.name = "PlaneError";
         }
     }
+    export class ImpossibleAssignementError extends Error {
+        description: string;
+        constructor(description: string, msg = "") {
+            super(`Cannot assign the value to this property. ${msg}`);
+
+            if (window.Error.captureStackTrace as any) {
+                window.Error.captureStackTrace(this, InvalidArgumentError);
+            }
+            this.description = description;
+            this.name = "ImpossibleAssignementError";
+        }
+    }
     //! Helpers
     namespace helpers {
         export namespace Intersects {
