@@ -176,12 +176,19 @@ namespace GeometryJS {
         get y(): number { return this._y; }
         set y(value: number) { this._y = value; }
     }
-    export class PointOnLine extends FreePoint {
+    export class PointOnLine extends Point {
         readonly line: Line;
+        plane: Plane;
+        _x: number;
+        _y: number;
         constructor(line: Line, x: number, y: number) {
-            super(line.plane, x, y);
+            super();
             this.line = line;
+            this.plane = line.plane;
+            this._x = x;
+            this._y = y;
         }
+        get x(): number { return this._x; }
         set y(value: number) {
             if (this._y == value) return;
             if (this.line.dy == 0) throw new ImpossibleAssignementError("You cannot change the x coordinate of point on a horizontal line.");
@@ -193,6 +200,7 @@ namespace GeometryJS {
             this._x = this.line.a.x + dxN;
             this._y = value;
         }
+        get y(): number { return this._y; }
         set x(value: number) {
             if (this._x == value) return;
             if (this.line.dx == 0) throw new ImpossibleAssignementError("You cannot change the x coordinate of point on a vertical line.");
