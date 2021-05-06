@@ -192,7 +192,7 @@ namespace GeometryJS {
         }
         equals(other: Line): boolean {
             if (other instanceof Line) return (this.a.equals(other.a) && this.b.equals(other.b) || this.a.equals(other.b) && this.b.equals(other.a))
-            || this.isParalel(other) && this.dist(other.a) == 0; 
+            || this.isParallel(other) && this.dist(other.a) == 0; 
             throw new InvalidArgumentError("Line", other);
         }
         dist(): number;
@@ -209,7 +209,7 @@ namespace GeometryJS {
         intersects(line: Line): boolean;
         intersects(other: Point | Line): boolean {
             if (other instanceof Point) return helpers.Intersects.PointLine(other, this);
-            if (other instanceof Line) return !this.isParalel(other);
+            if (other instanceof Line) return !this.isParallel(other);
             throw new InvalidArgumentError("Base", other);
         }
 
@@ -222,7 +222,7 @@ namespace GeometryJS {
          * Checks if two lines are parallel
          * @param other The other line
          */
-        isParalel(other: Line): boolean {
+        isParallel(other: Line): boolean {
             return equals(this.dx / this.dy, other.dx / other.dy);
         }
     }
@@ -329,7 +329,7 @@ namespace GeometryJS {
         export namespace GetIntersections {
             export function LineLine(l1: Line, l2: Line): [Line] | [Point] | [] {
                 if (l1.equals(l2)) return [l1];
-                if (l1.isParalel(l2)) return [];
+                if (l1.isParallel(l2)) return [];
                 if (l1.plane !== l2.plane) throw new PlaneError(l1.plane, l2.plane);
                 const [a, b] = [l1.a, l1.b].sort((a, b) => a.dist(l2) - b.dist(l2)); // Point B is the closer point to the second line
                 const [d, c] = [l2.a, l2.b].sort((a, b) => a.dist(l1) - b.dist(l1)); // Point D is the closer point to the first line
@@ -377,7 +377,7 @@ namespace GeometryJS {
             }
             export function LineLine(l1: Line, l2: Line): number {
                 if (l1.equals(l2)) return 0;
-                if (!l1.isParalel(l2)) return 0;
+                if (!l1.isParallel(l2)) return 0;
                 return helpers.Distance.PointLine(l1.a, l2);
             }
         }
