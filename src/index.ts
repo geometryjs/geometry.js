@@ -218,7 +218,10 @@ namespace GeometryJS {
             if (other instanceof Line) return helpers.GetIntersections.LineLine(this, other);
             throw new InvalidArgumentError("Base", other);
         }
-
+        /**
+         * Checks if two lines are parallel
+         * @param other The other line
+         */
         isParalel(other: Line): boolean {
             return equals(this.dx / this.dy, other.dx / other.dy);
         }
