@@ -105,8 +105,9 @@ namespace GeometryJS {
     export abstract class Point extends Base {
 
         abstract get x(): number;
-
+        get xRounded(): number { return round(this.x); }
         abstract get y(): number;
+        get yRounded(): number { return round(this.y); }
 
         /**
          * Returns the distance from the origin [0, 0]
@@ -554,7 +555,7 @@ namespace GeometryJS {
     export function equals(a: number, b: number): boolean {
         return a.toPrecision(precision) === b.toPrecision(precision);
     }
-    export function round(a: number): number { 
+    export function round(a: number): number {
         return Number(a.toPrecision(precision));
     }
     /**
