@@ -176,6 +176,33 @@ namespace GeometryJS {
         get y(): number { return this._y; }
         set y(value: number) { this._y = value; }
     }
+    export class PointOnLine extends FreePoint {
+        readonly line: Line;
+        constructor(line: Line, x: number, y: number) {
+            super(line.plane, x, y);
+            this.line = line; 
+        }
+        set y(value: number) { 
+            if (this.line.dy == 0 && this._y != value) {} // TODO: Geometry error
+            const dy = this.line.a.y - this.line.b.y; // Line dx with sign
+            const dx = this.line.a.x - this.line.b.x; // Line dy with sign
+            const dyN = this.line.a.y - value; // Difference in y for new point and A
+            const dr = dy / dyN; // Distance ratio
+            const dxN = dx * dr; // Difference in x for new point and A
+            this._x = this.line.a.x + dxN;
+            this._y = value;
+        }
+        set x(value: number) { 
+            if (this.line.dx == 0 && this._x != value) {} // TODO: Geometry error
+            const dy = this.line.a.y - this.line.b.y; // Line dx with sign
+            const dx = this.line.a.x - this.line.b.x; // Line dy with sign
+            const dxN = this.line.a.x - value; // Difference in y for new point and A
+            const dr = dx / dxN; // Distance ratio
+            const dyN = dy * dr; // Difference in x for new point and A
+            this._y = this.line.a.y + dyN;
+            this._x = value;
+        }
+    }
     //! Lines
     /**
      * Line base class
@@ -192,7 +219,7 @@ namespace GeometryJS {
         }
         equals(other: Line): boolean {
             if (other instanceof Line) return (this.a.equals(other.a) && this.b.equals(other.b) || this.a.equals(other.b) && this.b.equals(other.a))
-            || this.isParallel(other) && this.dist(other.a) == 0; 
+                || this.isParallel(other) && this.dist(other.a) == 0;
             throw new InvalidArgumentError("Line", other);
         }
         dist(): number;
