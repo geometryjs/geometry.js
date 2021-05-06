@@ -275,7 +275,23 @@ namespace GeometryJS {
         set b(value: Point) { this._b = value; }
 
     }
+    export class ParallelLine extends Line {
+        readonly plane: Plane;
+        line: Line;
+        point: PointOnLine;
+        constructor(pointOnLine: PointOnLine) {
+            super();
+            this.plane = pointOnLine.plane;
+            this.line = pointOnLine.line;
+            this.point = pointOnLine;
+        }
 
+        get a(): PointOnLine { return this.point; }
+        set a(value: PointOnLine) {
+            if (value.line != this.line) { } // TODO: Geometry error
+            this.point = value;
+        }
+    }
     //! Errors 
     /**
      * A generic GeometryJS Error
