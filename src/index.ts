@@ -213,6 +213,8 @@ namespace GeometryJS {
             throw new InvalidArgumentError("Base", other);
         }
 
+        getIntersections(line: Line): Array<Base>;
+        getIntersections(point: Point): Array<Base>;
         getIntersections(other: Point | Line): Array<Base> {
             if (other instanceof Point) return this.intersects(other) ? [other] : [];
             if (other instanceof Line) return helpers.GetIntersections.LineLine(this, other);
