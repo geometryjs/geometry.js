@@ -180,10 +180,10 @@ namespace GeometryJS {
         readonly line: Line;
         constructor(line: Line, x: number, y: number) {
             super(line.plane, x, y);
-            this.line = line; 
+            this.line = line;
         }
-        set y(value: number) { 
-            if (this.line.dy == 0 && this._y != value) {} // TODO: Geometry error
+        set y(value: number) {
+            if (this.line.dy == 0 && this._y != value) { } // TODO: Geometry error
             const dy = this.line.a.y - this.line.b.y; // Line dx with sign
             const dx = this.line.a.x - this.line.b.x; // Line dy with sign
             const dyN = this.line.a.y - value; // Difference in y for new point and A
@@ -192,8 +192,8 @@ namespace GeometryJS {
             this._x = this.line.a.x + dxN;
             this._y = value;
         }
-        set x(value: number) { 
-            if (this.line.dx == 0 && this._x != value) {} // TODO: Geometry error
+        set x(value: number) {
+            if (this.line.dx == 0 && this._x != value) { } // TODO: Geometry error
             const dy = this.line.a.y - this.line.b.y; // Line dx with sign
             const dx = this.line.a.x - this.line.b.x; // Line dy with sign
             const dxN = this.line.a.x - value; // Difference in y for new point and A
@@ -213,11 +213,11 @@ namespace GeometryJS {
             this.line = point.line;
             this.point = point;
         }
-        get x(): number { 
+        get x(): number {
             const dy = this.point.y - this.line.a.y; // The dy for two points on the line
             return this.point.x + dy; // Due to triangles, dy for two line points and dx for this point and the point on line are equal
         }
-        get y(): number { 
+        get y(): number {
             const dx = this.point.x - this.line.a.x; // The dx for two points on the line
             return this.point.y + dx; // Due to triangles, dx for two line points and dy for this point and the point on line are equal
         }
@@ -298,11 +298,13 @@ namespace GeometryJS {
         readonly plane: Plane;
         line: Line;
         point: PointOnLine;
+        pointerPoint: ParallelLinePointerPoint;
         constructor(pointOnLine: PointOnLine) {
             super();
             this.plane = pointOnLine.plane;
             this.line = pointOnLine.line;
             this.point = pointOnLine;
+            this.pointerPoint = new ParallelLinePointerPoint(this.point);
         }
 
         get a(): PointOnLine { return this.point; }
@@ -310,6 +312,8 @@ namespace GeometryJS {
             if (value.line != this.line) { } // TODO: Geometry error
             this.point = value;
         }
+
+        get b(): ParallelLinePointerPoint { return this.pointerPoint };
     }
     //! Errors 
     /**
