@@ -8,6 +8,10 @@ namespace GeometryJS {
      * Decimal precision used for float correction
      */
     const precision = 15;
+    /**
+     * Precision for round for results printed to the user. Does not affect any built in math.
+     */
+    const humanReadPrecision = 4;
     //! 2D
     /**
      * Class describing a 2D plane.
@@ -555,8 +559,12 @@ namespace GeometryJS {
     export function equals(a: number, b: number): boolean {
         return a.toPrecision(precision) === b.toPrecision(precision);
     }
+    /**
+     * A function that rounds a number to a sensible precision for human reading. 
+     * @param a The number to round
+     */
     export function round(a: number): number {
-        return Number(a.toPrecision(precision));
+        return Number(a.toPrecision(humanReadPrecision));
     }
     /**
      * A function that calculates the cosine theorem
