@@ -275,6 +275,26 @@ namespace GeometryJS {
         isParallel(other: Line): boolean {
             return equals(this.dx / this.dy, other.dx / other.dy);
         }
+        getParallel(point: Point): ParallelLine {
+            if (point.intersects(this)) {
+                return new ParallelLine(new PointOnLine(this, point.x, point.y));
+            }
+            const ap = point.dist(this.a); // |AP|
+            const bp = point.dist(this.b); // |BP|
+            const ab = this.a.dist(this.b); // |AB|
+
+            const abp = cosineTheoremAngle(bp, ab, ap); // |ABP|
+            const pbd = Math.PI - abp; // |PBD|
+            const bd = Math.cos(pbd) * bp; // |BD|
+
+            const dr = bd / ab;
+            const dx = dr * (this.b.x - this.a.x)
+            const dy = dr * (this.b.y - this.a.y)
+
+            const x = this.b.x + dx;
+            const y = this.b.y + dy;
+            return new ParallelLine(new PointOnLine(this, x, y));
+        }
     }
     export class TwoPointLine extends Line {
         protected _a: Point;
