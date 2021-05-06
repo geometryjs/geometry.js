@@ -203,6 +203,25 @@ namespace GeometryJS {
             this._x = value;
         }
     }
+    export class ParallelLinePointerPoint extends Point {
+        plane: Plane;
+        point: PointOnLine;
+        line: Line;
+        constructor(point: PointOnLine) {
+            super();
+            this.plane = point.plane;
+            this.line = point.line;
+            this.point = point;
+        }
+        get x(): number { 
+            const dy = this.point.y - this.line.a.y; // The dy for two points on the line
+            return this.point.x + dy; // Due to triangles, dy for two line points and dx for this point and the point on line are equal
+        }
+        get y(): number { 
+            const dx = this.point.x - this.line.a.x; // The dx for two points on the line
+            return this.point.y + dx; // Due to triangles, dx for two line points and dy for this point and the point on line are equal
+        }
+    }
     //! Lines
     /**
      * Line base class
