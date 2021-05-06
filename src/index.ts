@@ -191,7 +191,7 @@ namespace GeometryJS {
             return Math.abs(this.a.y - this.b.y);
         }
         equals(other: Line): boolean {
-            if (other instanceof Line) return (this.a.equals(other.a) && this.b.equals(other.b) || this.a.equals(other.b) && this.b.equals(other.a));
+            if (other instanceof Line) return (this.a.equals(other.a) && this.b.equals(other.b) || this.a.equals(other.b) && this.b.equals(other.a)); // TODO: Add case for not equal points but equal line
             throw new InvalidArgumentError("Line", other);
         }
         dist(): number;
