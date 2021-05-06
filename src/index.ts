@@ -576,7 +576,7 @@ namespace GeometryJS {
      * @returns Size of the angle opposed to the side c
      */
     export function cosineTheoremAngle(a: number, b: number, c: number): number {
-        return Math.acos((a * a + b * b - c * c) / 2 * a * b);
+        return Math.acos((a * a + b * b - c * c) / (2 * a * b));
     }
     /**
      * A function, that determines, whether or not three points lay on one line based on the distance between them
