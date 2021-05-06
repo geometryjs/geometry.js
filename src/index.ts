@@ -554,6 +554,9 @@ namespace GeometryJS {
     export function equals(a: number, b: number): boolean {
         return a.toPrecision(precision) === b.toPrecision(precision);
     }
+    export function round(a: number): number { 
+        return Number(a.toPrecision(precision));
+    }
     /**
      * A function that calculates the cosine theorem
      * @param a Length of one side
