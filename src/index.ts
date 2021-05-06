@@ -309,7 +309,7 @@ namespace GeometryJS {
 
         get a(): PointOnLine { return this.point; }
         set a(value: PointOnLine) {
-            if (value.line != this.line) { } // TODO: Geometry error
+            if (value.line != this.line) throw new ImpossibleAssignementError("Cannot change point on line to a different line.")
             this.point = value;
         }
 
