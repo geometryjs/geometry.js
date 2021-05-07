@@ -18,7 +18,7 @@ for (const test of tests) {
     });
     results.push({
         success: r,
-        name: "\u001b[34mTest function \u001b[0m " + (tests.indexOf(test) + 1) + (test.testName ? (" - " + test.testName) : ""),
+        name: "\u001b[34mTest function \u001b[0m" + (tests.indexOf(test) + 1) + (test.testName ? (" - " + test.testName) : ""),
         expected: true,
         recieved: r
     });
