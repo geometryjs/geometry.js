@@ -293,7 +293,7 @@ namespace GeometryJS {
             const a2 = Math.acos(bd / bc);
             const a = Math.PI / 2 - a1 - a2;
 
-            return Math.cos(a) * ce;
+            return ce == 0 ? this.point.x - Math.cos(a) * bd : this.point.x + Math.cos(a) * ce; // Return the point, if it doesn't match the given point, then it return a different one
         }
         get y(): number {
             const bc = this.line.b.dist(this.point); // |BC|
@@ -303,14 +303,13 @@ namespace GeometryJS {
 
             const dc = Math.sqrt(bc * bc - bd * bd); // |DC| Pythagorian theorem
             const ce = bd - dc; // |CE|
-
             const dy = this.point.y - this.line.b.y; // Difference in y between the point and B point of the line
 
             const a1 = Math.acos(dy / bc);
             const a2 = Math.acos(bd / bc);
             const a = Math.PI / 2 - a1 - a2;
 
-            return Math.sin(a) * ce;
+            return ce == 0 ? this.point.y - Math.sin(a) * bd : this.point.y + Math.sin(a) * ce; // Return the point, if it doesn't match the given point, then it return a different one
         }
     }
     //! Lines
