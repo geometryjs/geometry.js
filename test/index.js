@@ -8,7 +8,7 @@ const results = [];
 for (const test of tests) {
     test((num, num2, str) => {
         results.push({
-            success: GeometryJS.equals(num, num2),
+            success: typeof num === "number" && typeof num2 === "number" ? GeometryJS.equals(num, num2) : num === num2,
             name: str,
             recieved: num,
             expected: num2
