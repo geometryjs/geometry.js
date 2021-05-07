@@ -4,7 +4,6 @@ const GeometryJS = require("../build/index-module").default;
 */
 module.exports = [ // The tests
     assert => { // The singular test
-        this.testName = "Value retainment"
         const plane = new GeometryJS.Plane();
         const point = plane.createPoint(20, 10);
         assert(point.x, 20, "X stays same when point created.");
@@ -26,4 +25,5 @@ module.exports = [ // The tests
         assert(line.intersects(b) || line.intersects(b2), false, "Point not on line does not intersect the line");
     }
 ]
-module.exports[1].testName = "Intersect check"
+module.exports[0].testName = "Value retainment";
+module.exports[1].testName = "Intersect check";
