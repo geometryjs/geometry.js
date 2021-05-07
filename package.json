@@ -1,0 +1,23 @@
+{
+  "name": "geometry",
+  "version": "1.0.0",
+  "description": "Object-oriented typescript library for analytic geometry",
+  "main": "build.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node ./test.js",
+    "build": "node ./build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geometryjs/geometry.js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/geometryjs/geometry.js/issues"
+  },
+  "homepage": "https://github.com/geometryjs/geometry.js#readme"
+}
