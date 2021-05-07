@@ -28,7 +28,7 @@ jobs:
     - run: npm cache clean --force
     - run: npm install
     - run: cat ./src/index.ts > ./src/index-module.ts
-    - run: echo. >> ./src/index-module.ts 
+    - run: echo . >> ./src/index-module.ts 
     - run: echo export default GeometryJS > ./src/index-module.ts;
     - run: tsc
     - run: npm test
