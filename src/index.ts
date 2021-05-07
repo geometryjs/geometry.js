@@ -403,6 +403,30 @@ namespace GeometryJS {
 
         get b(): PerpendicularLinePointerPoint { return this.pointerPoint };
     }
+
+    export class ParallelLine extends Line {
+        plane: Plane;
+        pointerPoint: ParallelLinePointerPoint;
+        line: Line;
+        point: Point;
+        constructor(point: Point, line: Line) {
+            super();
+            if (point.plane != line.plane) throw new PlaneError(point.plane, line.plane);
+            this.plane = point.plane;
+            this.point = point;
+            this.line = line;
+            this.pointerPoint = new ParallelLinePointerPoint(this.line, point);
+        }
+
+        get a(): Point { return this.point; }
+        set a(value: Point) {
+            if (!(value instanceof Point)) throw new InvalidArgumentError("Point", value);
+            if (value.plane != this.plane) throw new PlaneError(value.plane, this.plane);
+            this.point = value;
+        }
+        get b(): ParallelLinePointerPoint { return this.pointerPoint; }
+
+    }
     //! Errors 
     /**
      * A generic GeometryJS Error
