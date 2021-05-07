@@ -418,35 +418,6 @@ namespace GeometryJS {
                 return onOneLine(point.dist(line.a), point.dist(line.b), line.b.dist(line.a));
             }
         }
-        export namespace GetIntersections {
-            export function LineLine(l1: Line, l2: Line): [Line] | [Point] | [] {
-                if (l1.equals(l2)) return [l1];
-                if (l1.isParallel(l2)) return [];
-                if (l1.plane !== l2.plane) throw new PlaneError(l1.plane, l2.plane);
-                const [a, b] = [l1.a, l1.b].sort((a, b) => a.dist(l2) - b.dist(l2)); // Point B is the closer point to the second line
-                const [d, c] = [l2.a, l2.b].sort((a, b) => a.dist(l1) - b.dist(l1)); // Point D is the closer point to the first line
-
-                const bd = b.dist(d); // |BD|
-                const cd = c.dist(b); // |CD|
-                const bc = c.dist(b); // |BC| 
-                const ab = a.dist(b); // |AB|
-                const ad = a.dist(d); // |AD|
-
-                const cdb = cosineTheoremAngle(bd, cd, bc); // |CDB|
-                const abd = cosineTheoremAngle(ab, bd, ad); // |ABD|
-
-                const de = sineTheorem(bd, - Math.PI + cdb + abd, Math.PI - abd); // |DE|
-
-                const dr = de / cd; // Distance ratio
-                const dx = dr * (d.x - c.x);
-                const dy = dr * (d.y - c.y);
-
-                const x = d.x + dx;
-                const y = d.y + dy;
-
-                return [l1.plane.createPoint(x, y)];
-            }
-        }
         export namespace Distance {
             export function PointLine(point: Point, line: Line): number {
                 if (point.intersects(line)) return 0;
