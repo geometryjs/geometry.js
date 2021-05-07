@@ -435,7 +435,7 @@ namespace GeometryJS {
         }
     }
     //! Helpers
-    namespace helpers {
+    export namespace helpers {
         export namespace Intersects {
             export function PointLine(point: Point, line: Line): boolean {
                 return onOneLine(point.dist(line.a), point.dist(line.b), line.b.dist(line.a));
