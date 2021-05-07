@@ -25,4 +25,4 @@ module.exports = [ // The tests
         assert(line.intersects(b) || line.intersects(b2), false, "Point not on line does not intersect the line");
     }
 ]
-module.exports[1].name = "Intersect check"
+module.exports[1].testName = "Intersect check"
