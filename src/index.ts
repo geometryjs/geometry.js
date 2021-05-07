@@ -268,6 +268,51 @@ namespace GeometryJS {
             return this.point.y - dx; // Due to triangles, dx for two line points and dy for this point and the point on line are equal
         }
     }
+    export class ParallelLinePointerPoint extends Point {
+        plane: Plane;
+        point: Point;
+        line: Line;
+        constructor(line: Line, point: Point) {
+            super();
+            if (line.plane !== point.plane) throw new PlaneError(line.plane, point.plane);
+            this.plane = line.plane;
+            this.point = point
+            this.line = line;
+        }
+        get x(): number {
+            const bc = this.line.b.dist(this.point); // |BC|
+            if (bc == 0) return this.line.b.y == this.point.y && this.line.b.x == this.point.x ? this.line.a.y : this.line.b.y; // Return the x of line.b if it's not the same as the point, else the x of line.a
+            const bd = this.line.dist(this.point) // |BD| due to the lines beeing parallel, distance of any two points laying on a perpendicular line is the same
+
+            const dc = Math.sqrt(bc * bc - bd * bd); // |DC| Pythagorian theorem
+            const ce = bd - dc; // |CE|
+
+            const dy = this.point.y - this.line.b.y; // Difference in y between the point and B point of the line
+
+            const a1 = Math.acos(dy / bc);
+            const a2 = Math.acos(bd / bc);
+            const a = Math.PI / 2 - a1 - a2;
+
+            return Math.cos(a) * ce;
+        }
+        get y(): number {
+            const bc = this.line.b.dist(this.point); // |BC|
+            if (bc == 0) return this.line.b.y == this.point.y && this.line.b.x == this.point.x ? this.line.a.x : this.line.b.x; // Return the y of line.b if it's not the same as the point, else the y of line.a
+            const bd = this.line.dist(this.point) // |BD| due to the lines beeing parallel, distance of any two points laying on a perpendicular line is the same
+
+
+            const dc = Math.sqrt(bc * bc - bd * bd); // |DC| Pythagorian theorem
+            const ce = bd - dc; // |CE|
+
+            const dy = this.point.y - this.line.b.y; // Difference in y between the point and B point of the line
+
+            const a1 = Math.acos(dy / bc);
+            const a2 = Math.acos(bd / bc);
+            const a = Math.PI / 2 - a1 - a2;
+
+            return Math.sin(a) * ce;
+        }
+    }
     //! Lines
     /**
      * Line base class
