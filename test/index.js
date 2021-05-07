@@ -18,7 +18,7 @@ for (const test of tests) {
     });
     results.push({
         success: r,
-        name: "Test function " + tests.indexOf(test) + 1,
+        name: "Test function " + (tests.indexOf(test) + 1),
         expected: true,
         recieved: r
     });
