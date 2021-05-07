@@ -4,6 +4,7 @@ const GeometryJS = require("../build/index-module").default;
 */
 module.exports = [ // The tests
     assert => { // The singular test
+        this.testName = "Value retainment"
         const plane = new GeometryJS.Plane();
         const point = plane.createPoint(20, 10);
         assert(point.x, 20, "X stays same when point created.");
