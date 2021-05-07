@@ -144,15 +144,6 @@ namespace GeometryJS {
             if (other instanceof Line) return helpers.Intersects.PointLine(this, other);
             throw new InvalidArgumentError("Base", other);
         }
-
-
-        getIntersections(other: Line): [Point] | [];
-        getIntersections(other: Point): [Point] | [];
-        getIntersections(other: Point | Line): [Point] | [] {
-            if (other instanceof Point) return this.equals(other) ? [this] : [];
-            if (other instanceof Line) return this.intersects(other) ? [this] : [];
-            throw new InvalidArgumentError("Base", other);
-        }
     }
 
     /**
