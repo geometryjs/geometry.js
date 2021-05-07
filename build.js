@@ -4,5 +4,5 @@ const childProcess = require('child_process');
 
 fs.unlinkSync("./src/index-module.ts");
 fs.copyFileSync("./src/index.ts", "./src/index-module.ts");
-fs.appendFileSync("\nexport default GeometryJS;", "./src/index-module.ts");
+fs.appendFileSync("./src/index-module.ts", "\nexport default GeometryJS;");
 childProcess.execSync("tsc");
