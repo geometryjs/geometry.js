@@ -17,13 +17,31 @@ module.exports = [ // The tests
         const b = plane.createPoint(50, 0);
         const a2 = plane.createPoint(200, 200);
         const b2 = plane.createPoint(0, 50);
-        
+
         const line = plane.createLine(x, y);
         assert(line.intersects(x) && line.intersects(y), true, "Creator point lays on line");
         assert(line.intersects(a), true, "Point between creator points lays on line");
         assert(line.intersects(a2), true, "Point on line outside of segment lays on line.");
         assert(line.intersects(b) || line.intersects(b2), false, "Point not on line does not intersect the line");
+    },
+    assert => {
+        const plane = new GeometryJS.Plane();
+
+        const x = plane.createPoint(0, 0);
+        const y = plane.createPoint(100, 100);
+        const z = plane.createPoint(100, 0);
+        const line = plane.createLine(x, y);
+        const pLine = line.getPerpendicular(z);
+
+
+        const a = plane.createPoint(0, 100);
+        const b = plane.createPoint(-200, 100);
+        assert(pLine.intersects(a), true, "Correct perpendicular line created");
+        assert(pLine.intersects(b), true, "Correct perpendicular line created");
+        asset(pLine.isParallel(line), false, "Checks, if perpendicular line is not parallel.");
+
     }
 ]
 module.exports[0].testName = "Value retainment";
 module.exports[1].testName = "Intersect check";
+module.exports[2].testName = "Perpendicular line check";
