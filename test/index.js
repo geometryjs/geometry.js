@@ -6,6 +6,7 @@ const GeometryJS = require("../build/index-module").default;
  */
 const results = [];
 for (const test of tests) {
+    var r = true;
     test((num, num2, str) => {
         results.push({
             success: typeof num === "number" && typeof num2 === "number" ? GeometryJS.equals(num, num2) : num === num2,
@@ -13,6 +14,13 @@ for (const test of tests) {
             recieved: num,
             expected: num2
         });
+        if (!(typeof num === "number" && typeof num2 === "number" ? GeometryJS.equals(num, num2) : num === num2)) r = false;
+    });
+    results.push({
+        success: r,
+        name: "Test function " + tests.indexOf(test) + 1,
+        expected: true,
+        recieved: r
     });
 }
 const success = results.every(v => v.success);
