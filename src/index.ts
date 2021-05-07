@@ -95,12 +95,6 @@ namespace GeometryJS {
          * @param other The object to calculate the intersect with
          */
         abstract intersects(other: Point | Line): boolean;
-
-        /**
-         * Calculates all the intersections between this object and a Point
-         * @param other The object to calculate the intersections with
-         */
-        abstract getIntersections(other: Point | Line): Array<Base>;
     }
     //! Points
     /**
