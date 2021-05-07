@@ -1,4 +1,4 @@
-const DefaultError = Error;
+const DefaultError = Error as any;
 namespace GeometryJS {
     /**
      * URL for the github repository of the library
