@@ -203,11 +203,57 @@ namespace GeometryJS {
             this._x = value;
         }
     }
+    export class PointOnLineFromPoint extends Point {
+        plane: Plane;
+        line: Line;
+        point: Point;
+        constructor(line: Line, point: Point) {
+            super();
+            if (line.plane !== point.plane) throw new PlaneError(line.plane, point.plane);
+            this.plane = point.plane;
+            this.line = line;
+            this.point = point;
+        }
+        get x(): number {
+            if (this.point.intersects(this.line)) {
+                return this.point.x;
+            }
+            const ap = this.point.dist(this.line.a); // |AP|
+            const bp = this.point.dist(this.line.b); // |BP|
+            const ab = this.line.a.dist(this.line.b); // |AB|
+
+            const abp = cosineTheoremAngle(bp, ab, ap); // |ABP|
+            const pbd = Math.PI - abp; // |PBD|
+            const bd = Math.cos(pbd) * bp; // |BD|
+
+            const dr = bd / ab;
+            const dx = dr * (this.line.b.x - this.line.a.x)
+
+            return this.line.b.x + dx;
+        }
+        get y(): number {
+            if (this.point.intersects(this.line)) {
+                return this.point.y;
+            }
+            const ap = this.point.dist(this.line.a); // |AP|
+            const bp = this.point.dist(this.line.b); // |BP|
+            const ab = this.line.a.dist(this.line.b); // |AB|
+
+            const abp = cosineTheoremAngle(bp, ab, ap); // |ABP|
+            const pbd = Math.PI - abp; // |PBD|
+            const bd = Math.cos(pbd) * bp; // |BD|
+
+            const dr = bd / ab;
+            const dy = dr * (this.line.b.y - this.line.a.y)
+
+            return this.line.b.y + dy;
+        }
+    }
     export class PerpendicularLinePointerPoint extends Point {
         plane: Plane;
-        point: PointOnLine;
+        point: PointOnLineFromPoint;
         line: Line;
-        constructor(point: PointOnLine) {
+        constructor(point: PointOnLineFromPoint) {
             super();
             this.plane = point.plane;
             this.line = point.line;
@@ -268,24 +314,7 @@ namespace GeometryJS {
             return equals(this.dx / this.dy, other.dx / other.dy);
         }
         getPerpendicular(point: Point): PerpendicularLine {
-            if (point.intersects(this)) {
-                return new PerpendicularLine(new PointOnLine(this, point.x, point.y));
-            }
-            const ap = point.dist(this.a); // |AP|
-            const bp = point.dist(this.b); // |BP|
-            const ab = this.a.dist(this.b); // |AB|
-
-            const abp = cosineTheoremAngle(bp, ab, ap); // |ABP|
-            const pbd = Math.PI - abp; // |PBD|
-            const bd = Math.cos(pbd) * bp; // |BD|
-
-            const dr = bd / ab;
-            const dx = dr * (this.b.x - this.a.x)
-            const dy = dr * (this.b.y - this.a.y)
-
-            const x = this.b.x + dx;
-            const y = this.b.y + dy;
-            return new PerpendicularLine(new PointOnLine(this, x, y));
+            return new PerpendicularLine(new PointOnLineFromPoint(this, point));
         }
     }
     export class TwoPointLine extends Line {
@@ -311,9 +340,9 @@ namespace GeometryJS {
     export class PerpendicularLine extends Line {
         readonly plane: Plane;
         line: Line;
-        point: PointOnLine;
+        point: PointOnLineFromPoint;
         pointerPoint: PerpendicularLinePointerPoint;
-        constructor(pointOnLine: PointOnLine) {
+        constructor(pointOnLine: PointOnLineFromPoint) {
             super();
             this.plane = pointOnLine.plane;
             this.line = pointOnLine.line;
@@ -321,8 +350,8 @@ namespace GeometryJS {
             this.pointerPoint = new PerpendicularLinePointerPoint(this.point);
         }
 
-        get a(): PointOnLine { return this.point; }
-        set a(value: PointOnLine) {
+        get a(): PointOnLineFromPoint { return this.point; }
+        set a(value: PointOnLineFromPoint) {
             if (value.line != this.line) throw new ImpossibleAssignementError("Cannot change point on line to a different line.")
             this.point = value;
         }
