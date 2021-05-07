@@ -35,10 +35,10 @@ module.exports = [ // The tests
 
 
         const a = plane.createPoint(0, 100);
-        const b = plane.createPoint(-200, 100);
+        const b = plane.createPoint(200, -100);
         assert(pLine.intersects(a), true, "Correct perpendicular line created");
         assert(pLine.intersects(b), true, "Correct perpendicular line created");
-        asset(pLine.isParallel(line), false, "Checks, if perpendicular line is not parallel.");
+        assert(pLine.isParallel(line), false, "Checks, if perpendicular line is not parallel.");
 
     }
 ]
