@@ -231,10 +231,12 @@ namespace GeometryJS {
         abstract get b(): Point;
 
         get dx(): number {
-            return Math.abs(this.a.x - this.b.x);
+            const [a, b] = [this.a, this.b].sort((a, b) => a.x - b.x);
+            return b.x - a.x;
         }
         get dy(): number {
-            return Math.abs(this.a.y - this.b.y);
+            const [a, b] = [this.a, this.b].sort((a, b) => a.x - b.x);
+            return b.y - a.y;
         }
         equals(other: Line): boolean {
             if (other instanceof Line) return (this.a.equals(other.a) && this.b.equals(other.b) || this.a.equals(other.b) && this.b.equals(other.a))
