@@ -10,6 +10,7 @@ module.exports = [ // The tests
         assert(point.y, 10, "Y stays same when point created.");
     },
     assert => { // The checks for point line intersects
+        this.name = "Intersect check"
         const plane = new GeometryJS.Plane();
         const x = plane.createPoint(0, 0);
         const y = plane.createPoint(100, 100);
