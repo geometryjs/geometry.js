@@ -95,12 +95,6 @@ namespace GeometryJS {
          * @param other The object to calculate the intersect with
          */
         abstract intersects(other: Point | Line): boolean;
-
-        /**
-         * Calculates all the intersections between this object and a Point
-         * @param other The object to calculate the intersections with
-         */
-        abstract getIntersections(other: Point | Line): Array<Base>;
     }
     //! Points
     /**
@@ -148,15 +142,6 @@ namespace GeometryJS {
         intersects(other: Point | Line): boolean {
             if (other instanceof Point) return this.equals(other);
             if (other instanceof Line) return helpers.Intersects.PointLine(this, other);
-            throw new InvalidArgumentError("Base", other);
-        }
-
-
-        getIntersections(other: Line): [Point] | [];
-        getIntersections(other: Point): [Point] | [];
-        getIntersections(other: Point | Line): [Point] | [] {
-            if (other instanceof Point) return this.equals(other) ? [this] : [];
-            if (other instanceof Line) return this.intersects(other) ? [this] : [];
             throw new InvalidArgumentError("Base", other);
         }
     }
@@ -271,14 +256,6 @@ namespace GeometryJS {
         intersects(other: Point | Line): boolean {
             if (other instanceof Point) return helpers.Intersects.PointLine(other, this);
             if (other instanceof Line) return !this.isParallel(other);
-            throw new InvalidArgumentError("Base", other);
-        }
-
-        getIntersections(line: Line): Array<Base>;
-        getIntersections(point: Point): Array<Base>;
-        getIntersections(other: Point | Line): Array<Base> {
-            if (other instanceof Point) return this.intersects(other) ? [other] : [];
-            if (other instanceof Line) return helpers.GetIntersections.LineLine(this, other);
             throw new InvalidArgumentError("Base", other);
         }
         /**
@@ -439,35 +416,6 @@ namespace GeometryJS {
         export namespace Intersects {
             export function PointLine(point: Point, line: Line): boolean {
                 return onOneLine(point.dist(line.a), point.dist(line.b), line.b.dist(line.a));
-            }
-        }
-        export namespace GetIntersections {
-            export function LineLine(l1: Line, l2: Line): [Line] | [Point] | [] {
-                if (l1.equals(l2)) return [l1];
-                if (l1.isParallel(l2)) return [];
-                if (l1.plane !== l2.plane) throw new PlaneError(l1.plane, l2.plane);
-                const [a, b] = [l1.a, l1.b].sort((a, b) => a.dist(l2) - b.dist(l2)); // Point B is the closer point to the second line
-                const [d, c] = [l2.a, l2.b].sort((a, b) => a.dist(l1) - b.dist(l1)); // Point D is the closer point to the first line
-
-                const bd = b.dist(d); // |BD|
-                const cd = c.dist(b); // |CD|
-                const bc = c.dist(b); // |BC| 
-                const ab = a.dist(b); // |AB|
-                const ad = a.dist(d); // |AD|
-
-                const cdb = cosineTheoremAngle(bd, cd, bc); // |CDB|
-                const abd = cosineTheoremAngle(ab, bd, ad); // |ABD|
-
-                const de = sineTheorem(bd, - Math.PI + cdb + abd, Math.PI - abd); // |DE|
-
-                const dr = de / cd; // Distance ratio
-                const dx = dr * (d.x - c.x);
-                const dy = dr * (d.y - c.y);
-
-                const x = d.x + dx;
-                const y = d.y + dy;
-
-                return [l1.plane.createPoint(x, y)];
             }
         }
         export namespace Distance {
