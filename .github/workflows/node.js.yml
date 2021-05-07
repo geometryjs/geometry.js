@@ -27,5 +27,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm cache clean --force
     - run: npm install
-    - run: npm run build
+    - run: cat ./src/index.ts > ./src/index-module.ts
+    - run: cat .> ./src/index-module.ts 
+    - run: echo export default GeometryJS;
+    - run: tsc
     - run: npm test
