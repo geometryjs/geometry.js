@@ -219,7 +219,7 @@ namespace GeometryJS {
         }
         get y(): number {
             const dx = this.point.x - this.line.a.x; // The dx for two points on the line
-            return this.point.y + dx; // Due to triangles, dx for two line points and dy for this point and the point on line are equal
+            return this.point.y - dx; // Due to triangles, dx for two line points and dy for this point and the point on line are equal
         }
     }
     //! Lines
