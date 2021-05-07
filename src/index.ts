@@ -218,7 +218,7 @@ namespace GeometryJS {
             this._x = value;
         }
     }
-    export class ParallelLinePointerPoint extends Point {
+    export class PerpendicularLinePointerPoint extends Point {
         plane: Plane;
         point: PointOnLine;
         line: Line;
@@ -288,9 +288,9 @@ namespace GeometryJS {
         isParallel(other: Line): boolean {
             return equals(this.dx / this.dy, other.dx / other.dy);
         }
-        getParallel(point: Point): ParallelLine {
+        getPerpendicular(point: Point): Perpendicular {
             if (point.intersects(this)) {
-                return new ParallelLine(new PointOnLine(this, point.x, point.y));
+                return new Perpendicular(new PointOnLine(this, point.x, point.y));
             }
             const ap = point.dist(this.a); // |AP|
             const bp = point.dist(this.b); // |BP|
@@ -306,7 +306,7 @@ namespace GeometryJS {
 
             const x = this.b.x + dx;
             const y = this.b.y + dy;
-            return new ParallelLine(new PointOnLine(this, x, y));
+            return new Perpendicular(new PointOnLine(this, x, y));
         }
     }
     export class TwoPointLine extends Line {
@@ -329,17 +329,17 @@ namespace GeometryJS {
         set b(value: Point) { this._b = value; }
 
     }
-    export class ParallelLine extends Line {
+    export class Perpendicular extends Line {
         readonly plane: Plane;
         line: Line;
         point: PointOnLine;
-        pointerPoint: ParallelLinePointerPoint;
+        pointerPoint: PerpendicularLinePointerPoint;
         constructor(pointOnLine: PointOnLine) {
             super();
             this.plane = pointOnLine.plane;
             this.line = pointOnLine.line;
             this.point = pointOnLine;
-            this.pointerPoint = new ParallelLinePointerPoint(this.point);
+            this.pointerPoint = new PerpendicularLinePointerPoint(this.point);
         }
 
         get a(): PointOnLine { return this.point; }
@@ -348,7 +348,7 @@ namespace GeometryJS {
             this.point = value;
         }
 
-        get b(): ParallelLinePointerPoint { return this.pointerPoint };
+        get b(): PerpendicularLinePointerPoint { return this.pointerPoint };
     }
     //! Errors 
     /**
