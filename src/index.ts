@@ -1,4 +1,4 @@
-
+const DefaultError = Error;
 namespace GeometryJS {
     /**
      * URL for the github repository of the library
@@ -354,7 +354,7 @@ namespace GeometryJS {
     /**
      * A generic GeometryJS Error
      */
-    export class Error extends window.Error {
+    export class Error extends DefaultError {
         /**
          * Date telling you, when the error occurred.
          */
@@ -362,8 +362,8 @@ namespace GeometryJS {
         constructor(message: string) {
             super(message);
 
-            if (window.Error.captureStackTrace as any) {
-                window.Error.captureStackTrace(this, Error);
+            if (DefaultError.captureStackTrace as any) {
+                DefaultError.captureStackTrace(this, Error);
             }
             this.name = "Error";
             this.date = new Date();
@@ -390,8 +390,8 @@ namespace GeometryJS {
             else if (typeof actualType != "string") actualType = typeof actualType;
             super(`Invalid argument type. Expected '${expectedType}' but got '${actualType}'`);
 
-            if (window.Error.captureStackTrace as any) {
-                window.Error.captureStackTrace(this, InvalidArgumentError);
+            if (DefaultError.captureStackTrace as any) {
+                DefaultError.captureStackTrace(this, InvalidArgumentError);
             }
 
             this.name = "InvalidArgumentError";
@@ -403,8 +403,8 @@ namespace GeometryJS {
         constructor(feature: string) {
             super(`${feature} has not been yet implemented. For more information visit ${githubURL}.`);
 
-            if (window.Error.captureStackTrace as any) {
-                window.Error.captureStackTrace(this, InvalidArgumentError);
+            if (DefaultError.captureStackTrace as any) {
+                DefaultError.captureStackTrace(this, InvalidArgumentError);
             }
 
             this.name = "NotImplementedError";
@@ -415,8 +415,8 @@ namespace GeometryJS {
         constructor(...planes: Array<Plane>) {
             super(`Unable to perform this action on objects on different planes.`);
 
-            if (window.Error.captureStackTrace as any) {
-                window.Error.captureStackTrace(this, InvalidArgumentError);
+            if (DefaultError.captureStackTrace as any) {
+                DefaultError.captureStackTrace(this, InvalidArgumentError);
             }
             this.planes = planes;
             this.name = "PlaneError";
@@ -427,8 +427,8 @@ namespace GeometryJS {
         constructor(description: string, msg = "") {
             super(`Cannot assign the value to this property. ${msg}`);
 
-            if (window.Error.captureStackTrace as any) {
-                window.Error.captureStackTrace(this, InvalidArgumentError);
+            if (DefaultError.captureStackTrace as any) {
+                DefaultError.captureStackTrace(this, InvalidArgumentError);
             }
             this.description = description;
             this.name = "ImpossibleAssignementError";
