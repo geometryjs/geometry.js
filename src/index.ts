@@ -361,6 +361,9 @@ namespace GeometryJS {
         getPerpendicular(point: Point): PerpendicularLine {
             return new PerpendicularLine(new PointOnLineFromPoint(this, point));
         }
+        getParallel(point: Point): ParallelLine {
+            return new ParallelLine(point, this);
+        }
     }
     export class TwoPointLine extends Line {
         protected _a: Point;
