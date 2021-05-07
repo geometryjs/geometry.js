@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/geometryjs/geometry.js/issues"
   },
-  "homepage": "https://github.com/geometryjs/geometry.js#readme"
+  "homepage": "https://github.com/geometryjs/geometry.js#readme",
+  "dependencies": {
+    "typescript": "^4.2.4"
+  }
 }
