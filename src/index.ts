@@ -288,9 +288,9 @@ namespace GeometryJS {
         isParallel(other: Line): boolean {
             return equals(this.dx / this.dy, other.dx / other.dy);
         }
-        getPerpendicular(point: Point): Perpendicular {
+        getPerpendicular(point: Point): PerpendicularLine {
             if (point.intersects(this)) {
-                return new Perpendicular(new PointOnLine(this, point.x, point.y));
+                return new PerpendicularLine(new PointOnLine(this, point.x, point.y));
             }
             const ap = point.dist(this.a); // |AP|
             const bp = point.dist(this.b); // |BP|
@@ -306,7 +306,7 @@ namespace GeometryJS {
 
             const x = this.b.x + dx;
             const y = this.b.y + dy;
-            return new Perpendicular(new PointOnLine(this, x, y));
+            return new PerpendicularLine(new PointOnLine(this, x, y));
         }
     }
     export class TwoPointLine extends Line {
@@ -329,7 +329,7 @@ namespace GeometryJS {
         set b(value: Point) { this._b = value; }
 
     }
-    export class Perpendicular extends Line {
+    export class PerpendicularLine extends Line {
         readonly plane: Plane;
         line: Line;
         point: PointOnLine;
