@@ -321,12 +321,10 @@ namespace GeometryJS {
         abstract get b(): Point;
 
         get dx(): number {
-            const [a, b] = [this.a, this.b].sort((a, b) => a.x - b.x);
-            return b.x - a.x;
+            return this.a.x - this.b.x;
         }
         get dy(): number {
-            const [a, b] = [this.a, this.b].sort((a, b) => a.x - b.x);
-            return b.y - a.y;
+            return this.a.y - this.b.y;
         }
         equals(other: Line): boolean {
             if (other instanceof Line) return (this.a.equals(other.a) && this.b.equals(other.b) || this.a.equals(other.b) && this.b.equals(other.a))
@@ -355,7 +353,7 @@ namespace GeometryJS {
          * @param other The other line
          */
         isParallel(other: Line): boolean {
-            return equals(this.dx / this.dy, other.dx / other.dy);
+            return equals(Math.abs(this.dx / this.dy), Math.abs(other.dx / other.dy));
         }
         createPerpendicular(point: Point): PerpendicularLine {
             return new PerpendicularLine(new PointOnLineFromPoint(this, point));
@@ -413,10 +411,10 @@ namespace GeometryJS {
             this.plane = ray.plane;
             this.ray = ray;
         }
-        get a(): Point { 
+        get a(): Point {
             return this.ray.a;
         }
-        get b(): Point { 
+        get b(): Point {
             return this.ray.b
         }
     }
