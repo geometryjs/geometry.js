@@ -405,6 +405,39 @@ namespace GeometryJS {
 
         get b(): PerpendicularLinePointerPoint { return this.pointerPoint };
     }
+    export class LineFromRay extends Line {
+        readonly plane: Plane;
+        ray: Ray;
+        constructor(ray: Ray) {
+            super();
+            this.plane = ray.plane;
+            this.ray = ray;
+        }
+        get a(): Point { 
+            return this.ray.a;
+        }
+        get b(): Point { 
+            return this.ray.b
+        }
+    }
+    /**
+     * An abstract class representing any Ray
+     */
+    export abstract class Ray extends Base {
+
+        /**
+         * Getter for the end of the ray point
+        */
+        abstract get a(): Point;
+        /**
+         * Getter for the point defining the direction of the ray
+         */
+        abstract get b(): Point;
+
+        public createLine(): LineFromRay {
+            return new LineFromRay(this);
+        }
+    }
 
     export class ParallelLine extends Line {
         plane: Plane;
