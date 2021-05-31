@@ -444,6 +444,15 @@ namespace GeometryJS {
         get dy(): number {
             return this.a.y - this.b.y;
         }
+
+        /**
+         * Checks if two ray objects represent the same ray
+         * @param other The other ray
+         * @returns If the two rays match
+         */
+        equals(other: Ray): boolean {
+            return this.a.equals(other.a) && equals(this.dx / this.dy, other.dx / other.dy);
+        }
         /**
          * Creates a new line object this ray lays on
          */
