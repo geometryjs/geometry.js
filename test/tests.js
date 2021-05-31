@@ -31,7 +31,7 @@ module.exports = [ // The tests
         const y = plane.createPoint(100, 100);
         const z = plane.createPoint(100, 0);
         const line = plane.createLine(x, y);
-        const pLine = line.getPerpendicular(z);
+        const pLine = line.createPerpendicular(z);
 
 
         const a = plane.createPoint(0, 100);
@@ -47,7 +47,7 @@ module.exports = [ // The tests
         const y = plane.createPoint(100, 100);
         const z = plane.createPoint(100, 0);
         const line = plane.createLine(x, y);
-        const pLine = line.getParallel(z);
+        const pLine = line.createParallel(z);
 
         const ps = [-1000000000, -999800, - 10, 0, 50, 1e5, 1e8, 1e10].map(v => plane.createPoint(100 + v, v));
         for (const p of ps) {
