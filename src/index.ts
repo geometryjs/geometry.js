@@ -357,10 +357,10 @@ namespace GeometryJS {
         isParallel(other: Line): boolean {
             return equals(this.dx / this.dy, other.dx / other.dy);
         }
-        getPerpendicular(point: Point): PerpendicularLine {
+        createPerpendicular(point: Point): PerpendicularLine {
             return new PerpendicularLine(new PointOnLineFromPoint(this, point));
         }
-        getParallel(point: Point): ParallelLine {
+        createParallel(point: Point): ParallelLine {
             return new ParallelLine(point, this);
         }
     }
