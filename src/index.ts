@@ -434,6 +434,9 @@ namespace GeometryJS {
          */
         abstract get b(): Point;
 
+        /**
+         * Creates a new line object this ray lays on
+         */
         public createLine(): LineFromRay {
             return new LineFromRay(this);
         }
