@@ -433,6 +433,18 @@ namespace GeometryJS {
         abstract get b(): Point;
 
         /**
+         * Difference of X coordinates of the points
+         */
+        get dx(): number {
+            return this.a.x - this.b.x;
+        }
+        /**
+         * Difference of Y coordinates of the points
+         */
+        get dy(): number {
+            return this.a.y - this.b.y;
+        }
+        /**
          * Creates a new line object this ray lays on
          */
         public createLine(): LineFromRay {
