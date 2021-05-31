@@ -459,6 +459,14 @@ namespace GeometryJS {
         public createLine(): LineFromRay {
             return new LineFromRay(this);
         }
+        dist(): number;
+        dist(other: Line | Point | Ray): number;
+        dist(other?: Line | Point | Ray): number {
+            if (!other) return helpers.Distance.Ray(this);
+            if (other instanceof Point) helpers.Distance.RayPoint(this, other);
+            if (other instanceof Line) helpers.Distance.RayLine(this, other);
+            throw new InvalidArgumentError("base", other);
+        }
     }
 
     export class ParallelLine extends Line {
@@ -599,6 +607,45 @@ namespace GeometryJS {
                 if (l1.equals(l2)) return 0;
                 if (!l1.isParallel(l2)) return 0;
                 return helpers.Distance.PointLine(l1.a, l2);
+            }
+            export function Ray(ray: Ray): number {
+                const az = ray.a.dist();
+                const baz = cosineTheoremAngle(ray.b.dist(), az, ray.a.dist(ray.b)); // |BAZ| where Z is the [0, 0]
+
+                if (baz <= Math.PI / 2) return ray.a.dist();
+
+                const dist = Math.sin(baz) * az; // The height of the BAZ triagle
+                return dist;
+            }
+            export function RayPoint(ray: Ray, point: Point): number {
+                const ap = ray.a.dist(point);
+                const bap = cosineTheoremAngle(ray.b.dist(point), ap, ray.a.dist(ray.b)); // |BAP| where P is the point
+
+                if (bap <= Math.PI / 2) return ray.a.dist(point);
+
+                const dist = Math.sin(bap) * ap; // The height of the BAZ triagle
+                return dist;
+            }
+            export function RayLine(ray: Ray, line: Line): number {
+                const al = ray.a.dist(line); // |Al| where l is the line
+                const bl = ray.b.dist(line); // |Bl| where l is the line
+
+                const blb = ray.b.dist(line.b); // |BBl| where Bl is the B point of the line
+                const alb = ray.a.dist(line.b); // |ABl| where Bl is the B point of the line
+                const ab = ray.a.dist(ray.b); // |AB| 
+                const lalb = line.a.dist(line.b);
+                const ala = ray.a.dist(line.a); // |AAl| where Al is the A point of the line
+                const bla = ray.b.dist(line.a); // |BAl| where Al is the A point of the line
+
+                const blba = cosineTheoremAngle(ab, alb, blb); // |BBlA|
+                const lalba = cosineTheoremAngle(ala, lalb, alb); // |AlBlA|
+                const lalbb = cosineTheoremAngle(bla, lalb, blb); // |AlBlB|
+
+                if (equals(blba, lalba + lalbb) || equals(Math.PI * 2 - blba, lalba + lalbb)) return 0;
+
+                if (equals(al, bl)) return al;
+                if (bl < al) return 0;
+                return al;
             }
         }
     }
