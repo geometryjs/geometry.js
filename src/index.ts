@@ -353,7 +353,7 @@ namespace GeometryJS {
          * @param other The other line
          */
         isParallel(other: Line): boolean {
-            return equals(Math.abs(this.dx / this.dy), Math.abs(other.dx / other.dy));
+            return equals(this.dx / this.dy, other.dx / other.dy);
         }
         createPerpendicular(point: Point): PerpendicularLine {
             return new PerpendicularLine(new PointOnLineFromPoint(this, point));
