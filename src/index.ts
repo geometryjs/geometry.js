@@ -644,16 +644,15 @@ namespace GeometryJS {
             }
             export function Ray(ray: Ray): number {
                 const az = ray.a.dist();
-                const baz = cosineTheoremAngle(ray.b.dist(), az, ray.a.dist(ray.b)); // |BAZ| where Z is the [0, 0]
-
-                if (baz <= Math.PI / 2) return ray.a.dist();
+                const baz = cosineTheoremAngle(az, ray.a.dist(ray.b), ray.b.dist()); // |BAZ| where Z is the [0, 0]
+                if (baz >= Math.PI / 2) return ray.a.dist();
 
                 const dist = Math.sin(baz) * az; // The height of the BAZ triagle
                 return dist;
             }
             export function RayPoint(ray: Ray, point: Point): number {
                 const ap = ray.a.dist(point);
-                const bap = cosineTheoremAngle(ray.b.dist(point), ap, ray.a.dist(ray.b)); // |BAP| where P is the point
+                const bap = cosineTheoremAngle(ap, ray.a.dist(ray.b), ray.b.dist(point)); // |BAP| where P is the point
 
                 if (bap <= Math.PI / 2) return ray.a.dist(point);
 
@@ -671,9 +670,9 @@ namespace GeometryJS {
                 const ala = ray.a.dist(line.a); // |AAl| where Al is the A point of the line
                 const bla = ray.b.dist(line.a); // |BAl| where Al is the A point of the line
 
-                const blba = cosineTheoremAngle(ab, alb, blb); // |BBlA|
-                const lalba = cosineTheoremAngle(ala, lalb, alb); // |AlBlA|
-                const lalbb = cosineTheoremAngle(bla, lalb, blb); // |AlBlB|
+                const blba = cosineTheoremAngle(alb, blb, ab); // |BBlA|
+                const lalba = cosineTheoremAngle(lalb, alb, ala); // |AlBlA|
+                const lalbb = cosineTheoremAngle(lalb, blb, bla); // |AlBlB|
 
                 if (equals(blba, lalba + lalbb) || equals(Math.PI * 2 - blba, lalba + lalbb)) return 0;
 
