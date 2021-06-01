@@ -72,7 +72,8 @@ module.exports = [ // The tests
             const a = plane.createPoint(Ax, Ay);
             const b = plane.createPoint(Bx, By);
 
-            const ray = plane
+            const ray = plane.createRay(a, b);
+            assert(ray.dist(), dist, `Ray origin distance: Ray([${Ax}, ${Ay}}], [${Bx}, ${By}])`);
         }
     }
 ]
