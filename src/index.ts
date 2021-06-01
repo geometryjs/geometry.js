@@ -79,7 +79,7 @@ namespace GeometryJS {
          * @return The created ray
          */
         createRay(originPoint: Point, pointerPoint: Point): Ray {
-            throw new NotImplementedError("Two point ray");
+            return new TwoPointRay(originPoint, pointerPoint);
         }
     }
     //! Base
