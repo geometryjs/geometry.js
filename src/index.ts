@@ -103,7 +103,7 @@ namespace GeometryJS {
          * Checks, whether this object intersects a Point
          * @param other The object to calculate the intersect with
          */
-        abstract intersects(other: Point | Line): boolean;
+        abstract intersects(other: Point | Line | Ray): boolean;
     }
     //! Points
     /**
@@ -148,9 +148,10 @@ namespace GeometryJS {
 
         intersects(point: Line): boolean;
         intersects(point: Point): boolean;
-        intersects(other: Point | Line): boolean {
+        intersects(other: Point | Line | Ray): boolean {
             if (other instanceof Point) return this.equals(other);
             if (other instanceof Line) return helpers.Intersects.PointLine(this, other);
+            if (other instanceof Ray) throw new NotImplementedError("Ray intersects");
             throw new InvalidArgumentError("Base", other);
         }
     }
@@ -352,9 +353,11 @@ namespace GeometryJS {
 
         intersects(point: Point): boolean;
         intersects(line: Line): boolean;
-        intersects(other: Point | Line): boolean {
+        intersects(other: Point | Line | Ray): boolean {
             if (other instanceof Point) return helpers.Intersects.PointLine(other, this);
             if (other instanceof Line) return !this.isParallel(other);
+            if (other instanceof Ray) throw new NotImplementedError("Ray intersects");
+
             throw new InvalidArgumentError("Base", other);
         }
         /**
