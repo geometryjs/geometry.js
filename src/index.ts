@@ -72,6 +72,15 @@ namespace GeometryJS {
             this.link(l);
             return l;
         }
+        /**
+         * Creates a ray based on two points
+         * @param originPoint The ending point of the ray   
+         * @param pointerPoint The point, that determines the direction of the ray
+         * @return The created ray
+         */
+        createRay(originPoint: Point, pointerPoint: Point): Ray {
+            throw new NotImplementedError("Two point ray");
+        }
     }
     //! Base
     export abstract class Base {
