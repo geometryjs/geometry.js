@@ -58,6 +58,22 @@ module.exports = [ // The tests
             assert(pLine.intersects(p), false, "Point non the line: " + p.xRounded);
         }
         assert(pLine.isParallel(line), true, "Parallel line check.");
+    },
+    assert => {
+        const plane = new GeometryJS.Plane();
+
+        const origin = plane.createPoint(0, 0);
+        /**
+         * @type {Array<[number, number, number, number, number]>} The numbers are: Ax, Ay, Bx, By, expected distance
+         */
+        const points = [[1, 1, 2, 2, Math.SQRT2], [1, 1, 1, -1, 1], [1, 1, -1, 1, 1], [1, 1, -1, -1, 0]];
+
+        for (const [Ax, Ay, Bx, By, dist] of points) {
+            const a = plane.createPoint(Ax, Ay);
+            const b = plane.createPoint(Bx, By);
+
+            const ray = plane
+        }
     }
 ]
 module.exports[0].testName = "Value retainment";
