@@ -476,6 +476,28 @@ namespace GeometryJS {
             if (other instanceof Line) helpers.Distance.RayLine(this, other);
             throw new InvalidArgumentError("base", other);
         }
+        intersects(Other?: Line | Point | Ray): boolean {
+            throw new NotImplementedError("Ray intersects");
+        }
+    }
+
+    export class TwoPointRay extends Ray {
+        readonly plane: Plane;
+        private _a: Point;
+        private _b: Point;
+        constructor(a: Point, b: Point) {
+            if (a.plane != b.plane) throw new PlaneError(a.plane, b.plane);
+            super();
+            this.plane = a.plane;
+            this._a = a;
+            this._b = b;
+        }
+        get a(): Point {
+            return this._a;
+        }
+        get b(): Point {
+            return this._b;
+        }
     }
 
     export class ParallelLine extends Line {
