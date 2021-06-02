@@ -85,7 +85,7 @@ namespace GeometryJS {
     //! Base
     export abstract class Base {
         public abstract plane: Plane;
-        abstract readonly analyticInterface: AnalyticInterface<this>;
+        abstract readonly analyticInterface: AnalyticInterface<Base>;
         readonly type: string;
         constructor() {
             this.type = this.constructor.name;
@@ -116,7 +116,7 @@ namespace GeometryJS {
         get xRounded(): number { return round(this.x); }
         abstract get y(): number;
         get yRounded(): number { return round(this.y); }
-
+        public readonly analyticInterface: PointAnalyticInterface = new PointAnalyticInterface(this);
         /**
          * Returns the distance from the origin [0, 0]
          */
