@@ -610,6 +610,14 @@ namespace GeometryJS {
             this.name = "ImpossibleAssignementError";
         }
     }
+    //! Analytic interfaces
+    export abstract class AnalyticInterface<T extends Base> {
+        readonly object: T;
+        constructor(object: T) {
+            this.object = object;
+        }
+        abstract toString(): string;
+    }
     //! Helpers
     export namespace helpers {
         export namespace Intersects {
