@@ -85,6 +85,7 @@ namespace GeometryJS {
     //! Base
     export abstract class Base {
         public abstract plane: Plane;
+        abstract readonly analyticInterface: AnalyticInterface<this>;
         readonly type: string;
         constructor() {
             this.type = this.constructor.name;
