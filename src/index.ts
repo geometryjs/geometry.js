@@ -611,6 +611,17 @@ namespace GeometryJS {
             this.name = "ImpossibleAssignementError";
         }
     }
+    export class SpecialAnalyticCaseError extends Error {
+        property: string;
+        constructor(property: string) {
+            super(`Special analytic case encountred. This method or property is thus uncalculatable.`);
+            this.property = property;
+            if (DefaultError.captureStackTrace as any) {
+                DefaultError.captureStackTrace(this, InvalidArgumentError);
+            }
+            this.name = "SpecialAnalyticCaseError";
+        }
+    }
     //! Analytic interfaces
     export abstract class AnalyticInterface<T extends Base> {
         readonly object: T;
@@ -644,6 +655,17 @@ namespace GeometryJS {
         toString(): string {
             return `x = ${this.x} && y = ${this.y}`;
         }
+    }
+    export class LineAnalyticInterface extends AnalyticInterface<Line> {
+        readonly line: Line;
+        constructor(line: Line) {
+            super(line);
+            this.line = line;
+        }
+        toString(): string {
+            throw new NotImplementedError("Line analytic interface to string");
+        }
+        
     }
     //! Helpers
     export namespace helpers {
