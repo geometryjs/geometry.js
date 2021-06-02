@@ -618,6 +618,32 @@ namespace GeometryJS {
         }
         abstract toString(): string;
     }
+    export class PointAnalyticInterface extends AnalyticInterface<Point> {
+        readonly point: Point;
+        constructor(point: Point) {
+            super(point);
+            this.point = point;
+        }
+        /**
+         * Gets the points X cooridnate
+         */
+        get x(): number {
+            return this.object.x;
+        }
+        /**
+         * Gets the points Y coordinate
+         */
+        get y(): number {
+            return this.object.y;
+        }
+        /**
+         * Return a string representation of the point
+         * @returns The string in the form of "x = 1 && y = 1";
+         */
+        toString(): string {
+            return `x = ${this.x} && y = ${this.y}`;
+        }
+    }
     //! Helpers
     export namespace helpers {
         export namespace Intersects {
