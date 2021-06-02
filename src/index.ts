@@ -616,6 +616,28 @@ namespace GeometryJS {
             export function PointLine(point: Point, line: Line): boolean {
                 return onOneLine(point.dist(line.a), point.dist(line.b), line.b.dist(line.a));
             }
+            export function RayRay(ray1: Ray, ray2: Ray): number {
+                const a = ray1.a; // Point A
+                const b = ray1.b; // Point B
+                const c = ray2.a; // Point C
+                const d = ray2.b; // Point D
+
+                throw new NotImplementedError("Ray Ray intersect")
+            }
+            export function RayLine(ray: Ray, line: Line): boolean {
+                const blb = ray.b.dist(line.b); // |BBl| where Bl is the B point of the line
+                const alb = ray.a.dist(line.b); // |ABl| where Bl is the B point of the line
+                const ab = ray.a.dist(ray.b); // |AB| 
+                const lalb = line.a.dist(line.b);
+                const ala = ray.a.dist(line.a); // |AAl| where Al is the A point of the line
+                const bla = ray.b.dist(line.a); // |BAl| where Al is the A point of the line
+
+                const blba = cosineTheoremAngle(alb, blb, ab); // |BBlA|
+                const lalba = cosineTheoremAngle(lalb, alb, ala); // |AlBlA|
+                const lalbb = cosineTheoremAngle(lalb, blb, bla); // |AlBlB|
+
+                return equals(blba, lalba + lalbb) || equals(Math.PI * 2 - blba, lalba + lalbb)
+            }
         }
         export namespace Distance {
             export function PointLine(point: Point, line: Line): number {
@@ -663,22 +685,19 @@ namespace GeometryJS {
                 const al = ray.a.dist(line); // |Al| where l is the line
                 const bl = ray.b.dist(line); // |Bl| where l is the line
 
-                const blb = ray.b.dist(line.b); // |BBl| where Bl is the B point of the line
-                const alb = ray.a.dist(line.b); // |ABl| where Bl is the B point of the line
-                const ab = ray.a.dist(ray.b); // |AB| 
-                const lalb = line.a.dist(line.b);
-                const ala = ray.a.dist(line.a); // |AAl| where Al is the A point of the line
-                const bla = ray.b.dist(line.a); // |BAl| where Al is the A point of the line
-
-                const blba = cosineTheoremAngle(alb, blb, ab); // |BBlA|
-                const lalba = cosineTheoremAngle(lalb, alb, ala); // |AlBlA|
-                const lalbb = cosineTheoremAngle(lalb, blb, bla); // |AlBlB|
-
-                if (equals(blba, lalba + lalbb) || equals(Math.PI * 2 - blba, lalba + lalbb)) return 0;
+                if (helpers.Intersects.RayLine(ray, line)) return 0;
 
                 if (equals(al, bl)) return al;
                 if (bl < al) return 0;
                 return al;
+            }
+            export function RayRay(ray1: Ray, ray2: Ray): number {
+                const a = ray1.a; // Point A
+                const b = ray1.b; // Point B
+                const c = ray2.a; // Point C
+                const d = ray2.b; // Point D
+
+                throw new NotImplementedError("RayRay distance");
             }
         }
     }
