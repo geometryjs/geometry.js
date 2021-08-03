@@ -332,8 +332,11 @@ namespace GeometryJS {
      * Line base class
      */
     export abstract class Line extends Base {
-        abstract get a(): Point;
-        abstract get b(): Point;
+        abstract getA(): Point;
+        abstract getB(): Point;
+
+        get a(): Point { return this.getA() };
+        get b(): Point { return this.getB() };
 
         public readonly analyticInterface: LineAnalyticInterface = new LineAnalyticInterface(this);
 
@@ -394,10 +397,10 @@ namespace GeometryJS {
             this._b = b;
         }
 
-        get a(): Point { return this._a; }
+        getA(): Point { return this._a; }
         set a(value: Point) { this._a = value; }
 
-        get b(): Point { return this._b; }
+        getB(): Point { return this._b; }
         set b(value: Point) { this._b = value; }
 
     }
@@ -414,13 +417,13 @@ namespace GeometryJS {
             this.pointerPoint = new PerpendicularLinePointerPoint(this.point);
         }
 
-        get a(): PointOnLineFromPoint { return this.point; }
+        getA(): PointOnLineFromPoint { return this.point; }
         set a(value: PointOnLineFromPoint) {
             if (value.line != this.line) throw new ImpossibleAssignementError("Cannot change point on line to a different line.")
             this.point = value;
         }
 
-        get b(): PerpendicularLinePointerPoint { return this.pointerPoint };
+        getB(): PerpendicularLinePointerPoint { return this.pointerPoint };
     }
     export class LineFromRay extends Line {
         readonly plane: Plane;
@@ -430,10 +433,10 @@ namespace GeometryJS {
             this.plane = ray.plane;
             this.ray = ray;
         }
-        get a(): Point {
+        getA(): Point {
             return this.ray.a;
         }
-        get b(): Point {
+        getB(): Point {
             return this.ray.b
         }
     }
@@ -527,13 +530,13 @@ namespace GeometryJS {
             this.pointerPoint = new ParallelLinePointerPoint(this.line, point);
         }
 
-        get a(): Point { return this.point; }
+        getA(): Point { return this.point; }
         set a(value: Point) {
             if (!(value instanceof Point)) throw new InvalidArgumentError("Point", value);
             if (value.plane != this.plane) throw new PlaneError(value.plane, this.plane);
             this.point = value;
         }
-        get b(): ParallelLinePointerPoint { return this.pointerPoint; }
+        getB(): ParallelLinePointerPoint { return this.pointerPoint; }
 
     }
     //! Errors 
@@ -873,8 +876,8 @@ namespace GeometryJS {
      * @return Whether all the points lay on the same line
      */
     export function onOneLine(ab: number, bc: number, ca: number): boolean {
-        const s = [ab, bc, ca].sort((a, b) => a - b);
-        return equals(s[2], s[1] + s[0]);
+        const s = [ ab, bc, ca ].sort((a, b) => a - b);
+        return equals(s[ 2 ], s[ 1 ] + s[ 0 ]);
     }
     /**
      * A function that calculates the sine theorem
