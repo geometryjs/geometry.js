@@ -180,6 +180,10 @@ namespace GeometryJS {
 
         getY(): number { return this._y; }
         set y(value: number) { this._y = value; }
+
+        // Needed because of stupid set get behaviour
+        get x(): number { return super.x; }
+        get y(): number { return super.y; }
     }
     export class PointOnLine extends Point {
         readonly line: Line;
@@ -217,6 +221,10 @@ namespace GeometryJS {
             this._y = this.line.a.y + dyN;
             this._x = value;
         }
+
+        // Needed because of stupid set get behaviour
+        get x(): number { return super.x; }
+        get y(): number { return super.y; }
     }
     export class PointOnLineFromPoint extends Point {
         plane: Plane;
@@ -403,6 +411,9 @@ namespace GeometryJS {
         getB(): Point { return this._b; }
         set b(value: Point) { this._b = value; }
 
+        // Needed because of stupid set get behaviour
+        get a(): Point { return super.a; }
+        get b(): Point { return super.b; }
     }
     export class PerpendicularLine extends Line {
         readonly plane: Plane;
@@ -424,6 +435,9 @@ namespace GeometryJS {
         }
 
         getB(): PerpendicularLinePointerPoint { return this.pointerPoint };
+
+        // Needed because of stupid set get behaviour
+        get a(): PointOnLineFromPoint { return <PointOnLineFromPoint>super.a; }
     }
     export class LineFromRay extends Line {
         readonly plane: Plane;
@@ -514,9 +528,17 @@ namespace GeometryJS {
         getA(): Point {
             return this._a;
         }
+        set a(point: Point) { this._a = point; }
+        
         getB(): Point {
             return this._b;
         }
+        set b(point: Point) { this._b = point; }
+
+
+        // Needed because of stupid set get behaviour
+        get a(): Point { return super.a; }
+        get b(): Point { return super.b; }
     }
 
     export class ParallelLine extends Line {
@@ -540,6 +562,9 @@ namespace GeometryJS {
             this.point = value;
         }
         getB(): ParallelLinePointerPoint { return this.pointerPoint; }
+
+        // Needed because of stupid set get behaviour
+        get a(): Point { return super.a; }
 
     }
     //! Errors 
