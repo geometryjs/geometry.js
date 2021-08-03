@@ -112,10 +112,14 @@ namespace GeometryJS {
      */
     export abstract class Point extends Base {
 
-        abstract get x(): number;
+        abstract getX(): number;
         get xRounded(): number { return round(this.x); }
-        abstract get y(): number;
+        abstract getY(): number;
         get yRounded(): number { return round(this.y); }
+
+        get x(): number { return this.getX(); }
+        get y(): number { return this.getY(); }
+
         public readonly analyticInterface: PointAnalyticInterface = new PointAnalyticInterface(this);
         /**
          * Returns the distance from the origin [0, 0]
@@ -171,10 +175,10 @@ namespace GeometryJS {
             this._y = y;
         }
 
-        get x(): number { return this._x; }
+        getX(): number { return this._x; }
         set x(value: number) { this._x = value; }
 
-        get y(): number { return this._y; }
+        getY(): number { return this._y; }
         set y(value: number) { this._y = value; }
     }
     export class PointOnLine extends Point {
@@ -189,7 +193,7 @@ namespace GeometryJS {
             this._x = x;
             this._y = y;
         }
-        get x(): number { return this._x; }
+        getX(): number { return this._x; }
         set y(value: number) {
             if (this._y == value) return;
             if (this.line.dy == 0) throw new ImpossibleAssignementError("You cannot change the x coordinate of point on a horizontal line.");
@@ -201,7 +205,7 @@ namespace GeometryJS {
             this._x = this.line.a.x + dxN;
             this._y = value;
         }
-        get y(): number { return this._y; }
+        getY(): number { return this._y; }
         set x(value: number) {
             if (this._x == value) return;
             if (this.line.dx == 0) throw new ImpossibleAssignementError("You cannot change the x coordinate of point on a vertical line.");
@@ -225,7 +229,7 @@ namespace GeometryJS {
             this.line = line;
             this.point = point;
         }
-        get x(): number {
+        getX(): number {
             if (this.point.intersects(this.line)) {
                 return this.point.x;
             }
@@ -242,7 +246,7 @@ namespace GeometryJS {
 
             return this.line.b.x + dx;
         }
-        get y(): number {
+        getY(): number {
             if (this.point.intersects(this.line)) {
                 return this.point.y;
             }
@@ -270,11 +274,11 @@ namespace GeometryJS {
             this.line = point.line;
             this.point = point;
         }
-        get x(): number {
+        getX(): number {
             const dy = this.point.y - this.line.a.y; // The dy for two points on the line
             return this.point.x + dy; // Due to triangles, dy for two line points and dx for this point and the point on line are equal
         }
-        get y(): number {
+        getY(): number {
             const dx = this.point.x - this.line.a.x; // The dx for two points on the line
             return this.point.y - dx; // Due to triangles, dx for two line points and dy for this point and the point on line are equal
         }
@@ -290,7 +294,7 @@ namespace GeometryJS {
             this.point = point
             this.line = line;
         }
-        get x(): number {
+        getX(): number {
             const bc = this.line.b.dist(this.point); // |BC|
             if (bc == 0) return this.line.b.y == this.point.y && this.line.b.x == this.point.x ? this.line.a.y : this.line.b.y; // Return the x of line.b if it's not the same as the point, else the x of line.a
             const bd = this.line.dist(this.point) // |BD| due to the lines beeing parallel, distance of any two points laying on a perpendicular line is the same
@@ -306,7 +310,7 @@ namespace GeometryJS {
 
             return ce == 0 ? this.point.x - Math.cos(a) * bd : this.point.x + Math.cos(a) * ce; // Return the point, if it doesn't match the given point, then it return a different one
         }
-        get y(): number {
+        getY(): number {
             const bc = this.line.b.dist(this.point); // |BC|
             if (bc == 0) return this.line.b.y == this.point.y && this.line.b.x == this.point.x ? this.line.a.x : this.line.b.x; // Return the y of line.b if it's not the same as the point, else the y of line.a
             const bd = this.line.dist(this.point) // |BD| due to the lines beeing parallel, distance of any two points laying on a perpendicular line is the same
