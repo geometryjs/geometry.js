@@ -105,6 +105,15 @@ namespace GeometryJS {
          * @param other The object to calculate the intersect with
          */
         abstract intersects(other: Point | Line | Ray): boolean;
+
+        /**
+         * Array of all dependencies of this Base object 
+         */
+        readonly dependencies: Array<Base> = [];
+        /**
+         * Array of all dependant objects of this Base object
+         */
+        readonly dependants: Array<Base> = [];
     }
     //! Points
     /**
@@ -529,7 +538,7 @@ namespace GeometryJS {
             return this._a;
         }
         set a(point: Point) { this._a = point; }
-        
+
         getB(): Point {
             return this._b;
         }
