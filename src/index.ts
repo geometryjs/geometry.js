@@ -159,13 +159,13 @@ namespace GeometryJS {
             const cx = this.cache.get("x");
             if (cx) return cx;
             this.cache.set("x", this.getX());
-            return this.x;
+            return <number>this.cache.get("x");
         }
         get y(): number {
             const cy = this.cache.get("y");
             if (cy) return cy;
             this.cache.set("y", this.getY());
-            return this.y;
+            return <number>this.cache.get("y");
         }
 
         public readonly analyticInterface: PointAnalyticInterface = new PointAnalyticInterface(this);
@@ -400,13 +400,14 @@ namespace GeometryJS {
             const ca = this.cache.get("a");
             if (ca) return ca;
             this.cache.set("a", this.getA());
-            return this.a;
+            return <Point>this.cache.get("a");
         };
         get b(): Point {
             const cb = this.cache.get("b");
             if (cb) return cb;
             this.cache.set("b", this.getB());
-            return this.b;
+            return <Point>this.cache.get("b");
+
         };
 
         public readonly analyticInterface: LineAnalyticInterface = new LineAnalyticInterface(this);
@@ -550,13 +551,13 @@ namespace GeometryJS {
             const ca = this.cache.get("a");
             if (ca) return ca;
             this.cache.set("a", this.getA());
-            return this.a;
+            return <Point>this.cache.get("a");
         };
         get b(): Point {
             const cb = this.cache.get("b");
             if (cb) return cb;
             this.cache.set("b", this.getB());
-            return this.b;
+            return <Point>this.cache.get("b");
         };
 
         public readonly analyticInterface: RayAnalyticInterface = new RayAnalyticInterface(this);
