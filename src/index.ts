@@ -331,6 +331,8 @@ namespace GeometryJS {
         abstract get a(): Point;
         abstract get b(): Point;
 
+        public readonly analyticInterface: LineAnalyticInterface = new LineAnalyticInterface(this);
+
         get dx(): number {
             return this.a.x - this.b.x;
         }
@@ -444,6 +446,9 @@ namespace GeometryJS {
          * Getter for the point defining the direction of the ray
          */
         abstract get b(): Point;
+
+
+        public readonly analyticInterface: RayAnalyticInterface = new RayAnalyticInterface(this);
 
         /**
          * Difference of X coordinates of the points
@@ -665,7 +670,16 @@ namespace GeometryJS {
         toString(): string {
             throw new NotImplementedError("Line analytic interface to string");
         }
-        
+    }
+    export class RayAnalyticInterface extends AnalyticInterface<Ray> {
+        readonly ray: Ray;
+        constructor(ray: Ray) {
+            super(ray);
+            this.ray = ray;
+        }
+        toString(): string {
+            throw new NotImplementedError("Ray analytic interface to string");
+        }
     }
     //! Helpers
     export namespace helpers {
