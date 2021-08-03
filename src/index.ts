@@ -448,12 +448,15 @@ namespace GeometryJS {
         /**
          * Getter for the end of the ray point
         */
-        abstract get a(): Point;
+        abstract getA(): Point;
         /**
          * Getter for the point defining the direction of the ray
          */
-        abstract get b(): Point;
+        abstract getB(): Point;
 
+
+        get a(): Point { return this.getA() };
+        get b(): Point { return this.getB() };
 
         public readonly analyticInterface: RayAnalyticInterface = new RayAnalyticInterface(this);
 
@@ -508,10 +511,10 @@ namespace GeometryJS {
             this._a = a;
             this._b = b;
         }
-        get a(): Point {
+        getA(): Point {
             return this._a;
         }
-        get b(): Point {
+        getB(): Point {
             return this._b;
         }
     }
