@@ -1,4 +1,4 @@
-const DefaultError = Error as any;
+const DefaultError = Error as typeof Error & { captureStackTrace: (error: Error, construct: any) => void };
 namespace GeometryJS {
     /**
      * URL for the github repository of the library
@@ -87,7 +87,8 @@ namespace GeometryJS {
         public abstract plane: Plane;
         abstract readonly analyticInterface: AnalyticInterface<Base>;
         readonly type: string;
-        constructor() {
+        constructor(dependencies: Array<Base>) {
+            for (const depend of dependencies) this.addDependency(depend);
             this.type = this.constructor.name;
         }
         /**
@@ -105,6 +106,41 @@ namespace GeometryJS {
          * @param other The object to calculate the intersect with
          */
         abstract intersects(other: Point | Line | Ray): boolean;
+
+        /**
+         * Array of all dependencies of this Base object 
+         */
+        readonly dependencies: Array<Base> = [];
+        /**
+         * Array of all dependant objects of this Base object
+         */
+        readonly dependants: Array<Base> = [];
+
+        addDependency(dependency: Base): void {
+            this.dependencies.push(dependency);
+            dependency.addDependant(this);
+        }
+        addDependant(dependant: Base): void {
+            this.dependants.push(dependant);
+        }
+        resetDependencies(newDependingDependencies?: Array<Base>): void {
+            for (const dependency of this.dependencies) {
+                dependency.removeDependant(this);
+            }
+            this.dependencies.splice(0, this.dependencies.length);
+            if (newDependingDependencies) {
+                for (const d of newDependingDependencies) this.addDependency(d);
+            }
+        }
+        removeDependant(dependant: Base): void {
+            const index = this.dependants.indexOf(dependant);
+            if (index !== -1) this.dependants.splice(index, 1);
+        }
+        update(): void {
+            this.deleteCache();
+            for (const dependant of this.dependants) dependant.update();
+        }
+        protected abstract deleteCache(): void;
     }
     //! Points
     /**
@@ -112,10 +148,26 @@ namespace GeometryJS {
      */
     export abstract class Point extends Base {
 
-        abstract get x(): number;
+        protected cache: Map<string, number> = new Map<string, number>();
+
+        abstract getX(): number;
         get xRounded(): number { return round(this.x); }
-        abstract get y(): number;
+        abstract getY(): number;
         get yRounded(): number { return round(this.y); }
+
+        get x(): number {
+            const cx = this.cache.get("x");
+            if (cx) return cx;
+            this.cache.set("x", this.getX());
+            return <number>this.cache.get("x");
+        }
+        get y(): number {
+            const cy = this.cache.get("y");
+            if (cy) return cy;
+            this.cache.set("y", this.getY());
+            return <number>this.cache.get("y");
+        }
+
         public readonly analyticInterface: PointAnalyticInterface = new PointAnalyticInterface(this);
         /**
          * Returns the distance from the origin [0, 0]
@@ -155,6 +207,9 @@ namespace GeometryJS {
             if (other instanceof Ray) throw new NotImplementedError("Ray intersects");
             throw new InvalidArgumentError("Base", other);
         }
+        deleteCache(): void {
+            this.cache.clear();
+        }
     }
 
     /**
@@ -165,67 +220,86 @@ namespace GeometryJS {
         protected _x: number
         protected _y: number
         constructor(plane: Plane, x: number, y: number) {
-            super();
+            super([]);
             this.plane = plane;
             this._x = x;
             this._y = y;
         }
 
-        get x(): number { return this._x; }
-        set x(value: number) { this._x = value; }
+        getX(): number { return this._x; }
+        set x(value: number) { this._x = value; this.update(); }
 
-        get y(): number { return this._y; }
-        set y(value: number) { this._y = value; }
+        getY(): number { return this._y; }
+        set y(value: number) { this._y = value; this.update(); }
+
+        // Needed because of stupid set get behaviour
+        get x(): number { return super.x; }
+        get y(): number { return super.y; }
     }
-    export class PointOnLine extends Point {
+    export class PointOnLine extends Point { // TODO: fix total bullshit, wont update with line
         readonly line: Line;
+        /**
+         * Distance to the a point divided by the distance between A and B
+         */
+        protected aDist!: number;
         plane: Plane;
-        _x: number;
-        _y: number;
+
         constructor(line: Line, x: number, y: number) {
-            super();
+            super([ line ]);
             this.line = line;
             this.plane = line.plane;
-            this._x = x;
-            this._y = y;
+            if (x) this.x = x;
+            if (y) this.y = y;
         }
-        get x(): number { return this._x; }
+        getX(): number {
+            return this.line.a.x + this.line.dx * this.aDist;   
+        }
         set y(value: number) {
-            if (this._y == value) return;
             if (this.line.dy == 0) throw new ImpossibleAssignementError("You cannot change the x coordinate of point on a horizontal line.");
             const dy = this.line.a.y - this.line.b.y; // Line dx with sign
             const dx = this.line.a.x - this.line.b.x; // Line dy with sign
             const dyN = this.line.a.y - value; // Difference in y for new point and A
             const dr = dy / dyN; // Distance ratio
             const dxN = dx * dr; // Difference in x for new point and A
-            this._x = this.line.a.x + dxN;
-            this._y = value;
+            const x = this.line.a.x + dxN;
+            const y = value;
+
+            this.aDist = Math.sqrt((this.line.a.x - x) ** 2 + (this.line.a.y - y) ** 2) / this.line.a.dist(this.line.b);
+            this.update();
         }
-        get y(): number { return this._y; }
+        getY(): number {
+            return this.line.a.y + this.line.dy * this.aDist;
+        }
         set x(value: number) {
-            if (this._x == value) return;
             if (this.line.dx == 0) throw new ImpossibleAssignementError("You cannot change the x coordinate of point on a vertical line.");
             const dy = this.line.a.y - this.line.b.y; // Line dx with sign
             const dx = this.line.a.x - this.line.b.x; // Line dy with sign
             const dxN = this.line.a.x - value; // Difference in y for new point and A
             const dr = dx / dxN; // Distance ratio
             const dyN = dy * dr; // Difference in x for new point and A
-            this._y = this.line.a.y + dyN;
-            this._x = value;
+            const y = this.line.a.y + dyN;
+            const x = value;
+
+            this.aDist = Math.sqrt((this.line.a.x - x) ** 2 + (this.line.a.y - y) ** 2) / this.line.a.dist(this.line.b);
+            this.update();
         }
+
+        // Needed because of stupid set get behaviour
+        get x(): number { return super.x; }
+        get y(): number { return super.y; }
     }
     export class PointOnLineFromPoint extends Point {
         plane: Plane;
-        line: Line;
-        point: Point;
+        readonly line: Line;
+        readonly point: Point;
         constructor(line: Line, point: Point) {
-            super();
+            super([ line, point ]);
             if (line.plane !== point.plane) throw new PlaneError(line.plane, point.plane);
             this.plane = point.plane;
             this.line = line;
             this.point = point;
         }
-        get x(): number {
+        getX(): number {
             if (this.point.intersects(this.line)) {
                 return this.point.x;
             }
@@ -242,7 +316,7 @@ namespace GeometryJS {
 
             return this.line.b.x + dx;
         }
-        get y(): number {
+        getY(): number {
             if (this.point.intersects(this.line)) {
                 return this.point.y;
             }
@@ -262,35 +336,35 @@ namespace GeometryJS {
     }
     export class PerpendicularLinePointerPoint extends Point {
         plane: Plane;
-        point: PointOnLineFromPoint;
-        line: Line;
+        readonly point: PointOnLineFromPoint;
+        readonly line: Line;
         constructor(point: PointOnLineFromPoint) {
-            super();
+            super([ point ]);
             this.plane = point.plane;
             this.line = point.line;
             this.point = point;
         }
-        get x(): number {
+        getX(): number {
             const dy = this.point.y - this.line.a.y; // The dy for two points on the line
             return this.point.x + dy; // Due to triangles, dy for two line points and dx for this point and the point on line are equal
         }
-        get y(): number {
+        getY(): number {
             const dx = this.point.x - this.line.a.x; // The dx for two points on the line
             return this.point.y - dx; // Due to triangles, dx for two line points and dy for this point and the point on line are equal
         }
     }
     export class ParallelLinePointerPoint extends Point {
         plane: Plane;
-        point: Point;
-        line: Line;
+        readonly point: Point;
+        readonly line: Line;
         constructor(line: Line, point: Point) {
-            super();
+            super([ line, point ]);
             if (line.plane !== point.plane) throw new PlaneError(line.plane, point.plane);
             this.plane = line.plane;
             this.point = point
             this.line = line;
         }
-        get x(): number {
+        getX(): number {
             const bc = this.line.b.dist(this.point); // |BC|
             if (bc == 0) return this.line.b.y == this.point.y && this.line.b.x == this.point.x ? this.line.a.y : this.line.b.y; // Return the x of line.b if it's not the same as the point, else the x of line.a
             const bd = this.line.dist(this.point) // |BD| due to the lines beeing parallel, distance of any two points laying on a perpendicular line is the same
@@ -306,7 +380,7 @@ namespace GeometryJS {
 
             return ce == 0 ? this.point.x - Math.cos(a) * bd : this.point.x + Math.cos(a) * ce; // Return the point, if it doesn't match the given point, then it return a different one
         }
-        get y(): number {
+        getY(): number {
             const bc = this.line.b.dist(this.point); // |BC|
             if (bc == 0) return this.line.b.y == this.point.y && this.line.b.x == this.point.x ? this.line.a.x : this.line.b.x; // Return the y of line.b if it's not the same as the point, else the y of line.a
             const bd = this.line.dist(this.point) // |BD| due to the lines beeing parallel, distance of any two points laying on a perpendicular line is the same
@@ -328,8 +402,22 @@ namespace GeometryJS {
      * Line base class
      */
     export abstract class Line extends Base {
-        abstract get a(): Point;
-        abstract get b(): Point;
+        abstract getA(): Point;
+        abstract getB(): Point;
+        protected cache: Map<string, Point> = new Map<string, Point>();
+        get a(): Point {
+            const ca = this.cache.get("a");
+            if (ca) return ca;
+            this.cache.set("a", this.getA());
+            return <Point>this.cache.get("a");
+        };
+        get b(): Point {
+            const cb = this.cache.get("b");
+            if (cb) return cb;
+            this.cache.set("b", this.getB());
+            return <Point>this.cache.get("b");
+
+        };
 
         public readonly analyticInterface: LineAnalyticInterface = new LineAnalyticInterface(this);
 
@@ -376,6 +464,10 @@ namespace GeometryJS {
         createParallel(point: Point): ParallelLine {
             return new ParallelLine(point, this);
         }
+
+        deleteCache(): void {
+            this.cache.clear();
+        }
     }
     export class TwoPointLine extends Line {
         protected _a: Point;
@@ -383,19 +475,30 @@ namespace GeometryJS {
 
         public plane: Plane;
         constructor(a: Point, b: Point) {
-            super();
+            super([ a, b ]);
             if (a.plane !== b.plane) throw new PlaneError(a.plane, b.plane);
             this.plane = a.plane;
             this._a = a;
             this._b = b;
         }
 
-        get a(): Point { return this._a; }
-        set a(value: Point) { this._a = value; }
+        getA(): Point { return this._a; }
+        set a(value: Point) {
+            this._a = value;
+            this.resetDependencies([ this._a, this._b ]);
+            this.update();
+        }
 
-        get b(): Point { return this._b; }
-        set b(value: Point) { this._b = value; }
+        getB(): Point { return this._b; }
+        set b(value: Point) {
+            this._b = value;
+            this.resetDependencies([ this._a, this._b ]);
+            this.update();
+        }
 
+        // Needed because of stupid set get behaviour
+        get a(): Point { return super.a; }
+        get b(): Point { return super.b; }
     }
     export class PerpendicularLine extends Line {
         readonly plane: Plane;
@@ -403,33 +506,38 @@ namespace GeometryJS {
         point: PointOnLineFromPoint;
         pointerPoint: PerpendicularLinePointerPoint;
         constructor(pointOnLine: PointOnLineFromPoint) {
-            super();
+            super([ pointOnLine ]);
             this.plane = pointOnLine.plane;
             this.line = pointOnLine.line;
             this.point = pointOnLine;
             this.pointerPoint = new PerpendicularLinePointerPoint(this.point);
         }
 
-        get a(): PointOnLineFromPoint { return this.point; }
+        getA(): PointOnLineFromPoint { return this.point; }
         set a(value: PointOnLineFromPoint) {
             if (value.line != this.line) throw new ImpossibleAssignementError("Cannot change point on line to a different line.")
             this.point = value;
+            this.resetDependencies([ this.point ]);
+            this.update();
         }
 
-        get b(): PerpendicularLinePointerPoint { return this.pointerPoint };
+        getB(): PerpendicularLinePointerPoint { return this.pointerPoint };
+
+        // Needed because of stupid set get behaviour
+        get a(): PointOnLineFromPoint { return <PointOnLineFromPoint>super.a; }
     }
     export class LineFromRay extends Line {
         readonly plane: Plane;
         ray: Ray;
         constructor(ray: Ray) {
-            super();
+            super([ ray ]);
             this.plane = ray.plane;
             this.ray = ray;
         }
-        get a(): Point {
+        getA(): Point {
             return this.ray.a;
         }
-        get b(): Point {
+        getB(): Point {
             return this.ray.b
         }
     }
@@ -441,12 +549,25 @@ namespace GeometryJS {
         /**
          * Getter for the end of the ray point
         */
-        abstract get a(): Point;
+        abstract getA(): Point;
         /**
          * Getter for the point defining the direction of the ray
          */
-        abstract get b(): Point;
+        abstract getB(): Point;
 
+        protected cache: Map<string, Point> = new Map<string, Point>();
+        get a(): Point {
+            const ca = this.cache.get("a");
+            if (ca) return ca;
+            this.cache.set("a", this.getA());
+            return <Point>this.cache.get("a");
+        };
+        get b(): Point {
+            const cb = this.cache.get("b");
+            if (cb) return cb;
+            this.cache.set("b", this.getB());
+            return <Point>this.cache.get("b");
+        };
 
         public readonly analyticInterface: RayAnalyticInterface = new RayAnalyticInterface(this);
 
@@ -485,8 +606,12 @@ namespace GeometryJS {
             if (other instanceof Line) helpers.Distance.RayLine(this, other);
             throw new InvalidArgumentError("base", other);
         }
-        intersects(Other?: Line | Point | Ray): boolean {
+        intersects(other?: Line | Point | Ray): boolean {
             throw new NotImplementedError("Ray intersects");
+        }
+
+        deleteCache(): void {
+            this.cache.clear();
         }
     }
 
@@ -496,17 +621,33 @@ namespace GeometryJS {
         private _b: Point;
         constructor(a: Point, b: Point) {
             if (a.plane != b.plane) throw new PlaneError(a.plane, b.plane);
-            super();
+            super([ a, b ]);
             this.plane = a.plane;
             this._a = a;
             this._b = b;
         }
-        get a(): Point {
+        getA(): Point {
             return this._a;
         }
-        get b(): Point {
+        set a(point: Point) {
+            this._a = point;
+            this.resetDependencies([ this._a, this._b ]);
+            this.update();
+        }
+
+        getB(): Point {
             return this._b;
         }
+        set b(point: Point) {
+            this._b = point;
+            this.resetDependencies([ this._a, this._b ]);
+            this.update();
+        }
+
+
+        // Needed because of stupid set get behaviour
+        get a(): Point { return super.a; }
+        get b(): Point { return super.b; }
     }
 
     export class ParallelLine extends Line {
@@ -515,7 +656,7 @@ namespace GeometryJS {
         line: Line;
         point: Point;
         constructor(point: Point, line: Line) {
-            super();
+            super([ point, line ]);
             if (point.plane != line.plane) throw new PlaneError(point.plane, line.plane);
             this.plane = point.plane;
             this.point = point;
@@ -523,13 +664,18 @@ namespace GeometryJS {
             this.pointerPoint = new ParallelLinePointerPoint(this.line, point);
         }
 
-        get a(): Point { return this.point; }
+        getA(): Point { return this.point; }
         set a(value: Point) {
             if (!(value instanceof Point)) throw new InvalidArgumentError("Point", value);
             if (value.plane != this.plane) throw new PlaneError(value.plane, this.plane);
             this.point = value;
+            this.resetDependencies([ this.point, this.line ]);
+            this.update();
         }
-        get b(): ParallelLinePointerPoint { return this.pointerPoint; }
+        getB(): ParallelLinePointerPoint { return this.pointerPoint; }
+
+        // Needed because of stupid set get behaviour
+        get a(): Point { return super.a; }
 
     }
     //! Errors 
@@ -869,8 +1015,8 @@ namespace GeometryJS {
      * @return Whether all the points lay on the same line
      */
     export function onOneLine(ab: number, bc: number, ca: number): boolean {
-        const s = [ab, bc, ca].sort((a, b) => a - b);
-        return equals(s[2], s[1] + s[0]);
+        const s = [ ab, bc, ca ].sort((a, b) => a - b);
+        return equals(s[ 2 ], s[ 1 ] + s[ 0 ]);
     }
     /**
      * A function that calculates the sine theorem
