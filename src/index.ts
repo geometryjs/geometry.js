@@ -1,4 +1,4 @@
-const DefaultError = Error as any;
+const DefaultError = Error as typeof Error & { captureStackTrace: (error: Error, construct: any) => void};
 namespace GeometryJS {
     /**
      * URL for the github repository of the library
@@ -600,7 +600,7 @@ namespace GeometryJS {
         intersects(other?: Line | Point | Ray): boolean {
             throw new NotImplementedError("Ray intersects");
         }
-        
+
         deleteCache(): void {
             this.cache.clear();
         }
