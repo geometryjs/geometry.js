@@ -236,7 +236,7 @@ namespace GeometryJS {
         get x(): number { return super.x; }
         get y(): number { return super.y; }
     }
-    export class PointOnLine extends Point { // TODO: fix total bullshit, wont update with line
+    export class PointOnLine extends Point {
         readonly line: Line;
         /**
          * Distance to the a point divided by the distance between A and B
@@ -678,6 +678,39 @@ namespace GeometryJS {
         get a(): Point { return super.a; }
 
     }
+    //! Intervals
+    export class IntervalBorderPoint {
+        value: number;
+        inclusive: boolean;
+        constructor(value: number, inclusive = true) {
+            this.value = value;
+            this.inclusive = inclusive;
+        }
+    }
+    export abstract class Interval {
+        abstract isInside(number: number): boolean;
+    }
+    export class StanardInterval extends Interval {
+        start: IntervalBorderPoint;
+        end: IntervalBorderPoint;
+        constructor(start: IntervalBorderPoint, end: IntervalBorderPoint) {
+            super();
+            if (end.value < start.value) throw new InvalidIntervalError(this, "End must be greater than start.")
+            this.start = start;
+            this.end = end;
+
+        }
+        isInside(number: number): boolean {
+            let inside = this.start.value < number && this.end.value > number
+            if (!this.start.inclusive && equals(number, this.start.value)) inside = false;
+            if (!this.end.inclusive && equals(number, this.end.value)) inside = false;
+            return inside;
+        }
+    }
+    //! Functions 
+    export abstract class Function {
+        
+    }
     //! Errors 
     /**
      * A generic GeometryJS Error
@@ -732,7 +765,7 @@ namespace GeometryJS {
             super(`${feature} has not been yet implemented. For more information visit ${githubURL}.`);
 
             if (DefaultError.captureStackTrace as any) {
-                DefaultError.captureStackTrace(this, InvalidArgumentError);
+                DefaultError.captureStackTrace(this, NotImplementedError);
             }
 
             this.name = "NotImplementedError";
@@ -744,7 +777,7 @@ namespace GeometryJS {
             super(`Unable to perform this action on objects on different planes.`);
 
             if (DefaultError.captureStackTrace as any) {
-                DefaultError.captureStackTrace(this, InvalidArgumentError);
+                DefaultError.captureStackTrace(this, PlaneError);
             }
             this.planes = planes;
             this.name = "PlaneError";
@@ -756,7 +789,7 @@ namespace GeometryJS {
             super(`Cannot assign the value to this property. ${msg}`);
 
             if (DefaultError.captureStackTrace as any) {
-                DefaultError.captureStackTrace(this, InvalidArgumentError);
+                DefaultError.captureStackTrace(this, ImpossibleAssignementError);
             }
             this.description = description;
             this.name = "ImpossibleAssignementError";
@@ -768,9 +801,22 @@ namespace GeometryJS {
             super(`Special analytic case encountred. This method or property is thus uncalculatable.`);
             this.property = property;
             if (DefaultError.captureStackTrace as any) {
-                DefaultError.captureStackTrace(this, InvalidArgumentError);
+                DefaultError.captureStackTrace(this, SpecialAnalyticCaseError);
             }
             this.name = "SpecialAnalyticCaseError";
+        }
+    }
+    export class InvalidIntervalError extends Error {
+        reason: string;
+        interval: Interval;
+        constructor(interval: Interval, reason: string) {
+            super(`This interval is not valid. ` + reason);
+            this.reason = reason;
+            this.interval = interval;
+            if (DefaultError.captureStackTrace as any) {
+                DefaultError.captureStackTrace(this, InvalidArgumentError);
+            }
+            this.name = "InvalidIntervalError";
         }
     }
     //! Analytic interfaces
