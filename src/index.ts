@@ -1,4 +1,4 @@
-const DefaultError = Error as typeof Error & { captureStackTrace: (error: Error, construct: any) => void};
+const DefaultError = Error as typeof Error & { captureStackTrace: (error: Error, construct: any) => void };
 namespace GeometryJS {
     /**
      * URL for the github repository of the library
@@ -238,9 +238,12 @@ namespace GeometryJS {
     }
     export class PointOnLine extends Point { // TODO: fix total bullshit, wont update with line
         readonly line: Line;
+        /**
+         * Distance to the a point divided by the distance between A and B
+         */
+        protected aDist!: number;
         plane: Plane;
-        _x!: number;
-        _y!: number;
+
         constructor(line: Line, x: number, y: number) {
             super([ line ]);
             this.line = line;
@@ -248,30 +251,36 @@ namespace GeometryJS {
             if (x) this.x = x;
             if (y) this.y = y;
         }
-        getX(): number { return this._x; }
+        getX(): number {
+            return this.line.a.x + this.line.dx * this.aDist;   
+        }
         set y(value: number) {
-            if (this._y == value) return;
             if (this.line.dy == 0) throw new ImpossibleAssignementError("You cannot change the x coordinate of point on a horizontal line.");
             const dy = this.line.a.y - this.line.b.y; // Line dx with sign
             const dx = this.line.a.x - this.line.b.x; // Line dy with sign
             const dyN = this.line.a.y - value; // Difference in y for new point and A
             const dr = dy / dyN; // Distance ratio
             const dxN = dx * dr; // Difference in x for new point and A
-            this._x = this.line.a.x + dxN;
-            this._y = value;
+            const x = this.line.a.x + dxN;
+            const y = value;
+
+            this.aDist = Math.sqrt((this.line.a.x - x) ** 2 + (this.line.a.y - y) ** 2) / this.line.a.dist(this.line.b);
             this.update();
         }
-        getY(): number { return this._y; }
+        getY(): number {
+            return this.line.a.y + this.line.dy * this.aDist;
+        }
         set x(value: number) {
-            if (this._x == value) return;
             if (this.line.dx == 0) throw new ImpossibleAssignementError("You cannot change the x coordinate of point on a vertical line.");
             const dy = this.line.a.y - this.line.b.y; // Line dx with sign
             const dx = this.line.a.x - this.line.b.x; // Line dy with sign
             const dxN = this.line.a.x - value; // Difference in y for new point and A
             const dr = dx / dxN; // Distance ratio
             const dyN = dy * dr; // Difference in x for new point and A
-            this._y = this.line.a.y + dyN;
-            this._x = value;
+            const y = this.line.a.y + dyN;
+            const x = value;
+
+            this.aDist = Math.sqrt((this.line.a.x - x) ** 2 + (this.line.a.y - y) ** 2) / this.line.a.dist(this.line.b);
             this.update();
         }
 
