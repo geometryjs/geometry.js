@@ -252,7 +252,7 @@ namespace GeometryJS {
             if (y) this.y = y;
         }
         getX(): number {
-            return this.line.a.x + this.line.dx * this.aDist;   
+            return this.line.a.x + this.line.dx * this.aDist;
         }
         set y(value: number) {
             if (this.line.dy == 0) throw new ImpossibleAssignementError("You cannot change the x coordinate of point on a horizontal line.");
@@ -678,6 +678,11 @@ namespace GeometryJS {
         get a(): Point { return super.a; }
 
     }
+    //! Sets
+    export abstract class Set {
+        abstract isInside(number: number): boolean;
+
+    }
     //! Intervals
     export class IntervalBorderPoint {
         value: number;
@@ -687,8 +692,7 @@ namespace GeometryJS {
             this.inclusive = inclusive;
         }
     }
-    export abstract class Interval {
-        abstract isInside(number: number): boolean;
+    export abstract class Interval extends Set {
     }
     export class StanardInterval extends Interval {
         start: IntervalBorderPoint;
@@ -709,7 +713,7 @@ namespace GeometryJS {
     }
     //! Functions 
     export abstract class Function {
-        
+
     }
     //! Errors 
     /**
