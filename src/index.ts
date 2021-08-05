@@ -770,7 +770,24 @@ namespace GeometryJS {
         }
     }
 
+    export abstract class Polynomial extends Function<true> implements DefinedFieldOfInputsFunction {
+        protected coefficientsCache: Array<number> | undefined;
+        protected degreeCache: number | undefined;
 
+        readonly fieldOfInputs: RealNumbers = REAL_NUMBERS;
+        abstract getCoefficients(): Array<number>;
+        abstract getDegree(): number;
+
+        get coefficients(): Array<number> {
+            if (this.coefficientsCache === undefined) this.coefficientsCache = this.getCoefficients(); 
+            return this.coefficientsCache;
+        }
+        get degree(): number {
+            if (this.degreeCache === undefined) this.degreeCache = this.getDegree(); 
+            return this.degreeCache;
+        }
+        //TODO: other abstract methods
+    }
 
 
     //! Errors 
