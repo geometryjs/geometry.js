@@ -678,9 +678,10 @@ namespace GeometryJS {
         get a(): Point { return super.a; }
 
     }
+    export type Countable = Number | BigInt;
     //! Sets
-    export abstract class Set {
-        abstract isInside(number: number): boolean;
+    export abstract class Set<T extends Countable = Number> {
+        abstract isInside(number: T): boolean;
 
     }
     //! Intervals
@@ -711,10 +712,32 @@ namespace GeometryJS {
             return inside;
         }
     }
-    //! Functions 
-    export abstract class Function {
-
+    //! Functions
+    export interface DefinedRangeOfValuesFunction<T extends Set<number> = Set<number>> extends Function {
+        readonly rangeOfValues: T;
     }
+    export interface DefinedFieldOfInputsFunction<T extends Set<number> = Set<number>> extends Function {
+        readonly fieldOfInputs: T;
+    } 
+    export abstract class Function<C extends boolean = boolean> {
+        continuous: C;
+        constructor(continuous: C) {
+            this.continuous = continuous;
+        }
+        abstract evaluate(x: number): number;
+    }
+    export class StandardFunction<C extends boolean = boolean> extends Function<C> {
+        protected evaluator: (number: number) => number;
+        constructor(func: (number: number) => number, continuous: C) {
+            super(continuous);
+            this.evaluator = func;
+        }
+        evaluate(x: number): number {
+            return this.evaluator(x);
+        }
+    }
+    
+
     //! Errors 
     /**
      * A generic GeometryJS Error
