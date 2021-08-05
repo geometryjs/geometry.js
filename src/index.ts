@@ -712,31 +712,66 @@ namespace GeometryJS {
             return inside;
         }
     }
+    export class RealNumbers extends Set<number> {
+        isInside(number: number): boolean {
+            return !Number.isNaN(number);
+        }
+    }
+    export const REAL_NUMBERS: RealNumbers = new RealNumbers();
     //! Functions
     export interface DefinedRangeOfValuesFunction<T extends Set<number> = Set<number>> extends Function {
         readonly rangeOfValues: T;
     }
     export interface DefinedFieldOfInputsFunction<T extends Set<number> = Set<number>> extends Function {
         readonly fieldOfInputs: T;
-    } 
-    export abstract class Function<C extends boolean = boolean> {
+    }
+    export type DefinedRangeAndField<T extends Set<number> = Set<number>> = DefinedFieldOfInputsFunction<T> & DefinedRangeOfValuesFunction<T>;
+
+
+    export abstract class Function<C extends boolean = boolean> extends Base {
         continuous: C;
-        constructor(continuous: C) {
+        plane: Plane;
+
+        readonly analyticInterface: FunctionAnalyticInterface = new FunctionAnalyticInterface(this);
+        constructor(plane: Plane, dependencies: Array<Base>, continuous: C) {
+            super(dependencies);
             this.continuous = continuous;
+            this.plane = plane;
         }
+
+        dist(): number {
+            return this.evaluate(0);
+        }
+
         abstract evaluate(x: number): number;
+        abstract toString(): string;
+
     }
     export class StandardFunction<C extends boolean = boolean> extends Function<C> {
         protected evaluator: (number: number) => number;
-        constructor(func: (number: number) => number, continuous: C) {
-            super(continuous);
+        protected toStringFunc: () => string;
+        constructor(plane: Plane, func: (number: number) => number, continuous: C, dependencies: Array<Base> = [], toString: () => string = () => "f(x) = { JavaScript code }") {
+            super(plane, dependencies, continuous);
             this.evaluator = func;
+            this.toStringFunc = toString;
         }
         evaluate(x: number): number {
             return this.evaluator(x);
         }
+        toString(): string {
+            return this.toStringFunc();
+        }
+        deleteCache(): void { }
+        equals(other: StandardFunction): boolean {
+            return this.evaluator == other.evaluator;
+        }
+        intersects(other: Base): boolean {
+            throw new NotImplementedError("Standard function intersects.");
+        }
     }
-    
+
+
+
 
     //! Errors 
     /**
@@ -898,6 +933,16 @@ namespace GeometryJS {
         }
         toString(): string {
             throw new NotImplementedError("Ray analytic interface to string");
+        }
+    }
+    export class FunctionAnalyticInterface extends AnalyticInterface<Function> {
+        readonly function: Function;
+        constructor(func: Function) {
+            super(func);
+            this.function = func;
+        }
+        toString(): string {
+            return this.function.toString();
         }
     }
     //! Helpers
