@@ -772,23 +772,72 @@ namespace GeometryJS {
 
     export abstract class Polynomial extends Function<true> implements DefinedFieldOfInputsFunction {
         protected coefficientsCache: Array<number> | undefined;
-        protected degreeCache: number | undefined;
 
         readonly fieldOfInputs: RealNumbers = REAL_NUMBERS;
         abstract getCoefficients(): Array<number>;
-        abstract getDegree(): number;
 
+        constructor(plane: Plane, dependencies: Array<Base>) {
+            super(plane, dependencies, true);
+        }
         get coefficients(): Array<number> {
-            if (this.coefficientsCache === undefined) this.coefficientsCache = this.getCoefficients(); 
+            if (this.coefficientsCache === undefined) {
+                var c = this.getCoefficients();
+                for (var i = c.length - 1; c[ i ] = 0; i--) {
+                    c.splice(i, 1);
+                }
+                this.coefficientsCache = c;
+            }
             return this.coefficientsCache;
         }
         get degree(): number {
-            if (this.degreeCache === undefined) this.degreeCache = this.getDegree(); 
-            return this.degreeCache;
+            return this.coefficients.length - 1;
         }
-        //TODO: other abstract methods
+        deleteCache(): void {
+            this.coefficientsCache = undefined;
+        }
+        equals(other: Polynomial): boolean {
+            return this.degree == other.degree && [ ...this.coefficients ] == [ ...other.coefficients ];
+        }
+        intersects(other: Base): boolean {
+            throw new NotImplementedError("Intersects for polynomials.");
+        }
+        toString(variable = "x", includeMultiplicationSymbol = false, functionName = "f"): string {
+            var rv = "";
+            for (let i = this.coefficients.length - 1; i > 1; i--) {
+                rv += `${this.coefficients[ i ]}${includeMultiplicationSymbol ? "*" : ""}${variable}**${i} + `;
+            }
+            rv += `${this.coefficients[ 1 ]}${includeMultiplicationSymbol ? "*" : ""}${variable} + `
+            rv += `${this.coefficients[ 0 ]}`;
+            if (functionName !== undefined) return `${functionName}(${variable}) = ${rv}`;
+            return rv;
+        }
+        evaluate(x: number): number {
+            var sum = 0;
+            for (var i = 0; i < this.coefficients.length; i++) {
+                sum += this.coefficients[ i ] * x ** i;
+            }
+            return sum;
+        }
     }
 
+    export class StandardPolynomial extends Polynomial {
+        private _coefficients: Array<number>;
+        constructor(plane: Plane, coefficients: Array<number>) {
+            super(plane, []);
+            this._coefficients = coefficients;
+        }
+        getCoefficients(): Array<number> {
+            return this._coefficients;
+        }
+
+        set coefficients(coefficients: Array<number>) {
+            this._coefficients = coefficients;
+            this.update();
+        }
+        get coefficients(): Array<number> {
+            return super.coefficients;
+        }
+    }
 
     //! Errors 
     /**
