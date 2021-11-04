@@ -801,7 +801,7 @@ namespace GeometryJS {
         intersects(other: Base): boolean {
             throw new NotImplementedError("Intersects for polynomials.");
         }
-        toString(variable = "x", includeMultiplicationSymbol = false, functionName = "f"): string {
+        toString(variable = "x", includeMultiplicationSymbol = false, functionName: string | undefined = "f"): string {
             var rv = "";
             for (let i = this.coefficients.length - 1; i > 1; i--) {
                 rv += `${this.coefficients[ i ]}${includeMultiplicationSymbol ? "*" : ""}${variable}**${i} + `;
