@@ -698,15 +698,62 @@ namespace GeometryJS {
 
     }
     //! Intervals
-    export class IntervalBorderPoint {
+    export abstract class IntervalBorderPoint { 
+        abstract get value(): number;
+        abstract get inclusive(): boolean;
+    }
+    export class InfinityIntervalBorderPoint extends IntervalBorderPoint {
+        protected negative: boolean;
+        constructor(negative: boolean) {
+            super();
+            this.negative = negative;
+        }
+        get value(): number {
+            return this.negative ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY; 
+        }
+        /**
+         * NOTE: This is a behaviour, that may be unexcpected in some cases, but is desired for most
+         */
+        get inclusive(): true { 
+            return true;
+        }
+    }
+    export const POSITIVE_INFINITY_INTERVAL_BORDER_POINT: InfinityIntervalBorderPoint = new InfinityIntervalBorderPoint(false);
+    export const NEGATIVE_INFINITY_INTERVAL_BORDER_POINT: InfinityIntervalBorderPoint = new InfinityIntervalBorderPoint(true);
+    export class StandardIntervalBorderPoint extends IntervalBorderPoint {
         value: number;
         inclusive: boolean;
         constructor(value: number, inclusive = true) {
+            super();
             this.value = value;
             this.inclusive = inclusive;
         }
     }
+    export class IntervalBorderPointRayLimit extends IntervalBorderPoint {
+        protected readonly ray: Ray;
+        protected readonly axis: "x" | "y";
+        constructor(ray: Ray, axis: "x" | "y") {
+            super();
+            this.ray = ray;
+            this.axis = axis;
+        }
+        get value(): number {
+            if (this.axis == "x") return this.ray.a.x;
+            return this.ray.a.y;
+        }
+        get inclusive(): true {
+            return true;
+        }
+    }
     export abstract class Interval extends Set {
+        abstract get start(): IntervalBorderPoint;
+        abstract get end(): IntervalBorderPoint;
+        isInside(number: number): boolean {
+            let inside = this.start.value < number && this.end.value > number;
+            if (!this.start.inclusive && equals(number, this.start.value)) inside = false;
+            if (!this.end.inclusive && equals(number, this.end.value)) inside = false;
+            return inside;
+        }
     }
     export class StanardInterval extends Interval {
         start: IntervalBorderPoint;
@@ -718,12 +765,27 @@ namespace GeometryJS {
             this.end = end;
 
         }
-        isInside(number: number): boolean {
-            let inside = this.start.value < number && this.end.value > number
-            if (!this.start.inclusive && equals(number, this.start.value)) inside = false;
-            if (!this.end.inclusive && equals(number, this.end.value)) inside = false;
-            return inside;
+        
+    }
+    export class RayLimitInterval extends Interval {
+        protected readonly ray: Ray;
+        protected readonly axis: "x" | "y";
+        protected readonly lim: IntervalBorderPointRayLimit;
+        constructor(ray: Ray, axis: "x" | "y") {
+            super();
+            this.ray = ray;
+            this.axis = axis;
+            this.lim = new IntervalBorderPointRayLimit(ray, axis);
         }
+        get start(): IntervalBorderPoint { 
+            if (this.axis == "x") return this.ray.analyticInterface.XLimitIsMinimum ? this.lim : NEGATIVE_INFINITY_INTERVAL_BORDER_POINT;
+            return this.ray.analyticInterface.YLimitIsMinimum ? this.lim : NEGATIVE_INFINITY_INTERVAL_BORDER_POINT;
+        }
+        get end(): IntervalBorderPoint {
+            if (this.axis == "x") return !this.ray.analyticInterface.XLimitIsMinimum ? this.lim : POSITIVE_INFINITY_INTERVAL_BORDER_POINT;
+            return !this.ray.analyticInterface.YLimitIsMinimum ? this.lim : POSITIVE_INFINITY_INTERVAL_BORDER_POINT;
+        }
+        
     }
     export class RealNumbers extends Set<number> {
         isInside(number: number): boolean {
