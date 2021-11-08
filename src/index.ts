@@ -84,7 +84,7 @@ namespace GeometryJS {
             return new TwoPointRay(originPoint, pointerPoint);
         }
     }
-    export abstract class DependencyNode { 
+    export abstract class DependencyNode {
         constructor(dependencies: Array<DependencyNode>) {
             for (const depend of dependencies) this.addDependency(depend);
         }
@@ -147,7 +147,7 @@ namespace GeometryJS {
          * @param other The object to calculate the intersect with
          */
         abstract intersects(other: Point | Line | Ray): boolean;
-        
+
     }
     //! Points
     /**
@@ -252,14 +252,14 @@ namespace GeometryJS {
         plane: Plane;
 
         constructor(line: Line, x: number, y: number) {
-            super([ line ]);
+            super([line]);
             this.line = line;
             this.plane = line.plane;
             if (x) this.x = x;
             if (y) this.y = y;
         }
         getX(): number {
-            return this.line.a.x + this.line.dx * this.aDist;   
+            return this.line.a.x + this.line.dx * this.aDist;
         }
         set y(value: number) {
             if (this.line.dy == 0) throw new ImpossibleAssignementError("You cannot change the x coordinate of point on a horizontal line.");
@@ -300,7 +300,7 @@ namespace GeometryJS {
         readonly line: Line;
         readonly point: Point;
         constructor(line: Line, point: Point) {
-            super([ line, point ]);
+            super([line, point]);
             if (line.plane !== point.plane) throw new PlaneError(line.plane, point.plane);
             this.plane = point.plane;
             this.line = line;
@@ -346,7 +346,7 @@ namespace GeometryJS {
         readonly point: PointOnLineFromPoint;
         readonly line: Line;
         constructor(point: PointOnLineFromPoint) {
-            super([ point ]);
+            super([point]);
             this.plane = point.plane;
             this.line = point.line;
             this.point = point;
@@ -365,7 +365,7 @@ namespace GeometryJS {
         readonly point: Point;
         readonly line: Line;
         constructor(line: Line, point: Point) {
-            super([ line, point ]);
+            super([line, point]);
             if (line.plane !== point.plane) throw new PlaneError(line.plane, point.plane);
             this.plane = line.plane;
             this.point = point
@@ -482,7 +482,7 @@ namespace GeometryJS {
 
         public plane: Plane;
         constructor(a: Point, b: Point) {
-            super([ a, b ]);
+            super([a, b]);
             if (a.plane !== b.plane) throw new PlaneError(a.plane, b.plane);
             this.plane = a.plane;
             this._a = a;
@@ -492,14 +492,14 @@ namespace GeometryJS {
         getA(): Point { return this._a; }
         set a(value: Point) {
             this._a = value;
-            this.resetDependencies([ this._a, this._b ]);
+            this.resetDependencies([this._a, this._b]);
             this.update();
         }
 
         getB(): Point { return this._b; }
         set b(value: Point) {
             this._b = value;
-            this.resetDependencies([ this._a, this._b ]);
+            this.resetDependencies([this._a, this._b]);
             this.update();
         }
 
@@ -513,7 +513,7 @@ namespace GeometryJS {
         point: PointOnLineFromPoint;
         pointerPoint: PerpendicularLinePointerPoint;
         constructor(pointOnLine: PointOnLineFromPoint) {
-            super([ pointOnLine ]);
+            super([pointOnLine]);
             this.plane = pointOnLine.plane;
             this.line = pointOnLine.line;
             this.point = pointOnLine;
@@ -524,7 +524,7 @@ namespace GeometryJS {
         set a(value: PointOnLineFromPoint) {
             if (value.line != this.line) throw new ImpossibleAssignementError("Cannot change point on line to a different line.")
             this.point = value;
-            this.resetDependencies([ this.point ]);
+            this.resetDependencies([this.point]);
             this.update();
         }
 
@@ -537,7 +537,7 @@ namespace GeometryJS {
         readonly plane: Plane;
         ray: Ray;
         constructor(ray: Ray) {
-            super([ ray ]);
+            super([ray]);
             this.plane = ray.plane;
             this.ray = ray;
         }
@@ -628,7 +628,7 @@ namespace GeometryJS {
         private _b: Point;
         constructor(a: Point, b: Point) {
             if (a.plane != b.plane) throw new PlaneError(a.plane, b.plane);
-            super([ a, b ]);
+            super([a, b]);
             this.plane = a.plane;
             this._a = a;
             this._b = b;
@@ -638,7 +638,7 @@ namespace GeometryJS {
         }
         set a(point: Point) {
             this._a = point;
-            this.resetDependencies([ this._a, this._b ]);
+            this.resetDependencies([this._a, this._b]);
             this.update();
         }
 
@@ -647,7 +647,7 @@ namespace GeometryJS {
         }
         set b(point: Point) {
             this._b = point;
-            this.resetDependencies([ this._a, this._b ]);
+            this.resetDependencies([this._a, this._b]);
             this.update();
         }
 
@@ -663,7 +663,7 @@ namespace GeometryJS {
         line: Line;
         point: Point;
         constructor(point: Point, line: Line) {
-            super([ point, line ]);
+            super([point, line]);
             if (point.plane != line.plane) throw new PlaneError(point.plane, line.plane);
             this.plane = point.plane;
             this.point = point;
@@ -676,7 +676,7 @@ namespace GeometryJS {
             if (!(value instanceof Point)) throw new InvalidArgumentError("Point", value);
             if (value.plane != this.plane) throw new PlaneError(value.plane, this.plane);
             this.point = value;
-            this.resetDependencies([ this.point, this.line ]);
+            this.resetDependencies([this.point, this.line]);
             this.update();
         }
         getB(): ParallelLinePointerPoint { return this.pointerPoint; }
@@ -781,11 +781,11 @@ namespace GeometryJS {
         }
     }
     //! Analytic interfaces
-    export abstract class AnalyticInterface<T extends Base> {
+    export abstract class AnalyticInterface<T extends Base> extends DependencyNode {
         readonly object: T;
         constructor(object: T) {
+            super([object]);
             this.object = object;
-            this.object.addDependency()
         }
         abstract toString(): string;
     }
@@ -814,37 +814,78 @@ namespace GeometryJS {
         toString(): string {
             return `x = ${this.x} && y = ${this.y}`;
         }
+        deleteCache(): void {
+
+        }
     }
+    /**
+     * The analytic interface for a line in the form of an equation ay + bx = c   
+     * NOTE: This should output the line in a normalized form, where *a*, the y coefficient, is either 1 or 0, but other implementors do not need to follow this standard and can output the equation in a arbitrary form (multiplied by any non-zero constant)
+     */
     export class LineAnalyticInterface extends AnalyticInterface<Line> {
         readonly line: Line;
+        protected cache: Map<string, number | undefined> = new Map<string, number | undefined>();
+
         constructor(line: Line) {
             super(line);
             this.line = line;
         }
 
-        private getA(): number { 
+        protected getA(): number {
+            if (this.line.a.x == this.line.b.x) return 0; // If the line is vertical, the Y component is zero 
+            return 1; // Normalized form of the equation requires the Y component to be either 0 or 1
+        }
+        protected getB(): number {
+            if (this.line.a.x == this.line.b.x) return 1; // If the line is vertical, the Y component is required to be 1 
+            return (this.a  * (this.line.a.y - this.line.b.y)) / (this.line.a.x - this.line.b.x); // b is calculated according to the slope NOTE: multiplied by this.a instead of 1 in case of a override to the getA method
 
         }
-        private getB(): number {
-
-        }
-        private getC(): number { 
-
+        protected getC(): number {
+            if (this.line.a.y == this.line.b.y) return this.line.a.x / this.a; // NOTE: the division here is in case of a override of the getA or getB method
+            if (this.line.a.x == this.line.b.x) return this.line.a.y / this.b; // NOTE: the division here is in case of a override of the getA or getB method
+            return this.line.b.y * this.a + this.line.b.x * this.b; // Calculation according to the default equation
         }
         /**
-         * Form of the equation: ay + bx + c = 0
+         * Form of the equation: ay + bx = c
+         * a is the Y component of the line
          */
         get a(): number {
-
+            var a = this.cache.get("a");
+            if (a === undefined) {
+                a = this.getA();
+                this.cache.set("a", a);
+            }
+            return a;
         }
+        /**
+         * Form of the equation: ay + bx = c
+         * b is the X component of the line
+         */
         get b(): number {
-
+            var b = this.cache.get("b");
+            if (b === undefined) {
+                b = this.getB();
+                this.cache.set("b", b);
+            }
+            return b;
         }
+        /**
+         * Form of the equation: ay + bx = c
+         * c is the absolute component of the line
+         */
         get c(): number {
-            
+            var c = this.cache.get("c");
+            if (c === undefined) {
+                c = this.getC();
+                this.cache.set("c", c);
+            }
+            return c;
         }
         toString(): string {
             throw new NotImplementedError("Line analytic interface to string");
+        }
+        deleteCache(): void {
+            this.cache.clear();
         }
     }
     export class RayAnalyticInterface extends AnalyticInterface<Ray> {
@@ -1045,11 +1086,11 @@ namespace GeometryJS {
      * @return Whether all the points lay on the same line
      */
     export function onOneLine(ab: number, bc: number, ca: number): boolean {
-        const s = [ ab, bc, ca ].sort((a, b) => a - b);
-        return equals(s[ 2 ], s[ 1 ] + s[ 0 ]);
+        const s = [ab, bc, ca].sort((a, b) => a - b);
+        return equals(s[2], s[1] + s[0]);
     }
     /**
-     * A function that calculates the sine theorem
+     * A function that calculates the sine theorem  
      * @param a The length of the side a
      * @param alpha Angle alpha
      * @param beta Angle beta
