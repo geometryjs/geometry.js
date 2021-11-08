@@ -563,12 +563,18 @@ namespace GeometryJS {
         abstract getB(): Point;
 
         protected cache: Map<string, Point> = new Map<string, Point>();
+        /**
+         * Getter for the end of the ray point
+        */
         get a(): Point {
             const ca = this.cache.get("a");
             if (ca) return ca;
             this.cache.set("a", this.getA());
             return <Point>this.cache.get("a");
         };
+        /**
+         * Getter for the point defining the direction of the ray
+         */
         get b(): Point {
             const cb = this.cache.get("b");
             if (cb) return cb;
@@ -837,7 +843,7 @@ namespace GeometryJS {
         }
         protected getB(): number {
             if (this.line.a.x == this.line.b.x) return 1; // If the line is vertical, the Y component is required to be 1 
-            return (this.a  * (this.line.a.y - this.line.b.y)) / (this.line.a.x - this.line.b.x); // b is calculated according to the slope NOTE: multiplied by this.a instead of 1 in case of a override to the getA method
+            return (this.a * (this.line.a.y - this.line.b.y)) / (this.line.a.x - this.line.b.x); // b is calculated according to the slope NOTE: multiplied by this.a instead of 1 in case of a override to the getA method
 
         }
         protected getC(): number {
@@ -882,20 +888,126 @@ namespace GeometryJS {
             return c;
         }
         toString(): string {
-            throw new NotImplementedError("Line analytic interface to string");
+            return `${this.a}y + ${this.b}x = ${this.c}`;
         }
         deleteCache(): void {
             this.cache.clear();
         }
     }
     export class RayAnalyticInterface extends AnalyticInterface<Ray> {
+        protected cache: Map<string, number | boolean | undefined> = new Map<string, number | boolean | undefined>();
+
         readonly ray: Ray;
         constructor(ray: Ray) {
             super(ray);
             this.ray = ray;
         }
+        protected getA(): number {
+            if (this.ray.a.x == this.ray.b.x) return 0; // If the ray is vertical, the Y component is zero 
+            return 1; // Normalized form of the equation requires the Y component to be either 0 or 1
+        }
+        protected getB(): number {
+            if (this.ray.a.x == this.ray.b.x) return 1; // If the ray is vertical, the Y component is required to be 1 
+            return (this.a * (this.ray.a.y - this.ray.b.y)) / (this.ray.a.x - this.ray.b.x); // b is calculated according to the slope NOTE: multiplied by this.a instead of 1 in case of a override to the getA method
+
+        }
+        protected getC(): number {
+            if (this.ray.a.y == this.ray.b.y) return this.ray.a.x / this.a; // NOTE: the division here is in case of a override of the getA or getB method
+            if (this.ray.a.x == this.ray.b.x) return this.ray.a.y / this.b; // NOTE: the division here is in case of a override of the getA or getB method
+            return this.ray.b.y * this.a + this.ray.b.x * this.b; // Calculation according to the default equation
+        }
+        protected getLimX(): number {
+            return this.ray.a.x;
+        }
+        protected getLimY(): number {
+            return this.ray.a.y;
+        }
+        protected getXLimitIsMinimum(): boolean {
+            return this.ray.b.x > this.ray.a.x;
+        }
+        protected getYLimitIsMinimum(): boolean {
+            return this.ray.b.y > this.ray.a.y;
+
+        }
+        /**
+         * Form of the equation: ay + bx = c
+         * a is the Y component of the ray
+         */
+        get a(): number {
+            var a = this.cache.get("a") as number | undefined;
+            if (a === undefined) {
+                a = this.getA();
+                this.cache.set("a", a);
+            }
+            return a;
+        }
+        /**
+         * Form of the equation: ay + bx = c
+         * b is the X component of the ray
+         */
+        get b(): number {
+            var b = this.cache.get("b") as number | undefined;
+            if (b === undefined) {
+                b = this.getB();
+                this.cache.set("b", b);
+            }
+            return b;
+        }
+        /**
+         * Form of the equation: ay + bx = c
+         * c is the absolute component of the ray
+         */
+        get c(): number {
+            var c = this.cache.get("c") as number | undefined;
+            if (c === undefined) {
+                c = this.getC();
+                this.cache.set("c", c);
+            }
+            return c;
+        }
+        /**
+         * The X limit of the ray
+         */
+        get limX(): number {
+            var limX = this.cache.get("limX") as number | undefined;
+            if (limX === undefined) {
+                limX = this.getLimX();
+                this.cache.set("limX", limX);
+            }
+            return limX;
+        }
+        /**
+         * The Y limit of the ray
+         */
+        get limY(): number {
+            var limY = this.cache.get("limY") as number | undefined;
+            if (limY === undefined) {
+                limY = this.getLimY();
+                this.cache.set("limY", limY);
+            }
+            return limY;
+        }
+        get XLimitIsMinimum(): boolean {
+            var xlm = this.cache.get("xlm") as boolean | undefined;
+            if (xlm === undefined) {
+                xlm = this.getXLimitIsMinimum();
+                this.cache.set("xlm", xlm);
+            }
+            return xlm;
+        }
+        get YLimitIsMinimum(): boolean {
+            var ylm = this.cache.get("ylm") as boolean | undefined;
+            if (ylm === undefined) {
+                ylm = this.getYLimitIsMinimum();
+                this.cache.set("ylm", ylm);
+            }
+            return ylm;
+        }
         toString(): string {
-            throw new NotImplementedError("Ray analytic interface to string");
+            return `${this.a}y + ${this.b}x = ${this.c} && ${this.XLimitIsMinimum ? `x in <${this.limX}, inf)` : `x in (inf, ${this.limX}>`} && ${this.YLimitIsMinimum ? `y in <${this.limY}, inf)` : `y in (inf, ${this.limY}>`}`;
+        }
+        deleteCache(): void {
+            this.cache.clear();
         }
     }
     //! Helpers
