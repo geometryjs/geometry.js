@@ -1193,6 +1193,9 @@ namespace GeometryJS {
         toString(): string {
             return this.function.toString();
         }
+        deleteCache(): void {
+            
+        }
     }
     //! Helpers
     export namespace helpers {
