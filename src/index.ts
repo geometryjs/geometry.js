@@ -1,3 +1,5 @@
+import { isThisTypeNode } from "typescript";
+
 const DefaultError = Error as typeof Error & { captureStackTrace: (error: Error, construct: any) => void };
 namespace GeometryJS {
     /**
@@ -82,13 +84,52 @@ namespace GeometryJS {
             return new TwoPointRay(originPoint, pointerPoint);
         }
     }
+    export abstract class DependencyNode { 
+        constructor(dependencies: Array<DependencyNode>) {
+            for (const depend of dependencies) this.addDependency(depend);
+        }
+        /**
+         * Array of all dependencies of this Base object 
+         */
+        readonly dependencies: Array<DependencyNode> = [];
+        /**
+         * Array of all dependant objects of this Base object
+         */
+        readonly dependants: Array<DependencyNode> = [];
+
+        addDependency(dependency: DependencyNode): void {
+            this.dependencies.push(dependency);
+            dependency.addDependant(this);
+        }
+        addDependant(dependant: DependencyNode): void {
+            this.dependants.push(dependant);
+        }
+        resetDependencies(newDependingDependencies?: Array<DependencyNode>): void {
+            for (const dependency of this.dependencies) {
+                dependency.removeDependant(this);
+            }
+            this.dependencies.splice(0, this.dependencies.length);
+            if (newDependingDependencies) {
+                for (const d of newDependingDependencies) this.addDependency(d);
+            }
+        }
+        removeDependant(dependant: DependencyNode): void {
+            const index = this.dependants.indexOf(dependant);
+            if (index !== -1) this.dependants.splice(index, 1);
+        }
+        update(): void {
+            this.deleteCache();
+            for (const dependant of this.dependants) dependant.update();
+        }
+        protected abstract deleteCache(): void;
+    }
     //! Base
-    export abstract class Base {
+    export abstract class Base extends DependencyNode {
         public abstract plane: Plane;
         abstract readonly analyticInterface: AnalyticInterface<Base>;
         readonly type: string;
-        constructor(dependencies: Array<Base>) {
-            for (const depend of dependencies) this.addDependency(depend);
+        constructor(dependencies: Array<DependencyNode>) {
+            super(dependencies);
             this.type = this.constructor.name;
         }
         /**
@@ -106,41 +147,7 @@ namespace GeometryJS {
          * @param other The object to calculate the intersect with
          */
         abstract intersects(other: Point | Line | Ray): boolean;
-
-        /**
-         * Array of all dependencies of this Base object 
-         */
-        readonly dependencies: Array<Base> = [];
-        /**
-         * Array of all dependant objects of this Base object
-         */
-        readonly dependants: Array<Base> = [];
-
-        addDependency(dependency: Base): void {
-            this.dependencies.push(dependency);
-            dependency.addDependant(this);
-        }
-        addDependant(dependant: Base): void {
-            this.dependants.push(dependant);
-        }
-        resetDependencies(newDependingDependencies?: Array<Base>): void {
-            for (const dependency of this.dependencies) {
-                dependency.removeDependant(this);
-            }
-            this.dependencies.splice(0, this.dependencies.length);
-            if (newDependingDependencies) {
-                for (const d of newDependingDependencies) this.addDependency(d);
-            }
-        }
-        removeDependant(dependant: Base): void {
-            const index = this.dependants.indexOf(dependant);
-            if (index !== -1) this.dependants.splice(index, 1);
-        }
-        update(): void {
-            this.deleteCache();
-            for (const dependant of this.dependants) dependant.update();
-        }
-        protected abstract deleteCache(): void;
+        
     }
     //! Points
     /**
@@ -778,6 +785,7 @@ namespace GeometryJS {
         readonly object: T;
         constructor(object: T) {
             this.object = object;
+            this.object.addDependency()
         }
         abstract toString(): string;
     }
@@ -812,6 +820,28 @@ namespace GeometryJS {
         constructor(line: Line) {
             super(line);
             this.line = line;
+        }
+
+        private getA(): number { 
+
+        }
+        private getB(): number {
+
+        }
+        private getC(): number { 
+
+        }
+        /**
+         * Form of the equation: ay + bx + c = 0
+         */
+        get a(): number {
+
+        }
+        get b(): number {
+
+        }
+        get c(): number {
+            
         }
         toString(): string {
             throw new NotImplementedError("Line analytic interface to string");
