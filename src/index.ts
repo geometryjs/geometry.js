@@ -243,7 +243,7 @@ namespace GeometryJS {
         get x(): number { return super.x; }
         get y(): number { return super.y; }
     }
-    export class PointOnLine extends Point { // TODO: fix total bullshit, wont update with line
+    export class PointOnLine extends Point {
         readonly line: Line;
         /**
          * Distance to the a point divided by the distance between A and B
@@ -691,6 +691,167 @@ namespace GeometryJS {
         get a(): Point { return super.a; }
 
     }
+    export type Countable = Number | BigInt;
+    //! Sets
+    export abstract class Set<T extends Countable = Number> {
+        abstract isInside(number: T): boolean;
+
+    }
+    //! Intervals
+    export class IntervalBorderPoint {
+        value: number;
+        inclusive: boolean;
+        constructor(value: number, inclusive = true) {
+            this.value = value;
+            this.inclusive = inclusive;
+        }
+    }
+    export abstract class Interval extends Set {
+    }
+    export class StanardInterval extends Interval {
+        start: IntervalBorderPoint;
+        end: IntervalBorderPoint;
+        constructor(start: IntervalBorderPoint, end: IntervalBorderPoint) {
+            super();
+            if (end.value < start.value) throw new InvalidIntervalError(this, "End must be greater than start.")
+            this.start = start;
+            this.end = end;
+
+        }
+        isInside(number: number): boolean {
+            let inside = this.start.value < number && this.end.value > number
+            if (!this.start.inclusive && equals(number, this.start.value)) inside = false;
+            if (!this.end.inclusive && equals(number, this.end.value)) inside = false;
+            return inside;
+        }
+    }
+    export class RealNumbers extends Set<number> {
+        isInside(number: number): boolean {
+            return !Number.isNaN(number);
+        }
+    }
+    export const REAL_NUMBERS: RealNumbers = new RealNumbers();
+    //! Functions
+    export interface DefinedRangeOfValuesFunction<T extends Set<number> = Set<number>> extends Function {
+        readonly rangeOfValues: T;
+    }
+    export interface DefinedFieldOfInputsFunction<T extends Set<number> = Set<number>> extends Function {
+        readonly fieldOfInputs: T;
+    }
+    export type DefinedRangeAndField<T extends Set<number> = Set<number>> = DefinedFieldOfInputsFunction<T> & DefinedRangeOfValuesFunction<T>;
+
+
+    export abstract class Function<C extends boolean = boolean> extends Base {
+        continuous: C;
+        plane: Plane;
+
+        readonly analyticInterface: FunctionAnalyticInterface = new FunctionAnalyticInterface(this);
+        constructor(plane: Plane, dependencies: Array<Base>, continuous: C) {
+            super(dependencies);
+            this.continuous = continuous;
+            this.plane = plane;
+        }
+
+        dist(): number {
+            return this.evaluate(0);
+        }
+
+        abstract evaluate(x: number): number;
+        abstract toString(): string;
+
+    }
+    export class StandardFunction<C extends boolean = boolean> extends Function<C> {
+        protected evaluator: (number: number) => number;
+        protected toStringFunc: () => string;
+        constructor(plane: Plane, func: (number: number) => number, continuous: C, dependencies: Array<Base> = [], toString: () => string = () => "f(x) = { JavaScript code }") {
+            super(plane, dependencies, continuous);
+            this.evaluator = func;
+            this.toStringFunc = toString;
+        }
+        evaluate(x: number): number {
+            return this.evaluator(x);
+        }
+        toString(): string {
+            return this.toStringFunc();
+        }
+        deleteCache(): void { }
+        equals(other: StandardFunction): boolean {
+            return this.evaluator == other.evaluator;
+        }
+        intersects(other: Base): boolean {
+            throw new NotImplementedError("Standard function intersects.");
+        }
+    }
+
+    export abstract class Polynomial extends Function<true> implements DefinedFieldOfInputsFunction {
+        protected coefficientsCache: Array<number> | undefined;
+
+        readonly fieldOfInputs: RealNumbers = REAL_NUMBERS;
+        abstract getCoefficients(): Array<number>;
+
+        constructor(plane: Plane, dependencies: Array<Base>) {
+            super(plane, dependencies, true);
+        }
+        get coefficients(): Array<number> {
+            if (this.coefficientsCache === undefined) {
+                var c = this.getCoefficients();
+                for (var i = c.length - 1; c[ i ] = 0; i--) {
+                    c.splice(i, 1);
+                }
+                this.coefficientsCache = c;
+            }
+            return this.coefficientsCache;
+        }
+        get degree(): number {
+            return this.coefficients.length - 1;
+        }
+        deleteCache(): void {
+            this.coefficientsCache = undefined;
+        }
+        equals(other: Polynomial): boolean {
+            return this.degree == other.degree && [ ...this.coefficients ] == [ ...other.coefficients ];
+        }
+        intersects(other: Base): boolean {
+            throw new NotImplementedError("Intersects for polynomials.");
+        }
+        toString(variable = "x", includeMultiplicationSymbol = false, functionName: string | undefined = "f"): string {
+            var rv = "";
+            for (let i = this.coefficients.length - 1; i > 1; i--) {
+                rv += `${this.coefficients[ i ]}${includeMultiplicationSymbol ? "*" : ""}${variable}**${i} + `;
+            }
+            rv += `${this.coefficients[ 1 ]}${includeMultiplicationSymbol ? "*" : ""}${variable} + `
+            rv += `${this.coefficients[ 0 ]}`;
+            if (functionName !== undefined) return `${functionName}(${variable}) = ${rv}`;
+            return rv;
+        }
+        evaluate(x: number): number {
+            var sum = 0;
+            for (var i = 0; i < this.coefficients.length; i++) {
+                sum += this.coefficients[ i ] * x ** i;
+            }
+            return sum;
+        }
+    }
+
+    export class StandardPolynomial extends Polynomial {
+        private _coefficients: Array<number>;
+        constructor(plane: Plane, coefficients: Array<number>) {
+            super(plane, []);
+            this._coefficients = coefficients;
+        }
+        getCoefficients(): Array<number> {
+            return this._coefficients;
+        }
+
+        set coefficients(coefficients: Array<number>) {
+            this._coefficients = coefficients;
+            this.update();
+        }
+        get coefficients(): Array<number> {
+            return super.coefficients;
+        }
+    }
+
     //! Errors 
     /**
      * A generic GeometryJS Error
@@ -745,7 +906,7 @@ namespace GeometryJS {
             super(`${feature} has not been yet implemented. For more information visit ${githubURL}.`);
 
             if (DefaultError.captureStackTrace as any) {
-                DefaultError.captureStackTrace(this, InvalidArgumentError);
+                DefaultError.captureStackTrace(this, NotImplementedError);
             }
 
             this.name = "NotImplementedError";
@@ -757,7 +918,7 @@ namespace GeometryJS {
             super(`Unable to perform this action on objects on different planes.`);
 
             if (DefaultError.captureStackTrace as any) {
-                DefaultError.captureStackTrace(this, InvalidArgumentError);
+                DefaultError.captureStackTrace(this, PlaneError);
             }
             this.planes = planes;
             this.name = "PlaneError";
@@ -769,7 +930,7 @@ namespace GeometryJS {
             super(`Cannot assign the value to this property. ${msg}`);
 
             if (DefaultError.captureStackTrace as any) {
-                DefaultError.captureStackTrace(this, InvalidArgumentError);
+                DefaultError.captureStackTrace(this, ImpossibleAssignementError);
             }
             this.description = description;
             this.name = "ImpossibleAssignementError";
@@ -781,9 +942,22 @@ namespace GeometryJS {
             super(`Special analytic case encountred. This method or property is thus uncalculatable.`);
             this.property = property;
             if (DefaultError.captureStackTrace as any) {
-                DefaultError.captureStackTrace(this, InvalidArgumentError);
+                DefaultError.captureStackTrace(this, SpecialAnalyticCaseError);
             }
             this.name = "SpecialAnalyticCaseError";
+        }
+    }
+    export class InvalidIntervalError extends Error {
+        reason: string;
+        interval: Interval;
+        constructor(interval: Interval, reason: string) {
+            super(`This interval is not valid. ` + reason);
+            this.reason = reason;
+            this.interval = interval;
+            if (DefaultError.captureStackTrace as any) {
+                DefaultError.captureStackTrace(this, InvalidArgumentError);
+            }
+            this.name = "InvalidIntervalError";
         }
     }
     //! Analytic interfaces
@@ -1008,6 +1182,16 @@ namespace GeometryJS {
         }
         deleteCache(): void {
             this.cache.clear();
+        }
+    }
+    export class FunctionAnalyticInterface extends AnalyticInterface<Function> {
+        readonly function: Function;
+        constructor(func: Function) {
+            super(func);
+            this.function = func;
+        }
+        toString(): string {
+            return this.function.toString();
         }
     }
     //! Helpers

@@ -80,4 +80,4 @@ module.exports = [ // The tests
 module.exports[0].testName = "Value retainment";
 module.exports[1].testName = "Intersect check";
 module.exports[2].testName = "Perpendicular line check";
-module.exports[2].testName = "Parallel line check";
+module.exports[3].testName = "Parallel line check";
