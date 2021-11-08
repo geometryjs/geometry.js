@@ -1132,11 +1132,14 @@ namespace GeometryJS {
     }
     export class RayAnalyticInterface extends AnalyticInterface<Ray> {
         protected cache: Map<string, number | boolean | undefined> = new Map<string, number | boolean | undefined>();
-
+        public readonly intervalX: RayLimitInterval;
+        public readonly intervalY: RayLimitInterval;
         readonly ray: Ray;
         constructor(ray: Ray) {
             super(ray);
             this.ray = ray;
+            this.intervalX = new RayLimitInterval(ray, "x");
+            this.intervalY = new RayLimitInterval(ray, "y");
         }
         protected getA(): number {
             if (this.ray.a.x == this.ray.b.x) return 0; // If the ray is vertical, the Y component is zero 
