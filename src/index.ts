@@ -1,4 +1,3 @@
-import { isThisTypeNode } from "typescript";
 
 const DefaultError = Error as typeof Error & { captureStackTrace: (error: Error, construct: any) => void };
 namespace GeometryJS {
