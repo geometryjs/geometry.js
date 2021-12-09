@@ -1,5 +1,6 @@
-
-const DefaultError = Error as typeof Error & { captureStackTrace: (error: Error, construct: any) => void };
+const DefaultError = Error as typeof Error & {
+    captureStackTrace: (error: Error, construct: any) => void;
+};
 namespace GeometryJS {
     /**
      * URL for the github repository of the library
@@ -63,7 +64,7 @@ namespace GeometryJS {
             return p;
         }
         /**
-         * Create a line based on two points 
+         * Create a line based on two points
          * @param a The first point
          * @param b The second point
          * @returns The created line
@@ -75,7 +76,7 @@ namespace GeometryJS {
         }
         /**
          * Creates a ray based on two points
-         * @param originPoint The ending point of the ray   
+         * @param originPoint The ending point of the ray
          * @param pointerPoint The point, that determines the direction of the ray
          * @return The created ray
          */
@@ -88,7 +89,7 @@ namespace GeometryJS {
             for (const depend of dependencies) this.addDependency(depend);
         }
         /**
-         * Array of all dependencies of this Base object 
+         * Array of all dependencies of this Base object
          */
         readonly dependencies: Array<DependencyNode> = [];
         /**
@@ -134,7 +135,7 @@ namespace GeometryJS {
         /**
          * Checks if the two objects represent the same thing
          * @param object The second object
-         * @returns 
+         * @returns
          */
         abstract equals(object: this): boolean;
 
@@ -146,20 +147,22 @@ namespace GeometryJS {
          * @param other The object to calculate the intersect with
          */
         abstract intersects(other: Point | Line | Ray): boolean;
-
     }
     //! Points
     /**
      * Point base class
      */
     export abstract class Point extends Base {
-
         protected cache: Map<string, number> = new Map<string, number>();
 
         abstract getX(): number;
-        get xRounded(): number { return round(this.x); }
+        get xRounded(): number {
+            return round(this.x);
+        }
         abstract getY(): number;
-        get yRounded(): number { return round(this.y); }
+        get yRounded(): number {
+            return round(this.y);
+        }
 
         get x(): number {
             const cx = this.cache.get("x");
@@ -204,7 +207,6 @@ namespace GeometryJS {
             throw new InvalidArgumentError("Point", object);
         }
 
-
         intersects(point: Line): boolean;
         intersects(point: Point): boolean;
         intersects(other: Point | Line | Ray): boolean {
@@ -223,8 +225,8 @@ namespace GeometryJS {
      */
     export class FreePoint extends Point {
         public plane: Plane;
-        protected _x: number
-        protected _y: number
+        protected _x: number;
+        protected _y: number;
         constructor(plane: Plane, x: number, y: number) {
             super([]);
             this.plane = plane;
@@ -232,15 +234,29 @@ namespace GeometryJS {
             this._y = y;
         }
 
-        getX(): number { return this._x; }
-        set x(value: number) { this._x = value; this.update(); }
+        getX(): number {
+            return this._x;
+        }
+        set x(value: number) {
+            this._x = value;
+            this.update();
+        }
 
-        getY(): number { return this._y; }
-        set y(value: number) { this._y = value; this.update(); }
+        getY(): number {
+            return this._y;
+        }
+        set y(value: number) {
+            this._y = value;
+            this.update();
+        }
 
         // Needed because of stupid set get behaviour
-        get x(): number { return super.x; }
-        get y(): number { return super.y; }
+        get x(): number {
+            return super.x;
+        }
+        get y(): number {
+            return super.y;
+        }
     }
     export class PointOnLine extends Point {
         readonly line: Line;
@@ -291,8 +307,12 @@ namespace GeometryJS {
         }
 
         // Needed because of stupid set get behaviour
-        get x(): number { return super.x; }
-        get y(): number { return super.y; }
+        get x(): number {
+            return super.x;
+        }
+        get y(): number {
+            return super.y;
+        }
     }
     export class PointOnLineFromPoint extends Point {
         plane: Plane;
@@ -318,7 +338,7 @@ namespace GeometryJS {
             const bd = Math.cos(pbd) * bp; // |BD|
 
             const dr = bd / ab;
-            const dx = dr * (this.line.b.x - this.line.a.x)
+            const dx = dr * (this.line.b.x - this.line.a.x);
 
             return this.line.b.x + dx;
         }
@@ -335,7 +355,7 @@ namespace GeometryJS {
             const bd = Math.cos(pbd) * bp; // |BD|
 
             const dr = bd / ab;
-            const dy = dr * (this.line.b.y - this.line.a.y)
+            const dy = dr * (this.line.b.y - this.line.a.y);
 
             return this.line.b.y + dy;
         }
@@ -367,13 +387,13 @@ namespace GeometryJS {
             super([line, point]);
             if (line.plane !== point.plane) throw new PlaneError(line.plane, point.plane);
             this.plane = line.plane;
-            this.point = point
+            this.point = point;
             this.line = line;
         }
         getX(): number {
             const bc = this.line.b.dist(this.point); // |BC|
             if (bc == 0) return this.line.b.y == this.point.y && this.line.b.x == this.point.x ? this.line.a.y : this.line.b.y; // Return the x of line.b if it's not the same as the point, else the x of line.a
-            const bd = this.line.dist(this.point) // |BD| due to the lines beeing parallel, distance of any two points laying on a perpendicular line is the same
+            const bd = this.line.dist(this.point); // |BD| due to the lines beeing parallel, distance of any two points laying on a perpendicular line is the same
 
             const dc = Math.sqrt(bc * bc - bd * bd); // |DC| Pythagorian theorem
             const ce = bd - dc; // |CE|
@@ -389,8 +409,7 @@ namespace GeometryJS {
         getY(): number {
             const bc = this.line.b.dist(this.point); // |BC|
             if (bc == 0) return this.line.b.y == this.point.y && this.line.b.x == this.point.x ? this.line.a.x : this.line.b.x; // Return the y of line.b if it's not the same as the point, else the y of line.a
-            const bd = this.line.dist(this.point) // |BD| due to the lines beeing parallel, distance of any two points laying on a perpendicular line is the same
-
+            const bd = this.line.dist(this.point); // |BD| due to the lines beeing parallel, distance of any two points laying on a perpendicular line is the same
 
             const dc = Math.sqrt(bc * bc - bd * bd); // |DC| Pythagorian theorem
             const ce = bd - dc; // |CE|
@@ -416,14 +435,13 @@ namespace GeometryJS {
             if (ca) return ca;
             this.cache.set("a", this.getA());
             return <Point>this.cache.get("a");
-        };
+        }
         get b(): Point {
             const cb = this.cache.get("b");
             if (cb) return cb;
             this.cache.set("b", this.getB());
             return <Point>this.cache.get("b");
-
-        };
+        }
 
         public readonly analyticInterface: LineAnalyticInterface = new LineAnalyticInterface(this);
 
@@ -434,8 +452,7 @@ namespace GeometryJS {
             return this.a.y - this.b.y;
         }
         equals(other: Line): boolean {
-            if (other instanceof Line) return (this.a.equals(other.a) && this.b.equals(other.b) || this.a.equals(other.b) && this.b.equals(other.a))
-                || this.isParallel(other) && this.dist(other.a) == 0;
+            if (other instanceof Line) return (this.a.equals(other.a) && this.b.equals(other.b)) || (this.a.equals(other.b) && this.b.equals(other.a)) || (this.isParallel(other) && this.dist(other.a) == 0);
             throw new InvalidArgumentError("Line", other);
         }
         dist(): number;
@@ -446,7 +463,6 @@ namespace GeometryJS {
             if (other instanceof Point) return helpers.Distance.PointLine(other, this);
             throw new InvalidArgumentError("Base", other);
         }
-
 
         intersects(point: Point): boolean;
         intersects(line: Line): boolean;
@@ -488,14 +504,18 @@ namespace GeometryJS {
             this._b = b;
         }
 
-        getA(): Point { return this._a; }
+        getA(): Point {
+            return this._a;
+        }
         set a(value: Point) {
             this._a = value;
             this.resetDependencies([this._a, this._b]);
             this.update();
         }
 
-        getB(): Point { return this._b; }
+        getB(): Point {
+            return this._b;
+        }
         set b(value: Point) {
             this._b = value;
             this.resetDependencies([this._a, this._b]);
@@ -503,8 +523,12 @@ namespace GeometryJS {
         }
 
         // Needed because of stupid set get behaviour
-        get a(): Point { return super.a; }
-        get b(): Point { return super.b; }
+        get a(): Point {
+            return super.a;
+        }
+        get b(): Point {
+            return super.b;
+        }
     }
     export class PerpendicularLine extends Line {
         readonly plane: Plane;
@@ -519,18 +543,24 @@ namespace GeometryJS {
             this.pointerPoint = new PerpendicularLinePointerPoint(this.point);
         }
 
-        getA(): PointOnLineFromPoint { return this.point; }
+        getA(): PointOnLineFromPoint {
+            return this.point;
+        }
         set a(value: PointOnLineFromPoint) {
-            if (value.line != this.line) throw new ImpossibleAssignementError("Cannot change point on line to a different line.")
+            if (value.line != this.line) throw new ImpossibleAssignementError("Cannot change point on line to a different line.");
             this.point = value;
             this.resetDependencies([this.point]);
             this.update();
         }
 
-        getB(): PerpendicularLinePointerPoint { return this.pointerPoint };
+        getB(): PerpendicularLinePointerPoint {
+            return this.pointerPoint;
+        }
 
         // Needed because of stupid set get behaviour
-        get a(): PointOnLineFromPoint { return <PointOnLineFromPoint>super.a; }
+        get a(): PointOnLineFromPoint {
+            return <PointOnLineFromPoint>super.a;
+        }
     }
     export class LineFromRay extends Line {
         readonly plane: Plane;
@@ -544,17 +574,16 @@ namespace GeometryJS {
             return this.ray.a;
         }
         getB(): Point {
-            return this.ray.b
+            return this.ray.b;
         }
     }
     /**
      * An abstract class representing any Ray
      */
     export abstract class Ray extends Base {
-
         /**
          * Getter for the end of the ray point
-        */
+         */
         abstract getA(): Point;
         /**
          * Getter for the point defining the direction of the ray
@@ -564,13 +593,13 @@ namespace GeometryJS {
         protected cache: Map<string, Point> = new Map<string, Point>();
         /**
          * Getter for the end of the ray point
-        */
+         */
         get a(): Point {
             const ca = this.cache.get("a");
             if (ca) return ca;
             this.cache.set("a", this.getA());
             return <Point>this.cache.get("a");
-        };
+        }
         /**
          * Getter for the point defining the direction of the ray
          */
@@ -579,7 +608,7 @@ namespace GeometryJS {
             if (cb) return cb;
             this.cache.set("b", this.getB());
             return <Point>this.cache.get("b");
-        };
+        }
 
         public readonly analyticInterface: RayAnalyticInterface = new RayAnalyticInterface(this);
 
@@ -656,10 +685,13 @@ namespace GeometryJS {
             this.update();
         }
 
-
         // Needed because of stupid set get behaviour
-        get a(): Point { return super.a; }
-        get b(): Point { return super.b; }
+        get a(): Point {
+            return super.a;
+        }
+        get b(): Point {
+            return super.b;
+        }
     }
 
     export class ParallelLine extends Line {
@@ -676,7 +708,9 @@ namespace GeometryJS {
             this.pointerPoint = new ParallelLinePointerPoint(this.line, point);
         }
 
-        getA(): Point { return this.point; }
+        getA(): Point {
+            return this.point;
+        }
         set a(value: Point) {
             if (!(value instanceof Point)) throw new InvalidArgumentError("Point", value);
             if (value.plane != this.plane) throw new PlaneError(value.plane, this.plane);
@@ -684,20 +718,22 @@ namespace GeometryJS {
             this.resetDependencies([this.point, this.line]);
             this.update();
         }
-        getB(): ParallelLinePointerPoint { return this.pointerPoint; }
+        getB(): ParallelLinePointerPoint {
+            return this.pointerPoint;
+        }
 
         // Needed because of stupid set get behaviour
-        get a(): Point { return super.a; }
-
+        get a(): Point {
+            return super.a;
+        }
     }
     export type Countable = Number | BigInt;
     //! Sets
     export abstract class Set<T extends Countable = Number> {
         abstract isInside(number: T): boolean;
-
     }
     //! Intervals
-    export abstract class IntervalBorderPoint { 
+    export abstract class IntervalBorderPoint {
         abstract get value(): number;
         abstract get inclusive(): boolean;
     }
@@ -708,12 +744,12 @@ namespace GeometryJS {
             this.negative = negative;
         }
         get value(): number {
-            return this.negative ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY; 
+            return this.negative ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
         }
         /**
          * NOTE: This is a behaviour, that may be unexcpected in some cases, but is desired for most
          */
-        get inclusive(): true { 
+        get inclusive(): true {
             return true;
         }
     }
@@ -759,12 +795,10 @@ namespace GeometryJS {
         end: IntervalBorderPoint;
         constructor(start: IntervalBorderPoint, end: IntervalBorderPoint) {
             super();
-            if (end.value < start.value) throw new InvalidIntervalError(this, "End must be greater than start.")
+            if (end.value < start.value) throw new InvalidIntervalError(this, "End must be greater than start.");
             this.start = start;
             this.end = end;
-
         }
-        
     }
     export class RayLimitInterval extends Interval {
         protected readonly ray: Ray;
@@ -776,7 +810,7 @@ namespace GeometryJS {
             this.axis = axis;
             this.lim = new IntervalBorderPointRayLimit(ray, axis);
         }
-        get start(): IntervalBorderPoint { 
+        get start(): IntervalBorderPoint {
             if (this.axis == "x") return this.ray.analyticInterface.XLimitIsMinimum ? this.lim : NEGATIVE_INFINITY_INTERVAL_BORDER_POINT;
             return this.ray.analyticInterface.YLimitIsMinimum ? this.lim : NEGATIVE_INFINITY_INTERVAL_BORDER_POINT;
         }
@@ -784,7 +818,6 @@ namespace GeometryJS {
             if (this.axis == "x") return !this.ray.analyticInterface.XLimitIsMinimum ? this.lim : POSITIVE_INFINITY_INTERVAL_BORDER_POINT;
             return !this.ray.analyticInterface.YLimitIsMinimum ? this.lim : POSITIVE_INFINITY_INTERVAL_BORDER_POINT;
         }
-        
     }
     export class RealNumbers extends Set<number> {
         isInside(number: number): boolean {
@@ -800,7 +833,6 @@ namespace GeometryJS {
         readonly fieldOfInputs: T;
     }
     export type DefinedRangeAndField<T extends Set<number> = Set<number>> = DefinedFieldOfInputsFunction<T> & DefinedRangeOfValuesFunction<T>;
-
 
     export abstract class Function<C extends boolean = boolean> extends Base {
         continuous: C;
@@ -819,7 +851,6 @@ namespace GeometryJS {
 
         abstract evaluate(x: number): number;
         abstract toString(): string;
-
     }
     export class StandardFunction<C extends boolean = boolean> extends Function<C> {
         protected evaluator: (number: number) => number;
@@ -835,7 +866,7 @@ namespace GeometryJS {
         toString(): string {
             return this.toStringFunc();
         }
-        deleteCache(): void { }
+        deleteCache(): void {}
         equals(other: StandardFunction): boolean {
             return this.evaluator == other.evaluator;
         }
@@ -856,7 +887,7 @@ namespace GeometryJS {
         get coefficients(): Array<number> {
             if (this.coefficientsCache === undefined) {
                 var c = this.getCoefficients();
-                for (var i = c.length - 1; c[ i ] = 0; i--) {
+                for (var i = c.length - 1; c[i] == 0; i--) {
                     c.splice(i, 1);
                 }
                 this.coefficientsCache = c;
@@ -870,7 +901,7 @@ namespace GeometryJS {
             this.coefficientsCache = undefined;
         }
         equals(other: Polynomial): boolean {
-            return this.degree == other.degree && [ ...this.coefficients ] == [ ...other.coefficients ];
+            return this.degree == other.degree && [...this.coefficients] == [...other.coefficients];
         }
         intersects(other: Base): boolean {
             throw new NotImplementedError("Intersects for polynomials.");
@@ -878,17 +909,17 @@ namespace GeometryJS {
         toString(variable = "x", includeMultiplicationSymbol = false, functionName: string | undefined = "f"): string {
             var rv = "";
             for (let i = this.coefficients.length - 1; i > 1; i--) {
-                rv += `${this.coefficients[ i ]}${includeMultiplicationSymbol ? "*" : ""}${variable}**${i} + `;
+                rv += `${this.coefficients[i]}${includeMultiplicationSymbol ? "*" : ""}${variable}**${i} + `;
             }
-            rv += `${this.coefficients[ 1 ]}${includeMultiplicationSymbol ? "*" : ""}${variable} + `
-            rv += `${this.coefficients[ 0 ]}`;
+            rv += `${this.coefficients[1]}${includeMultiplicationSymbol ? "*" : ""}${variable} + `;
+            rv += `${this.coefficients[0]}`;
             if (functionName !== undefined) return `${functionName}(${variable}) = ${rv}`;
             return rv;
         }
         evaluate(x: number): number {
             var sum = 0;
             for (var i = 0; i < this.coefficients.length; i++) {
-                sum += this.coefficients[ i ] * x ** i;
+                sum += this.coefficients[i] * x ** i;
             }
             return sum;
         }
@@ -913,7 +944,7 @@ namespace GeometryJS {
         }
     }
 
-    //! Errors 
+    //! Errors
     /**
      * A generic GeometryJS Error
      */
@@ -936,13 +967,13 @@ namespace GeometryJS {
             return `GeometryJS ${this.name} at ${this.date.getHours()}:${this.date.getMinutes()}:${this.date.getSeconds()}.${this.date.getMilliseconds()}.`;
         }
         toJSON(): {
-            name: string,
-            date: number
+            name: string;
+            date: number;
         } {
             return {
                 name: this.name,
-                date: this.date.getTime()
-            }
+                date: this.date.getTime(),
+            };
         }
     }
     export class InvalidArgumentError extends Error {
@@ -1055,12 +1086,10 @@ namespace GeometryJS {
         toString(): string {
             return `x = ${this.x} && y = ${this.y}`;
         }
-        deleteCache(): void {
-
-        }
+        deleteCache(): void {}
     }
     /**
-     * The analytic interface for a line in the form of an equation ay + bx = c   
+     * The analytic interface for a line in the form of an equation ay + bx = c
      * NOTE: This should output the line in a normalized form, where *a*, the y coefficient, is either 1 or 0, but other implementors do not need to follow this standard and can output the equation in a arbitrary form (multiplied by any non-zero constant)
      */
     export class LineAnalyticInterface extends AnalyticInterface<Line> {
@@ -1073,13 +1102,12 @@ namespace GeometryJS {
         }
 
         protected getA(): number {
-            if (this.line.a.x == this.line.b.x) return 0; // If the line is vertical, the Y component is zero 
+            if (this.line.a.x == this.line.b.x) return 0; // If the line is vertical, the Y component is zero
             return 1; // Normalized form of the equation requires the Y component to be either 0 or 1
         }
         protected getB(): number {
-            if (this.line.a.x == this.line.b.x) return 1; // If the line is vertical, the Y component is required to be 1 
+            if (this.line.a.x == this.line.b.x) return 1; // If the line is vertical, the Y component is required to be 1
             return (this.a * (this.line.a.y - this.line.b.y)) / (this.line.a.x - this.line.b.x); // b is calculated according to the slope NOTE: multiplied by this.a instead of 1 in case of a override to the getA method
-
         }
         protected getC(): number {
             if (this.line.a.y == this.line.b.y) return this.line.a.x / this.a; // NOTE: the division here is in case of a override of the getA or getB method
@@ -1141,13 +1169,12 @@ namespace GeometryJS {
             this.intervalY = new RayLimitInterval(ray, "y");
         }
         protected getA(): number {
-            if (this.ray.a.x == this.ray.b.x) return 0; // If the ray is vertical, the Y component is zero 
+            if (this.ray.a.x == this.ray.b.x) return 0; // If the ray is vertical, the Y component is zero
             return 1; // Normalized form of the equation requires the Y component to be either 0 or 1
         }
         protected getB(): number {
-            if (this.ray.a.x == this.ray.b.x) return 1; // If the ray is vertical, the Y component is required to be 1 
+            if (this.ray.a.x == this.ray.b.x) return 1; // If the ray is vertical, the Y component is required to be 1
             return (this.a * (this.ray.a.y - this.ray.b.y)) / (this.ray.a.x - this.ray.b.x); // b is calculated according to the slope NOTE: multiplied by this.a instead of 1 in case of a override to the getA method
-
         }
         protected getC(): number {
             if (this.ray.a.y == this.ray.b.y) return this.ray.a.x / this.a; // NOTE: the division here is in case of a override of the getA or getB method
@@ -1165,7 +1192,6 @@ namespace GeometryJS {
         }
         protected getYLimitIsMinimum(): boolean {
             return this.ray.b.y > this.ray.a.y;
-
         }
         /**
          * Form of the equation: ay + bx = c
@@ -1257,9 +1283,7 @@ namespace GeometryJS {
         toString(): string {
             return this.function.toString();
         }
-        deleteCache(): void {
-            
-        }
+        deleteCache(): void {}
     }
     //! Helpers
     export namespace helpers {
@@ -1273,12 +1297,12 @@ namespace GeometryJS {
                 const c = ray2.a; // Point C
                 const d = ray2.b; // Point D
 
-                throw new NotImplementedError("Ray Ray intersect")
+                throw new NotImplementedError("Ray Ray intersect");
             }
             export function RayLine(ray: Ray, line: Line): boolean {
                 const blb = ray.b.dist(line.b); // |BBl| where Bl is the B point of the line
                 const alb = ray.a.dist(line.b); // |ABl| where Bl is the B point of the line
-                const ab = ray.a.dist(ray.b); // |AB| 
+                const ab = ray.a.dist(ray.b); // |AB|
                 const lalb = line.a.dist(line.b);
                 const ala = ray.a.dist(line.a); // |AAl| where Al is the A point of the line
                 const bla = ray.b.dist(line.a); // |BAl| where Al is the A point of the line
@@ -1287,7 +1311,7 @@ namespace GeometryJS {
                 const lalba = cosineTheoremAngle(lalb, alb, ala); // |AlBlA|
                 const lalbb = cosineTheoremAngle(lalb, blb, bla); // |AlBlB|
 
-                return equals(blba, lalba + lalbb) || equals(Math.PI * 2 - blba, lalba + lalbb)
+                return equals(blba, lalba + lalbb) || equals(Math.PI * 2 - blba, lalba + lalbb);
             }
         }
         export namespace Distance {
@@ -1302,8 +1326,8 @@ namespace GeometryJS {
                 const bd = Math.cos(pbd) * bp; // |BD|
 
                 const dr = bd / ab;
-                const dx = dr * (line.b.x - line.a.x)
-                const dy = dr * (line.b.y - line.a.y)
+                const dx = dr * (line.b.x - line.a.x);
+                const dy = dr * (line.b.y - line.a.y);
 
                 const x = line.b.x + dx;
                 const y = line.b.y + dy;
@@ -1395,7 +1419,7 @@ namespace GeometryJS {
          */
         abstract segment(ax: number, ay: number, bx: number, by: number): void;
         /**
-         * A function that graphs a continuous mathematical function 
+         * A function that graphs a continuous mathematical function
          * @param func The continuous mathematical function
          */
         abstract continuousFunc(func: (x: number) => number): void;
@@ -1404,7 +1428,6 @@ namespace GeometryJS {
          * @param func The discontinuous mathematical function
          */
         abstract discontinuousFunc(func: (x: number) => number): void;
-
     }
     /**
      * Compares two numbers according to set decimal precision
@@ -1415,7 +1438,7 @@ namespace GeometryJS {
         return a.toPrecision(precision) === b.toPrecision(precision);
     }
     /**
-     * A function that rounds a number to a sensible precision for human reading. 
+     * A function that rounds a number to a sensible precision for human reading.
      * @param a The number to round
      */
     export function round(a: number): number {
@@ -1453,7 +1476,7 @@ namespace GeometryJS {
         return equals(s[2], s[1] + s[0]);
     }
     /**
-     * A function that calculates the sine theorem  
+     * A function that calculates the sine theorem
      * @param a The length of the side a
      * @param alpha Angle alpha
      * @param beta Angle beta

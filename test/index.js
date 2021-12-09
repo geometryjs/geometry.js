@@ -12,22 +12,22 @@ for (const test of tests) {
             success: typeof num === "number" && typeof num2 === "number" ? GeometryJS.equals(num, num2) : num === num2,
             name: str,
             recieved: num,
-            expected: num2
+            expected: num2,
         });
         if (!(typeof num === "number" && typeof num2 === "number" ? GeometryJS.equals(num, num2) : num === num2)) r = false;
     });
     results.push({
         success: r,
-        name: "\u001b[34mTest function \u001b[0m" + (tests.indexOf(test) + 1) + (test.testName ? (" - " + test.testName) : ""),
+        name: "\u001b[34mTest function \u001b[0m" + (tests.indexOf(test) + 1) + (test.testName ? " - " + test.testName : ""),
         expected: true,
-        recieved: r
+        recieved: r,
     });
 }
-const success = results.every(v => v.success);
+const success = results.every((v) => v.success);
 
 loop: for (const result of results) {
     if (result.success) {
-        console.log("\u001b[32mTest successful. \u001b[0mTest name: " + result.name,);
+        console.log("\u001b[32mTest successful. \u001b[0mTest name: " + result.name);
         continue loop;
     }
     console.log("\u001b[31mTest failed. \u001b[0mTest name: " + result.name);
