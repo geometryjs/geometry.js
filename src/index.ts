@@ -212,7 +212,7 @@ namespace GeometryJS {
         intersects(other: Point | Line | Ray): boolean {
             if (other instanceof Point) return this.equals(other);
             if (other instanceof Line) return helpers.Intersects.PointLine(this, other);
-            if (other instanceof Ray) throw new NotImplementedError("Ray intersects");
+            if (other instanceof Ray) throw new NotImplementedError("Point Ray intersection");
             throw new InvalidArgumentError("Base", other);
         }
         deleteCache(): void {
@@ -1301,8 +1301,10 @@ namespace GeometryJS {
 
                 var r = helpers.Calculate.LineLineIntersect(a1, b1, c1, a2, b2, c2);
 
-                if (r === false) return r;
-                return true;
+                if (typeof r == "boolean") return r;
+                var on1 = ray1.analyticInterface.intervalX.isInside(r[0]);
+                var on2 = ray2.analyticInterface.intervalX.isInside(r[0]);
+                return on1 && on2;
             }
             export function RayLine(ray: Ray, line: Line): boolean {
                 const blb = ray.b.dist(line.b); // |BBl| where Bl is the B point of the line
