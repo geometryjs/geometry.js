@@ -1291,13 +1291,18 @@ namespace GeometryJS {
             export function PointLine(point: Point, line: Line): boolean {
                 return onOneLine(point.dist(line.a), point.dist(line.b), line.b.dist(line.a));
             }
-            export function RayRay(ray1: Ray, ray2: Ray): number {
-                const a = ray1.a; // Point A
-                const b = ray1.b; // Point B
-                const c = ray2.a; // Point C
-                const d = ray2.b; // Point D
+            export function RayRay(ray1: Ray, ray2: Ray): boolean {
+                let a1 = ray1.analyticInterface.a;
+                let a2 = ray2.analyticInterface.b;
+                let b1 = ray1.analyticInterface.b;
+                let b2 = ray2.analyticInterface.b;
+                let c1 = ray1.analyticInterface.c;
+                let c2 = ray2.analyticInterface.c;
 
-                throw new NotImplementedError("Ray Ray intersect");
+                var r = helpers.Calculate.LineLineIntersect(a1, b1, c1, a2, b2, c2);
+
+                if (r === false) return r;
+                return true;
             }
             export function RayLine(ray: Ray, line: Line): boolean {
                 const blb = ray.b.dist(line.b); // |BBl| where Bl is the B point of the line
@@ -1373,6 +1378,27 @@ namespace GeometryJS {
                 const d = ray2.b; // Point D
 
                 throw new NotImplementedError("RayRay distance");
+            }
+        }
+        export namespace Calculate {
+            /**
+             * Calculates the intersection point of two lines given their equations. If lines are parallel returns false, if they are coincident returns true
+             * @param a1 Y coefficient of the first line equation
+             * @param b1 X coefficient of the first line equation
+             * @param c1 Absolute coefficient of the first line equation
+             * @param a2 Y coefficient of the second line equation
+             * @param b2 X coefficient of the second line equation
+             * @param c2 Absolute coefficient of the second line equation
+             */
+            export function LineLineIntersect(a1: number, b1: number, c1: number, a2: number, b2: number, c2: number): [number, number] | boolean {
+                const det = a1 * b2 - a2 * b1;
+                if (equals(det, 0)) {
+                    if (equals(a1, a2) && equals(b1, b2)) return true;
+                    return false;
+                }
+                const x = (b2 * c1 - b1 * c2) / det;
+                const y = (a1 * c2 - a2 * c1) / det;
+                return [x, y];
             }
         }
     }
