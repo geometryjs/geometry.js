@@ -1319,6 +1319,15 @@ namespace GeometryJS {
                 if (typeof r == "boolean") return r;
                 return true;
             }
+            export function RayPoint(ray: Ray, point: Point): boolean {
+                let a = ray.analyticInterface.a;
+                let b = ray.analyticInterface.b;
+                let c = ray.analyticInterface.c;
+                let x = point.x;
+                let y = point.y;
+                let d = a * x + b * y + c;
+                return d == 0 && ray.analyticInterface.intervalX.isInside(x);
+            }
             export function RayLine(ray: Ray, line: Line): boolean {
                 const blb = ray.b.dist(line.b); // |BBl| where Bl is the B point of the line
                 const alb = ray.a.dist(line.b); // |ABl| where Bl is the B point of the line
