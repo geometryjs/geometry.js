@@ -107,4 +107,5 @@ module.exports[0].testName = "Value retainment";
 module.exports[1].testName = "Intersect check";
 module.exports[2].testName = "Perpendicular line check";
 module.exports[3].testName = "Parallel line check";
+module.exports[4].testName = "Ray origin distance check";
 module.exports[5].testName = "Polynom evaluation check";
