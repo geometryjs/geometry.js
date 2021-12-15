@@ -1306,6 +1306,19 @@ namespace GeometryJS {
                 var on2 = ray2.analyticInterface.intervalX.isInside(r[0]);
                 return on1 && on2;
             }
+            export function LineLine(line1: Line, line2: Line): boolean {
+                let a1 = line1.analyticInterface.a;
+                let a2 = line2.analyticInterface.b;
+                let b1 = line1.analyticInterface.b;
+                let b2 = line2.analyticInterface.b;
+                let c1 = line1.analyticInterface.c;
+                let c2 = line2.analyticInterface.c;
+
+                var r = helpers.Calculate.LineLineIntersect(a1, b1, c1, a2, b2, c2);
+
+                if (typeof r == "boolean") return r;
+                return true;
+            }
             export function RayLine(ray: Ray, line: Line): boolean {
                 const blb = ray.b.dist(line.b); // |BBl| where Bl is the B point of the line
                 const alb = ray.a.dist(line.b); // |ABl| where Bl is the B point of the line
