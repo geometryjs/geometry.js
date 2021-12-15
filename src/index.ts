@@ -212,7 +212,7 @@ namespace GeometryJS {
         intersects(other: Point | Line | Ray): boolean {
             if (other instanceof Point) return this.equals(other);
             if (other instanceof Line) return helpers.Intersects.PointLine(this, other);
-            if (other instanceof Ray) throw new NotImplementedError("Point Ray intersection");
+            if (other instanceof Ray) return helpers.Intersects.RayPoint(other, this);
             throw new InvalidArgumentError("Base", other);
         }
         deleteCache(): void {
@@ -469,7 +469,7 @@ namespace GeometryJS {
         intersects(other: Point | Line | Ray): boolean {
             if (other instanceof Point) return helpers.Intersects.PointLine(other, this);
             if (other instanceof Line) return !this.isParallel(other);
-            if (other instanceof Ray) throw new NotImplementedError("Ray intersects");
+            if (other instanceof Ray) return helpers.Intersects.RayLine(other, this);
 
             throw new InvalidArgumentError("Base", other);
         }
@@ -645,11 +645,16 @@ namespace GeometryJS {
             if (!other) return helpers.Distance.Ray(this);
             if (other instanceof Point) helpers.Distance.RayPoint(this, other);
             if (other instanceof Line) helpers.Distance.RayLine(this, other);
-            throw new InvalidArgumentError("base", other);
+            throw new InvalidArgumentError("Base", other);
         }
         intersects(other?: Line | Point | Ray): boolean {
-            throw new NotImplementedError("Ray intersects");
+            if (!other) throw new InvalidArgumentError("Base", other);
+            if (other instanceof Point) return helpers.Intersects.RayPoint(this, other);
+            if (other instanceof Line) return helpers.Intersects.RayLine(this, other);
+            if (other instanceof Ray) return helpers.Intersects.RayRay(this, other);
+            throw new InvalidArgumentError("Base", other);
         }
+
 
         deleteCache(): void {
             this.cache.clear();
