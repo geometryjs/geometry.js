@@ -22,26 +22,10 @@ module.exports = [
         const b2 = plane.createPoint(0, 50);
 
         const line = plane.createLine(x, y);
-        assert(
-            line.intersects(x) && line.intersects(y),
-            true,
-            "Creator point lays on line"
-        );
-        assert(
-            line.intersects(a),
-            true,
-            "Point between creator points lays on line"
-        );
-        assert(
-            line.intersects(a2),
-            true,
-            "Point on line outside of segment lays on line."
-        );
-        assert(
-            line.intersects(b) || line.intersects(b2),
-            false,
-            "Point not on line does not intersect the line"
-        );
+        assert(line.intersects(x) && line.intersects(y), true, "Creator point lays on line");
+        assert(line.intersects(a), true, "Point between creator points lays on line");
+        assert(line.intersects(a2), true, "Point on line outside of segment lays on line.");
+        assert(line.intersects(b) || line.intersects(b2), false, "Point not on line does not intersect the line");
     },
     (assert) => {
         const plane = new GeometryJS.Plane();
@@ -56,11 +40,7 @@ module.exports = [
         const b = plane.createPoint(200, -100);
         assert(pLine.intersects(a), true, "Correct perpendicular line created");
         assert(pLine.intersects(b), true, "Correct perpendicular line created");
-        assert(
-            pLine.isParallel(line),
-            false,
-            "Checks, if perpendicular line is not parallel."
-        );
+        assert(pLine.isParallel(line), false, "Checks, if perpendicular line is not parallel.");
     },
     (assert) => {
         const plane = new GeometryJS.Plane();
@@ -71,9 +51,7 @@ module.exports = [
         const line = plane.createLine(x, y);
         const pLine = line.createParallel(z);
 
-        const ps = [-1000000000, -999800, -10, 0, 50, 1e5, 1e8, 1e10].map((v) =>
-            plane.createPoint(100 + v, v)
-        );
+        const ps = [-1000000000, -999800, -10, 0, 50, 1e5, 1e8, 1e10].map((v) => plane.createPoint(100 + v, v));
         for (const p of ps) {
             assert(pLine.intersects(p), true, "Point on the line: " + p.y);
         }
@@ -84,11 +62,7 @@ module.exports = [
             [236, -12],
         ].map((v) => plane.createPoint(...v));
         for (const p of pns) {
-            assert(
-                pLine.intersects(p),
-                false,
-                "Point non the line: " + p.xRounded
-            );
+            assert(pLine.intersects(p), false, "Point non the line: " + p.xRounded);
         }
         assert(pLine.isParallel(line), true, "Parallel line check.");
     },
@@ -111,11 +85,21 @@ module.exports = [
             const b = plane.createPoint(Bx, By);
 
             const ray = plane.createRay(a, b);
-            assert(
-                ray.dist(),
-                dist,
-                `Ray origin distance: Ray([${Ax}, ${Ay}}], [${Bx}, ${By}])`
-            );
+            assert(ray.dist(), dist, `Ray origin distance: Ray([${Ax}, ${Ay}}], [${Bx}, ${By}])`);
+        }
+    },
+    /**
+     * Tests the polynomial class
+     */
+    (assert) => {
+        const plane = new GeometryJS.Plane();
+
+        const poly = new GeometryJS.StandardPolynomial(plane, [0, 0, 1]);
+        const poly2 = new GeometryJS.StandardPolynomial(plane, [1, 3, 1, 2]);
+
+        for (let i = 0; i < 10; i += 0.234) {
+            assert(poly.evaluate(i), i ** 2, `Calculates ${poly.toString()} for x=${i}.`);
+            assert(poly2.evaluate(i), 1 + 3 * i + i ** 2 + 2 * i ** 3, `Calculates ${poly.toString()} for x=${i}.`);
         }
     },
 ];
@@ -123,3 +107,4 @@ module.exports[0].testName = "Value retainment";
 module.exports[1].testName = "Intersect check";
 module.exports[2].testName = "Perpendicular line check";
 module.exports[3].testName = "Parallel line check";
+module.exports[5].testName = "Polynom evaluation check";
