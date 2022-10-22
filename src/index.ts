@@ -906,7 +906,7 @@ namespace GeometryJS {
             this.coefficientsCache = undefined;
         }
         equals(other: Polynomial): boolean {
-            return this.degree == other.degree && [...this.coefficients] == [...other.coefficients];
+            return this.degree == other.degree && this.coefficients.every((value, index) => equals(value, other.coefficients[index]));
         }
         intersects(other: Base): boolean {
             throw new NotImplementedError("Intersects for polynomials.");
