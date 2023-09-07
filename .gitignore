@@ -4,3 +4,4 @@ src/index-module.ts
 
 node_modules
 coverage
+tsconfig.tsbuildinfo
