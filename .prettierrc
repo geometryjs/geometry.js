@@ -2,7 +2,7 @@
     "tabWidth": 4,
     "useTabs": false,
     "arrowParens": "always",
-    "bracketSpacing": false,
+    "bracketSpacing": true,
     "endOfLine": "crlf",
     "semi": true,
     "quoteProps": "as-needed",
