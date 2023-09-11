@@ -7,7 +7,7 @@ export class DependencyNode implements IDependencyNode {
 
     constructor(dependencies: Iterable<IDependencyNode>) {
         for (const dependency of dependencies) {
-            this.registerDependency(dependency);
+            this.registerDependency(dependency); 
         }
     }
 
@@ -42,10 +42,10 @@ export class DependencyNode implements IDependencyNode {
     }
     
     get dependencies(): Iterable<IDependencyNode> {
-        return this.dependencies;
+        return this.nodeDependencies;
     }
     get dependants(): Iterable<IDependencyNode> {
-        return this.dependants;
+        return this.nodeDependants;
     }
 
     
@@ -56,6 +56,3 @@ export class DependencyNode implements IDependencyNode {
         return this.getDeepDependantsDFS();
     }
 }
-
-type a<O extends Iterable<number>> = O;
-type b = a<Set<number>>;
