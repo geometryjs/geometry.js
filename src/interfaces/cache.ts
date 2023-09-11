@@ -30,6 +30,12 @@ export interface Cache<Records extends Record<string, Some | null> = Record<stri
      * @param key The record key.
      */
     clearValue<Key extends keyof Records>(key: Key): void;
+
+    /**
+     * Checks whether the cache has a value for the specified key.
+     * @param key The record key.
+     */
+    hasValue<Key extends keyof Records>(key: Key): boolean;
 }
 
 /**
