@@ -17,4 +17,8 @@ export class Plane extends GeometryObject<{}> implements IPlane {
     public ulinkObject(object: GeometryObject): void {
         this.objects.delete(object);
     }
+
+    [Symbol.iterator](): Iterator<GeometryObject> {
+        return this.objects.values();
+    }
 }
