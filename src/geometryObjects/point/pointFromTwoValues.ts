@@ -1,5 +1,4 @@
 import { DependencyNode } from "../../interfaces/dependencyNode";
-import { GeometryObject } from "../../interfaces/geometryObject";
 import { Value } from "../../interfaces/value";
 import { AbstractPoint } from "./abstractPoint";
 
