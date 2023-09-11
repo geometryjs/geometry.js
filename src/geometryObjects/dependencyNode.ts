@@ -9,7 +9,6 @@ export class DependencyNode implements IDependencyNode {
         for (const dependency of dependencies) {
             this.registerDependency(dependency);
         }
-        this.update();
     }
 
     private registerDependency(dependency: IDependencyNode): void {
