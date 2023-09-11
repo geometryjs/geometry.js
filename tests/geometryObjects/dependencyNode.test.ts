@@ -1,4 +1,6 @@
-import { DependencyNode } from "../../src/geometryObjects/dependencyNode";
+import { DependencyNode, DependencyNodeWithCache } from "../../src/geometryObjects/dependencyNode";
+import { Some } from "../../src/helpers/types/general";
+import { IterableCache } from "../../src/interfaces/cache";
 
 class DependencyNodeWithUpdateFuncition extends DependencyNode {
     public readonly updateFunction: jest.Mock<undefined, [], any>;
@@ -7,7 +9,7 @@ class DependencyNodeWithUpdateFuncition extends DependencyNode {
         this.updateFunction = updateFunction;
     }
     public update(): void {
-        this.updateFunction(); 
+        this.updateFunction();
         super.update();
     }
 
@@ -24,9 +26,7 @@ class DependencyNodeWithUpdateFuncition extends DependencyNode {
     get deepDependants(): Iterable<DependencyNodeWithUpdateFuncition> {
         return super.deepDependants as Iterable<DependencyNodeWithUpdateFuncition>;
     }
-
 }
-
 
 describe("DependencyNode", () => {
     const root = new DependencyNodeWithUpdateFuncition([], jest.fn());
@@ -38,11 +38,7 @@ describe("DependencyNode", () => {
     });
 
     test("registering dependants", () => {
-        const dependants = [
-            new DependencyNodeWithUpdateFuncition([root], jest.fn()),
-            new DependencyNodeWithUpdateFuncition([root], jest.fn()),
-            new DependencyNodeWithUpdateFuncition([root], jest.fn()),
-        ]
+        const dependants = [new DependencyNodeWithUpdateFuncition([root], jest.fn()), new DependencyNodeWithUpdateFuncition([root], jest.fn()), new DependencyNodeWithUpdateFuncition([root], jest.fn())];
 
         for (const dependant of dependants) {
             expect(root.dependants).toContain(dependant);
@@ -60,16 +56,11 @@ describe("DependencyNode", () => {
             expect(node.updateFunction).toBeCalled();
             node.updateFunction.mockClear();
         }
-
     });
 
     test("second level dependants", () => {
         for (const dependant of root.dependants) {
-            const secondLevelDependants = [
-                new DependencyNodeWithUpdateFuncition([dependant], jest.fn()),
-                new DependencyNodeWithUpdateFuncition([dependant], jest.fn()),
-                new DependencyNodeWithUpdateFuncition([dependant], jest.fn()),
-            ];
+            const secondLevelDependants = [new DependencyNodeWithUpdateFuncition([dependant], jest.fn()), new DependencyNodeWithUpdateFuncition([dependant], jest.fn()), new DependencyNodeWithUpdateFuncition([dependant], jest.fn())];
             for (const secondLevelDependant of secondLevelDependants) {
                 expect(dependant.dependants).toContain(secondLevelDependant);
             }
@@ -101,7 +92,43 @@ describe("DependencyNode", () => {
             expect(dependant.updateFunction).toBeCalled();
             dependant.updateFunction.mockClear();
         }
-    })
+    });
+});
 
+class MockCache<Records extends Record<string, Some | null> = Record<string, Some | null>> implements IterableCache<Records> {
+    public clearAll = jest.fn();
+    public clearValue = jest.fn();
+    public hasValue = jest.fn();
+    public readValue = jest.fn();
+    public saveValue = jest.fn();
+    public [Symbol.iterator] = jest.fn();
+}
+
+describe("DependencyNodeWithCache", () => {
+    const rootCache = new MockCache();
+    const root = new DependencyNodeWithCache([], rootCache);
+
+    test("update clears cache", () => {
+        root.update();
+        expect(rootCache.clearAll).toBeCalled();
+        rootCache.clearAll.mockClear();
+    });
+
+    const depCaches = [new MockCache(), new MockCache(), new MockCache()];
+    test("registering dependants", () => {
+        const dependants = [new DependencyNodeWithCache([root], depCaches[0]!), new DependencyNodeWithCache([root], depCaches[1]!), new DependencyNodeWithCache([root], depCaches[2]!)];
+
+        for (const dependant of dependants) {
+            expect(root.dependants).toContain(dependant);
+        }
+    });
+
+    test("update triggers all cache deletion", () => {
+        root.update();
+        for (const cache of depCaches) {
+            expect(cache.clearAll).toBeCalled();
+            cache.clearAll.mockClear();
+        }
+    });
 
 });

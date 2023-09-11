@@ -1,3 +1,5 @@
+import { Some } from "../helpers/types/general";
+import { IterableCache } from "../interfaces/cache";
 import { DependencyNode as IDependencyNode } from "../interfaces/dependencyNode";
 
 /**
@@ -57,5 +59,19 @@ export class DependencyNode implements IDependencyNode {
     }
     get deepDependants(): Iterable<IDependencyNode> {
         return this.getDeepDependantsDFS();
+    }
+}
+
+/**
+ * Represents a node in the dependency tree. Node has a cache that is cleared when the node is updated.
+ */
+export class DependencyNodeWithCache<CacheRecords extends Record<string, Some| null> = Record<string, Some | null>, CacheNonEmpty extends true | false = false> extends DependencyNode {
+    constructor(dependencies: Iterable<DependencyNode>, protected readonly cache: IterableCache<CacheRecords, CacheNonEmpty>) {
+        super(dependencies);
+    }
+
+    public update(): void {
+        this.cache.clearAll();
+        super.update();
     }
 }
