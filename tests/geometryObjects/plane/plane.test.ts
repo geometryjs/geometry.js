@@ -1,4 +1,5 @@
 import { Plane } from "../../../src/geometryObjects/plane/plane";
+import * as Interfaces from "../../../src/interfaces";
 describe("Plane", () => {
     test.concurrent("constructor", () => {
         const plane = new Plane();
@@ -31,5 +32,13 @@ describe("Plane", () => {
         expect([...plane]).not.toContain(object);
     });
 
+    test.concurrent("implements", () => {
+        const plane = new Plane();
+        const interfaces = [...plane.getImplementedInterfaces()];
+        const expectedInterfaces = Interfaces.Plane;
 
+        for (const expectedInterface of expectedInterfaces) {
+            expect(interfaces).toContain(expectedInterface);
+        }
+    });
 });
