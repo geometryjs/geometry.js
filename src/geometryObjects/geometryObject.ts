@@ -18,4 +18,10 @@ export class GeometryObject<CacheRecords extends Record<string, Some | null> = R
     public getImplementedInterfaces(): Iterable<Interfaces.Interface> {
         return this.implementedInterfaces;
     }
+
+    public get info(): IGeometryObject["info"] {
+        return {
+            implementedInterfaces: this.getImplementedInterfaces()
+        }
+    }
 }
