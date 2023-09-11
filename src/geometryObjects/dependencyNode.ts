@@ -16,7 +16,7 @@ export class DependencyNode implements IDependencyNode {
         }
     }
 
-    private registerDependency(dependency: IDependencyNode): void {
+    protected registerDependency(dependency: IDependencyNode): void {
         this.nodeDependencies.add(dependency);
         dependency.registerDependant(this);
     }
