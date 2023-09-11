@@ -1,4 +1,3 @@
-
 export const Cache = ["Cache"] as const;
 export const IterableCache = ["IterableCache", ...Cache] as const;
 export const Evaluatable = ["Evaluatable"] as const;
@@ -8,7 +7,7 @@ export const Plane = ["Plane", ...GeometryObject, ...DependencyNode, ...Iterable
 export const Procedure = ["Procedure"] as const;
 export const Transformer = ["Transformer"] as const;
 
-export type Interface =
+export type Interface = Readonly<
     | (typeof Cache)[number]
     | (typeof IterableCache)[number]
     | (typeof Evaluatable)[number]
@@ -16,4 +15,5 @@ export type Interface =
     | (typeof GeometryObject)[number]
     | (typeof Plane)[number]
     | (typeof Procedure)[number]
-    | (typeof Transformer)[number];
+    | (typeof Transformer)[number]
+>;
