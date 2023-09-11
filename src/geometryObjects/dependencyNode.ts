@@ -19,14 +19,14 @@ export class DependencyNode implements IDependencyNode {
     private* getDeepDependenciesDFS(): Iterable<IDependencyNode> {
         for (const dependency of this.dependencies) {
             yield dependency;
-            yield* dependency.deepDependencies;
+            yield* dependency.dependencies;
         }
     }
     
     private* getDeepDependantsDFS(): Iterable<IDependencyNode> {
         for (const dependant of this.dependants) {
             yield dependant;
-            yield* dependant.deepDependants;
+            yield* dependant.dependants;
         }
     }
     
