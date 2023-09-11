@@ -1,5 +1,4 @@
 import { MemoryMapCacheWithAutomaticCalculation } from "../../helpers/cache/memoryMapCache";
-import { DependencyNode } from "../../interfaces/dependencyNode";
 import { GeometryObject } from "../geometryObject";
 import { Plane as IPlane } from "../../interfaces/plane";
 
