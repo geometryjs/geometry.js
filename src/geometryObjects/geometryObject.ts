@@ -6,7 +6,7 @@ import { IterableCache } from "../interfaces/cache";
 import * as Interfaces from "../interfaces";
 
 export class GeometryObject<CacheRecords extends Record<string, Some | null> = Record<string, Some | null>> extends DependencyNodeWithCache<CacheRecords, true> implements IGeometryObject, DependencyNode {
-    protected readonly implementedInterfaces: Set<Interfaces.Interface> = new Set();
+    private readonly implementedInterfaces: Set<Interfaces.Interface> = new Set();
     constructor(parameters: { readonly dependencies: Iterable<DependencyNode>; readonly cache: IterableCache<CacheRecords, true>, readonly implementedInterfaces: Iterable<Interfaces.Interface> }) {
         super(parameters);
         const { implementedInterfaces } = parameters;
@@ -17,6 +17,12 @@ export class GeometryObject<CacheRecords extends Record<string, Some | null> = R
 
     public getImplementedInterfaces(): Iterable<Interfaces.Interface> {
         return this.implementedInterfaces;
+    }
+
+    protected addImplementedInterfaces(interfaces: Iterable<Interfaces.Interface>): void {
+        for (const implementedInterface of interfaces) {
+            this.implementedInterfaces.add(implementedInterface);
+        }
     }
 
     public get info(): IGeometryObject["info"] {
