@@ -6,7 +6,10 @@ export const GeometryObject = ["GeometryObject"] as const;
 export const Plane = ["Plane", ...GeometryObject, ...DependencyNode, ...IterableCache] as const;
 export const Procedure = ["Procedure"] as const;
 export const Transformer = ["Transformer"] as const;
+export const Value = ["Value"] as const;
+export const SettableValue = ["SettableValue", ...Value] as const;
 export const Point = ["Point"] as const;
+
 
 export type Interface = Readonly<
     | (typeof Cache)[number]
@@ -17,5 +20,7 @@ export type Interface = Readonly<
     | (typeof Plane)[number]
     | (typeof Procedure)[number]
     | (typeof Transformer)[number]
+    | (typeof Value)[number]
+    | (typeof SettableValue)[number]
     | (typeof Point)[number]
 >;
