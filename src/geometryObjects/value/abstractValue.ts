@@ -1,10 +1,11 @@
 import { GeometryObject } from "../geometryObject";
 import { Value as IValue } from "../../interfaces/value";
 import { MemoryMapCacheWithAutomaticCalculation } from "../../helpers/cache/memoryMapCache";
+import { DependencyNode } from "../../interfaces/dependencyNode";
 export abstract class AbstractValue extends GeometryObject<{ val: number }> implements IValue {
     protected abstract getValue(): number;
 
-    constructor(parameters: { dependencies: Iterable<GeometryObject> }) {
+    constructor(parameters: { dependencies: Iterable<DependencyNode> }) {
         super({
             cache: new MemoryMapCacheWithAutomaticCalculation<{ val: number }>({
                 val: () => {
