@@ -10,9 +10,8 @@ export class Procedure<Input extends Record<string, any>, Output extends Record<
     private readonly procedureName: string;
     private readonly procedure: (input: Input) => Output;
 
-
-    constructor(options: ProcedureConstructorOptions<Input, Output>) {
-        const { name, procedure } = options;
+    constructor(parameters: { readonly name: string; readonly procedure: (input: Input) => Output }) {
+        const { name, procedure } = parameters;
         this.procedureName = name;
         this.procedure = procedure;
     }
@@ -37,8 +36,3 @@ export class Procedure<Input extends Record<string, any>, Output extends Record<
         return this.perform(input);
     }
 }
-
-type ProcedureConstructorOptions<Input extends Record<string, any>, Output extends Record<string, any>> = {
-    name: string;
-    procedure: (input: Input) => Output;
-};
