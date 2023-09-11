@@ -24,4 +24,13 @@ describe("PointFromTwoValues", () => {
         expect(point.x).toBe(3);
         expect(point.y).toBe(4);
     });
+
+    test("can calculate distance from origin", () => {
+        const x = new SettableValue({ value: 3 });
+        const y = new SettableValue({ value: 4 });
+
+        const point = new PointFromTwoValues({ x, y });
+
+        expect(point.distanceFromOrigin).toBe(5);
+    });
 });
