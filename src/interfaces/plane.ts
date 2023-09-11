@@ -12,4 +12,10 @@ export interface Plane extends GeometryObject, DependencyNode {
      * @param object Object to link to this plane.
      */
     linkObject(object: GeometryObject): void;
+
+    /**
+     * Unlinks an object from this plane.
+     * @param object Unlinks an object from this plane.
+     */
+    ulinkObject(object: GeometryObject): void;
 }
