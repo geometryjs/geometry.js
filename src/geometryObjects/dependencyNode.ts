@@ -1,5 +1,8 @@
 import { DependencyNode as IDependencyNode } from "../interfaces/dependencyNode";
 
+/**
+ * Represents a node in the dependency tree.
+ */
 export class DependencyNode implements IDependencyNode {
     private readonly nodeDependants: Set<IDependencyNode> = new Set();
     private readonly nodeDependencies: Set<IDependencyNode> = new Set();
