@@ -5,9 +5,9 @@ name: Dev-Tests
 
 on:
   push:
-    branches: [ develop, github-actions ]
+    branches: [ develop ]
   pull_request:
-    branches: [ develop, github-actions ]
+    branches: [ develop ]
 
 jobs:
   build:
