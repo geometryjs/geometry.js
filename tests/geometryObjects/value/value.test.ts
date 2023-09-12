@@ -4,6 +4,7 @@ describe("ReadonlyValue", () => {
         const value = new ReadonlyValue({ value: 1 });
         
         expect(value.value).toBe(1);
+        expect(value.info.canCauseUpdate).toBe(false);
     });
 });
 
@@ -31,5 +32,11 @@ describe("SettableValue", () => {
         value.value = 2;
 
         expect(mockUpdate).toHaveBeenCalled();
+    });
+
+    test("info", () => {
+        const value = new SettableValue({ value: 1 });
+        
+        expect(value.info.canCauseUpdate).toBe(true);
     });
 });

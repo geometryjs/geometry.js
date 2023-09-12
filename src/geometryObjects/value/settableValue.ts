@@ -24,4 +24,11 @@ export class SettableValue extends AbstractValue implements ISettableValue {
         this.internalValue = value;
         this.update();
     }
+
+    public get info(): AbstractValue["info"] {
+        return {
+            ...super.info,
+            canCauseUpdate: true,
+        }
+    }
 }

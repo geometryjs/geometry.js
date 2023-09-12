@@ -27,7 +27,8 @@ export class GeometryObject<CacheRecords extends Record<string, Some | null> = R
 
     public get info(): IGeometryObject["info"] {
         return {
-            implementedInterfaces: this.getImplementedInterfaces()
+            implementedInterfaces: this.getImplementedInterfaces(),
+            canCauseUpdate: false,
         }
     }
 }

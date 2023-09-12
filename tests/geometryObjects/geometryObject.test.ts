@@ -44,5 +44,6 @@ describe("GeometryObject", () => {
         const info = geometryObject.info;
 
         expect(info.implementedInterfaces).toBe(geometryObject.getImplementedInterfaces());
+        expect(info.canCauseUpdate).toBe(false);
     });
 });
