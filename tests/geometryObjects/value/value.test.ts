@@ -39,7 +39,7 @@ describe("SettableValue", () => {
     });
 
     test("info", () => {
-        const value = new SettableValue({ value: 1 });
+        const value = new SettableValue({ value: 1, plane });
         
         expect(value.info.canCauseUpdate).toBe(true);
     });
