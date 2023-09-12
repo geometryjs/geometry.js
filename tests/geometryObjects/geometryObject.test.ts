@@ -1,7 +1,9 @@
 import { GeometryObject } from "../../src/geometryObjects/geometryObject";
+import { Plane } from "../../src/geometryObjects/plane/plane";
 import { MemoryMapCacheWithAutomaticCalculation } from "../../src/helpers/cache/memoryMapCache";
 import * as Interfaces from "../../src/interfaces";
 describe("GeometryObject", () => {
+    const plane = new Plane();
     test.concurrent.each([
         [Interfaces.Plane],
         [Interfaces.Cache],
@@ -24,6 +26,7 @@ describe("GeometryObject", () => {
             dependencies: [],
             cache: new MemoryMapCacheWithAutomaticCalculation<{}>({}),
             implementedInterfaces: interfaces,
+            plane
         });
 
         const implementedInterfaces = [...geometryObject.getImplementedInterfaces()];
@@ -39,6 +42,7 @@ describe("GeometryObject", () => {
             dependencies: [],
             cache: new MemoryMapCacheWithAutomaticCalculation<{}>({}),
             implementedInterfaces: Interfaces.Plane,
+            plane
         });
 
         const info = geometryObject.info;

@@ -1,11 +1,11 @@
-import { GeometryObject } from "../geometryObjects/geometryObject";
+import { GeometryObject } from "./geometryObject";
 import { DependencyNode } from "./dependencyNode";
 
 
 /**
  * Main GeometryJS object. Represents a 2D plane. 
  */
-export interface Plane extends GeometryObject, DependencyNode, Iterable<GeometryObject> {
+export interface Plane extends DependencyNode, Iterable<GeometryObject> {
     
     /**
      * Links an object to this plane.

@@ -1,16 +1,17 @@
 import { MemoryMapCacheWithAutomaticCalculation } from "../../helpers/cache/memoryMapCache";
-import { GeometryObject } from "../geometryObject";
+import { DependencyNode } from "../../interfaces/dependencyNode";
+import { GeometryObject } from "../../interfaces/geometryObject";
 import { Plane as IPlane } from "../../interfaces/plane";
-import * as Interfaces from "../../interfaces";
+import { DependencyNodeWithCache } from "../dependencyNode";
 
-export class Plane extends GeometryObject<{}> implements IPlane {
+export class Plane extends DependencyNodeWithCache<{}, true> implements IPlane {
     private readonly objects: Set<GeometryObject> = new Set();
 
     constructor() {
-        super({ dependencies: [], cache: new MemoryMapCacheWithAutomaticCalculation<{}>({}), implementedInterfaces: Interfaces.Plane });
+        super({ dependencies: [], cache: new MemoryMapCacheWithAutomaticCalculation<{}>({}) });
     }
 
-    public linkObject(object: GeometryObject): void {
+    public linkObject(object: (GeometryObject & DependencyNode)): void {
         this.registerDependency(object);
         this.objects.add(object);
     }

@@ -1,4 +1,5 @@
 import { Plane } from "../../../src/geometryObjects/plane/plane";
+import { ReadonlyValue } from "../../../src/geometryObjects/value/readonlyValue";
 import * as Interfaces from "../../../src/interfaces";
 describe("Plane", () => {
     test.concurrent("constructor", () => {
@@ -9,7 +10,7 @@ describe("Plane", () => {
     test.concurrent("linkObject", () => {
         const plane = new Plane();
 
-        const object = new Plane();
+        const object = new ReadonlyValue({value: 1, plane});
         plane.linkObject(object);
         expect(plane.dependencies).toContain(object);
         expect(object.dependants).toContain(plane);
@@ -18,7 +19,7 @@ describe("Plane", () => {
     test.concurrent("iterator", () => {
         const plane = new Plane();
 
-        const object = new Plane();
+        const object = new ReadonlyValue({value: 1, plane});
         plane.linkObject(object);
         expect([...plane]).toContain(object);
     });
@@ -26,19 +27,10 @@ describe("Plane", () => {
     test.concurrent("ulinkObject", () => {
         const plane = new Plane();
 
-        const object = new Plane();
+        const object = new ReadonlyValue({value: 1, plane});;
         plane.linkObject(object);
         plane.ulinkObject(object);
         expect([...plane]).not.toContain(object);
     });
 
-    test.concurrent("implements", () => {
-        const plane = new Plane();
-        const interfaces = [...plane.getImplementedInterfaces()];
-        const expectedInterfaces = Interfaces.Plane;
-
-        for (const expectedInterface of expectedInterfaces) {
-            expect(interfaces).toContain(expectedInterface);
-        }
-    });
 });
