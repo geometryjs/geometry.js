@@ -2,12 +2,13 @@ import { MemoryMapCacheWithAutomaticCalculation } from "../../helpers/cache/memo
 import { GeometryObject } from "../geometryObject";
 import { Plane as IPlane } from "../../interfaces/plane";
 import * as Interfaces from "../../interfaces";
+import { DependencyNodeWithCache } from "../dependencyNode";
 
-export class Plane extends GeometryObject<{}> implements IPlane {
+export class Plane extends DependencyNodeWithCache<{}, true> implements IPlane {
     private readonly objects: Set<GeometryObject> = new Set();
 
     constructor() {
-        super({ dependencies: [], cache: new MemoryMapCacheWithAutomaticCalculation<{}>({}), implementedInterfaces: Interfaces.Plane });
+        super({ dependencies: [], cache: new MemoryMapCacheWithAutomaticCalculation<{}>({}), });
     }
 
     public linkObject(object: GeometryObject): void {
