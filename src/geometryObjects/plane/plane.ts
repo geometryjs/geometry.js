@@ -1,7 +1,6 @@
 import { MemoryMapCacheWithAutomaticCalculation } from "../../helpers/cache/memoryMapCache";
 import { GeometryObject } from "../geometryObject";
 import { Plane as IPlane } from "../../interfaces/plane";
-import * as Interfaces from "../../interfaces";
 import { DependencyNodeWithCache } from "../dependencyNode";
 
 export class Plane extends DependencyNodeWithCache<{}, true> implements IPlane {
