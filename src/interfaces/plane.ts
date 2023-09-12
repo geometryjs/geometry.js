@@ -1,4 +1,4 @@
-import { GeometryObject } from "../geometryObjects/geometryObject";
+import { GeometryObject } from "./geometryObject";
 import { DependencyNode } from "./dependencyNode";
 
 
