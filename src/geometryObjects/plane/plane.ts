@@ -7,7 +7,7 @@ export class Plane extends DependencyNodeWithCache<{}, true> implements IPlane {
     private readonly objects: Set<GeometryObject> = new Set();
 
     constructor() {
-        super({ dependencies: [], cache: new MemoryMapCacheWithAutomaticCalculation<{}>({}), });
+        super({ dependencies: [], cache: new MemoryMapCacheWithAutomaticCalculation<{}>({}) });
     }
 
     public linkObject(object: GeometryObject): void {
