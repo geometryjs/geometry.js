@@ -35,4 +35,13 @@ describe("PointFromTwoValues", () => {
 
         expect(point.distanceFromOrigin).toBe(5);
     });
+
+    test("info", () => {
+        const x = new SettableValue({ value: 3, plane });
+        const y = new SettableValue({ value: 4, plane});
+
+        const point = new PointFromTwoValues({ x, y, plane });
+
+        expect(point.info.canCauseUpdate).toBe(false);
+    });
 });
