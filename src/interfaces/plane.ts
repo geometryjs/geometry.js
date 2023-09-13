@@ -1,5 +1,6 @@
 import { GeometryObject } from "./geometryObject";
 import { DependencyNode } from "./dependencyNode";
+import { Value } from "./value";
 
 
 /**
@@ -18,4 +19,9 @@ export interface Plane extends DependencyNode, Iterable<GeometryObject> {
      * @param object Unlinks an object from this plane.
      */
     ulinkObject(object: GeometryObject): void;
+
+    /**
+     * Creates a readonly value attached to this plane
+     */
+    createReadonlyValue(): Value;
 }
