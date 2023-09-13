@@ -15,6 +15,7 @@ export class GeometryObject<CacheRecords extends Record<string, Some | null> = R
         const { implementedInterfaces, plane } = parameters;
         
         this.plane = plane;
+        plane.linkObject(this);
 
         for (const implementedInterface of implementedInterfaces) {
             this.implementedInterfaces.add(implementedInterface);
