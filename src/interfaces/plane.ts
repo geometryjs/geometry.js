@@ -1,6 +1,7 @@
 import { GeometryObject } from "./geometryObject";
 import { DependencyNode } from "./dependencyNode";
-import { Value } from "./value";
+import { SettableValue, Value } from "./value";
+import { Point } from "./point";
 
 
 /**
@@ -23,5 +24,18 @@ export interface Plane extends DependencyNode, Iterable<GeometryObject> {
     /**
      * Creates a readonly value attached to this plane
      */
-    createReadonlyValue(): Value;
+    createReadonlyValue(value: number): Value;
+
+    /**
+     * Creates a settable value attached to this plane
+     * @param value 
+     */
+    createValue(value: number): SettableValue;
+
+    /**
+     * Creates a point attached to this plane.
+     * @param x Value for the X coordinate of the point.
+     * @param y Value for the Y coordinate of the point.
+     */
+    createPointFromTwoValues(x: Value & DependencyNode, y: Value & DependencyNode): Point & GeometryObject & DependencyNode;
 }
