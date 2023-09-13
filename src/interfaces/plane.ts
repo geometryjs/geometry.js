@@ -24,13 +24,13 @@ export interface Plane extends DependencyNode, Iterable<GeometryObject> {
     /**
      * Creates a readonly value attached to this plane
      */
-    createReadonlyValue(value: number): Value;
+    createReadonlyValue(value: number): Value & DependencyNode & GeometryObject;
 
     /**
      * Creates a settable value attached to this plane
      * @param value 
      */
-    createValue(value: number): SettableValue;
+    createValue(value: number): SettableValue & DependencyNode & GeometryObject;
 
     /**
      * Creates a point attached to this plane.

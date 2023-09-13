@@ -29,11 +29,11 @@ export class Plane extends DependencyNodeWithCache<{}, true> implements IPlane {
         return this.objects.values();
     }
 
-    public createReadonlyValue(value: number): Value {
+    public createReadonlyValue(value: number): Value & DependencyNode & GeometryObject {
         return new ReadonlyValue({ plane: this, value });
     }
 
-    public createValue(value: number): Value & SettableValue {
+    public createValue(value: number): SettableValue & DependencyNode & GeometryObject {
         return new SettableValue({ plane: this, value });
     }
 
