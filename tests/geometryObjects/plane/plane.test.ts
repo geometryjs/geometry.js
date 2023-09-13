@@ -10,7 +10,7 @@ describe("Plane", () => {
     test.concurrent("linkObject", () => {
         const plane = new Plane();
 
-        const object = new ReadonlyValue({value: 1, plane});
+        const object = new ReadonlyValue({ value: 1, plane });
         plane.linkObject(object);
         expect(plane.dependencies).toContain(object);
         expect(object.dependants).toContain(plane);
@@ -19,7 +19,7 @@ describe("Plane", () => {
     test.concurrent("iterator", () => {
         const plane = new Plane();
 
-        const object = new ReadonlyValue({value: 1, plane});
+        const object = new ReadonlyValue({ value: 1, plane });
         plane.linkObject(object);
         expect([...plane]).toContain(object);
     });
@@ -27,10 +27,34 @@ describe("Plane", () => {
     test.concurrent("ulinkObject", () => {
         const plane = new Plane();
 
-        const object = new ReadonlyValue({value: 1, plane});;
+        const object = new ReadonlyValue({ value: 1, plane });;
         plane.linkObject(object);
         plane.ulinkObject(object);
         expect([...plane]).not.toContain(object);
     });
+});
+
+describe("Plane facotry methods", () => {
+    const plane = new Plane();
+    test("createReadonlyValue", () => {
+        const value = plane.createReadonlyValue(1);
+        expect(value.plane).toBe(plane);
+        expect(plane).toContain(value); 
+    });
+    
+    test("createValue", () => {
+        const value = plane.createValue(1);
+        expect(value.plane).toBe(plane);
+        expect(plane).toContain(value); 
+    });
+
+    test("createPointFromTwoValues", () => {
+        const x = plane.createValue(1);
+        const y = plane.createValue(1);
+        const point = plane.createPointFromTwoValues(x, y);
+        expect(point.plane).toBe(plane);
+        expect(plane).toContain(point);
+    });
+
 
 });

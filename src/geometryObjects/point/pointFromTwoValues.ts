@@ -22,10 +22,4 @@ export class PointFromTwoValues extends AbstractPoint {
         return this.yValue.value;
     }
 
-    public get info(): AbstractPoint["info"] {
-        return {
-            ...super.info,
-            canCauseUpdate: true,
-        }
-    }
 }
