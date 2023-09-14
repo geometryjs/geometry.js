@@ -3,10 +3,15 @@ import { Value as IValue } from "../../interfaces/value";
 import { MemoryMapCacheWithAutomaticCalculation } from "../../helpers/cache/memoryMapCache";
 import { DependencyNode } from "../../interfaces/dependencyNode";
 import { Plane } from "../../interfaces/plane";
+/**
+ * Defines all the common functionality of a value.
+ *
+ * @group Value
+ */
 export abstract class AbstractValue extends GeometryObject<{ val: number }> implements IValue {
     protected abstract getValue(): number;
 
-    constructor(parameters: { readonly dependencies: Iterable<DependencyNode>, readonly plane: Plane }) {
+    constructor(parameters: { readonly dependencies: Iterable<DependencyNode>; readonly plane: Plane }) {
         super({
             cache: new MemoryMapCacheWithAutomaticCalculation<{ val: number }>({
                 val: () => {

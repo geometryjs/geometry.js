@@ -1,5 +1,5 @@
 /**
- * Point interface
+ * Represents a point in 2D space.
  */
 export interface Point {
     /**

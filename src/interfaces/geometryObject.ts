@@ -1,12 +1,14 @@
-import { Interface } from ".";
+import { Interface } from "./runtimeInterfaces";
+import { DependencyNode } from "./dependencyNode";
 import { Plane } from "./plane";
+import { Runtime } from ".";
 
 /**
- * A part of the GeometryJS scene. 
+ * Represents a GeometryJS object, usually paired with a {@link DependencyNode} interface.
  */
 export interface GeometryObject {
     /**
-     * Returns the interfaces implemented by this object.
+     * Returns the {@link Runtime | runtime representation}interfaces implemented by this object.
      */
     getImplementedInterfaces(): Iterable<Interface>;
 
@@ -21,14 +23,17 @@ export interface GeometryObject {
     readonly info: GeometryObjectInfo;
 }
 
+/**
+ * Information about a {@link GeometryObject}. Can be used to quickly get info about an object on runtime.
+ */
 export type GeometryObjectInfo = {
     /**
-     * Interfaces implemented by this object.
+     * Runtime values representing interfaces implemented by this object.
      */
     implementedInterfaces: Iterable<Interface>;
 
     /**
-     * Whether this object can directly trigger an update of the dependency tree. An object can usually trigger an update if it has settable values or non-pure methods.
+     * Whether this object can directly trigger an update of the dependency tree (not by a dependecy update). An object can usually trigger an update if it has settable values or non-pure methods.
      */
     canCauseUpdate: boolean;
-}
+};

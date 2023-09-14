@@ -1,6 +1,6 @@
 {
-  "name": "geometry",
-  "version": "1.0.0",
+  "name": "geometry-js",
+  "version": "0.1.0",
   "description": "Object-oriented typescript library for analytic geometry",
   "main": "build.js",
   "directories": {

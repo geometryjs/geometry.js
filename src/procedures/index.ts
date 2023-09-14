@@ -1,7 +1,6 @@
-import { PythagoreanTheorem } from "./foundational/pythagoreanTheorem";
-
+export { Procedure } from "./procedure";
+export { PythagoreanTheorem } from "./foundational/pythagoreanTheorem";
 /**
- * A procedure for the Pythagorean Theorem.
- * @see {@link PythagoreanTheorem}
- */
-export  const PYTHAGOREAN_THEOREM = new PythagoreanTheorem();
+ * A collection of procedures that are considered foundational. These procedures are well known and have extensive infromation about them online. Usually a wikipedia page is linked by the procedure.
+*/
+export * as Foundational from "./foundational";

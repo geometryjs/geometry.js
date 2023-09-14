@@ -3,17 +3,23 @@ import { GeometryObject as IGeometryObject } from "../interfaces/geometryObject"
 import { DependencyNode } from "../interfaces/dependencyNode";
 import { Some } from "../helpers/types/general";
 import { IterableCache } from "../interfaces/cache";
-import * as Interfaces from "../interfaces";
+import * as Interfaces from "../interfaces/runtimeInterfaces";
 import { Plane } from "../interfaces/plane";
 
+/**
+ * Represents a generic geometry object.
+ *
+ * @template CacheRecords The records the object caches.
+ * @group General
+ */
 export class GeometryObject<CacheRecords extends Record<string, Some | null> = Record<string, Some | null>> extends DependencyNodeWithCache<CacheRecords, true> implements IGeometryObject, DependencyNode {
     private readonly implementedInterfaces: Set<Interfaces.Interface> = new Set();
     public readonly plane: Plane;
 
-    constructor(parameters: { readonly dependencies: Iterable<DependencyNode>; readonly cache: IterableCache<CacheRecords, true>, readonly implementedInterfaces: Iterable<Interfaces.Interface>, readonly plane: Plane }) {
+    constructor(parameters: { readonly dependencies: Iterable<DependencyNode>; readonly cache: IterableCache<CacheRecords, true>; readonly implementedInterfaces: Iterable<Interfaces.Interface>; readonly plane: Plane }) {
         super(parameters);
         const { implementedInterfaces, plane } = parameters;
-        
+
         this.plane = plane;
         plane.linkObject(this);
 
@@ -36,6 +42,6 @@ export class GeometryObject<CacheRecords extends Record<string, Some | null> = R
         return {
             implementedInterfaces: this.getImplementedInterfaces(),
             canCauseUpdate: false,
-        }
+        };
     }
 }

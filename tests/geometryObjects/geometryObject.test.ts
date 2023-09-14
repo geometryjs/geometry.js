@@ -1,7 +1,7 @@
 import { GeometryObject } from "../../src/geometryObjects/geometryObject";
 import { Plane } from "../../src/geometryObjects/plane/plane";
 import { MemoryMapCacheWithAutomaticCalculation } from "../../src/helpers/cache/memoryMapCache";
-import * as Interfaces from "../../src/interfaces";
+import * as Interfaces from "../../src/interfaces/runtimeInterfaces";
 describe("GeometryObject", () => {
     const plane = new Plane();
     test.concurrent.each([
