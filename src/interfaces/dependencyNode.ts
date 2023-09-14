@@ -1,5 +1,5 @@
 /**
- * Represents a node in the dependency tree.
+ * Represents a node in a dependency tree.
  */
 export interface DependencyNode {
     /**

@@ -1,5 +1,7 @@
 /**
  * When implemented, the main purpose of the class is to evaluate at an input and return an output.
+ * @template Input - The input data type.
+ * @template Output - The output data type.
  */
 export interface Evaluatable<Input, Output> {
     /**
