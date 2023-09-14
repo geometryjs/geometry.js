@@ -1,4 +1,4 @@
-import { Procedure } from "../../src/procedures/procedure";
+import { Procedure } from "../../../src/procedures/procedure";
 describe("Procedure", () => {
     test("Should be namable", () => {
         const procedureName = "procedureName";

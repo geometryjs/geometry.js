@@ -1,6 +1,5 @@
-import { Plane } from "../../../src/geometryObjects/plane/plane";
-import { ReadonlyValue } from "../../../src/geometryObjects/value/readonlyValue";
-import * as Interfaces from "../../../src/interfaces/runtimeInterfaces";
+import { Plane } from "../../../../src/geometryObjects/plane/plane";
+import { ReadonlyValue } from "../../../../src/geometryObjects/value/readonlyValue";
 describe("Plane", () => {
     test.concurrent("constructor", () => {
         const plane = new Plane();

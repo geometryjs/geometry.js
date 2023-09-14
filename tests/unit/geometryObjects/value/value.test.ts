@@ -1,6 +1,6 @@
-import { Plane } from "../../../src/geometryObjects/plane/plane";
+import { Plane } from "../../../../src/geometryObjects/plane/plane";
 
-import { ReadonlyValue } from "../../../src/geometryObjects/value/readonlyValue";
+import { ReadonlyValue } from "../../../../src/geometryObjects/value/readonlyValue";
 describe("ReadonlyValue", () => {
     const plane = new Plane();
     test("retains value", () => {
@@ -11,7 +11,7 @@ describe("ReadonlyValue", () => {
     });
 });
 
-import { SettableValue } from "../../../src/geometryObjects/value/settableValue";
+import { SettableValue } from "../../../../src/geometryObjects/value/settableValue";
 describe("SettableValue", () => {
     const plane = new Plane();
     test("retains value", () => {

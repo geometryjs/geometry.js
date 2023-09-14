@@ -35,14 +35,3 @@ export * as Objects from "./geometryObjects";
 
 export * from "./factories";
 // Internal code
-
-/**
- * @internal
- */
-function main() {
-    console.log("Hello, world!");
-}
-
-if (require.main === module) {
-    main();
-}

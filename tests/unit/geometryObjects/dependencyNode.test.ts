@@ -1,6 +1,6 @@
-import { DependencyNode, DependencyNodeWithCache } from "../../src/geometryObjects/dependencyNode";
-import { Some } from "../../src/helpers/types/general";
-import { IterableCache } from "../../src/interfaces/cache";
+import { DependencyNode, DependencyNodeWithCache } from "../../../src/geometryObjects/dependencyNode";
+import { Some } from "../../../src/helpers/types/general";
+import { IterableCache } from "../../../src/interfaces/cache";
 
 class DependencyNodeWithUpdateFuncition extends DependencyNode {
     public readonly updateFunction: jest.Mock<undefined, [], any>;

@@ -1,4 +1,4 @@
-import { MemoryMapCache, MemoryMapCacheWithAutomaticCalculation } from "../../../src/helpers/cache/memoryMapCache";
+import { MemoryMapCache, MemoryMapCacheWithAutomaticCalculation } from "../../../../src/helpers/cache/memoryMapCache";
 describe("MemoryMapCache", () => {
     const cache = new MemoryMapCache<{ a: string; b: number; c: bigint; d: (...args: any[]) => any; e: Array<number>; f: boolean; g: symbol }>();
 
