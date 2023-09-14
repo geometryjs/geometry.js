@@ -33,6 +33,7 @@ export * as Helpers from "./helpers";
  */
 export * as Objects from "./geometryObjects";
 
+export * from "./factories";
 // Internal code
 
 /**
