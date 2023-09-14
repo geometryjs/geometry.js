@@ -1,4 +1,4 @@
-import { Interface } from ".";
+import { Interface } from "./runtimeInterfaces";
 import { Plane } from "./plane";
 
 /**

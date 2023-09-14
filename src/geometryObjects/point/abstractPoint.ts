@@ -1,7 +1,7 @@
 import { MemoryMapCacheWithAutomaticCalculation } from "../../helpers/cache/memoryMapCache";
 import { GeometryObject } from "../geometryObject";
 import { Point } from "../../interfaces/point";
-import * as Interfaces from "../../interfaces";
+import * as Interfaces from "../../interfaces/runtimeInterfaces";
 import { PYTHAGOREAN_THEOREM } from "../../procedures";
 import { DependencyNode } from "../../interfaces/dependencyNode";
 import { Plane } from "../../interfaces/plane";

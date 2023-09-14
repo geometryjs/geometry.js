@@ -3,7 +3,7 @@ import { GeometryObject as IGeometryObject } from "../interfaces/geometryObject"
 import { DependencyNode } from "../interfaces/dependencyNode";
 import { Some } from "../helpers/types/general";
 import { IterableCache } from "../interfaces/cache";
-import * as Interfaces from "../interfaces";
+import * as Interfaces from "../interfaces/runtimeInterfaces";
 import { Plane } from "../interfaces/plane";
 
 export class GeometryObject<CacheRecords extends Record<string, Some | null> = Record<string, Some | null>> extends DependencyNodeWithCache<CacheRecords, true> implements IGeometryObject, DependencyNode {

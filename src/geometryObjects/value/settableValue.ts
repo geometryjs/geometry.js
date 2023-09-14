@@ -1,5 +1,5 @@
 import { AbstractValue } from "./abstractValue";
-import * as Interfaces from "../../interfaces";
+import * as Interfaces from "../../interfaces/runtimeInterfaces";
 import { SettableValue as ISettableValue } from "../../interfaces/value";
 import { Plane } from "../../interfaces/plane";
 
