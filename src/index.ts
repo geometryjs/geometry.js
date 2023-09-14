@@ -1,7 +1,8 @@
 /**
- * @module
  * The main module of the library.
  * The public API is exported from here as part of other namespaces or direct to use functions.
+ *
+ * @packageDocumentation
  */
 
 /**
