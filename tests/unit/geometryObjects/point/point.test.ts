@@ -1,8 +1,8 @@
-import { ReadonlyValue } from "../../../src/geometryObjects/value/readonlyValue";
-import { SettableValue } from "../../../src/geometryObjects/value/settableValue";
+import { ReadonlyValue } from "../../../../src/geometryObjects/value/readonlyValue";
+import { SettableValue } from "../../../../src/geometryObjects/value/settableValue";
 
-import { PointFromTwoValues } from "../../../src/geometryObjects/point/pointFromTwoValues";
-import { Plane } from "../../../src/geometryObjects/plane/plane";
+import { PointFromTwoValues } from "../../../../src/geometryObjects/point/pointFromTwoValues";
+import { Plane } from "../../../../src/geometryObjects/plane/plane";
 describe("PointFromTwoValues", () => {
     const plane = new Plane();
     test("retains values", () => {
