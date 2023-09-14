@@ -4,6 +4,8 @@ import { DependencyNode as IDependencyNode } from "../interfaces/dependencyNode"
 
 /**
  * Represents a node in the dependency tree.
+ *
+ * @group General
  */
 export class DependencyNode implements IDependencyNode {
     private readonly nodeDependants: Set<IDependencyNode> = new Set();
@@ -65,7 +67,7 @@ export class DependencyNode implements IDependencyNode {
  */
 export class DependencyNodeWithCache<CacheRecords extends Record<string, Some | null> = Record<string, Some | null>, CacheNonEmpty extends true | false = false> extends DependencyNode {
     protected readonly cache: IterableCache<CacheRecords, CacheNonEmpty>;
-    
+
     constructor(prameters: { readonly dependencies: Iterable<IDependencyNode>; readonly cache: IterableCache<CacheRecords, CacheNonEmpty> }) {
         const { dependencies, cache } = prameters;
 

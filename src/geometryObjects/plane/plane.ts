@@ -8,7 +8,11 @@ import { DependencyNodeWithCache } from "../dependencyNode";
 import { PointFromTwoValues } from "../point/pointFromTwoValues";
 import { ReadonlyValue } from "../value/readonlyValue";
 import { SettableValue } from "../value/settableValue";
-
+/**
+ * Represents a plane.
+ *
+ * @group Plane
+ */
 export class Plane extends DependencyNodeWithCache<{}, true> implements IPlane {
     private readonly objects: Set<GeometryObject> = new Set();
 
@@ -16,7 +20,7 @@ export class Plane extends DependencyNodeWithCache<{}, true> implements IPlane {
         super({ dependencies: [], cache: new MemoryMapCacheWithAutomaticCalculation<{}>({}) });
     }
 
-    public linkObject(object: (GeometryObject & DependencyNode)): void {
+    public linkObject(object: GeometryObject & DependencyNode): void {
         this.registerDependency(object);
         this.objects.add(object);
     }

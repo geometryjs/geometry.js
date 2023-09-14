@@ -28,6 +28,11 @@ export * as Procedures from "./procedures";
  */
 export * as Helpers from "./helpers";
 
+/**
+ * All classes that represent geometry objects of the library.
+ */
+export * as Objects from "./geometryObjects";
+
 // Internal code
 
 /**

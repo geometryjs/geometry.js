@@ -5,7 +5,11 @@ import * as Interfaces from "../../interfaces/runtimeInterfaces";
 import { PYTHAGOREAN_THEOREM } from "../../procedures/foundational";
 import { DependencyNode } from "../../interfaces/dependencyNode";
 import { Plane } from "../../interfaces/plane";
-
+/**
+ * Defines all the common functionality of a point.
+ * 
+ * @group Point
+ */
 export abstract class AbstractPoint extends GeometryObject<{ x: number; y: number; dist: number }> implements Point {
     protected abstract getX(): number;
     protected abstract getY(): number;
