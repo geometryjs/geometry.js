@@ -1,5 +1,7 @@
 /**
  * @namespace
+ * Includes interfaces used by the library.  
+ * Also includes constant, that are used to represent interfaces at runtime.
  */
 export * as Interfaces from "./interfaces";
 
