@@ -14,12 +14,19 @@
 export * as Interfaces from "./interfaces";
 
 /**
- * Procedures are pure functions that take an input and return an output. They are designed to perform logic on data.  
+ * Procedures are pure functions that take an input and return an output. They are designed to perform logic on data.
  * Most of the library's procedures are used to extract mathematical operations from the library's core into one place.
  *
  * @namespace
  */
 export * as Procedures from "./procedures";
+
+/**
+ * Helper functions, classes and types, that are used internally by the library, but aren't dependant on other parts of the library.
+ *
+ * @namespace
+ */
+export * as Helpers from "./helpers";
 
 // Internal code
 
