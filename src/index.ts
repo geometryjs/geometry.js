@@ -7,7 +7,8 @@
 
 /**
  * Includes interfaces used by the library.
- * Also includes constant, that are used to represent interfaces at runtime.
+ * Also includes constant, that are used to represent interfaces at runtime.  
+ * Synthetic interfaces are interfaces, that combine multiple interfaces into one, while not adding any new functionality.
  *
  * @namespace
  */

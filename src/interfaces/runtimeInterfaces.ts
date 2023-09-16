@@ -8,6 +8,8 @@ import { Transformer as ITransformer } from "./transformer";
 import { Value as IValue, SettableValue as ISettableValue } from "./value";
 import { Point as IPoint } from "./point";
 
+import * as Synthetic from "./synthetic";
+
 /**
  * Represents the {@link ICache | Cache} interface at runtime.
  */
@@ -79,3 +81,25 @@ export type Interface = Readonly<
     | (typeof SettableValue)[number]
     | (typeof Point)[number]
 >;
+
+// Synthetic interfaces
+/**
+ * Represents the synthetic {@link Synthetic.ValueObject | ValueObject} interface at runtime.
+ *
+ * @group Synthetic
+ */
+export const ValueObject = [...Value, ...DependencyNode, ...GeometryObject] as const;
+
+/**
+ * Represents the synthetic {@link Synthetic.SettableValueObject | SettableValueObject} interface at runtime.
+ *
+ * @group Synthetic
+ */
+export const SettableValueObject = [...SettableValue, ...DependencyNode, ...GeometryObject] as const;
+
+/**
+ * Represents the synthetic {@link Synthetic.PointObject | PointObject} interface at runtime.
+ *
+ * @group Synthetic
+ */
+export const PointObject = [...Point, ...DependencyNode, ...GeometryObject] as const;
