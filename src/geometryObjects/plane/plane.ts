@@ -1,8 +1,8 @@
 import { MemoryMapCacheWithAutomaticCalculation } from "../../helpers/cache/memoryMapCache";
+import { PointObject, ValueObject } from "../../interfaces";
 import { DependencyNode } from "../../interfaces/dependencyNode";
 import { GeometryObject } from "../../interfaces/geometryObject";
 import { Plane as IPlane } from "../../interfaces/plane";
-import { Point } from "../../interfaces/point";
 import { Value } from "../../interfaces/value";
 import { DependencyNodeWithCache } from "../dependencyNode";
 import { PointFromTwoValues } from "../point/pointFromTwoValues";
@@ -33,15 +33,15 @@ export class Plane extends DependencyNodeWithCache<{}, true> implements IPlane {
         return this.objects.values();
     }
 
-    public createReadonlyValue(value: number): Value & DependencyNode & GeometryObject {
+    public createReadonlyValue(value: number): ValueObject {
         return new ReadonlyValue({ plane: this, value });
     }
 
-    public createValue(value: number): SettableValue & DependencyNode & GeometryObject {
+    public createValue(value: number): ValueObject {
         return new SettableValue({ plane: this, value });
     }
 
-    public createPointFromTwoValues(x: Value & DependencyNode, y: Value & DependencyNode): Point & GeometryObject & DependencyNode {
+    public createPointFromTwoValues(x: ValueObject, y: ValueObject): PointObject {
         return new PointFromTwoValues({ plane: this, x, y });
     }
 }

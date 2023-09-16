@@ -1,3 +1,4 @@
+import { ValueObject } from "../../interfaces";
 import { DependencyNode } from "../../interfaces/dependencyNode";
 import { Value } from "../../interfaces/value";
 import { Plane } from "../plane/plane";
@@ -12,7 +13,7 @@ export class PointFromTwoValues extends AbstractPoint {
     private readonly xValue: Value;
     private readonly yValue: Value;
 
-    constructor(parameters: { readonly x: DependencyNode & Value; readonly y: DependencyNode & Value; readonly plane: Plane }) {
+    constructor(parameters: { readonly x: ValueObject; readonly y: ValueObject; readonly plane: Plane }) {
         super({ dependencies: [parameters.x, parameters.y], ...parameters });
         const { x, y } = parameters;
         this.xValue = x;
