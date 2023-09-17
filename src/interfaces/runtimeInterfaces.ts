@@ -103,3 +103,9 @@ export const SettableValueObject = [...SettableValue, ...DependencyNode, ...Geom
  * @group Synthetic
  */
 export const PointObject = [...Point, ...DependencyNode, ...GeometryObject] as const;
+
+/**
+ * Represents the synthetic {@link Synthetic.DependencyNodeObject | DependencyNodeObject} interface at runtime.
+ */
+export const DependencyNodeObject = [...DependencyNode, ...GeometryObject] as const;
+

@@ -28,3 +28,10 @@ export interface SettableValueObject extends SettableValue, DependencyNode, Geom
  * @group Synthetic
  */
 export interface PointObject extends Point, DependencyNode, GeometryObject {}
+
+/**
+ * Interface, that combines the {@link DependencyNode} and {@link GeometryObject} interfaces.
+ *
+ * @group Synthetic
+ */
+export interface DependencyNodeObject extends DependencyNode, GeometryObject {}
