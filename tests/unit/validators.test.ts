@@ -1,4 +1,4 @@
-import { isGeometryObject } from "../../src/validators";
+import { isGeometryObject, isSettableValue, isValue } from "../../src/validators";
 import { Plane } from "../../src/geometryObjects/plane/plane";
 
 const plane = new Plane();
@@ -24,5 +24,37 @@ describe("isGeometryObject", () => {
         expect(isGeometryObject(object)).toBe(false);
         expect(isGeometryObject(array)).toBe(false);
         expect(isGeometryObject(bigint)).toBe(false);
+    });
+});
+
+describe("isValue", () => {
+    test("positive", () => {
+        expect(isValue(x)).toBe(true);
+        expect(isValue(y)).toBe(true);
+    });
+    test("negative", () => {
+        expect(isValue(point)).toBe(false);
+        expect(isValue(string)).toBe(false);
+        expect(isValue(number)).toBe(false);
+        expect(isValue(object)).toBe(false);
+        expect(isValue(array)).toBe(false);
+        expect(isValue(bigint)).toBe(false);
+        expect(isValue(point)).toBe(false);
+    });
+});
+
+describe("isSettableValue", () => {
+    test("positive", () => {
+        expect(isSettableValue(x)).toBe(true);
+    });
+    test("negative", () => {
+        expect(isSettableValue(y)).toBe(false);
+        expect(isSettableValue(point)).toBe(false);
+        expect(isSettableValue(string)).toBe(false);
+        expect(isSettableValue(number)).toBe(false);
+        expect(isSettableValue(object)).toBe(false);
+        expect(isSettableValue(array)).toBe(false);
+        expect(isSettableValue(bigint)).toBe(false);
+        expect(isSettableValue(point)).toBe(false);
     });
 });
