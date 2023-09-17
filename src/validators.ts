@@ -65,6 +65,8 @@ export function isSettableValue(object: unknown): object is SettableValue {
  * Checks whether an unknown object is a {@link Point}.
  * @param object An unknown object.
  * @returns Whether the object is a {@link Point}.
+ *
+ *
  */
 export function isPoint(object: unknown): object is Point {
     if (typeof object !== "object" || object === null) return false; // Not an object
@@ -80,6 +82,8 @@ export function isPoint(object: unknown): object is Point {
  * Checks whether an unknown object is a {@link DependencyNode}.
  * @param object An unknown object.
  * @returns Whether the object is a {@link DependencyNode}.
+ *
+ *
  */
 export function isDependencyNode(object: unknown): object is DependencyNode {
     if (typeof object !== "object" || object === null) return false; // Not an object
@@ -95,6 +99,8 @@ export function isDependencyNode(object: unknown): object is DependencyNode {
  * Checks whether an unknown object is a {@link DependencyNodeObject}.
  * @param object An unknown object.
  * @returns Whether the object is a {@link DependencyNodeObject}.
+ *
+ *
  */
 export function isDependencyNodeObject(object: unknown): object is DependencyNodeObject {
     if (!isGeometryObject(object)) return false;
@@ -107,6 +113,8 @@ export function isDependencyNodeObject(object: unknown): object is DependencyNod
  * Checks whether an unknown object is a {@link ValueObject}.
  * @param object An unknown object.
  * @returns Whether the object is a {@link ValueObject}.
+ *
+ *
  */
 export function isValueObject(object: unknown): object is ValueObject {
     if (!isGeometryObject(object)) return false;
@@ -119,6 +127,8 @@ export function isValueObject(object: unknown): object is ValueObject {
  * Checks whether an unknown object is a {@link SettableValueObject}.   
  * @param object An unknown object.
  * @returns Whether the object is a {@link SettableValueObject}.
+ *
+ *
  */
 export function isSettableValueObject(object: unknown): object is SettableValueObject {
     if (!isGeometryObject(object)) return false;
@@ -131,6 +141,8 @@ export function isSettableValueObject(object: unknown): object is SettableValueO
  * Checks whether an unknown object is a {@link PointObject}.
  * @param object An unknown object.
  * @returns Whether the object is a {@link PointObject}.
+ *
+ *
  */
 export function isPointObject(object: unknown): object is PointObject {
     if (!isGeometryObject(object)) return false;
