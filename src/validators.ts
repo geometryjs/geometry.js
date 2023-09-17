@@ -1,4 +1,4 @@
-import { DependencyNode, DependencyNodeObject, GeometryObject, Point, SettableValue, Value } from "./interfaces";
+import { DependencyNode, DependencyNodeObject, GeometryObject, Point, PointObject, SettableValue, SettableValueObject, Value, ValueObject } from "./interfaces";
 import { getPropertyDescriptor } from "./helpers/getPropertyDescriptor";
 import { inIterable } from "./helpers/iterable";
 /**
@@ -102,3 +102,40 @@ export function isDependencyNodeObject(object: unknown): object is DependencyNod
 
     return true;
 }
+
+/**
+ * Checks whether an unknown object is a {@link ValueObject}.
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link ValueObject}.
+ */
+export function isValueObject(object: unknown): object is ValueObject {
+    if (!isGeometryObject(object)) return false;
+    if (!inIterable(object.getImplementedInterfaces(), "Value")) return false;
+
+    return true;
+}
+
+/**
+ * Checks whether an unknown object is a {@link SettableValueObject}.   
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link SettableValueObject}.
+ */
+export function isSettableValueObject(object: unknown): object is SettableValueObject {
+    if (!isGeometryObject(object)) return false;
+    if (!inIterable(object.getImplementedInterfaces(), "SettableValue")) return false;
+
+    return true;
+}
+
+/**
+ * Checks whether an unknown object is a {@link PointObject}.
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link PointObject}.
+ */
+export function isPointObject(object: unknown): object is PointObject {
+    if (!isGeometryObject(object)) return false;
+    if (!inIterable(object.getImplementedInterfaces(), "Point")) return false;
+
+    return true;
+}
+

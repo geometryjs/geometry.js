@@ -1,4 +1,4 @@
-import { isDependencyNode, isDependencyNodeObject, isGeometryObject, isPoint, isSettableValue, isValue } from "../../src/validators";
+import { isDependencyNode, isDependencyNodeObject, isGeometryObject, isPoint, isPointObject, isSettableValue, isSettableValueObject, isValue, isValueObject } from "../../src/validators";
 import { Plane } from "../../src/geometryObjects/plane/plane";
 
 const plane = new Plane();
@@ -43,6 +43,22 @@ describe("isValue", () => {
     });
 });
 
+describe("isValueObject", () => {
+    test("positive", () => {
+        expect(isValueObject(x)).toBe(true);
+        expect(isValueObject(y)).toBe(true);
+    });
+    test("negative", () => {
+        expect(isValueObject(point)).toBe(false);
+        expect(isValueObject(string)).toBe(false);
+        expect(isValueObject(number)).toBe(false);
+        expect(isValueObject(object)).toBe(false);
+        expect(isValueObject(array)).toBe(false);
+        expect(isValueObject(bigint)).toBe(false);
+        expect(isValueObject(point)).toBe(false);
+    });
+});
+
 describe("isSettableValue", () => {
     test("positive", () => {
         expect(isSettableValue(x)).toBe(true);
@@ -59,6 +75,22 @@ describe("isSettableValue", () => {
     });
 });
 
+describe("isSettableValueObject", () => {
+    test("positive", () => {
+        expect(isSettableValueObject(x)).toBe(true);
+    });
+    test("negative", () => {
+        expect(isSettableValueObject(y)).toBe(false);
+        expect(isSettableValueObject(point)).toBe(false);
+        expect(isSettableValueObject(string)).toBe(false);
+        expect(isSettableValueObject(number)).toBe(false);
+        expect(isSettableValueObject(object)).toBe(false);
+        expect(isSettableValueObject(array)).toBe(false);
+        expect(isSettableValueObject(bigint)).toBe(false);
+        expect(isSettableValueObject(point)).toBe(false);
+    });
+});
+
 describe("isPoint", () => {
     test("positive", () => {
         expect(isPoint(point)).toBe(true);
@@ -71,6 +103,21 @@ describe("isPoint", () => {
         expect(isPoint(object)).toBe(false);
         expect(isPoint(array)).toBe(false);
         expect(isPoint(bigint)).toBe(false);
+    });
+});
+
+describe("isPointObject", () => {
+    test("positive", () => {
+        expect(isPointObject(point)).toBe(true);
+    });
+    test("negative", () => {
+        expect(isPointObject(x)).toBe(false);
+        expect(isPointObject(y)).toBe(false);
+        expect(isPointObject(string)).toBe(false);
+        expect(isPointObject(number)).toBe(false);
+        expect(isPointObject(object)).toBe(false);
+        expect(isPointObject(array)).toBe(false);
+        expect(isPointObject(bigint)).toBe(false);
     });
 });
 
