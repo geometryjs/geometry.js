@@ -66,7 +66,7 @@ export function isSettableValue(object: unknown): object is SettableValue {
  * @param object An unknown object.
  * @returns Whether the object is a {@link Point}.
  *
- *
+ * @group Validators
  */
 export function isPoint(object: unknown): object is Point {
     if (typeof object !== "object" || object === null) return false; // Not an object
@@ -83,7 +83,7 @@ export function isPoint(object: unknown): object is Point {
  * @param object An unknown object.
  * @returns Whether the object is a {@link DependencyNode}.
  *
- *
+ * @group Validators
  */
 export function isDependencyNode(object: unknown): object is DependencyNode {
     if (typeof object !== "object" || object === null) return false; // Not an object
@@ -100,7 +100,7 @@ export function isDependencyNode(object: unknown): object is DependencyNode {
  * @param object An unknown object.
  * @returns Whether the object is a {@link DependencyNodeObject}.
  *
- *
+ * @group Validators
  */
 export function isDependencyNodeObject(object: unknown): object is DependencyNodeObject {
     if (!isGeometryObject(object)) return false;
@@ -114,7 +114,7 @@ export function isDependencyNodeObject(object: unknown): object is DependencyNod
  * @param object An unknown object.
  * @returns Whether the object is a {@link ValueObject}.
  *
- *
+ * @group Validators
  */
 export function isValueObject(object: unknown): object is ValueObject {
     if (!isGeometryObject(object)) return false;
@@ -124,11 +124,11 @@ export function isValueObject(object: unknown): object is ValueObject {
 }
 
 /**
- * Checks whether an unknown object is a {@link SettableValueObject}.   
+ * Checks whether an unknown object is a {@link SettableValueObject}.
  * @param object An unknown object.
  * @returns Whether the object is a {@link SettableValueObject}.
  *
- *
+ * @group Validators
  */
 export function isSettableValueObject(object: unknown): object is SettableValueObject {
     if (!isGeometryObject(object)) return false;
@@ -142,7 +142,7 @@ export function isSettableValueObject(object: unknown): object is SettableValueO
  * @param object An unknown object.
  * @returns Whether the object is a {@link PointObject}.
  *
- *
+ * @group Validators
  */
 export function isPointObject(object: unknown): object is PointObject {
     if (!isGeometryObject(object)) return false;
@@ -150,4 +150,3 @@ export function isPointObject(object: unknown): object is PointObject {
 
     return true;
 }
-
