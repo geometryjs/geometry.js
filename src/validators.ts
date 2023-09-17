@@ -1,5 +1,6 @@
-import { DependencyNode, GeometryObject, Point, SettableValue, Value } from "./interfaces";
+import { DependencyNode, DependencyNodeObject, GeometryObject, Point, SettableValue, Value } from "./interfaces";
 import { getPropertyDescriptor } from "./helpers/getPropertyDescriptor";
+import { inIterable } from "./helpers/iterable";
 /**
  * Checks whether an unknown object is a {@link GeometryObject}.
  * @param object An unknown object.
@@ -11,12 +12,15 @@ export function isGeometryObject(object: unknown): object is GeometryObject {
     if (typeof object !== "object" || object === null) return false; // Not an object
 
     if (!("getImplementedInterfaces" in object)) return false; // Not a GeometryObject
+    // @ts-ignore
     if (typeof object.getImplementedInterfaces !== "function") return false; // Not a GeometryObject
 
     if (!("plane" in object)) return false; // Not a GeometryObject
+    // @ts-ignore
     if (typeof object.plane !== "object" || object.plane === null) return false; // Not a GeometryObject
 
     if (!("info" in object)) return false; // Not a GeometryObject
+    // @ts-ignore
     if (typeof object.info !== "object" || object.info === null) return false; // Not a GeometryObject
 
     return true;
@@ -33,6 +37,7 @@ export function isValue(object: unknown): object is Value {
     if (typeof object !== "object" || object === null) return false; // Not an object
 
     if (!("value" in object)) return false; // Not a Value
+    // @ts-ignore
     if (typeof object.value !== "number") return false; // Not a Value
 
     return true;
@@ -82,6 +87,18 @@ export function isDependencyNode(object: unknown): object is DependencyNode {
     if (!getPropertyDescriptor(object, "dependants")) return false; // Not a DependencyNode
     if (!getPropertyDescriptor(object, "deepDependencies")) return false; // Not a DependencyNode
     if (!getPropertyDescriptor(object, "deepDependants")) return false; // Not a DependencyNode
+
+    return true;
+}
+
+/**
+ * Checks whether an unknown object is a {@link DependencyNodeObject}.
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link DependencyNodeObject}.
+ */
+export function isDependencyNodeObject(object: unknown): object is DependencyNodeObject {
+    if (!isGeometryObject(object)) return false;
+    if (!inIterable(object.getImplementedInterfaces(), "DependencyNode")) return false;
 
     return true;
 }

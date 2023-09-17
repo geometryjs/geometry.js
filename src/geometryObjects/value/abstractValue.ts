@@ -3,6 +3,7 @@ import { Value as IValue } from "../../interfaces/value";
 import { MemoryMapCacheWithAutomaticCalculation } from "../../helpers/cache/memoryMapCache";
 import { DependencyNode } from "../../interfaces/dependencyNode";
 import { Plane } from "../../interfaces/plane";
+import * as Interfaces from "../../interfaces/runtimeInterfaces";
 /**
  * Defines all the common functionality of a value.
  *
@@ -18,7 +19,7 @@ export abstract class AbstractValue extends GeometryObject<{ val: number }> impl
                     return this.getValue();
                 },
             }),
-            implementedInterfaces: [],
+            implementedInterfaces: [...Interfaces.Value],
             ...parameters,
         });
     }

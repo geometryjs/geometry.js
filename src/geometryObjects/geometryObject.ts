@@ -13,7 +13,7 @@ import { Plane } from "../interfaces/plane";
  * @group General
  */
 export class GeometryObject<CacheRecords extends Record<string, Some | null> = Record<string, Some | null>> extends DependencyNodeWithCache<CacheRecords, true> implements IGeometryObject, DependencyNode {
-    private readonly implementedInterfaces: Set<Interfaces.Interface> = new Set();
+    private readonly implementedInterfaces: Set<Interfaces.Interface> = new Set([...Interfaces.GeometryObject, ...Interfaces.DependencyNode]);
     public readonly plane: Plane;
 
     constructor(parameters: { readonly dependencies: Iterable<DependencyNode>; readonly cache: IterableCache<CacheRecords, true>; readonly implementedInterfaces: Iterable<Interfaces.Interface>; readonly plane: Plane }) {

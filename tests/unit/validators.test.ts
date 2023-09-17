@@ -1,4 +1,4 @@
-import { isDependencyNode, isGeometryObject, isPoint, isSettableValue, isValue } from "../../src/validators";
+import { isDependencyNode, isDependencyNodeObject, isGeometryObject, isPoint, isSettableValue, isValue } from "../../src/validators";
 import { Plane } from "../../src/geometryObjects/plane/plane";
 
 const plane = new Plane();
@@ -87,5 +87,20 @@ describe("isDependencyNode", () => {
         expect(isDependencyNode(object)).toBe(false);
         expect(isDependencyNode(array)).toBe(false);
         expect(isDependencyNode(bigint)).toBe(false);
+    });
+});
+
+describe("isDependencyNodeObject", () => {
+    test("positive", () => {
+        expect(isDependencyNodeObject(x)).toBe(true);
+        expect(isDependencyNodeObject(y)).toBe(true);
+        expect(isDependencyNodeObject(point)).toBe(true);
+    });
+    test("negative", () => {
+        expect(isDependencyNodeObject(string)).toBe(false);
+        expect(isDependencyNodeObject(number)).toBe(false);
+        expect(isDependencyNodeObject(object)).toBe(false);
+        expect(isDependencyNodeObject(array)).toBe(false);
+        expect(isDependencyNodeObject(bigint)).toBe(false);
     });
 });

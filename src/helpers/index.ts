@@ -7,3 +7,4 @@ export * from "./cache";
 export * as Types from "./types";
 
 export * from "./getPropertyDescriptor";
+export * from "./iterable"
