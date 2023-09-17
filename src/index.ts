@@ -35,4 +35,5 @@ export * as Helpers from "./helpers";
 export * as Objects from "./geometryObjects";
 
 export * from "./factories";
+export * from "./validators";
 // Internal code
