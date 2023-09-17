@@ -71,6 +71,11 @@ export function isPoint(object: unknown): object is Point {
     return true;
 }
 
+/**
+ * Checks whether an unknown object is a {@link DependencyNode}.
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link DependencyNode}.
+ */
 export function isDependencyNode(object: unknown): object is DependencyNode {
     if (typeof object !== "object" || object === null) return false; // Not an object
     if (!getPropertyDescriptor(object, "dependencies")) return false; // Not a DependencyNode
