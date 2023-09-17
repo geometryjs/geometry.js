@@ -8,6 +8,9 @@ export * from "./procedure";
 export * from "./transformer";
 export * from "./value";
 
+// Synthetic
+export * from "./synthetic";
+
 /**
  * Includes constants, that are used to represent interfaces at runtime.
  * @namespace

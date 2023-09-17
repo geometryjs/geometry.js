@@ -1,7 +1,6 @@
 import { GeometryObject } from "./geometryObject";
 import { DependencyNode } from "./dependencyNode";
-import { SettableValue, Value } from "./value";
-import { Point } from "./point";
+import { PointObject, SettableValueObject, ValueObject } from "./synthetic";
 
 
 /**
@@ -28,14 +27,14 @@ export interface Plane extends DependencyNode, Iterable<GeometryObject> {
      * Creates a readonly value attached to this plane.
      * @group Object creation
      */
-    createReadonlyValue(value: number): Value & DependencyNode & GeometryObject;
+    createReadonlyValue(value: number): ValueObject;
 
     /**
      * Creates a settable value attached to this plane
      * @param value 
      * @group Object creation
      */
-    createValue(value: number): SettableValue & DependencyNode & GeometryObject;
+    createValue(value: number): SettableValueObject;
 
     /**
      * Creates a point attached to this plane.
@@ -43,5 +42,5 @@ export interface Plane extends DependencyNode, Iterable<GeometryObject> {
      * @param y Value for the Y coordinate of the point.
      * @group Object creation
      */
-    createPointFromTwoValues(x: Value & DependencyNode, y: Value & DependencyNode): Point & GeometryObject & DependencyNode;
+    createPointFromTwoValues(x: ValueObject, y: ValueObject): PointObject;
 }
