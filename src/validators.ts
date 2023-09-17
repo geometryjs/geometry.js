@@ -1,4 +1,4 @@
-import { GeometryObject, Point, SettableValue, Value } from "./interfaces";
+import { DependencyNode, GeometryObject, Point, SettableValue, Value } from "./interfaces";
 import { getPropertyDescriptor } from "./helpers/getPropertyDescriptor";
 /**
  * Checks whether an unknown object is a {@link GeometryObject}.
@@ -67,6 +67,16 @@ export function isPoint(object: unknown): object is Point {
     if (!("x" in object)) return false; // Not a Point
 
     if (!("y" in object)) return false; // Not a Point
+
+    return true;
+}
+
+export function isDependencyNode(object: unknown): object is DependencyNode {
+    if (typeof object !== "object" || object === null) return false; // Not an object
+    if (!getPropertyDescriptor(object, "dependencies")) return false; // Not a DependencyNode
+    if (!getPropertyDescriptor(object, "dependants")) return false; // Not a DependencyNode
+    if (!getPropertyDescriptor(object, "deepDependencies")) return false; // Not a DependencyNode
+    if (!getPropertyDescriptor(object, "deepDependants")) return false; // Not a DependencyNode
 
     return true;
 }
