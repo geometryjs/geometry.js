@@ -1,4 +1,4 @@
-import { GeometryObject, SettableValue, Value } from "./interfaces";
+import { GeometryObject, Point, SettableValue, Value } from "./interfaces";
 import { getPropertyDescriptor } from "./helpers/getPropertyDescriptor";
 /**
  * Checks whether an unknown object is a {@link GeometryObject}.
@@ -52,6 +52,21 @@ export function isSettableValue(object: unknown): object is SettableValue {
 
     if (typeof descriptor.get !== "function" && typeof descriptor.value !== "number") return false; // Not a SettableValue
     if (typeof descriptor.set !== "function" && typeof descriptor.value !== "number") return false; // Not a SettableValue
+
+    return true;
+}
+
+/**
+ * Checks whether an unknown object is a {@link Point}.
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link Point}.
+ */
+export function isPoint(object: unknown): object is Point {
+    if (typeof object !== "object" || object === null) return false; // Not an object
+
+    if (!("x" in object)) return false; // Not a Point
+
+    if (!("y" in object)) return false; // Not a Point
 
     return true;
 }
