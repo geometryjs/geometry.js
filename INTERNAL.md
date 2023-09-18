@@ -11,6 +11,7 @@
     - [Basic documentation](#basic-documentation)
     - [API Reference](#api-reference)
   - [Depedencies](#depedencies)
+  - [Publishing](#publishing)
 
 ## Library source code
 
@@ -77,3 +78,11 @@ It will create the HTML files in the [docs/api](./docs/api) directory. These fil
 ## Depedencies
 
 Currently the library has no dependencies. If possible, it should stay that way.
+
+## Publishing
+
+The library is published via npm using the following command:
+
+```bash
+npm publish
+```
