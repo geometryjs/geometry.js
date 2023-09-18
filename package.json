@@ -1,26 +1,40 @@
 {
-  "name": "geometry",
-  "version": "1.0.0",
+  "name": "geometry-js",
+  "version": "0.1.0",
   "description": "Object-oriented typescript library for analytic geometry",
-  "main": "build.js",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "node ./test",
-    "build": "node ./build.js"
+    "test": "npx jest --passWithNoTests --coverage",
+    "build": "npx tsc",
+    "docs": "npx typedoc --options typedoc.json",
+    "prepublish": "npm run test && npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/geometryjs/geometry.js.git"
   },
-  "author": "",
+  "author": {
+    "name": "Jiří Cihelka"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/geometryjs/geometry.js/issues"
   },
+  "files": [
+    "build",
+    "README.md",
+    "LICENSE"
+  ],
   "homepage": "https://github.com/geometryjs/geometry.js#readme",
-  "dependencies": {
-    "typescript": "^4.2.4"
+  "devDependencies": {
+    "@types/jest": "^29.5.4",
+    "jest": "^29.6.4",
+    "ts-jest": "^29.1.1",
+    "typedoc": "^0.25.1",
+    "typescript": "^5.2.2"
   }
 }

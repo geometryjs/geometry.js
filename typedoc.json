@@ -1,0 +1,17 @@
+{
+    "entryPoints": [
+        "./src/index.ts"
+    ],
+    "exclude": [
+        "**/*.spec.ts",
+        "**/*.test.ts"
+    ],
+    "excludeInternal": true,
+    "name": "Geometry JS",
+    "includeVersion": true,
+    "readme": "README.md",
+    "out": "./docs/api",
+    "basePath": "./",
+    "githubPages": true,
+    "searchInComments": true,
+}
