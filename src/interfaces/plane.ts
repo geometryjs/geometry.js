@@ -1,6 +1,6 @@
-import { GeometryObject } from "./geometryObject";
-import { DependencyNode } from "./dependencyNode";
-import { PointObject, SettableValueObject, ValueObject } from "./synthetic";
+import type { GeometryObject } from "./geometryObject";
+import type { DependencyNode } from "./dependencyNode";
+import type { PointObject, SettableValueObject, ValueObject } from "./synthetic";
 
 
 /**

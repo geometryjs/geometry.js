@@ -1,10 +1,8 @@
+import type { IterableCache, GeometryObject as IGeometryObject, DependencyNode, Plane } from "../interfaces";
+import type { Some } from "../helpers/types/general";
+
 import { DependencyNodeWithCache } from "./dependencyNode";
-import { GeometryObject as IGeometryObject } from "../interfaces/geometryObject";
-import { DependencyNode } from "../interfaces/dependencyNode";
-import { Some } from "../helpers/types/general";
-import { IterableCache } from "../interfaces/cache";
 import * as Interfaces from "../interfaces/runtimeInterfaces";
-import { Plane } from "../interfaces/plane";
 
 /**
  * Represents a generic geometry object.

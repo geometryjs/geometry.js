@@ -1,4 +1,5 @@
-import { Plane } from "../../interfaces/plane";
+import type { Plane } from "../../interfaces";
+
 import { AbstractValue } from "./abstractValue";
 /**
  * Represents a readonly value.

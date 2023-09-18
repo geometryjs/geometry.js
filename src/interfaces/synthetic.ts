@@ -3,10 +3,10 @@
  * @module
  */
 
-import { DependencyNode } from "./dependencyNode";
-import { GeometryObject } from "./geometryObject";
-import { Point } from "./point";
-import { SettableValue, Value } from "./value";
+import type { DependencyNode } from "./dependencyNode";
+import type { GeometryObject } from "./geometryObject";
+import type { Point } from "./point";
+import type { SettableValue, Value } from "./value";
 
 /**
  * Interface, that combines the {@link Value}, {@link DependencyNode} and {@link GeometryObject} interfaces.

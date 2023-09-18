@@ -1,5 +1,4 @@
-import { Evaluatable } from "../interfaces/evaluatable";
-import { Procedure as IProcedure } from "../interfaces/procedure";
+import type { Evaluatable, Procedure as IProcedure } from "../interfaces";
 /**
  * Instance of the procedure class represents a pure function that can be executed on specified data. The other properties of the class are used to describe the procedure.
  * To allow for procedure chaining, the input and output are both 1 record object.

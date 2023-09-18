@@ -1,14 +1,14 @@
-import { Cache as ICache, IterableCache as IIterableCache } from "./cache";
-import { Evaluatable as IEvaluatable } from "./evaluatable";
-import { DependencyNode as IDependencyNode } from "./dependencyNode";
-import { GeometryObject as IGeometryObject } from "./geometryObject";
-import { Plane as IPlane } from "./plane";
-import { Procedure as IProcedure } from "./procedure";
-import { Transformer as ITransformer } from "./transformer";
-import { Value as IValue, SettableValue as ISettableValue } from "./value";
-import { Point as IPoint } from "./point";
+import type { Cache as ICache, IterableCache as IIterableCache } from "./cache";
+import type { Evaluatable as IEvaluatable } from "./evaluatable";
+import type { DependencyNode as IDependencyNode } from "./dependencyNode";
+import type { GeometryObject as IGeometryObject } from "./geometryObject";
+import type { Plane as IPlane } from "./plane";
+import type { Procedure as IProcedure } from "./procedure";
+import type { Transformer as ITransformer } from "./transformer";
+import type { Value as IValue, SettableValue as ISettableValue } from "./value";
+import type { Point as IPoint } from "./point";
 
-import * as Synthetic from "./synthetic";
+import type * as Synthetic from "./synthetic";
 
 /**
  * Represents the {@link ICache | Cache} interface at runtime.

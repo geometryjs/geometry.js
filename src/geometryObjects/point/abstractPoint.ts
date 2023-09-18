@@ -1,10 +1,9 @@
+import type { Point, Plane, DependencyNode } from "../../interfaces";
+
 import { MemoryMapCacheWithAutomaticCalculation } from "../../helpers/cache/memoryMapCache";
 import { GeometryObject } from "../geometryObject";
-import { Point } from "../../interfaces/point";
 import * as Interfaces from "../../interfaces/runtimeInterfaces";
 import { PYTHAGOREAN_THEOREM } from "../../procedures/foundational";
-import { DependencyNode } from "../../interfaces/dependencyNode";
-import { Plane } from "../../interfaces/plane";
 /**
  * Defines all the common functionality of a point.
  * 

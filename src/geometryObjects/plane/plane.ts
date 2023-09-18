@@ -1,8 +1,6 @@
+import type { PointObject, SettableValueObject, ValueObject, DependencyNode, GeometryObject, Plane as IPlane } from "../../interfaces";
+
 import { MemoryMapCacheWithAutomaticCalculation } from "../../helpers/cache/memoryMapCache";
-import { PointObject, SettableValueObject, ValueObject } from "../../interfaces";
-import { DependencyNode } from "../../interfaces/dependencyNode";
-import { GeometryObject } from "../../interfaces/geometryObject";
-import { Plane as IPlane } from "../../interfaces/plane";
 import { DependencyNodeWithCache } from "../dependencyNode";
 import { PointFromTwoValues } from "../point/pointFromTwoValues";
 import { ReadonlyValue } from "../value/readonlyValue";

@@ -1,7 +1,5 @@
-import { ValueObject } from "../../interfaces";
-import { DependencyNode } from "../../interfaces/dependencyNode";
-import { Value } from "../../interfaces/value";
-import { Plane } from "../plane/plane";
+import type { ValueObject, Value, Plane } from "../../interfaces";
+
 import { AbstractPoint } from "./abstractPoint";
 
 /**

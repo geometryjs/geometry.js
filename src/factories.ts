@@ -1,5 +1,6 @@
+import type { Plane as IPlane } from "./interfaces";
+
 import { Plane } from "./geometryObjects";
-import { Plane as IPlane } from "./interfaces";
 
 /**
  * A factory function that creates a plane. All other objects are created from the plane.
