@@ -1,6 +1,6 @@
 {
   "name": "@jiricekcz/geometry.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Object-oriented typescript library for analytic geometry",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -29,7 +29,7 @@
     "README.md",
     "LICENSE"
   ],
-  "homepage": "https://github.com/geometryjs/geometry.js#readme",
+  "homepage": "https://geometryjs.jiricekcz.dev",
   "devDependencies": {
     "@types/jest": "^29.5.4",
     "jest": "^29.6.4",
