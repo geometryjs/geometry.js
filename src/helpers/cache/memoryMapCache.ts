@@ -1,4 +1,5 @@
-import { IterableCache } from "../../interfaces/cache";
+import type { IterableCache } from "../../interfaces";
+
 import { Some } from "../types/general";
 
 /**

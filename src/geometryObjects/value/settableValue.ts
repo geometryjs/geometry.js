@@ -1,7 +1,7 @@
+import type { SettableValue as ISettableValue, Plane } from "../../interfaces";
+
 import { AbstractValue } from "./abstractValue";
 import * as Interfaces from "../../interfaces/runtimeInterfaces";
-import { SettableValue as ISettableValue } from "../../interfaces/value";
-import { Plane } from "../../interfaces/plane";
 /**
  * Represents a value that can be set and modified.
  *

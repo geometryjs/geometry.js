@@ -1,4 +1,4 @@
-import { Some } from "../helpers/types/general";
+import type { Some } from "../helpers/types/general";
 
 /**
  * Cache is an object, that can store data records for later use.

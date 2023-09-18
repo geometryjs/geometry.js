@@ -1,7 +1,7 @@
-import { Interface } from "./runtimeInterfaces";
-import { DependencyNode } from "./dependencyNode";
-import { Plane } from "./plane";
-import { Runtime } from ".";
+import type { Interface } from "./runtimeInterfaces";
+import type { DependencyNode } from "./dependencyNode";
+import type { Plane } from "./plane";
+import type { Runtime } from ".";
 
 /**
  * Represents a GeometryJS object, usually paired with a {@link DependencyNode} interface.

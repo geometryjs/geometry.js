@@ -1,6 +1,6 @@
+import type { DependencyNode as IDependencyNode, IterableCache } from "../interfaces";
+
 import { Some } from "../helpers/types/general";
-import { IterableCache } from "../interfaces/cache";
-import { DependencyNode as IDependencyNode } from "../interfaces/dependencyNode";
 
 /**
  * Represents a node in the dependency tree.

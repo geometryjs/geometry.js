@@ -1,8 +1,7 @@
+import type { Plane, DependencyNode, Value as IValue } from "../../interfaces";
+
 import { GeometryObject } from "../geometryObject";
-import { Value as IValue } from "../../interfaces/value";
 import { MemoryMapCacheWithAutomaticCalculation } from "../../helpers/cache/memoryMapCache";
-import { DependencyNode } from "../../interfaces/dependencyNode";
-import { Plane } from "../../interfaces/plane";
 import * as Interfaces from "../../interfaces/runtimeInterfaces";
 /**
  * Defines all the common functionality of a value.
