@@ -1,6 +1,5 @@
 import type { IterableCache } from "../../interfaces";
-
-import { Some } from "../types/general";
+import type { Some } from "../types/general";
 
 /**
  * Cache implementation that uses a Map to store the data.

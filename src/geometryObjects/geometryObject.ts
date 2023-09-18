@@ -1,7 +1,7 @@
 import type { IterableCache, GeometryObject as IGeometryObject, DependencyNode, Plane } from "../interfaces";
+import type { Some } from "../helpers/types/general";
 
 import { DependencyNodeWithCache } from "./dependencyNode";
-import { Some } from "../helpers/types/general";
 import * as Interfaces from "../interfaces/runtimeInterfaces";
 
 /**
