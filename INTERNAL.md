@@ -2,6 +2,15 @@
 
 - [Documentation for the internal API](#documentation-for-the-internal-api)
   - [Library source code](#library-source-code)
+    - [Files and directories](#files-and-directories)
+      - [Root directory](#root-directory)
+      - [Interfaces directory](#interfaces-directory)
+        - [Runtime representation of interfaces](#runtime-representation-of-interfaces)
+        - [Synthetic interfaces](#synthetic-interfaces)
+      - [Helpers directory](#helpers-directory)
+      - [Procedures directory](#procedures-directory)
+      - [GeometryObjects directory](#geometryobjects-directory)
+    - [Exporting](#exporting)
     - [Conventions](#conventions)
   - [Testing](#testing)
     - [Unit testing](#unit-testing)
@@ -17,6 +26,56 @@
 
 All the source code for the library can be found in the [src](./src/) directory. The library is written in TypeScript, so the source code is in TypeScript as well. The library is object oriented, so the source code is organized into classes and interfaces, that are in directories based on the type of behaviour they have. One file usually contains one class or interface or a set of closely-related classes and interfaces.
 
+### Files and directories
+
+The library source is organized into directories based on the type of behaviour they have. Top level directories group code, that has itself a very specific type of behaviour, that no other code has. Files usually contain a single class, function, interface, or a set of closely-related classes, functions, and interfaces. It can also contain multiple connected types.
+
+#### Root directory
+
+The root directory contains the [factories.ts](./src/factories.ts) file and the [validators.ts](./src/validators.ts). All top-level non-namespace exports should be placed directly inside a file in the root directory. The [factories.ts](./src/factories.ts) file contains factories for creating objects. The [validators.ts](./src/validators.ts) file contains functions for validating objects at runtime. The library doesn't provide much other non-namespace top-level exports to keep the API intuitive and descriptive.
+
+#### Interfaces directory
+
+The library follows an interface based design. All behaviour of any object in the library should be described by an interface or combination of interfaces. Each file in the [interfaces directory](./src/interfaces/) contains a single interface or a set of closely-related interfaces. The [runtimeInterfaces.ts](./src/interfaces/runtimeInterfaces.ts) file includes all constants and types, that are used in the runtime representation of interfaces desribed in the [section bellow](#runtime-representation-of-interfaces).  
+The [synthetic.ts](./src/interfaces/synthetic.ts) file includes synthetic interfaces described in the [section bellow](#synthetic-interfaces).
+
+##### Runtime representation of interfaces
+
+Every GeometryObject keeps track of which interfaces it implements at runtime. This enables faster type validators and safe type casting. The runtime representation of interfaces is defined in the [runtimeInterfaces.ts](./src/interfaces/runtimeInterfaces.ts) file.
+
+##### Synthetic interfaces
+
+Some interfaces are usually used together to describe some behaviour. These interfaces can be merged into a single synthetic interface. Synthetic interfaces do not include any new properties or methods, they only merge existing interfaces. Using a synthetic interface should be equivalent to using all the interfaces it merges both typewise and runtime-wise. Synthetic interfaces are defined in the [synthetic.ts](./src/interfaces/synthetic.ts) file.
+
+#### Helpers directory
+
+The [helpers directory](./src/helpers/) contains utility functions and classes. These functions and classes are not directly related to the behaviour of the library, but are used to simplify the implementation of the library. It usually includes types, pure functions and utility classes.
+
+#### Procedures directory
+
+The [procedures directory](./src/procedures/) contains everything to do with procedures. Procedures are pure functions usually of a mathematical character. They are split into two categories:
+
+- Foundational
+- Derived
+
+The foundational procedures are the most basic procedures without library specific documentation (they usually just have a link to a wiki page).  
+Derived procedures are procedures, that are specificaly designed for this library. They usually have a more complex implementation and are documented in the [procedures documentation directory](./docs/procedures/).
+
+#### GeometryObjects directory
+
+The [GeometryObjects directory](./src/GeometryObjects/) contains all the implemented geometry objects in their own directories. 
+
+### Exporting
+
+As the main purpouse of a library is to export its code, exporting has a rigid structure. This sturcture only applies to exporting outside of the library. Exporting and importing within the library is not restricted by this structure and is in fact discouraged to prevent circular dependencies.  
+
+When exporting outside of the library, the following rules apply:
+
+- All exports are defined in the [index.ts](./src/index.ts) file.
+- If you want to export something from a directory, you must export through the index.ts file in that directory. This is done to isolate behaviour of coupled code.
+- Exported namespeces do not need to follow the folder structure. Whether a namespace is needed is decided in the index.ts file in the directory.
+- The index.ts files shouldn't contain any code, that is not related to exporting.
+
 ### Conventions
 
 Almost all conventions are enforced by TypeScript and Prettier. Other convetions include:
@@ -31,7 +90,7 @@ Almost all conventions are enforced by TypeScript and Prettier. Other convetions
 - Circular dependencies using standard imports are not allowed. If a circular dependency is needed, it must be done using the `import type` syntax. If the code requires a logical circular dependency, the code should be refactored.
 - Functions or classes with cleanly isolated behaviour should be placed in the [helpers directory](./src/helpers/).
 - All exports are defined in the [index.ts](./src/index.ts) file.
-- When exporting anything, it should be exported by the index.ts file of the directory it is in. This index.ts file can then be imported by the index.ts file of the parent directory.
+- When importing within the library, importing directly from the file, that contains the desired code, not it's reexports is preferred to prevent circular dependencies.
 - Comments are written in English.
 - While commenting is encouraged, the variable names should be descriptive enough to not need comments when possible.
 - Properties and methods of classes should be private if possible.
