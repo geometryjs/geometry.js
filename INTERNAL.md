@@ -63,7 +63,7 @@ Derived procedures are procedures, that are specificaly designed for this librar
 
 #### GeometryObjects directory
 
-The [GeometryObjects directory](./src/GeometryObjects/) contains all the implemented geometry objects in their own directories. 
+The [GeometryObjects directory](./src/GeometryObjects/) contains all the implemented geometry objects in their own directories.
 
 ### Exporting
 
