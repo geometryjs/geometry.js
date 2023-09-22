@@ -7,6 +7,7 @@ import type { Procedure as IProcedure } from "./procedure";
 import type { Transformer as ITransformer } from "./transformer";
 import type { Value as IValue, SettableValue as ISettableValue } from "./value";
 import type { Point as IPoint } from "./point";
+import type { Vector as IVector, SettableVector as ISettableVector, BareReadonlyVector as IBareReadonlyVector, BareVector as IBareVector } from "./vector";
 
 import type * as Synthetic from "./synthetic";
 
@@ -66,6 +67,26 @@ export const SettableValue = ["SettableValue", ...Value] as const;
 export const Point = ["Point"] as const;
 
 /**
+ * Represents the {@link IVector | Vector} interface at runtime.
+ */
+export const Vector = ["Vector"] as const;
+
+/**
+ * Represents the {@link ISettableVector | SettableVector} interface at runtime.
+ */
+export const SettableVector = ["SettableVector", ...Vector] as const;
+
+/**
+ * Represents the {@link IBareReadonlyVector | BareReadonlyVector} interface at runtime.
+ */
+export const BareReadonlyVector = ["BareReadonlyVector"] as const;
+
+/**
+ * Represents the {@link IBareVector | BareVector} interface at runtime.
+ */
+export const BareVector = ["BareVector"] as const;
+
+/**
  * General type for all constants, that represent interfaces at runtime.
  */
 export type Interface = Readonly<
@@ -80,6 +101,10 @@ export type Interface = Readonly<
     | (typeof Value)[number]
     | (typeof SettableValue)[number]
     | (typeof Point)[number]
+    | (typeof Vector)[number]
+    | (typeof SettableVector)[number]
+    | (typeof BareReadonlyVector)[number]
+    | (typeof BareVector)[number]
 >;
 
 // Synthetic interfaces
@@ -108,4 +133,3 @@ export const PointObject = [...Point, ...DependencyNode, ...GeometryObject] as c
  * Represents the synthetic {@link Synthetic.DependencyNodeObject | DependencyNodeObject} interface at runtime.
  */
 export const DependencyNodeObject = [...DependencyNode, ...GeometryObject] as const;
-

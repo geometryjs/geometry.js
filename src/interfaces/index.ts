@@ -7,6 +7,7 @@ export * from "./point";
 export * from "./procedure";
 export * from "./transformer";
 export * from "./value";
+export * from "./vector";
 
 // Synthetic
 export * from "./synthetic";
