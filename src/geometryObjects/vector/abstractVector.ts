@@ -9,7 +9,7 @@ import * as Interfaces from "../../interfaces/runtimeInterfaces";
  *
  * @group Vector
  */
-export abstract class Vector extends GeometryObject<{ x: number; y: number }> implements IVector, IGeometryObject {
+export abstract class AbstractVector extends GeometryObject<{ x: number; y: number }> implements IVector, IGeometryObject {
     protected abstract getX(): number;
     protected abstract getY(): number;
     public readonly lenght: 2 = 2;
