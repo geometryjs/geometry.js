@@ -2,6 +2,16 @@
 
 Geometry JS is a JavaScript/TypeScript library for creating and manipulating 2D geometry objects.  
 
+## Table of contents
+
+- [Geometry JS](#geometry-js)
+  - [Table of contents](#table-of-contents)
+  - [Getting started](#getting-started)
+  - [Usage](#usage)
+  - [Depedency graph](#depedency-graph)
+    - [Runtime validation](#runtime-validation)
+
+
 ## Getting started
 
 To get started, install the library using npm:
@@ -38,6 +48,11 @@ const point = plane.createPoint(x, y); // Creates a new point object with coordi
 ```
 
 You create a plane object using a factory directly exported from the library. All other objects are created using the plane object.
+
+## Depedency graph
+
+The library uses a dependency graph to keep track of dependencies between objects. This means that when you create a new object, you can use other objects as its parameters. When the value of a parameter changes, the value of the object changes as well.  
+Objects, that are a part of the dependency graph implement the `DependencyNode` interface. This is independent of other interfaces they implement. An object, that implements the `Point` interface, can but does not have to implement the `DependencyNode` interface. Usually objects, that implements the `DependencyNode` interface, are created using methods, that start with *create* or *construct*. They are meant to be longer lived, as they are not garbage collected. Functions such as *evaluate* or others similar usually don't return objects, that implement the `DependencyNode` interface. They are meant to be short lived and are garbage collected after they are no longer needed.
 
 ### Runtime validation
 
