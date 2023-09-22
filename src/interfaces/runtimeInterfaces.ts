@@ -8,6 +8,8 @@ import type { Transformer as ITransformer } from "./transformer";
 import type { Value as IValue, SettableValue as ISettableValue } from "./value";
 import type { Point as IPoint } from "./point";
 import type { Vector as IVector, SettableVector as ISettableVector, BareReadonlyVector as IBareReadonlyVector, BareVector as IBareVector } from "./vector";
+import type { Interval as IInterval } from "./interval";
+import type { SingleParametricCurve as ISingleParametricCurve } from "./parametricCurve";
 
 import type * as Synthetic from "./synthetic";
 
@@ -87,6 +89,16 @@ export const BareReadonlyVector = ["BareReadonlyVector"] as const;
 export const BareVector = ["BareVector"] as const;
 
 /**
+ * Represents the {@link IInterval | Interval} interface at runtime.
+ */
+export const Interval = ["Interval"] as const;
+
+/**
+ * Represents the {@link ISingleParametricCurve | SingleParametricCurve} interface at runtime.
+ */
+export const SingleParametricCurve = ["SingleParametricCurve", ...Evaluatable] as const;
+
+/**
  * General type for all constants, that represent interfaces at runtime.
  */
 export type Interface = Readonly<
@@ -105,6 +117,8 @@ export type Interface = Readonly<
     | (typeof SettableVector)[number]
     | (typeof BareReadonlyVector)[number]
     | (typeof BareVector)[number]
+    | (typeof Interval)[number]
+    | (typeof SingleParametricCurve)[number]
 >;
 
 // Synthetic interfaces
