@@ -147,3 +147,31 @@ export const PointObject = [...Point, ...DependencyNode, ...GeometryObject] as c
  * Represents the synthetic {@link Synthetic.DependencyNodeObject | DependencyNodeObject} interface at runtime.
  */
 export const DependencyNodeObject = [...DependencyNode, ...GeometryObject] as const;
+
+/**
+ * Represents the synthetic {@link Synthetic.VectorObject | VectorObject} interface at runtime.
+ *
+ * @group Synthetic
+ */
+export const VectorObject = [...Vector, ...DependencyNode, ...GeometryObject] as const;
+
+/**
+ * Represents the synthetic {@link Synthetic.SettableVectorObject | SettableVectorObject} interface at runtime.
+ *
+ * @group Synthetic
+ */
+export const SettableVectorObject = [...SettableVector, ...DependencyNode, ...GeometryObject] as const;
+
+/**
+ * Represents the synthetic {@link Synthetic.IntervalObject | IntervalObject} interface at runtime.
+ *
+ * @group Synthetic
+ */
+export const IntervalObject = [...Interval, ...DependencyNode, ...GeometryObject] as const;
+
+/**
+ * Represents the synthetic {@link Synthetic.SingleParametricCurveObject | SingleParametricCurveObject} interface at runtime.
+ *
+ * @group Synthetic
+ */
+export const SingleParametricCurveObject = [...SingleParametricCurve, ...DependencyNode, ...GeometryObject] as const;
