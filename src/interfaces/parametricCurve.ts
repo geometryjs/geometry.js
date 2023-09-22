@@ -1,5 +1,5 @@
+import type { Interval } from "./interval";
 import type { Point } from "./point";
-import type { IntervalObject } from "./synthetic";
 
 /**
  * Represents a parametric curve based of a single parameter.
@@ -15,6 +15,6 @@ export interface SingleParametricCurve {
     /**
      * The interval of the parameter.
      */
-    readonly interval: IntervalObject;
+    readonly interval: Interval;
 
 }
