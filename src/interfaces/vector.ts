@@ -28,6 +28,11 @@ export interface Vector {
      * Provides iteration over the vector.
      */
     [Symbol.iterator](): IterableIterator<number>;
+
+    /**
+     * Returns the vector as a {@link BareVector | BareVector}.
+     */
+    toBare(): BareReadonlyVector;
 }
 
 /**

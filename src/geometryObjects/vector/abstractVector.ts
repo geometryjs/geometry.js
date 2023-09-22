@@ -13,7 +13,7 @@ export abstract class Vector extends GeometryObject<{ x: number; y: number }> im
     protected abstract getX(): number;
     protected abstract getY(): number;
     public readonly lenght: 2 = 2;
-    
+
     constructor(parameters: { dependencies: Iterable<DependencyNode>; plane: Plane }) {
         super({
             cache: new MemoryMapCacheWithAutomaticCalculation({
@@ -48,6 +48,10 @@ export abstract class Vector extends GeometryObject<{ x: number; y: number }> im
     *[Symbol.iterator](): IterableIterator<number> {
         yield this.x;
         yield this.y;
+    }
+
+    public toBare(): BareReadonlyVector {
+        return [this.x, this.y];
     }
 }
 
