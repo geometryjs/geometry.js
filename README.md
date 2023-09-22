@@ -12,7 +12,6 @@ Geometry JS is a JavaScript/TypeScript library for creating and manipulating 2D 
     - [Create vs. Construct vs. Extract](#create-vs-construct-vs-extract)
     - [Runtime validation](#runtime-validation)
 
-
 ## Getting started
 
 To get started, install the library using npm:
