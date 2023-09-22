@@ -44,7 +44,7 @@ const y = plane.createValue(2); // Creates a new value object with value 2
 // We wrap numbers in Value objects
 // so that they can be a part of the internal dependency graph
 
-const point = plane.createPoint(x, y); // Creates a new point object with coordinates (1, 2)
+const point = plane.createPointFromTwoValues(x, y); // Creates a new point object with coordinates (1, 2)
 ```
 
 You create a plane object using a factory directly exported from the library. All other objects are created using the plane object.
