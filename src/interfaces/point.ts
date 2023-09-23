@@ -1,3 +1,5 @@
+import { Vector } from "./vector";
+
 /**
  * Represents a point in 2D space.
  */
@@ -15,4 +17,9 @@ export interface Point {
      * Returns the distance from the origin.
      */
     readonly distanceFromOrigin: number;
+
+    /**
+     * Returns the point as a {@link Vector | Vector}.
+     */
+    toVector(): Vector;
 }
