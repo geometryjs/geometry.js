@@ -10,6 +10,7 @@ import type { SingleParametricCurve } from "./parametricCurve";
 import type { Point } from "./point";
 import type { SettableValue, Value } from "./value";
 import type { SettableVector, Vector } from "./vector";
+import type { Line } from "./line";
 
 /**
  * Interface, that combines the {@link Value}, {@link DependencyNode} and {@link GeometryObject} interfaces.
@@ -59,6 +60,13 @@ export interface IntervalObject extends Interval, DependencyNode, GeometryObject
  * @group Synthetic
  */
 export interface SingleParametricCurveObject extends SingleParametricCurve, DependencyNode, GeometryObject {}
+
+/**
+ * Interface, that combines the {@link Line}, {@link DependencyNode} and {@link GeometryObject} interfaces.
+ *
+ * @group Synthetic
+ */
+export interface LineObject extends Line, DependencyNode, GeometryObject {}
 
 /**
  * Interface, that combines the {@link DependencyNode} and {@link GeometryObject} interfaces.
