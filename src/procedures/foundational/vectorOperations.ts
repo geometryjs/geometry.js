@@ -22,6 +22,30 @@ export class VectorAddition extends Procedure<{ vectors: BareReadonlyVector[] },
 }
 
 /**
+ * A procedure for vector subtraction.
+ * Subtracts `negative` vectors from `positive` vectors per component.
+ */
+export class VectorSubtraction extends Procedure<{ positive: BareReadonlyVector[]; negative: BareReadonlyVector[] }, { differenceVector: BareVector }> {
+    constructor() {
+        super({
+            name: "Vector Subtraction",
+            procedure: ({ positive, negative }) => {
+                const differenceVector: BareVector = [0, 0];
+                for (const vector of positive) {
+                    differenceVector[0] += vector[0];
+                    differenceVector[1] += vector[1];
+                }
+                for (const vector of negative) {
+                    differenceVector[0] -= vector[0];
+                    differenceVector[1] -= vector[1];
+                }
+                return { differenceVector };
+            },
+        });
+    }
+}
+
+/**
  * A procedure for vector by scalar multiplication.
  * Multiplies a vector by a scalar.
  */

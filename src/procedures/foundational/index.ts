@@ -1,5 +1,5 @@
 import { PythagoreanTheorem } from "./pythagoreanTheorem";
-import { VectorAddition, VectorByScalarMultiplication } from "./vectorOperations";
+import { VectorAddition, VectorByScalarMultiplication, VectorSubtraction } from "./vectorOperations";
 
 /**
  * A procedure for the Pythagorean Theorem.
@@ -18,3 +18,9 @@ export const VECTOR_ADDITION = new VectorAddition();
  * @see {@link VectorByScalarMultiplication}
  */
 export const VECTOR_BY_SCALAR_MULTIPLICATION = new VectorByScalarMultiplication();
+
+/**
+ * A procedure for vector subtraction.
+ * @see {@link VectorSubtraction}
+ */
+export const VECTOR_SUBTRACTION = new VectorSubtraction();
