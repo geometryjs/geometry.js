@@ -10,6 +10,7 @@ import type { Point as IPoint } from "./point";
 import type { Vector as IVector, SettableVector as ISettableVector, BareReadonlyVector as IBareReadonlyVector, BareVector as IBareVector } from "./vector";
 import type { Interval as IInterval } from "./interval";
 import type { SingleParametricCurve as ISingleParametricCurve } from "./parametricCurve";
+import type { Line as ILine } from "./line";
 
 import type * as Synthetic from "./synthetic";
 
@@ -99,6 +100,11 @@ export const Interval = ["Interval"] as const;
 export const SingleParametricCurve = ["SingleParametricCurve", ...Evaluatable] as const;
 
 /**
+ * Represents the {@link ILine | Line} interface at runtime.
+ */
+export const Line = ["Line"] as const;
+
+/**
  * General type for all constants, that represent interfaces at runtime.
  */
 export type Interface = Readonly<
@@ -119,6 +125,7 @@ export type Interface = Readonly<
     | (typeof BareVector)[number]
     | (typeof Interval)[number]
     | (typeof SingleParametricCurve)[number]
+    | (typeof Line)[number]
 >;
 
 // Synthetic interfaces
@@ -175,3 +182,10 @@ export const IntervalObject = [...Interval, ...DependencyNode, ...GeometryObject
  * @group Synthetic
  */
 export const SingleParametricCurveObject = [...SingleParametricCurve, ...DependencyNode, ...GeometryObject] as const;
+
+/**
+ * Represents the synthetic {@link Synthetic.LineObject | LineObject} interface at runtime.
+ *
+ * @group Synthetic
+ */
+export const LineObject = [...Line, ...DependencyNode, ...GeometryObject] as const;
