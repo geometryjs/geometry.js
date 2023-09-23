@@ -3,6 +3,8 @@ import type { DependencyNode, Plane, GeometryObject as IGeometryObject, BareRead
 import { MemoryMapCacheWithAutomaticCalculation } from "../../helpers";
 import { GeometryObject } from "../geometryObject";
 import * as Interfaces from "../../interfaces/runtimeInterfaces";
+import { UnboundVector } from "./unbound";
+import { Procedures } from "../..";
 
 /**
  * Defines all the common functionality of a vector.
@@ -52,6 +54,26 @@ export abstract class AbstractVector extends GeometryObject<{ x: number; y: numb
 
     public toBare(): BareReadonlyVector {
         return [this.x, this.y];
+    }
+
+    add(vector: IVector): IVector {
+        return UnboundVector.fromBare(Procedures.Foundational.VECTOR_ADDITION.perform({
+            vectors: [this.toBare(), vector.toBare()],
+        }).sumVector);
+    }
+
+    subtract(vector: IVector): IVector {
+        return UnboundVector.fromBare(Procedures.Foundational.VECTOR_SUBTRACTION.perform({
+            positive: [this.toBare()],
+            negative: [vector.toBare()],
+        }).differenceVector);
+    }
+
+    multiplyByScalar(scalar: number): IVector {
+        return UnboundVector.fromBare(Procedures.Foundational.VECTOR_BY_SCALAR_MULTIPLICATION.perform({
+            vector: this.toBare(),
+            scalar,
+        }).resultVector);
     }
 }
 

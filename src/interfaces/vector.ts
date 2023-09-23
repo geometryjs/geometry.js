@@ -33,6 +33,25 @@ export interface Vector {
      * Returns the vector as a {@link BareVector | BareVector}.
      */
     toBare(): BareReadonlyVector;
+
+    /**
+     * Adds to vectors to create a new vector.
+     * @param vector Another vector.
+     */
+    add(vector: Vector): Vector;
+
+    /**
+     * Subtracts another vector from this vector to create a new vector.
+     * @param vector Another vector.
+     */
+    subtract(vector: Vector): Vector;
+
+    /**
+     * Multiplies the vector by a scalar to create a new vector.
+     * @param scalar A scalar.
+     */
+    multiplyByScalar(scalar: number): Vector;
+
 }
 
 /**

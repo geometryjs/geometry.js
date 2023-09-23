@@ -1,3 +1,4 @@
+import { Procedures } from "../..";
 import type { BareReadonlyVector, Vector } from "../../interfaces";
 
 /**
@@ -19,5 +20,33 @@ export class UnboundVector implements Vector {
     *[Symbol.iterator](): IterableIterator<number> {
         yield this.x;
         yield this.y;
+    }
+
+    add(vector: Vector): Vector {
+        return UnboundVector.fromBare(Procedures.Foundational.VECTOR_ADDITION.perform({
+            vectors: [this.toBare(), vector.toBare()],
+        }).sumVector);
+    }
+
+    subtract(vector: Vector): Vector {
+        return UnboundVector.fromBare(Procedures.Foundational.VECTOR_SUBTRACTION.perform({
+            positive: [this.toBare()],
+            negative: [vector.toBare()],
+        }).differenceVector);
+    }
+
+    multiplyByScalar(scalar: number): Vector {
+        return UnboundVector.fromBare(Procedures.Foundational.VECTOR_BY_SCALAR_MULTIPLICATION.perform({
+            vector: this.toBare(),
+            scalar,
+        }).resultVector);
+    }
+
+
+    static fromBare(bareVector: BareReadonlyVector): Vector {
+        return new UnboundVector({
+            x: bareVector[0],
+            y: bareVector[1],
+        });
     }
 }
