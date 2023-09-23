@@ -21,9 +21,14 @@ export interface Line {
     readonly c: number;
 
     /**
-     * An arbitrary point on the line.
+     * Arbitrary point on the line, that is not equal to {@link Line.arbitraryPoint2}.
      */
-    readonly arbitraryPoint: Point;
+    readonly arbitraryPoint1: Point;
+
+    /**
+     * Arbitrary point on the line, that is not equal to {@link Line.arbitraryPoint1}.
+     */
+    readonly arbitraryPoint2: Point;
 
     /**
      * The directional vector of the line.
