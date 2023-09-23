@@ -1,4 +1,5 @@
-import { BareReadonlyVector, BareVector } from "../../interfaces";
+import type { BareReadonlyVector, BareVector } from "../../interfaces";
+
 import { Procedure } from "../procedure";
 
 /**
