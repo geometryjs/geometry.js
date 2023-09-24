@@ -1,9 +1,10 @@
-import type { Point, Plane, DependencyNode } from "../../interfaces";
+import type { Point, Plane, DependencyNode, Vector } from "../../interfaces";
 
 import { MemoryMapCacheWithAutomaticCalculation } from "../../helpers/cache/memoryMapCache";
 import { GeometryObject } from "../geometryObject";
 import * as Interfaces from "../../interfaces/runtimeInterfaces";
 import { PYTHAGOREAN_THEOREM } from "../../procedures/foundational";
+import { UnboundVector } from "../vector";
 /**
  * Defines all the common functionality of a point.
  * 
@@ -40,5 +41,9 @@ export abstract class AbstractPoint extends GeometryObject<{ x: number; y: numbe
 
     public get distanceFromOrigin(): number {
         return this.cache.readValue("dist");
+    }
+
+    toVector(): Vector {
+        return UnboundVector.fromBare([this.x, this.y]);
     }
 }

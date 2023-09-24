@@ -1,6 +1,7 @@
-import type { Point } from "../../interfaces";
+import type { Point, Vector } from "../../interfaces";
 
 import { Procedures } from "../..";
+import { UnboundVector } from "../vector";
 
 /**
  * A class representing an unbound point. This point is not bound to any plane, nor is it a part of the dependency graph.
@@ -18,5 +19,9 @@ export class UnboundPoint implements Point {
         return Procedures.Foundational.PYTHAGOREAN_THEOREM.evaluate({
             values: [this.x, this.y],
         }).distance;
+    }
+
+    toVector(): Vector {
+        return UnboundVector.fromBare([this.x, this.y]);
     }
 }
