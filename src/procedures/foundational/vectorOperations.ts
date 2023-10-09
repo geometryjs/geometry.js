@@ -62,3 +62,20 @@ export class VectorByScalarMultiplication extends Procedure<{ vector: BareReadon
         });
     }
 }
+
+/**
+ * A procedure for vector normalization.
+ */
+export class VectorNormalization extends Procedure<{ vector: BareReadonlyVector; length: number }, { resultVector: BareVector }> {
+    constructor() {
+        super({
+            name: "Vector Normalize",
+            procedure: ({ vector, length }) => {
+                const magnitude = Math.sqrt(vector[0] ** 2 + vector[1] ** 2);
+                return {
+                    resultVector: [vector[0] * length / magnitude, vector[1] * length / magnitude],
+                };
+            },
+        });
+    }
+}
