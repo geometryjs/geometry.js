@@ -1,4 +1,4 @@
-import type { Evaluatable, Interval, Plane } from "../../interfaces";
+import type { Evaluatable, Interval } from "../../interfaces";
 
 export class UnboundInterval implements Interval, Evaluatable<number, boolean> {
     public readonly start: number;
