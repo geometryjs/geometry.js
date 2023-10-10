@@ -7,7 +7,7 @@ import { GeometryObject } from "../geometryObject";
 /**
  * Represents common behaviour of intervals.
  */
-export abstract class AbstractInterval extends GeometryObject<{ end: number; start: number; endClosed: boolean; startClosed: boolean }> implements IInterval, Evaluatable<number, boolean> {
+export abstract class AbstractInterval extends GeometryObject<{ end: number; start: number; endClosed: boolean; startClosed: boolean, length: number }> implements IInterval, Evaluatable<number, boolean> {
     protected abstract getEnd(): number;
     protected abstract getStart(): number;
     protected abstract getEndClosed(): boolean;
@@ -29,6 +29,9 @@ export abstract class AbstractInterval extends GeometryObject<{ end: number; sta
                 startClosed: () => {
                     return this.getStartClosed();
                 },
+                length: () => {
+                    return this.end - this.start;
+                }
             }),
             ...parameters,
         });
@@ -43,7 +46,7 @@ export abstract class AbstractInterval extends GeometryObject<{ end: number; sta
     }
 
     get length(): number {
-        return this.end - this.start;
+        return this.cache.readValue("length");
     }
 
     get endClosed(): boolean {
