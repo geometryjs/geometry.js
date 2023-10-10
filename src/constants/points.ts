@@ -1,4 +1,4 @@
-import { UnboundPoint } from "../geometryObjects";
+import { UnboundPoint } from "../geometryObjects/point/unbound";
 
 /**
  * The origin point.

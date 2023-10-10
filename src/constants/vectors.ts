@@ -1,5 +1,6 @@
-import { UnboundVector } from "../geometryObjects";
+import { UnboundVector } from "../geometryObjects/vector/unbound";
 
+console.log(UnboundVector);
 /**
  * The vector (1, 0).
  */

@@ -1,4 +1,4 @@
-import { Procedures } from "../..";
+import * as Procedures from "../../procedures";
 import type { BareReadonlyVector, Vector } from "../../interfaces";
 
 /**
