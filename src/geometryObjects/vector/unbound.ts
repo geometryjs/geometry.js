@@ -42,6 +42,12 @@ export class UnboundVector implements Vector {
         }).resultVector);
     }
 
+    normalize(length = 1): Vector {
+        return UnboundVector.fromBare(Procedures.Foundational.VECTOR_NORMALIZATION.perform({
+            vector: this.toBare(),
+            length,
+        }).resultVector);
+    }
 
     static fromBare(bareVector: BareReadonlyVector): Vector {
         return new UnboundVector({

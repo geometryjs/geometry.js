@@ -24,4 +24,8 @@ export class UnboundPoint implements Point {
     toVector(): Vector {
         return UnboundVector.fromBare([this.x, this.y]);
     }
+    
+    static fromVector(vector: Vector): Point {
+        return new UnboundPoint(vector);
+    }
 }

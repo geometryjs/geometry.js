@@ -75,6 +75,13 @@ export abstract class AbstractVector extends GeometryObject<{ x: number; y: numb
             scalar,
         }).resultVector);
     }
+
+    normalize(length = 1): IVector {
+        return UnboundVector.fromBare(Procedures.Foundational.VECTOR_NORMALIZATION.perform({
+            vector: this.toBare(),
+            length,
+        }).resultVector);
+    }
 }
 
 
