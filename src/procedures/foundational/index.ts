@@ -1,5 +1,6 @@
+import { LineAngle, VectorAngle } from "./angle";
 import { PythagoreanTheorem } from "./pythagoreanTheorem";
-import { VectorAddition, VectorByScalarMultiplication, VectorNormalization, VectorSubtraction } from "./vectorOperations";
+import { VectorAddition, VectorByScalarMultiplication, VectorDotProduct, VectorMagnitude, VectorNormalization, VectorSubtraction } from "./vectorOperations";
 
 /**
  * A procedure for the Pythagorean Theorem.
@@ -30,3 +31,27 @@ export const VECTOR_SUBTRACTION = new VectorSubtraction();
  * @see {@link VectorNormalization}
  */
 export const VECTOR_NORMALIZATION = new VectorNormalization();
+
+/**
+ * A procedure for vector dot product.
+ * @see {@link VectorDotProduct}
+ */
+export const VECTOR_DOT_PRODUCT = new VectorDotProduct();
+
+/**
+ * A procedure for vector magnitude.
+ * @see {@link VectorMagnitude}
+ */
+export const VECTOR_MAGNITUDE = new VectorMagnitude();
+
+/**
+ * A procedure for vector angle.
+ * @see {@link VectorAngle}
+ */
+export const VECTOR_ANGLE = new VectorAngle();
+
+/**
+ * A procedure for line angle.
+ * @see {@link LineAngle}
+ */
+export const LINE_ANGLE = new LineAngle();

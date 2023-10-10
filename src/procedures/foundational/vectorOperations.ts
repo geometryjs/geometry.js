@@ -79,3 +79,35 @@ export class VectorNormalization extends Procedure<{ vector: BareReadonlyVector;
         });
     }
 }
+
+/**
+ * A procedure for vector dot product.
+ */
+export class VectorDotProduct extends Procedure<{ vector1: BareReadonlyVector, vector2: BareReadonlyVector }, { product: number }> {
+    constructor() {
+        super({
+            name: "Vector Dot Product",
+            procedure: ({ vector1, vector2 }) => {
+                return {
+                    product: vector1[0] * vector2[0] + vector1[1] * vector2[1],
+                }
+            }
+        });
+    }
+}
+
+/**
+ * A procedure for vector magnitude.
+ */
+export class VectorMagnitude extends Procedure<{ vector: BareReadonlyVector }, { magnitude: number }> {
+    constructor() {
+        super({
+            name: "Vector Magnitude",
+            procedure: ({ vector }) => {
+                return {
+                    magnitude: Math.sqrt(vector[0] ** 2 + vector[1] ** 2),
+                }
+            }
+        })
+    }
+}
