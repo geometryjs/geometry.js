@@ -1,6 +1,6 @@
 import type { Point, Vector } from "../../interfaces";
 
-import { Procedures } from "../..";
+import * as Procedures from "../../procedures";
 import { UnboundVector } from "../vector";
 
 /**

@@ -4,7 +4,7 @@ import { MemoryMapCacheWithAutomaticCalculation } from "../../helpers";
 import { GeometryObject } from "../geometryObject";
 import * as Interfaces from "../../interfaces/runtimeInterfaces";
 import { UnboundVector } from "./unbound";
-import { Procedures } from "../..";
+import * as Procedures from "../../procedures";
 
 /**
  * Defines all the common functionality of a vector.
