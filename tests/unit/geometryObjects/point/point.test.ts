@@ -38,6 +38,15 @@ describe("PointFromTwoValues", () => {
         expect(point.distanceFromOrigin).toBe(5);
     });
 
+    test("can be converted to vector", () => {
+        const x = new SettableValue({ value: 1, plane });
+        const y = new SettableValue({ value: 2, plane});
+
+        const point = new PointFromTwoValues({ x, y, plane });
+
+        expect(point.toVector().toBare()).toStrictEqual([1, 2]);
+    });
+    
     test("info", () => {
         const x = new SettableValue({ value: 3, plane });
         const y = new SettableValue({ value: 4, plane});
