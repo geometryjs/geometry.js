@@ -12,6 +12,10 @@ const object = { a: 1 };
 const array = [1, 2, 3];
 const bigint = BigInt(1);
 
+const objectWithWeirdProperties = {
+    getImplementedInterfaces: "not a function",
+}
+
 describe("isGeometryObject", () => {
     test("positive", () => {
         expect(isGeometryObject(x)).toBe(true);
@@ -24,6 +28,7 @@ describe("isGeometryObject", () => {
         expect(isGeometryObject(object)).toBe(false);
         expect(isGeometryObject(array)).toBe(false);
         expect(isGeometryObject(bigint)).toBe(false);
+        expect(isGeometryObject(objectWithWeirdProperties)).toBe(false);
     });
 });
 

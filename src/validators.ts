@@ -16,14 +16,6 @@ export function isGeometryObject(object: unknown): object is GeometryObject {
     // @ts-ignore
     if (typeof object.getImplementedInterfaces !== "function") return false; // Not a GeometryObject
 
-    if (!("plane" in object)) return false; // Not a GeometryObject
-    // @ts-ignore
-    if (typeof object.plane !== "object" || object.plane === null) return false; // Not a GeometryObject
-
-    if (!("info" in object)) return false; // Not a GeometryObject
-    // @ts-ignore
-    if (typeof object.info !== "object" || object.info === null) return false; // Not a GeometryObject
-
     return true;
 }
 
