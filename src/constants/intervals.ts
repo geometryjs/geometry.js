@@ -1,4 +1,4 @@
-import { UnboundInterval } from "../geometryObjects/interval/unboud";
+import { UnboundInterval } from "../geometryObjects/interval/unbound";
 import { NEGATIVE_INFINITY, POSITIVE_INFINITY } from "./numbers";
 
 /**
