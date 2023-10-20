@@ -3,6 +3,8 @@ import { SettableValue } from "../../../../src/geometryObjects/value/settableVal
 
 import { PointFromTwoValues } from "../../../../src/geometryObjects/point/pointFromTwoValues";
 import { Plane } from "../../../../src/geometryObjects/plane/plane";
+import { UnboundPoint } from "../../../../src/geometryObjects/point";
+import { UnboundVector } from "../../../../src/geometryObjects/vector";
 describe("PointFromTwoValues", () => {
     const plane = new Plane();
     test("retains values", () => {
@@ -43,5 +45,44 @@ describe("PointFromTwoValues", () => {
         const point = new PointFromTwoValues({ x, y, plane });
 
         expect(point.info.canCauseUpdate).toBe(false);
+    });
+});
+
+describe("UnboundPoint", () => {
+    test("can be created", () => {
+        const point = new UnboundPoint({ x: 1, y: 2 });
+        expect(point).toBeDefined();
+    });
+
+    test("keeps values", () => {
+        const point = new UnboundPoint({ x: 1, y: 2 });
+        expect(point.x).toBe(1);
+        expect(point.y).toBe(2);
+    });
+
+    test("can calculate distance from origin", () => {
+        const point = new UnboundPoint({ x: 3, y: 4 });
+
+        expect(point.distanceFromOrigin).toBe(5);
+    });
+
+    test("can be converted to vector", () => {
+        const point = new UnboundPoint({ x: 1, y: 2 });
+
+        expect(point.toVector().toBare()).toStrictEqual([1, 2]);
+    });
+    
+    test("can be created from vector", () => {
+        const point = UnboundPoint.fromVector(UnboundVector.fromBare([1, 2]));
+
+        expect(point.x).toBe(1);
+        expect(point.y).toBe(2);
+    });
+
+    test("can be created from point", () => {
+        const point = UnboundPoint.fromPoint(new UnboundPoint({ x: 1, y: 2 }));
+
+        expect(point.x).toBe(1);
+        expect(point.y).toBe(2);
     });
 });
