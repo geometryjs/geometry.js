@@ -8,6 +8,12 @@ import { Procedures } from "../..";
 import { UnboundVector } from "../vector";
 import { REALS, Y_UNIT_VECTOR } from "../../constants";
 import { Foundational } from "../../procedures";
+
+/**
+ * Represents common behaviour of bound lines that are defined by two points.
+ * 
+ * @group Line
+ */
 export abstract class AbstractLineFromTwoPoints extends GeometryObject<{ point1: Point, point2: Point, normalVector: Vector, directionalVector: Vector, a: number, b: number, c: number, xAxisAngle: number }> implements Line, IGeometryObject, DependencyNode, SingleParametricCurve, Evaluatable<number, Point> {
     protected abstract getPoint1(): Point;
     protected abstract getPoint2(): Point;

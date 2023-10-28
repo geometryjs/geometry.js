@@ -5,7 +5,9 @@ import * as Interfaces from "../../interfaces/runtimeInterfaces";
 import { GeometryObject } from "../geometryObject";
 
 /**
- * Represents common behaviour of intervals.
+ * Represents common behaviour of bound intervals.
+ * 
+ * @group Interval
  */
 export abstract class AbstractInterval extends GeometryObject<{ end: number; start: number; endClosed: boolean; startClosed: boolean, length: number }> implements IInterval, Evaluatable<number, boolean> {
     protected abstract getEnd(): number;

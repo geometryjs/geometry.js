@@ -1,5 +1,10 @@
 import type { Evaluatable, Interval } from "../../interfaces";
 
+/**
+ * An unbound interval is an Interval object, that is not a GeometryObject, thus is not a part of the dependency graph.
+ * 
+ * @group Interval
+ */
 export class UnboundInterval implements Interval, Evaluatable<number, boolean> {
     public readonly start: number;
     public readonly end: number;

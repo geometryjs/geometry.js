@@ -1,6 +1,6 @@
 import type { GeometryObject } from "./geometryObject";
 import type { DependencyNode } from "./dependencyNode";
-import type { PointObject, SettableValueObject, ValueObject } from "./synthetic";
+import type { LineObject, PointObject, SettableValueObject, ValueObject } from "./synthetic";
 
 
 /**
@@ -43,4 +43,28 @@ export interface Plane extends DependencyNode, Iterable<GeometryObject> {
      * @group Object creation
      */
     createPointFromTwoValues(x: ValueObject, y: ValueObject): PointObject;
+
+    /**
+     * Creates a line attached to this plane.
+     * @param point1 First point of the line.
+     * @param point2 Second point of the line
+     * @group Object creation
+     */
+    createLineFromTwoPoints(point1: PointObject, point2: PointObject): LineObject;
+
+    /**
+     * Constructs a perpendicular line to the given line, passing through the given point.
+     * @param line Line to which the constructed line should be perpendicular.
+     * @param point Point through which the constructed line should pass.
+     * @group Object construction
+     */
+    constructPerpendicularLineFromPoint(line: LineObject, point: PointObject): LineObject;
+
+    /**
+     * Constructs a parallel line to the given line, passing through the given point.
+     * @param line Line to which the constructed line should be parallel.
+     * @param point Point through which the constructed line should pass.
+     * @group Object construction
+     */
+    constructParallelLineFromPoint(line: LineObject, point: PointObject): LineObject;
 }
