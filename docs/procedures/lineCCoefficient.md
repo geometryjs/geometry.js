@@ -2,7 +2,7 @@
 
 ## Goal
 
-The goal of the [line c coefficient procedure](../../src/procedures/derived/lineCCoefficient.ts) is to find the $c$ coefficient of a line equation in the form of $ax + bx + c = 0$.
+The goal of the [line c coefficient procedure](../../src/procedures/derived/lineEquation.ts) is to find the $c$ coefficient of a line equation in the form of $ax + bx + c = 0$.
 
 ## Inputs
 

@@ -1,4 +1,4 @@
-import type { Point, Vector } from "../../interfaces";
+import type { BareReadonlyVector, Point, Vector } from "../../interfaces";
 
 import * as Procedures from "../../procedures";
 import { UnboundVector } from "../vector";
@@ -32,6 +32,18 @@ export class UnboundPoint implements Point {
      */
     static fromVector(vector: Vector): Point {
         return new UnboundPoint(vector);
+    }
+
+    /**
+     * Creates an unbound point from a bare vector.
+     * @param bareVector The bare vector to create the point from.
+     * @returns An unbound point with the same coordinates as the bare vector.
+     */
+    static fromBareVector(bareVector: BareReadonlyVector): Point {
+        return new UnboundPoint({
+            x: bareVector[0],
+            y: bareVector[1],
+        });
     }
 
     /**

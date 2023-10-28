@@ -1,5 +1,6 @@
 import { LineCCoefficient } from "./lineEquation";
 import { PerpendicularVector } from "./perpendicularVector";
+import { TwoPointsOnEquationLine } from "./pointsOnLine";
 
 /**
  * Creates a vector perpendicular to the given vector.
@@ -12,3 +13,9 @@ export const PERPENDICULAR_VECTOR = new PerpendicularVector();
  * @see {@link LineCCoefficient}
  */
 export const LINE_C_COEFFICIENT = new LineCCoefficient();
+
+/**
+ * Calculates two points on the line defined by the given coefficients.
+ * @see {@link TwoPointsOnEquationLine}
+ */
+export const TWO_POINTS_ON_EQUATION_LINE = new TwoPointsOnEquationLine();
