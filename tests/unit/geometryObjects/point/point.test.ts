@@ -94,4 +94,11 @@ describe("UnboundPoint", () => {
         expect(point.x).toBe(1);
         expect(point.y).toBe(2);
     });
+
+    test("can be created from bare vector", () => {
+        const point = UnboundPoint.fromBareVector([1, 2]);
+
+        expect(point.x).toBe(1);
+        expect(point.y).toBe(2);
+    });
 });
