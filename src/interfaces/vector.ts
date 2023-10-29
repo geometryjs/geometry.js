@@ -1,12 +1,16 @@
 /**
  * A simple tuple of two numbers representing a readonly vector.
  * This can be used when you don't need the extra functionality of the Vector class and you may create a lot of vectors as creating the class is more expensive than creating the tuple.
+ * 
+ * @interface
  */
 export type BareReadonlyVector = readonly [number, number];
 
 /**
  * A simple tuple of two numbers representing a vector.
  * This can be used when you don't need the extra functionality of the Vector class and you may create a lot of vectors as creating the class is more expensive than creating the tuple.
+ * 
+ * @interface
  */
 export type BareVector = [number, number];
 
