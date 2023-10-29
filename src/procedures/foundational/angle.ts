@@ -1,13 +1,11 @@
 import type { BareReadonlyVector } from "../../interfaces";
 
 import { Procedure } from "../procedure";
-import { VectorDotProduct, VectorMagnitude } from "./vectorOperations";
-
-const VECTOR_MAGNITUDE = new VectorMagnitude();
-const VECTOR_DOT_PRODUCT = new VectorDotProduct();
+import { VECTOR_DOT_PRODUCT, VECTOR_MAGNITUDE } from "./vectorOperations";
 
 /**
  * A procedure for vector angle.
+ * Calculates the angle between two vectors.
  */
 export class VectorAngle extends Procedure<{ vector1: BareReadonlyVector, vector2: BareReadonlyVector }, { angle: number }> {
     constructor() {
@@ -27,6 +25,7 @@ export class VectorAngle extends Procedure<{ vector1: BareReadonlyVector, vector
 
 /**
  * A procedure for line angle.
+ * Calculates the angle between two lines.
  */
 export class LineAngle extends Procedure<{ line1Vector: BareReadonlyVector, line2Vector: BareReadonlyVector }, { angle: number }> {
     constructor() {
@@ -43,3 +42,15 @@ export class LineAngle extends Procedure<{ line1Vector: BareReadonlyVector, line
         })
     }
 }
+
+/**
+ * A procedure for vector angle.
+ * @see {@link VectorAngle}
+ */
+export const VECTOR_ANGLE = new VectorAngle();
+
+/**
+ * A procedure for line angle.
+ * @see {@link LineAngle}
+ */
+export const LINE_ANGLE = new LineAngle();

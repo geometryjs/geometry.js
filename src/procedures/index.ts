@@ -1,6 +1,10 @@
 export * from "./procedure";
 export * from "./foundational/pythagoreanTheorem";
 export * from "./foundational/vectorOperations";
+export * from "./foundational/angle";
+export * from "./derived/lineEquation";
+export * from "./derived/pointsOnLine";
+export * from "./derived/perpendicularVector";
 
 export * from "./derived/perpendicularVector";
 /**

@@ -20,3 +20,9 @@ export class PythagoreanTheorem extends Procedure<{ values: number[] }, { distan
         });
     }
 }
+
+/**
+ * A procedure for the Pythagorean Theorem.
+ *@see {@link https://en.wikipedia.org/wiki/Pythagorean_theorem | Pythagorean Theorem}
+ */
+export const PYTHAGOREAN_THEOREM = new PythagoreanTheorem();

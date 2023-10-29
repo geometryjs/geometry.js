@@ -3,7 +3,7 @@ import type { BareReadonlyVector, Point } from "../../interfaces";
 import { Procedure } from "../procedure";
 /**
  * Calculates the c coefficient of the line equation in the form of ax + by + c = 0, given the line's normal vector and a point on the line.
- * @see {@link ../../../docs/lineCCoefficient.md | Line c Coefficient Procedure Documentation}
+ * @see {@link ../../../docs/procedures/lineCCoefficient.md | Line c Coefficient Procedure Documentation}
  */
 export class LineCCoefficient extends Procedure<{ normalVector: BareReadonlyVector, point: Point }, { cCoefficient: number }> {
     constructor() {
@@ -17,3 +17,9 @@ export class LineCCoefficient extends Procedure<{ normalVector: BareReadonlyVect
         })
     }
 }
+
+/**
+ * Calculates the c coefficient of the line equation in the form of ax + by + c = 0, given the line's normal vector and a point on the line.
+ * @see {@link LineCCoefficient}
+ */
+export const LINE_C_COEFFICIENT = new LineCCoefficient();

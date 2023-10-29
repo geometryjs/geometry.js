@@ -65,6 +65,7 @@ export class VectorByScalarMultiplication extends Procedure<{ vector: BareReadon
 
 /**
  * A procedure for vector normalization.
+ * Normalizes a vector to a given length.
  */
 export class VectorNormalization extends Procedure<{ vector: BareReadonlyVector; length: number }, { resultVector: BareVector }> {
     constructor() {
@@ -82,6 +83,7 @@ export class VectorNormalization extends Procedure<{ vector: BareReadonlyVector;
 
 /**
  * A procedure for vector dot product.
+ * Calculates the dot product of two vectors.
  */
 export class VectorDotProduct extends Procedure<{ vector1: BareReadonlyVector, vector2: BareReadonlyVector }, { product: number }> {
     constructor() {
@@ -98,6 +100,7 @@ export class VectorDotProduct extends Procedure<{ vector1: BareReadonlyVector, v
 
 /**
  * A procedure for vector magnitude.
+ * Calculates the magnitude of a vector.
  */
 export class VectorMagnitude extends Procedure<{ vector: BareReadonlyVector }, { magnitude: number }> {
     constructor() {
@@ -111,3 +114,40 @@ export class VectorMagnitude extends Procedure<{ vector: BareReadonlyVector }, {
         })
     }
 }
+
+
+/**
+ * A procedure for vector addition.
+ * @see {@link VectorAddition}
+ */
+export const VECTOR_ADDITION = new VectorAddition();
+
+/**
+ * A procedure for vector by scalar multiplication.
+ * @see {@link VectorByScalarMultiplication}
+ */
+export const VECTOR_BY_SCALAR_MULTIPLICATION = new VectorByScalarMultiplication();
+
+/**
+ * A procedure for vector subtraction.
+ * @see {@link VectorSubtraction}
+ */
+export const VECTOR_SUBTRACTION = new VectorSubtraction();
+
+/**
+ * A procedure for vector normalization.
+ * @see {@link VectorNormalization}
+ */
+export const VECTOR_NORMALIZATION = new VectorNormalization();
+
+/**
+ * A procedure for vector dot product.
+ * @see {@link VectorDotProduct}
+ */
+export const VECTOR_DOT_PRODUCT = new VectorDotProduct();
+
+/**
+ * A procedure for vector magnitude.
+ * @see {@link VectorMagnitude}
+ */
+export const VECTOR_MAGNITUDE = new VectorMagnitude();

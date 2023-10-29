@@ -1,12 +1,10 @@
 import { BareVector } from "../../interfaces";
 import { Procedure } from "../procedure";
-import { PerpendicularVector } from "./perpendicularVector";
-
-const PERPENDICULAR_VECTOR = new PerpendicularVector();
+import { PERPENDICULAR_VECTOR } from "./perpendicularVector";
 
 /**
  * Calculates two points on the line defined by the given coefficients.
- * @see {@link ../../../docs/twoPointsOnEquationLine.md | Points on Line Procedure Documentation}
+ * @see {@link ../../../docs/procedures/twoPointsOnEquationLine.md | Points on Line Procedure Documentation}
  */
 export class TwoPointsOnEquationLine extends Procedure<{ aCoefficient: number, bCoefficient: number, cCoefficient: number }, { point1: BareVector, point2: BareVector }> {
     constructor() {
@@ -36,3 +34,9 @@ export class TwoPointsOnEquationLine extends Procedure<{ aCoefficient: number, b
         });
     }
 }
+
+/**
+ * Calculates two points on the line defined by the given coefficients.
+ * @see {@link TwoPointsOnEquationLine}
+ */
+export const TWO_POINTS_ON_EQUATION_LINE = new TwoPointsOnEquationLine();
