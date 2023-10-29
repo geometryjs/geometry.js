@@ -6,6 +6,7 @@ import { PointFromTwoValues } from "../point/pointFromTwoValues";
 import { ReadonlyValue } from "../value/readonlyValue";
 import { SettableValue } from "../value/settableValue";
 import { LineFromTwoPoints } from "../line/lineFromTwoPoints";
+import { PerpendicularLineFromPoint } from "../line/perpendicularLine";
 /**
  * Represents a plane.
  *
@@ -47,5 +48,7 @@ export class Plane extends DependencyNodeWithCache<{}, true> implements IPlane {
         return new LineFromTwoPoints({ plane: this, point1, point2 });
     }
 
-    
+    public constructPerpendicularLineFromPoint(line: LineObject, point: PointObject): LineObject {
+        return new PerpendicularLineFromPoint({ plane: this, line, point });
+    }
 }

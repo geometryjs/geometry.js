@@ -158,11 +158,110 @@ export abstract class AbstractLineFromEquation extends AbstractLine {
                         line1Vector: this.normalVector.toBare(),
                         line2Vector: Y_UNIT_VECTOR.toBare()
                     }).angle;
-                   
                 }
             }),
             implementedInterfaces: [...Interfaces.Line, ...Interfaces.SingleParametricCurve, ...Interfaces.Evaluatable],
             ...parameters,
         })
+    }
+}
+
+/**
+ * Represents common behaviour of bound lines that are defined by a point and a directional vector.
+ */
+export abstract class AbstractLineFromPointAndDirectionalVector extends AbstractLine {
+    protected abstract getPoint(): Point;
+    protected abstract getDirectionalVector(): Vector;
+
+    constructor(parameters: { dependencies: Iterable<DependencyNode>, plane: Plane }) {
+        super({
+            cache: new MemoryMapCacheWithAutomaticCalculation({
+                point1: () => {
+                    return UnboundPoint.fromPoint(this.getPoint());
+                },
+                point2: () => {
+                    return UnboundPoint.fromVector(this.getPoint().toVector().add(this.getDirectionalVector()));
+                },
+                normalVector: () => {
+                    return UnboundVector.fromBare(Procedures.Derived.PERPENDICULAR_VECTOR.perform({
+                        direction: "positive",
+                        vector: this.directionalVector.toBare()
+                    }).perpendicularVector);
+                },
+                directionalVector: () => {
+                    return UnboundVector.fromVector(this.getDirectionalVector());
+                },
+                a: () => {
+                    return this.normalVector.x;
+                },
+                b: () => {
+                    return this.normalVector.y;
+                },
+                c: () => {
+                    return Procedures.Derived.LINE_C_COEFFICIENT.perform({
+                        normalVector: this.normalVector.toBare(),
+                        point: this.arbitraryPoint1
+                    }).cCoefficient;
+                },
+                xAxisAngle: () => {
+                    return Procedures.Foundational.LINE_ANGLE.perform({
+                        line1Vector: this.normalVector.toBare(),
+                        line2Vector: Y_UNIT_VECTOR.toBare()
+                    }).angle;
+                }
+            }),
+            implementedInterfaces: [...Interfaces.Line, ...Interfaces.SingleParametricCurve, ...Interfaces.Evaluatable],
+            ...parameters
+        });
+    }
+}
+
+/**
+ * Represents common behaviour of bound lines that are defined by a point and a normal vector.
+ */
+export abstract class AbstractLineFromPointAndNormalVector extends AbstractLine {
+    protected abstract getPoint(): Point;
+    protected abstract getNormalVector(): Vector;
+
+    constructor(parameters: { dependencies: Iterable<DependencyNode>, plane: Plane }) {
+        super({
+            cache: new MemoryMapCacheWithAutomaticCalculation({
+                point1: () => {
+                    return UnboundPoint.fromPoint(this.getPoint());
+                },
+                point2: () => {
+                    return UnboundPoint.fromVector(this.getPoint().toVector().add(this.getNormalVector()));
+                },
+                normalVector: () => {
+                    return UnboundVector.fromVector(this.getNormalVector());
+                },
+                directionalVector: () => {
+                    return UnboundVector.fromBare(Procedures.Derived.PERPENDICULAR_VECTOR.perform({
+                        direction: "negative",
+                        vector: this.normalVector.toBare()
+                    }).perpendicularVector);
+                },
+                a: () => {
+                    return this.normalVector.x;
+                },
+                b: () => {
+                    return this.normalVector.y;
+                },
+                c: () => {
+                    return Procedures.Derived.LINE_C_COEFFICIENT.perform({
+                        normalVector: this.normalVector.toBare(),
+                        point: this.arbitraryPoint1
+                    }).cCoefficient;
+                },
+                xAxisAngle: () => {
+                    return Procedures.Foundational.LINE_ANGLE.perform({
+                        line1Vector: this.normalVector.toBare(),
+                        line2Vector: Y_UNIT_VECTOR.toBare()
+                    }).angle;
+                }
+            }),
+            implementedInterfaces: [...Interfaces.Line, ...Interfaces.SingleParametricCurve, ...Interfaces.Evaluatable],
+            ...parameters
+        });
     }
 }
