@@ -55,4 +55,8 @@ export class UnboundVector implements Vector {
             y: bareVector[1],
         });
     }
+
+    static fromVector(vector: Vector): Vector {
+        return new UnboundVector(vector);
+    }
 }

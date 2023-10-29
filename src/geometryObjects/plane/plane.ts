@@ -1,10 +1,11 @@
-import type { PointObject, SettableValueObject, ValueObject, DependencyNode, GeometryObject, Plane as IPlane } from "../../interfaces";
+import type { PointObject, SettableValueObject, ValueObject, DependencyNode, GeometryObject, Plane as IPlane, LineObject } from "../../interfaces";
 
 import { MemoryMapCacheWithAutomaticCalculation } from "../../helpers/cache/memoryMapCache";
 import { DependencyNodeWithCache } from "../dependencyNode";
 import { PointFromTwoValues } from "../point/pointFromTwoValues";
 import { ReadonlyValue } from "../value/readonlyValue";
 import { SettableValue } from "../value/settableValue";
+import { LineFromTwoPoints } from "../line/lineFromTwoPoints";
 /**
  * Represents a plane.
  *
@@ -41,4 +42,10 @@ export class Plane extends DependencyNodeWithCache<{}, true> implements IPlane {
     public createPointFromTwoValues(x: ValueObject, y: ValueObject): PointObject {
         return new PointFromTwoValues({ plane: this, x, y });
     }
+
+    public createLineFromTwoPoints(point1: PointObject, point2: PointObject): LineObject {
+        return new LineFromTwoPoints({ plane: this, point1, point2 });
+    }
+
+    
 }
