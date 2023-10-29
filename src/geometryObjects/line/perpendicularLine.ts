@@ -2,6 +2,9 @@ import type { Line, LineObject, Plane, Point, PointObject, Vector } from "../../
 
 import { AbstractLineFromPointAndDirectionalVector } from "./abstractLine";
 
+/**
+ * A line perpendicular to a given line, passing through a given point.
+ */
 export class PerpendicularLineFromPoint extends AbstractLineFromPointAndDirectionalVector {
     protected point: Point;
     protected line: Line;
