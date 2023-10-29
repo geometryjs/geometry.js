@@ -73,4 +73,11 @@ describe("UnboundVector", () => {
         expect(vector.x).toBe(1);
         expect(vector.y).toBe(2);
     });
+
+    test("can be created from other vector", () => {
+        const vector = UnboundVector.fromVector(new UnboundVector({ x: 1, y: 2 }));
+
+        expect(vector.x).toBe(1);
+        expect(vector.y).toBe(2);
+    });
 })
