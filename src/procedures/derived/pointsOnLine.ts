@@ -4,7 +4,7 @@ import { PERPENDICULAR_VECTOR } from "./perpendicularVector";
 
 /**
  * Calculates two points on the line defined by the given coefficients.
- * @see {@link ../../../docs/procedures/twoPointsOnEquationLine.md | Points on Line Procedure Documentation}
+ * @see [Points on Line Procedure Documentation](../../../docs/procedures/twoPointsOnEquationLine.md)
  */
 export class TwoPointsOnEquationLine extends Procedure<{ aCoefficient: number, bCoefficient: number, cCoefficient: number }, { point1: BareVector, point2: BareVector }> {
     constructor() {

@@ -1,12 +1,11 @@
-export * from "./procedure";
-export * from "./foundational/pythagoreanTheorem";
-export * from "./foundational/vectorOperations";
-export * from "./foundational/angle";
-export * from "./derived/lineEquation";
-export * from "./derived/pointsOnLine";
-export * from "./derived/perpendicularVector";
+export { Procedure } from "./procedure";
+export { PythagoreanTheorem } from "./foundational/pythagoreanTheorem";
+export { VectorAddition, VectorByScalarMultiplication, VectorDotProduct, VectorMagnitude, VectorNormalization, VectorSubtraction } from "./foundational/vectorOperations";
+export { LineAngle, VectorAngle } from "./foundational/angle";
+export { LineCCoefficient } from "./derived/lineEquation";
+export { TwoPointsOnEquationLine } from "./derived/pointsOnLine";
+export { PerpendicularVector } from "./derived/perpendicularVector";
 
-export * from "./derived/perpendicularVector";
 /**
  * A collection of procedures that are considered foundational. These procedures are well known and have extensive infromation about them online. Usually a wikipedia page is linked by the procedure.
  */
