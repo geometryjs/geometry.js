@@ -63,6 +63,8 @@ export class DependencyNode implements IDependencyNode {
 
 /**
  * Represents a node in the dependency tree. Node has a cache that is cleared when the node is updated.
+ * 
+ * @group General
  */
 export class DependencyNodeWithCache<CacheRecords extends Record<string, Some | null> = Record<string, Some | null>, CacheNonEmpty extends true | false = false> extends DependencyNode {
     protected readonly cache: IterableCache<CacheRecords, CacheNonEmpty>;

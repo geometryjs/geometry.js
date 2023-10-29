@@ -3,6 +3,8 @@ import type { BareReadonlyVector, Vector } from "../../interfaces";
 
 /**
  * Class, that represents an unbound vector. This means, that the vector is not bound to a plane, nor is it a part of the dependency graph.
+ * 
+ * @group Vector
  */
 export class UnboundVector implements Vector {
     public readonly x: number;

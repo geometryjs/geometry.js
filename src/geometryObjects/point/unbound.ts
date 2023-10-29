@@ -5,6 +5,8 @@ import { UnboundVector } from "../vector";
 
 /**
  * A class representing an unbound point. This point is not bound to any plane, nor is it a part of the dependency graph.
+ * 
+ * @group Point
  */
 export class UnboundPoint implements Point {
     public readonly x: number;
