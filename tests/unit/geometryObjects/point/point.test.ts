@@ -3,7 +3,7 @@ import { SettableValue } from "../../../../src/geometryObjects/value/settableVal
 
 import { PointFromTwoValues } from "../../../../src/geometryObjects/point/pointFromTwoValues";
 import { Plane } from "../../../../src/geometryObjects/plane/plane";
-import { PointFromCoordinates, UnboundPoint } from "../../../../src/geometryObjects/point";
+import { UnboundPoint } from "../../../../src/geometryObjects/point";
 import { UnboundVector } from "../../../../src/geometryObjects/vector";
 describe("PointFromTwoValues", () => {
     const plane = new Plane();
@@ -61,27 +61,27 @@ describe("PointFromCoordinates", () => {
     const plane = new Plane();
 
     test("can be created", () => {
-        const point = new PointFromCoordinates({ x: 1, y: 2, plane });
+        const point = plane.createPointFromCoordinates(1, 2);
         expect(point).toBeDefined();
         expect(point.x).toBe(1);
         expect(point.y).toBe(2);
     });    
 
     test("can calculate distance from origin", () => {
-        const point = new PointFromCoordinates({ x: 3, y: 4, plane });
+        const point = plane.createPointFromCoordinates(3, 4);
 
         expect(point.distanceFromOrigin).toBe(5);
     });
 
     test("can be converted to vector", () => {
-        const point = new PointFromCoordinates({ x: 1, y: 2, plane });
+        const point = plane.createPointFromCoordinates(1, 2);
 
         expect(point.toVector().toBare()).toStrictEqual([1, 2]);
     });
 
     test("can be a point for a line", () => {
-        const point1 = new PointFromCoordinates({ x: 1, y: 2, plane });
-        const point2 = new PointFromCoordinates({ x: 3, y: 4, plane });
+        const point1 = plane.createPointFromCoordinates(1, 2);
+        const point2 = plane.createPointFromCoordinates(3, 4);
 
         const line = plane.createLineFromTwoPoints(point1, point2);
 
