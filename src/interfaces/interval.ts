@@ -33,3 +33,27 @@ export interface Interval {
      */
     isInside(value: number): boolean;
 }
+
+export interface IntervalWithSettableEndpointsInclusion extends Interval {
+    /**
+     * The start of the interval.
+     */
+    endIncluded: boolean;
+
+    /**
+     * The end of the interval.
+     */
+    startIncluded: boolean;
+}
+
+export interface IntervalWithSettableEndpoints extends IntervalWithSettableEndpointsInclusion {
+    /**
+     * The start of the interval.
+     */
+    end: number;
+
+    /**
+     * The end of the interval.
+     */
+    start: number;
+}

@@ -8,7 +8,7 @@ import type { Transformer as ITransformer } from "./transformer";
 import type { Value as IValue, SettableValue as ISettableValue } from "./value";
 import type { Point as IPoint } from "./point";
 import type { Vector as IVector, SettableVector as ISettableVector, BareReadonlyVector as IBareReadonlyVector, BareVector as IBareVector } from "./vector";
-import type { Interval as IInterval } from "./interval";
+import type { Interval as IInterval, IntervalWithSettableEndpoints as IIntervalWithSettableEndpoints, IntervalWithSettableEndpointsInclusion as IIntervalWithSettableEndpointsInclusion } from "./interval";
 import type { SingleParametricCurve as ISingleParametricCurve } from "./parametricCurve";
 import type { Line as ILine } from "./line";
 
@@ -105,6 +105,16 @@ export const SingleParametricCurve = ["SingleParametricCurve", ...Evaluatable] a
 export const Line = ["Line"] as const;
 
 /**
+ * Represents the {@link IIntervalWithSettableEndpoints | IntervalWithSettableEndpoints} interface at runtime.
+ */
+export const IntervalWithSettableEndpointsInclusion = ["IntervalWithSettableEndpointsInclusion", ...Interval] as const;
+
+/**
+ * Represents the {@link IIntervalWithSettableEndpointsInclusion | IntervalWithSettableEndpointsInclusion} interface at runtime.
+ */
+export const IntervalWithSettableEndpoints = ["IntervalWithSettableEndpoints", ...IntervalWithSettableEndpointsInclusion] as const;
+
+/**
  * General type for all constants, that represent interfaces at runtime.
  */
 export type Interface = Readonly<
@@ -126,6 +136,8 @@ export type Interface = Readonly<
     | (typeof Interval)[number]
     | (typeof SingleParametricCurve)[number]
     | (typeof Line)[number]
+    | (typeof IntervalWithSettableEndpoints)[number]
+    | (typeof IntervalWithSettableEndpointsInclusion)[number]
 >;
 
 // Synthetic interfaces
@@ -189,3 +201,13 @@ export const SingleParametricCurveObject = [...SingleParametricCurve, ...Depende
  * @group Synthetic
  */
 export const LineObject = [...Line, ...DependencyNode, ...GeometryObject] as const;
+
+/**
+ * Represents the synthetic {@link Synthetic.IntervalWithSettableEndpointsObject | IntervalWithSettableEndpointsObject} interface at runtime.
+ */
+export const IntervalWithSettableEndpointsObject = [...Evaluatable, ...IntervalWithSettableEndpoints, ...DependencyNode, ...GeometryObject] as const;
+
+/**
+ * Represents the synthetic {@link Synthetic.IntervalWithSettableEndpointsInclusionObject | IntervalWithSettableEndpointsInclusionObject} interface at runtime.
+ */
+export const IntervalWithSettableEndpointsInclusionObject = [...IntervalWithSettableEndpointsInclusion, ...DependencyNode, ...GeometryObject] as const;

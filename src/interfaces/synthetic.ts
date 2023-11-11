@@ -5,7 +5,7 @@
 
 import type { DependencyNode } from "./dependencyNode";
 import type { GeometryObject } from "./geometryObject";
-import type { Interval } from "./interval";
+import type { Interval, IntervalWithSettableEndpoints, IntervalWithSettableEndpointsInclusion } from "./interval";
 import type { SingleParametricCurve } from "./parametricCurve";
 import type { Point } from "./point";
 import type { SettableValue, Value } from "./value";
@@ -75,3 +75,17 @@ export interface LineObject extends Line, DependencyNode, GeometryObject {}
  * @group Synthetic
  */
 export interface DependencyNodeObject extends DependencyNode, GeometryObject {}
+
+/**
+ * Interface, that combines the {@link IntervalWithSettableEndpoints}, {@link Evaluatable}, {@link DependencyNode} and {@link GeometryObject} interfaces.
+ * 
+ * @group Synthetic
+ */
+export interface IntervalWithSettableEndpointsObject extends IntervalWithSettableEndpoints, DependencyNode, GeometryObject, Evaluatable<number, boolean> {}
+
+/**
+ * Interface, that combines the {@link IntervalWithSettableEndpointsInclusion}, {@link Evaluatable}, {@link DependencyNode} and {@link GeometryObject} interfaces.
+ * 
+ * @group Synthetic
+ */
+export interface IntervalWithSettableEndpointsInclusionObject extends IntervalWithSettableEndpointsInclusion, DependencyNode, GeometryObject, Evaluatable<number, boolean> {}
