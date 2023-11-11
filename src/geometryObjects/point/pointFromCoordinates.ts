@@ -5,26 +5,26 @@ import { AbstractPoint } from "./abstractPoint";
  * A point defined by its coordinates
  */
 export class PointFromCoordinates extends AbstractPoint {
-    private _xValue: number;
-    private _yValue: number;
+    private xValue: number;
+    private yValue: number;
 
     constructor(parameters: { x: number, y: number, plane: Plane }) {
         super({ dependencies: [], ...parameters });
-        this._xValue = parameters.x;
-        this._yValue = parameters.y;
+        this.xValue = parameters.x;
+        this.yValue = parameters.y;
     }
     getX() {
-        return this._xValue;
+        return this.xValue;
     }
     getY() {
-        return this._yValue;
+        return this.yValue;
     }
 
     public get x() { // Do not remove this, when overriding a setter, the getter must be overridden too
         return super.x;
     }
     public set x(value: number) {
-        this._xValue = value;
+        this.xValue = value;
         this.update();
     }
 
@@ -32,7 +32,7 @@ export class PointFromCoordinates extends AbstractPoint {
         return super.y;
     }
     public set y(value: number) {
-        this._yValue = value;
+        this.yValue = value;
         this.update();
     }
 }
