@@ -51,6 +51,14 @@ export class UnboundVector implements Vector {
         }).resultVector);
     }
 
+    get 0(): number {
+        return this.x;
+    }
+
+    get 1(): number {
+        return this.y;
+    }
+
     static fromBare(bareVector: BareReadonlyVector): Vector {
         return new UnboundVector({
             x: bareVector[0],
