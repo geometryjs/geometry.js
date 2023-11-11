@@ -35,7 +35,7 @@ export class IntervalFromEndPointsAsValues extends AbstractInterval {
         return super.startIncluded;
     }
     public set startIncluded(value: boolean) {
-        this.endIncludedValue = value;
+        this.startIncludedValue = value;
         this.update();
     }
 
