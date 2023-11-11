@@ -29,6 +29,16 @@ export interface Vector {
     readonly y: number;
 
     /**
+     * The x component of the vector.
+     */
+    0: number;
+
+    /**
+     * The y component of the vector.
+     */
+    1: number;
+
+    /**
      * Provides iteration over the vector.
      */
     [Symbol.iterator](): IterableIterator<number>;
