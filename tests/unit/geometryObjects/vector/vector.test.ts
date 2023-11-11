@@ -74,7 +74,12 @@ describe("Vector from two values", () => {
 describe("Vector", () => {
     const plane = new Plane();
 
-    const vectors: Vector[] = []
+    const vectors: Vector[] = [
+        new UnboundVector({ x: 1, y: 2 }),
+        plane.createVectorFromCoordinates(2, 9),
+        plane.createVectorFromTwoValues(plane.createValue(2), plane.createValue(0)),
+        plane.createVectorFromTwoValues(plane.createReadonlyValue(0), plane.createReadonlyValue(10)),
+    ]
     
 
     test.each(vectors)("can be converted to bare vector", (vector) => {
