@@ -11,6 +11,7 @@ import type { Point } from "./point";
 import type { SettableValue, Value } from "./value";
 import type { SettableVector, Vector } from "./vector";
 import type { Line } from "./line";
+import { Evaluatable } from "./evaluatable";
 
 /**
  * Interface, that combines the {@link Value}, {@link DependencyNode} and {@link GeometryObject} interfaces.
@@ -48,11 +49,11 @@ export interface VectorObject extends Vector, DependencyNode, GeometryObject {}
 export interface SettableVectorObject extends SettableVector, DependencyNode, GeometryObject {}
 
 /**
- * Interface, that combines the {@link Interval}, {@link DependencyNode} and {@link GeometryObject} interfaces.
+ * Interface, that combines the {@link Interval}, {@link Evaluatable}, {@link DependencyNode} and {@link GeometryObject} interfaces.
  *
  * @group Synthetic
  */
-export interface IntervalObject extends Interval, DependencyNode, GeometryObject {}
+export interface IntervalObject extends Interval, DependencyNode, GeometryObject, Evaluatable<number, boolean> {}
 
 /**
  * Interface, that combines the {@link SingleParametricCurve}, {@link DependencyNode} and {@link GeometryObject} interfaces.

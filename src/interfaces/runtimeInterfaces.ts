@@ -174,7 +174,7 @@ export const SettableVectorObject = [...SettableVector, ...DependencyNode, ...Ge
  *
  * @group Synthetic
  */
-export const IntervalObject = [...Interval, ...DependencyNode, ...GeometryObject] as const;
+export const IntervalObject = [...Interval, ...DependencyNode, ...GeometryObject, ...Evaluatable] as const;
 
 /**
  * Represents the synthetic {@link Synthetic.SingleParametricCurveObject | SingleParametricCurveObject} interface at runtime.
