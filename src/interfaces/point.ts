@@ -23,3 +23,14 @@ export interface Point {
      */
     toVector(): Vector;
 }
+
+export interface SettablePoint extends Point {
+    /**
+     * X coordinate of the point.
+     */
+    x: number;
+    /**
+     * Y coordinate of the point.
+     */
+    y: number;
+}
