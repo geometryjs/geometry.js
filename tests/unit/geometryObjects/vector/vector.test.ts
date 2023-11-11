@@ -128,8 +128,8 @@ describe("Vector", () => {
     test.each(vectors)("can be iterated over", (vector) => {
         const iterator = vector[Symbol.iterator]();
 
-        expect(iterator.next().value).toBe(1);
-        expect(iterator.next().value).toBe(2);
+        expect(iterator.next().value).toBe(vector.x);
+        expect(iterator.next().value).toBe(vector.y);
         expect(iterator.next().done).toBe(true);
     });
 
