@@ -11,19 +11,15 @@ export class UnboundInterval implements Interval, Evaluatable<number, boolean> {
     public readonly startIncluded: boolean;
     public readonly endIncluded: boolean;
     constructor(parameters: {
-        start: {
-            value: number,
-            closed: boolean,
-        },
-        end: {
-            value: number,
-            closed: boolean,
-        }
+        start: number,
+        startIncluded: boolean
+        end: number,
+        endIncluded: boolean
     }) {
-        this.start = parameters.start.value;
-        this.end = parameters.end.value;
-        this.startIncluded = parameters.start.closed;
-        this.endIncluded = parameters.end.closed;
+        this.start = parameters.start;
+        this.end = parameters.end;
+        this.startIncluded = parameters.startIncluded;
+        this.endIncluded = parameters.endIncluded;
     }
 
     public get length(): number {

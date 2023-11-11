@@ -7,14 +7,10 @@ import { NEGATIVE_INFINITY, POSITIVE_INFINITY } from "./numbers";
  * @group Interval constants
  */
 export const REALS = new UnboundInterval({
-    end: {
-        closed: false,
-        value: POSITIVE_INFINITY
-    },
-    start: {
-        closed: false,
-        value: NEGATIVE_INFINITY
-    }
+    start: NEGATIVE_INFINITY,
+    startIncluded: false,
+    end: POSITIVE_INFINITY,
+    endIncluded: false
 });
 
 /**
@@ -23,14 +19,10 @@ export const REALS = new UnboundInterval({
  * @group Interval constants
  */
 export const POSITIVE_REALS = new UnboundInterval({
-    end: {
-        closed: false,
-        value: POSITIVE_INFINITY
-    },
-    start: {
-        closed: false,
-        value: 0
-    }
+    start: 0,
+    startIncluded: false,
+    end: POSITIVE_INFINITY,
+    endIncluded: false
 });
 
 /**
@@ -39,14 +31,10 @@ export const POSITIVE_REALS = new UnboundInterval({
  * @group Interval constants
  */
 export const NEGATIVE_REALS = new UnboundInterval({
-    end: {
-        closed: false,
-        value: 0
-    },
-    start: {
-        closed: false,
-        value: NEGATIVE_INFINITY
-    }
+    start: NEGATIVE_INFINITY,
+    startIncluded: false,
+    end: 0,
+    endIncluded: false
 });
 
 /**
@@ -55,14 +43,10 @@ export const NEGATIVE_REALS = new UnboundInterval({
  * @group Interval constants
  */
 export const NOT_NEGATIVE_REALS = new UnboundInterval({
-    end: {
-        closed: false,
-        value: POSITIVE_INFINITY
-    },
-    start: {
-        closed: true,
-        value: 0
-    }
+    start: 0,
+    startIncluded: true,
+    end: POSITIVE_INFINITY,
+    endIncluded: false
 });
 
 /**
@@ -71,12 +55,8 @@ export const NOT_NEGATIVE_REALS = new UnboundInterval({
  * @group Interval constants
  */
 export const NOT_POSITIVE_REALS = new UnboundInterval({
-    end: {
-        closed: true,
-        value: 0
-    },
-    start: {
-        closed: false,
-        value: NEGATIVE_INFINITY
-    }
+    start: NEGATIVE_INFINITY,
+    startIncluded: false,
+    end: 0,
+    endIncluded: true
 });
