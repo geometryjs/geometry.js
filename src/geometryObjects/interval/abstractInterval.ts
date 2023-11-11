@@ -12,8 +12,8 @@ import { GeometryObject } from "../geometryObject";
 export abstract class AbstractInterval extends GeometryObject<{ end: number; start: number; endClosed: boolean; startClosed: boolean, length: number }> implements IInterval, Evaluatable<number, boolean> {
     protected abstract getEnd(): number;
     protected abstract getStart(): number;
-    protected abstract getEndClosed(): boolean;
-    protected abstract getStartClosed(): boolean;
+    protected abstract getEndIncluded(): boolean;
+    protected abstract getStartIncluded(): boolean;
 
     constructor(parameters: { dependencies: Iterable<DependencyNode>; plane: Plane }) {
         super({
@@ -26,10 +26,10 @@ export abstract class AbstractInterval extends GeometryObject<{ end: number; sta
                     return this.getStart();
                 },
                 endClosed: () => {
-                    return this.getEndClosed();
+                    return this.getEndIncluded();
                 },
                 startClosed: () => {
-                    return this.getStartClosed();
+                    return this.getStartIncluded();
                 },
                 length: () => {
                     return this.end - this.start;
@@ -51,20 +51,20 @@ export abstract class AbstractInterval extends GeometryObject<{ end: number; sta
         return this.cache.readValue("length");
     }
 
-    get endClosed(): boolean {
+    get endIncluded(): boolean {
         return this.cache.readValue("endClosed");
     }
 
-    get startClosed(): boolean {
+    get startIncluded(): boolean {
         return this.cache.readValue("startClosed");
     }
 
     isInside(value: number): boolean {
-        if (this.startClosed && this.endClosed) {
+        if (this.startIncluded && this.endIncluded) {
             return value >= this.start && value <= this.end;
-        } else if (this.startClosed) {
+        } else if (this.startIncluded) {
             return value >= this.start && value < this.end;
-        } else if (this.endClosed) {
+        } else if (this.endIncluded) {
             return value > this.start && value <= this.end;
         } else {
             return value > this.start && value < this.end;

@@ -20,12 +20,12 @@ export interface Interval {
     /**
      * Whether the end of the interval is closed.
      */
-    readonly endClosed: boolean;
+    readonly endIncluded: boolean;
 
     /**
      * Whether the start of the interval is closed.
      */
-    readonly startClosed: boolean;
+    readonly startIncluded: boolean;
 
     /**
      * Checks whether the given value is inside the interval.
