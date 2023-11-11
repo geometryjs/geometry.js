@@ -46,7 +46,7 @@ export interface IntervalWithSettableEndpointsInclusion extends Interval {
     startIncluded: boolean;
 }
 
-export interface IntervalWithSettableEndpoints extends IntervalWithSettableEndpointsInclusion {
+export interface IntervalWithSettableEndpointsValue extends IntervalWithSettableEndpointsInclusion {
     /**
      * The start of the interval.
      */
@@ -56,4 +56,26 @@ export interface IntervalWithSettableEndpoints extends IntervalWithSettableEndpo
      * The end of the interval.
      */
     start: number;
+}
+
+export interface IntervalWithSettableEndpoints extends IntervalWithSettableEndpointsValue {
+    /**
+     * The start of the interval.
+     */
+    end: number;
+
+    /**
+     * The end of the interval.
+     */
+    start: number;
+
+    /**
+     * Whether the end of the interval is closed.
+     */
+    endIncluded: boolean;
+
+    /**
+     * Whether the start of the interval is closed.
+     */
+    startIncluded: boolean;
 }

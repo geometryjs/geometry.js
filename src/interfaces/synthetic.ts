@@ -89,3 +89,8 @@ export interface IntervalWithSettableEndpointsObject extends IntervalWithSettabl
  * @group Synthetic
  */
 export interface IntervalWithSettableEndpointsInclusionObject extends IntervalWithSettableEndpointsInclusion, DependencyNode, GeometryObject, Evaluatable<number, boolean> {}
+
+/**
+ * Interface, that combines the {@link IntervalWithSettableEndpointsValue}, {@link Evaluatable}, {@link DependencyNode} and {@link GeometryObject} interfaces.
+ */
+export interface IntervalWithSettableEndpointsValueObject extends IntervalWithSettableEndpointsObject, DependencyNode, GeometryObject, Evaluatable<number, boolean> {}
