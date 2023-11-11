@@ -17,16 +17,16 @@ export class VectorFromCoordinates extends AbstractVector {
     getY() {
         return this.yValue;
     }
-    
+
     get x() { // Do not remove this, when overriding a setter, the getter must be overridden too
-        return this.xValue;
+        return super.x;
     }
     set x(value) {
         this.xValue = value;
         this.update();
     }
     get y() { // Do not remove this, when overriding a setter, the getter must be overridden too
-        return this.yValue;
+        return super.y;
     }
     set y(value) {
         this.yValue = value;
