@@ -1,4 +1,4 @@
-import type { PointObject, SettableValueObject, ValueObject, DependencyNode, GeometryObject, Plane as IPlane, LineObject, VectorObject, IntervalWithSettableEndpointsObject, IntervalWithSettableEndpointsInclusionObject, SettablePointObject } from "../../interfaces";
+import type { PointObject, SettableValueObject, ValueObject, DependencyNode, GeometryObject, Plane as IPlane, LineObject, VectorObject, IntervalWithSettableEndpointsObject, IntervalWithSettableEndpointsInclusionObject, SettablePointObject, SettableVectorObject } from "../../interfaces";
 
 import { MemoryMapCacheWithAutomaticCalculation } from "../../helpers/cache/memoryMapCache";
 import { DependencyNodeWithCache } from "../dependencyNode";
@@ -56,7 +56,7 @@ export class Plane extends DependencyNodeWithCache<{}, true> implements IPlane {
         return new VectorFromTwoValues({ plane: this, x, y });
     }
 
-    public createVectorFromCoordinates(x: number, y: number): VectorObject {
+    public createVectorFromCoordinates(x: number, y: number): SettableVectorObject {
         return new VectorFromCoordinates({ plane: this, x, y });
     }
 
