@@ -136,6 +136,11 @@ describe("Vector", () => {
         expect(iterator.next().done).toBe(true);
     });
 
+    test.each(vectors)("can be indexed", (vector) => {
+        expect(vector[0]).toBe(vector.x);
+        expect(vector[1]).toBe(vector.y);
+    });
+
     test.each(settableVectors)("can be set", (vector) => {
         vector.x = 3;
         vector.y = 4;
