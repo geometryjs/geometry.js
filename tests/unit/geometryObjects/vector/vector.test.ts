@@ -94,11 +94,11 @@ describe("Vector", () => {
     });
 
     test.each(vectors)("can be normalized to length", (vector) => {
-        const normalizedTo = [1, 3, 5, 0.1, 12, 8].map(v => vector.normalize(v));
+        const normalizedTo = [1, 3, 5, 0.1, 12, 8].map(v => [v, vector.normalize(v)] as [number, Vector]);
         const normalized = vector.normalize();
-        for (const normalizedVector of normalizedTo) {
-            expect(normalizedVector.x).toBeCloseTo(normalized.x * 10);
-            expect(normalizedVector.y).toBeCloseTo(normalized.y * 10);
+        for (const [size, normalizedVector] of normalizedTo) {
+            expect(normalizedVector.x).toBeCloseTo(normalized.x * size);
+            expect(normalizedVector.y).toBeCloseTo(normalized.y * size);
         }
     });
 
