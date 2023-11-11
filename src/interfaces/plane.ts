@@ -1,6 +1,6 @@
 import type { GeometryObject } from "./geometryObject";
 import type { DependencyNode } from "./dependencyNode";
-import type { IntervalWithSettableEndpointsInclusionObject, IntervalWithSettableEndpointsObject, IntervalWithSettableEndpointsValueObject, LineObject, PointObject, SettableValueObject, ValueObject, VectorObject } from "./synthetic";
+import type { IntervalWithSettableEndpointsInclusionObject, IntervalWithSettableEndpointsObject, IntervalWithSettableEndpointsValueObject, LineObject, PointObject, SettablePointObject, SettableValueObject, ValueObject, VectorObject } from "./synthetic";
 
 
 /**
@@ -50,7 +50,7 @@ export interface Plane extends DependencyNode, Iterable<GeometryObject> {
      * @param y Value for the Y coordinate of the point.
      * @group Object creation
      */
-    createPointFromCoordinates(x: number, y: number): PointObject;
+    createPointFromCoordinates(x: number, y: number): SettablePointObject;
 
     /**
      * Creates a vector attached to this plane.
