@@ -1,6 +1,6 @@
 import type { GeometryObject } from "./geometryObject";
 import type { DependencyNode } from "./dependencyNode";
-import type { IntervalObject, LineObject, PointObject, SettableValueObject, ValueObject, VectorObject } from "./synthetic";
+import type { IntervalWithSettableEndpointsInclusionObject, IntervalWithSettableEndpointsObject, IntervalWithSettableEndpointsValueObject, LineObject, PointObject, SettableValueObject, ValueObject, VectorObject } from "./synthetic";
 
 
 /**
@@ -76,7 +76,7 @@ export interface Plane extends DependencyNode, Iterable<GeometryObject> {
      * @param endIsIncluded Whether the end value is included in the interval.
      * @group Object creation
      */
-    createIntervalFromEndpointsAsValues(start: ValueObject, startIsIncluded: boolean, end: ValueObject, endIsIncluded: boolean): IntervalObject;
+    createIntervalFromEndpointsAsValues(start: ValueObject, startIsIncluded: boolean, end: ValueObject, endIsIncluded: boolean): IntervalWithSettableEndpointsInclusionObject;
 
     /**
      * Creates an interval attached to this plane.
@@ -86,7 +86,7 @@ export interface Plane extends DependencyNode, Iterable<GeometryObject> {
      * @param endIsIncluded Whether the end value is included in the interval.
      * @group Object creation
      */
-    createIntervalFromEndpointsAsNumbers(start: number, startIsIncluded: boolean, end: number, endIsIncluded: boolean): IntervalObject;
+    createIntervalFromEndpointsAsNumbers(start: number, startIsIncluded: boolean, end: number, endIsIncluded: boolean): IntervalWithSettableEndpointsObject;
 
     /**
      * Creates a closed interval attached to this plane.
@@ -94,7 +94,7 @@ export interface Plane extends DependencyNode, Iterable<GeometryObject> {
      * @param end End value of the interval.
      * @group Object creation
      */
-    createClosedIntervalFromEndpointsAsValues(start: ValueObject, end: ValueObject): IntervalObject;
+    createClosedIntervalFromEndpointsAsValues(start: ValueObject, end: ValueObject): IntervalWithSettableEndpointsInclusionObject;
 
     /**
      * Creates a closed interval attached to this plane.
@@ -102,7 +102,7 @@ export interface Plane extends DependencyNode, Iterable<GeometryObject> {
      * @param end End value of the interval.
      * @group Object creation
      */
-    createClosedIntervalFromEndpointsAsNumbers(start: number, end: number): IntervalObject;
+    createClosedIntervalFromEndpointsAsNumbers(start: number, end: number): IntervalWithSettableEndpointsValueObject;
 
     /**
      * Creates an open interval attached to this plane.
@@ -110,7 +110,7 @@ export interface Plane extends DependencyNode, Iterable<GeometryObject> {
      * @param end End value of the interval.
      * @group Object creation
      */
-    createOpenIntervalFromEndpointsAsValues(start: ValueObject, end: ValueObject): IntervalObject;
+    createOpenIntervalFromEndpointsAsValues(start: ValueObject, end: ValueObject): IntervalWithSettableEndpointsInclusionObject;
 
     /**
      * Creates an open interval attached to this plane.
@@ -118,7 +118,7 @@ export interface Plane extends DependencyNode, Iterable<GeometryObject> {
      * @param end End value of the interval.
      * @group Object creation
      */
-    createOpenIntervalFromEndpointsAsNumbers(start: number, end: number): IntervalObject;
+    createOpenIntervalFromEndpointsAsNumbers(start: number, end: number): IntervalWithSettableEndpointsValueObject;
     
     /**
      * Creates a line attached to this plane.

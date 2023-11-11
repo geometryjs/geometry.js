@@ -1,4 +1,4 @@
-import type { PointObject, SettableValueObject, ValueObject, DependencyNode, GeometryObject, Plane as IPlane, LineObject, VectorObject, IntervalObject } from "../../interfaces";
+import type { PointObject, SettableValueObject, ValueObject, DependencyNode, GeometryObject, Plane as IPlane, LineObject, VectorObject, IntervalWithSettableEndpointsObject, IntervalWithSettableEndpointsInclusionObject } from "../../interfaces";
 
 import { MemoryMapCacheWithAutomaticCalculation } from "../../helpers/cache/memoryMapCache";
 import { DependencyNodeWithCache } from "../dependencyNode";
@@ -60,27 +60,27 @@ export class Plane extends DependencyNodeWithCache<{}, true> implements IPlane {
         return new VectorFromCoordinates({ plane: this, x, y });
     }
 
-    public createIntervalFromEndpointsAsValues(start: ValueObject, startIsIncluded: boolean, end: ValueObject, endIsIncluded: boolean): IntervalObject {
+    public createIntervalFromEndpointsAsValues(start: ValueObject, startIsIncluded: boolean, end: ValueObject, endIsIncluded: boolean): IntervalWithSettableEndpointsInclusionObject {
         return new IntervalFromEndPointsAsValues({ plane: this, start, startIncluded: startIsIncluded, end, endIncluded: endIsIncluded });
     }   
 
-    public createIntervalFromEndpointsAsNumbers(start: number, startIsIncluded: boolean, end: number, endIsIncluded: boolean): IntervalObject {
+    public createIntervalFromEndpointsAsNumbers(start: number, startIsIncluded: boolean, end: number, endIsIncluded: boolean): IntervalWithSettableEndpointsObject {
         return new IntervalFromEndPoints({ plane: this, start, startIncluded: startIsIncluded, end, endIncluded: endIsIncluded })
     }
 
-    public createOpenIntervalFromEndpointsAsValues(start: ValueObject, end: ValueObject): IntervalObject {
+    public createOpenIntervalFromEndpointsAsValues(start: ValueObject, end: ValueObject): IntervalWithSettableEndpointsInclusionObject {
         return new OpenIntervalFromEndPointsAsValues({ plane: this, start, end });
     }
 
-    public createOpenIntervalFromEndpointsAsNumbers(start: number, end: number): IntervalObject {
+    public createOpenIntervalFromEndpointsAsNumbers(start: number, end: number): IntervalWithSettableEndpointsObject {
         return new OpenIntervalFromEndPoints({ plane: this, start, end });
     }
 
-    public createClosedIntervalFromEndpointsAsValues(start: ValueObject, end: ValueObject): IntervalObject {
+    public createClosedIntervalFromEndpointsAsValues(start: ValueObject, end: ValueObject): IntervalWithSettableEndpointsInclusionObject {
         return new ClosedIntervalFromEndPointsAsValues({ plane: this, start, end });
     }
 
-    public createClosedIntervalFromEndpointsAsNumbers(start: number, end: number): IntervalObject {
+    public createClosedIntervalFromEndpointsAsNumbers(start: number, end: number): IntervalWithSettableEndpointsObject {
         return new ClosedIntervalFromEndPoints({ plane: this, start, end });
     }
 
