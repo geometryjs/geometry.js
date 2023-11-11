@@ -1,6 +1,6 @@
 import { Plane } from "../../../../src/geometryObjects";
 import { UnboundVector } from "../../../../src/geometryObjects/vector";
-import { Vector } from "../../../../src/interfaces";
+import { SettableVector, Vector } from "../../../../src/interfaces";
 
 describe("UnboundVector", () => {
     test("can be created", () => {
@@ -74,14 +74,17 @@ describe("Vector from two values", () => {
 describe("Vector", () => {
     const plane = new Plane();
 
-    const vectors: Vector[] = [
-        new UnboundVector({ x: 1, y: 2 }),
-        plane.createVectorFromCoordinates(2, 9),
-        plane.createVectorFromTwoValues(plane.createValue(2), plane.createValue(0)),
-        plane.createVectorFromTwoValues(plane.createReadonlyValue(0), plane.createReadonlyValue(10)),
-    ]
     
 
+    const settableVectors: SettableVector[] = [
+        new UnboundVector({ x: 1, y: 2 }),
+        plane.createVectorFromCoordinates(2, 9),
+    ];
+    const vectors: Vector[] = [
+        plane.createVectorFromTwoValues(plane.createValue(2), plane.createValue(0)),
+        plane.createVectorFromTwoValues(plane.createReadonlyValue(0), plane.createReadonlyValue(10)),
+        ...settableVectors
+    ]
     test.each(vectors)("can be converted to bare vector", (vector) => {
         expect(vector.toBare()).toStrictEqual([vector.x, vector.y]);
     });
@@ -131,6 +134,13 @@ describe("Vector", () => {
         expect(iterator.next().value).toBe(vector.x);
         expect(iterator.next().value).toBe(vector.y);
         expect(iterator.next().done).toBe(true);
+    });
+
+    test.each(settableVectors)("can be set", (vector) => {
+        vector.x = 3;
+        vector.y = 4;
+        expect(vector.x).toBe(3);
+        expect(vector.y).toBe(4);
     });
 
     
