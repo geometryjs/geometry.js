@@ -1,6 +1,9 @@
 import type { Plane, Value, ValueObject } from "../../interfaces";
 import { AbstractInterval } from "./abstractInterval";
 
+/**
+ * An interval defined by its end points as values
+ */
 export class IntervalFromEndPointsAsValues extends AbstractInterval {
     private readonly startValue: Value;
     private readonly endValue: Value;
@@ -43,4 +46,22 @@ export class IntervalFromEndPointsAsValues extends AbstractInterval {
         this.update();
     }
 
+}
+
+/**
+ * An open interval defined by its end points as values
+ */
+export class OpenIntervalFromEndPointsAsValues extends IntervalFromEndPointsAsValues {
+    constructor(parameters: { start: ValueObject, end: ValueObject, plane: Plane }) {
+        super({ ...parameters, start: parameters.start, end: parameters.end, startIncluded: false, endIncluded: false });
+    }
+}
+
+/**
+ * A closed interval defined by its end points as values
+ */
+export class ClosedIntervalFromEndPointsAsValues extends IntervalFromEndPointsAsValues {
+    constructor(parameters: { start: ValueObject, end: ValueObject, plane: Plane }) {
+        super({ ...parameters, start: parameters.start, end: parameters.end, startIncluded: true, endIncluded: true });
+    }
 }
