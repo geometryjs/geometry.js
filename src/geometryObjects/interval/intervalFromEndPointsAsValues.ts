@@ -1,4 +1,5 @@
 import type { Plane, Value, ValueObject } from "../../interfaces";
+
 import { AbstractInterval } from "./abstractInterval";
 
 /**
