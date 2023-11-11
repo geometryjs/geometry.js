@@ -1,6 +1,6 @@
 import type { GeometryObject } from "./geometryObject";
 import type { DependencyNode } from "./dependencyNode";
-import type { LineObject, PointObject, SettableValueObject, ValueObject, VectorObject } from "./synthetic";
+import type { IntervalObject, LineObject, PointObject, SettableValueObject, ValueObject, VectorObject } from "./synthetic";
 
 
 /**
@@ -68,6 +68,58 @@ export interface Plane extends DependencyNode, Iterable<GeometryObject> {
      */
     createVectorFromCoordinates(x: number, y: number): VectorObject;
 
+    /**
+     * Creates an interval attached to this plane.
+     * @param start Start value of the interval.
+     * @param startIsIncluded Whether the start value is included in the interval.
+     * @param end End value of the interval.
+     * @param endIsIncluded Whether the end value is included in the interval.
+     * @group Object creation
+     */
+    createIntervalFromEndpointsAsValues(start: ValueObject, startIsIncluded: boolean, end: ValueObject, endIsIncluded: boolean): IntervalObject;
+
+    /**
+     * Creates an interval attached to this plane.
+     * @param start Start value of the interval.
+     * @param startIsIncluded Whether the start value is included in the interval.
+     * @param end End value of the interval.
+     * @param endIsIncluded Whether the end value is included in the interval.
+     * @group Object creation
+     */
+    createIntervalFromEndpointsAsNumbers(start: number, startIsIncluded: boolean, end: number, endIsIncluded: boolean): IntervalObject;
+
+    /**
+     * Creates a closed interval attached to this plane.
+     * @param start Start value of the interval.
+     * @param end End value of the interval.
+     * @group Object creation
+     */
+    createClosedIntervalFromEndpointsAsValues(start: ValueObject, end: ValueObject): IntervalObject;
+
+    /**
+     * Creates a closed interval attached to this plane.
+     * @param start Start value of the interval.
+     * @param end End value of the interval.
+     * @group Object creation
+     */
+    createClosedIntervalFromEndpointsAsNumbers(start: number, end: number): IntervalObject;
+
+    /**
+     * Creates an open interval attached to this plane.
+     * @param start Start value of the interval.
+     * @param end End value of the interval.
+     * @group Object creation
+     */
+    createOpenIntervalFromEndpointsAsValues(start: ValueObject, end: ValueObject): IntervalObject;
+
+    /**
+     * Creates an open interval attached to this plane.
+     * @param start Start value of the interval.
+     * @param end End value of the interval.
+     * @group Object creation
+     */
+    createOpenIntervalFromEndpointsAsNumbers(start: number, end: number): IntervalObject;
+    
     /**
      * Creates a line attached to this plane.
      * @param point1 First point of the line.
