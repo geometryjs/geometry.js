@@ -45,6 +45,14 @@ export interface Plane extends DependencyNode, Iterable<GeometryObject> {
     createPointFromTwoValues(x: ValueObject, y: ValueObject): PointObject;
 
     /**
+     * Creates a point attached to this plane.
+     * @param x Value for the X coordinate of the point.
+     * @param y Value for the Y coordinate of the point.
+     * @group Object creation
+     */
+    createPointFromCoordinates(x: number, y: number): PointObject;
+
+    /**
      * Creates a line attached to this plane.
      * @param point1 First point of the line.
      * @param point2 Second point of the line

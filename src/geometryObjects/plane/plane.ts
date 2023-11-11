@@ -8,6 +8,7 @@ import { SettableValue } from "../value/settableValue";
 import { LineFromTwoPoints } from "../line/lineFromTwoPoints";
 import { PerpendicularLineFromPoint } from "../line/perpendicularLine";
 import { ParalellLineFromPoint } from "../line/parallelLine";
+import { PointFromCoordinates } from "../point";
 /**
  * Represents a plane.
  *
@@ -47,6 +48,10 @@ export class Plane extends DependencyNodeWithCache<{}, true> implements IPlane {
 
     public createLineFromTwoPoints(point1: PointObject, point2: PointObject): LineObject {
         return new LineFromTwoPoints({ plane: this, point1, point2 });
+    }
+    
+    public createPointFromCoordinates(x: number, y: number): PointObject {
+        return new PointFromCoordinates({ plane: this, x, y });
     }
 
     public constructPerpendicularLineFromPoint(line: LineObject, point: PointObject): LineObject {
