@@ -26,7 +26,7 @@ export class UnboundPoint implements Point {
     toVector(): Vector {
         return UnboundVector.fromBare([this.x, this.y]);
     }
-    
+
     /**
      * Creates an unbound point from a vector.
      * @param vector The vector to create the point from.
@@ -55,5 +55,15 @@ export class UnboundPoint implements Point {
      */
     static fromPoint(point: Point): Point {
         return new UnboundPoint(point);
+    }
+
+    /**
+     *  Creates an unbound point from coordinates.
+     * @param x The x coordinate of the point.
+     * @param y The y coordinate of the point.
+     * @returns An unbound point with the given coordinates.
+     */
+    static fromCoordinates(x: number, y: number): Point {
+        return new UnboundPoint({ x, y });
     }
 }
