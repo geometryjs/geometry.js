@@ -176,6 +176,11 @@ export type Interface = Readonly<
     | (typeof IntervalWithSettableEndpointsInclusion)[number]
     | (typeof IntervalWithSettableEndpointsValue)[number]
     | (typeof SettablePoint)[number]
+    | (typeof LineWithSettableEquation)[number]
+    | (typeof LineWithSettableArbitraryPoints)[number]
+    | (typeof LineWithSettableDirectionalVector)[number]
+    | (typeof LineWithSettableNormalVector)[number]
+    | (typeof LineWithSettableXAxisAngle)[number]
 >;
 
 // Synthetic interfaces
