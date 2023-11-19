@@ -9,3 +9,4 @@ export * from "./lineFromPointAndNormalVector";
 export * from "./parallelLine";
 export * from "./perpendicularLine";
 
+export * from "./unbound";

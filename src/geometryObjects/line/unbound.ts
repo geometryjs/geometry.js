@@ -4,6 +4,9 @@ import { Derived, Foundational } from "../../procedures";
 import { UnboundPoint } from "../point";
 import { UnboundVector } from "../vector";
 
+/**
+ * A line, that is not bound to a plane, nor is it a part of the dependency graph.
+ */
 export class UnboundLine implements Line {
     public readonly a: number;
     public readonly b: number;
