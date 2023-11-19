@@ -69,4 +69,8 @@ export class UnboundVector implements Vector {
     static fromVector(vector: Vector): Vector {
         return new UnboundVector(vector);
     }
+
+    static fromCoordinates(x: number, y: number): Vector {
+        return new UnboundVector({ x, y });
+    }
 }
