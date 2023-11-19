@@ -1,5 +1,5 @@
-import { Point, PointObject, Vector, VectorObject } from "../../interfaces";
-import { Plane } from "../plane";
+import type { Plane, Point, PointObject, Vector, VectorObject } from "../../interfaces";
+
 import { AbstractLineFromPointAndDirectionalVector } from "./abstractLine";
 
 /**
