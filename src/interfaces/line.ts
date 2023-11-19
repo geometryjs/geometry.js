@@ -46,3 +46,84 @@ export interface Line {
      */
     readonly xAxisAngle: number;
 }
+
+/**
+ * Interface for a line, that can be set by its equation.
+ */
+export interface LineWithSettableEquation extends Line {
+    /**
+     * The a coefficient of the line equation in the form of ax + by + c = 0.
+     */
+    a: number;
+
+    /**
+     * The b coefficient of the line equation in the form of ax + by + c = 0.
+     */
+    b: number;
+
+    /**
+     * The c coefficient of the line equation in the form of ax + by + c = 0.
+     */
+    c: number;
+}
+
+/**
+ * Interface for a line, that can be set by its two arbitrary points.
+ */
+export interface LineWithSettableArbitraryPoints extends Line {
+    /**
+     * Arbitrary point on the line, that is not equal to {@link Line.arbitraryPoint2}.
+     */
+    arbitraryPoint1: Point;
+
+    /**
+     * Arbitrary point on the line, that is not equal to {@link Line.arbitraryPoint1}.
+     */
+    arbitraryPoint2: Point;
+}
+
+/**
+ * Interface for a line, that can be set by its directional vector and arbitrary point.
+ */
+export interface LineWithSettableDirectionalVector extends Line {
+    /**
+     * Arbitrary point on the line.
+     */
+    arbitraryPoint: Point;
+
+    /**
+     * The directional vector of the line.
+     */
+    directionalVector: Vector;
+}
+
+/**
+ * Interface for a line, that can be set by its normal vector and arbitrary point.
+ */
+export interface LineWithSettableNormalVector extends Line {
+    /**
+     * Arbitrary point on the line.
+     */
+    arbitraryPoint: Point;
+
+    /**
+     * The normal vector of the line.
+     * If the line intersects the origin, the normal vector is of size 1, otherwise it is of size of distance of the line to the origin.
+     */
+    normalVector: Vector;
+}
+
+/**
+ * Interface for a line, that can be set by its angle with the x-axis and arbitrary point.
+ */
+export interface LineWithSettableXAxisAngle extends Line {
+    /**
+     * Arbitrary point on the line.
+     */
+    arbitraryPoint: Point;
+
+    /**
+     * The postitve angle of the line with the x-axis.
+     */
+    xAxisAngle: number;
+}
