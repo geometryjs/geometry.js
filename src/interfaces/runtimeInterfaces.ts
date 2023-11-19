@@ -102,7 +102,7 @@ export const SingleParametricCurve = ["SingleParametricCurve", ...Evaluatable] a
 /**
  * Represents the {@link ILine | Line} interface at runtime.
  */
-export const Line = ["Line"] as const;
+export const Line = ["Line", ...SingleParametricCurve, ...Evaluatable] as const;
 
 /**
  * Represents the {@link IIntervalWithSettableEndpoints | IntervalWithSettableEndpoints} interface at runtime.

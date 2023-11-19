@@ -1,5 +1,5 @@
 import { REALS, Y_UNIT_VECTOR } from "../../constants";
-import type { Evaluatable, Interval, Line, Point, SingleParametricCurve, Vector } from "../../interfaces";
+import type {  Interval, Line, Point, Vector } from "../../interfaces";
 import { Derived, Foundational } from "../../procedures";
 import { UnboundPoint } from "../point";
 import { UnboundVector } from "../vector";
@@ -7,7 +7,7 @@ import { UnboundVector } from "../vector";
 /**
  * A line, that is not bound to a plane, nor is it a part of the dependency graph.
  */
-export class UnboundLine implements Line, SingleParametricCurve, Evaluatable<number, Point> {
+export class UnboundLine implements Line {
     public readonly a: number;
     public readonly b: number;
     public readonly c: number;

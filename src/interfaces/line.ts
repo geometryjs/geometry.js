@@ -1,10 +1,12 @@
+import { Evaluatable } from "./evaluatable";
+import { SingleParametricCurve } from "./parametricCurve";
 import { Point } from "./point";
 import { Vector } from "./vector";
 
 /**
  * Interface for a line
  */
-export interface Line {
+export interface Line extends Evaluatable<number, Point>, SingleParametricCurve {
     /**
      * The a coefficient of the line equation in the form of ax + by + c = 0.
      */

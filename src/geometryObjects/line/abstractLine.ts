@@ -11,7 +11,7 @@ import { REALS, Y_UNIT_VECTOR } from "../../constants";
 /**
  * Represents common behaviour of bound lines.
  */
-export abstract class AbstractLine extends GeometryObject<{ point1: Point, point2: Point, normalVector: Vector, directionalVector: Vector, a: number, b: number, c: number, xAxisAngle: number }> implements Line, IGeometryObject, DependencyNode, SingleParametricCurve, Evaluatable<number, Point> {
+export abstract class AbstractLine extends GeometryObject<{ point1: Point, point2: Point, normalVector: Vector, directionalVector: Vector, a: number, b: number, c: number, xAxisAngle: number }> implements Line, IGeometryObject, DependencyNode {
     get arbitraryPoint1(): Point {
         return this.cache.readValue("point1");
     }
