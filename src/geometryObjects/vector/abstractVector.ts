@@ -82,6 +82,13 @@ export abstract class AbstractVector extends GeometryObject<{ x: number; y: numb
             length,
         }).resultVector);
     }
+
+    dotProduct(vector: IVector): number {
+        return Procedures.Foundational.VECTOR_DOT_PRODUCT.perform({
+            vector1: this.toBare(),
+            vector2: vector.toBare(),
+        }).product;
+    }
 }
 
 

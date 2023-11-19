@@ -73,6 +73,14 @@ export interface Vector {
      */
     normalize(length?: number): Vector;
 
+    /**
+     * Calculates the dot product of this vector and another vector.
+     * @param vector Another vector.
+     */
+    dotProduct(vector: Vector): number;
+
+
+
 }
 
 /**

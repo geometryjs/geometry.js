@@ -59,6 +59,13 @@ export class UnboundVector implements Vector {
         return this.y;
     }
 
+    dotProduct(vector: Vector): number {
+        return Procedures.Foundational.VECTOR_DOT_PRODUCT.perform({
+            vector1: this.toBare(),
+            vector2: vector.toBare(),
+        }).product;
+    }
+
     static fromBare(bareVector: BareReadonlyVector): Vector {
         return new UnboundVector({
             x: bareVector[0],
