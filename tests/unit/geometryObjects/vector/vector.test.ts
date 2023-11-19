@@ -141,6 +141,13 @@ describe("Vector", () => {
         expect(vector[1]).toBe(vector.y);
     });
 
+    test.each(vectors)("can be dot producted", (vector) => {
+        for (const otherVector of vectors) {
+            const dotProduct = vector.dotProduct(otherVector);
+            expect(dotProduct).toBeCloseTo(vector.x * otherVector.x + vector.y * otherVector.y);
+        }
+    });
+
     test.each(settableVectors)("can be set", (vector) => {
         vector.x = 3;
         vector.y = 4;
