@@ -10,7 +10,7 @@ import type { SingleParametricCurve } from "./parametricCurve";
 import type { Point, SettablePoint } from "./point";
 import type { SettableValue, Value } from "./value";
 import type { SettableVector, Vector } from "./vector";
-import type { Line, LineWithSettableArbitraryPoints, LineWithSettableDirectionalVector, LineWithSettableEquation, LineWithSettableNormalVector } from "./line";
+import type { Line, LineWithSettableEquation, LineWithSettableXAxisAngle } from "./line";
 import { Evaluatable } from "./evaluatable";
 
 /**
@@ -111,30 +111,10 @@ export interface SettablePointObject extends SettablePoint, DependencyNode, Geom
  */
 export interface LineWithSettableEquationObject extends LineWithSettableEquation, DependencyNode, GeometryObject { }
 
-/**
- * Interface, that combines the {@link LineWithSettableArbitraryPoints}, {@link DependencyNode} and {@link GeometryObject} interfaces.
- * 
- *  @group Synthetic
- */
-export interface LineWithSettableArbitraryPointsObject extends LineWithSettableArbitraryPoints, DependencyNode, GeometryObject {}
-
-/**
- * Interface, that combines the {@link LineWithSettableDirectionalVector}, {@link DependencyNode} and {@link GeometryObject} interfaces.
- * 
- * @group Synthetic
- */
-export interface LineWithSettableDirectionalVectorObject extends LineWithSettableDirectionalVector, DependencyNode, GeometryObject {}
-
-/**
- * Interface, that combines the {@link LineWithSettableNormalVector}, {@link DependencyNode} and {@link GeometryObject} interfaces.
- * 
- * @group Synthetic
- */
-export interface LineWithSettableNormalVectorObject extends LineWithSettableNormalVector, DependencyNode, GeometryObject {}
 
 /**
  * Interface, that combines the {@link LineWithSettableXAxisAngle}, {@link DependencyNode} and {@link GeometryObject} interfaces.
  * 
  * @group Synthetic
  */
-export interface LineWithSettableXAxisAngleObject extends LineWithSettableDirectionalVectorObject, DependencyNode, GeometryObject {}
+export interface LineWithSettableXAxisAngleObject extends LineWithSettableXAxisAngle, DependencyNode, GeometryObject {}

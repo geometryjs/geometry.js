@@ -10,7 +10,7 @@ import type { Point as IPoint, SettablePoint as ISettablePoint } from "./point";
 import type { Vector as IVector, SettableVector as ISettableVector, BareReadonlyVector as IBareReadonlyVector, BareVector as IBareVector } from "./vector";
 import type { Interval as IInterval, IntervalWithSettableEndpoints as IIntervalWithSettableEndpoints, IntervalWithSettableEndpointsInclusion as IIntervalWithSettableEndpointsInclusion, IntervalWithSettableEndpointsValue as IIntervalWithSettableEndpointsValue } from "./interval";
 import type { SingleParametricCurve as ISingleParametricCurve } from "./parametricCurve";
-import type { Line as ILine, LineWithSettableArbitraryPoints as ILineWithSettableArbitraryPoints, LineWithSettableDirectionalVector as ILineWithSettableDirectionalVector, LineWithSettableEquation as ILineWithSettableEquation, LineWithSettableNormalVector as ILineWithSettableNormalVector, LineWithSettableXAxisAngle as ILineWithSettableXAxisAngle } from "./line";
+import type { Line as ILine, LineWithSettableEquation as ILineWithSettableEquation, LineWithSettableXAxisAngle as ILineWithSettableXAxisAngle } from "./line";
 
 import type * as Synthetic from "./synthetic";
 
@@ -130,21 +130,6 @@ export const SettablePoint = ["SettablePoint", ...Point] as const;
 export const LineWithSettableEquation = ["LineWithSettableEquation", ...Line] as const;
 
 /**
- * Represents the {@link ILineWithSettableArbitraryPoints | LineWithSettableArbitraryPoints} interface at runtime.
- */
-export const LineWithSettableArbitraryPoints = ["LineWithSettableArbitraryPoints", ...Line] as const;
-
-/**
- * Represents the {@link ILineWithSettableDirectionalVector | LineWithSettableDirectionalVector} interface at runtime.
- */
-export const LineWithSettableDirectionalVector = ["LineWithSettableDirectionalVector", ...Line] as const;
-
-/**
- * Represents the {@link ILineWithSettableNormalVector | LineWithSettableNormalVector} interface at runtime.
- */
-export const LineWithSettableNormalVector = ["LineWithSettableNormalVector", ...Line] as const;
-
-/**
  * Represents the {@link ILineWithSettableXAxisAngle | LineWithSettableXAxisAngle} interface at runtime.
  */
 export const LineWithSettableXAxisAngle = ["LineWithSettableXAxisAngle", ...Line] as const;
@@ -177,9 +162,6 @@ export type Interface = Readonly<
     | (typeof IntervalWithSettableEndpointsValue)[number]
     | (typeof SettablePoint)[number]
     | (typeof LineWithSettableEquation)[number]
-    | (typeof LineWithSettableArbitraryPoints)[number]
-    | (typeof LineWithSettableDirectionalVector)[number]
-    | (typeof LineWithSettableNormalVector)[number]
     | (typeof LineWithSettableXAxisAngle)[number]
 >;
 
@@ -269,21 +251,6 @@ export const SettablePointObject = [...SettablePoint, ...PointObject] as const;
  * Represents the synthetic {@link Synthetic.LineWithSettableEquationObject | LineWithSettableEquationObject} interface at runtime.
  */
 export const LineWithSettableEquationObject = [...LineWithSettableEquation, ...LineObject] as const;
-
-/**
- * Represents the synthetic {@link Synthetic.LineWithSettableArbitraryPointsObject | LineWithSettableArbitraryPointsObject} interface at runtime.
- */
-export const LineWithSettableArbitraryPointsObject = [...LineWithSettableArbitraryPoints, ...LineObject] as const;
-
-/**
- * Represents the synthetic {@link Synthetic.LineWithSettableDirectionalVectorObject | LineWithSettableDirectionalVectorObject} interface at runtime.
- */
-export const LineWithSettableDirectionalVectorObject = [...LineWithSettableDirectionalVector, ...LineObject] as const;
-
-/**
- * Represents the synthetic {@link Synthetic.LineWithSettableNormalVectorObject | LineWithSettableNormalVectorObject} interface at runtime.
- */
-export const LineWithSettableNormalVectorObject = [...LineWithSettableNormalVector, ...LineObject] as const;
 
 /**
  * Represents the synthetic {@link Synthetic.LineWithSettableXAxisAngleObject | LineWithSettableXAxisAngleObject} interface at runtime.
