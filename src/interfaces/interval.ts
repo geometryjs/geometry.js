@@ -46,7 +46,7 @@ export interface IntervalWithSettableEndpointsInclusion extends Interval {
     startIncluded: boolean;
 }
 
-export interface IntervalWithSettableEndpointsValue extends IntervalWithSettableEndpointsInclusion {
+export interface IntervalWithSettableEndpointsValue extends Interval {
     /**
      * The start of the interval.
      */
@@ -58,7 +58,7 @@ export interface IntervalWithSettableEndpointsValue extends IntervalWithSettable
     start: number;
 }
 
-export interface IntervalWithSettableEndpoints extends IntervalWithSettableEndpointsValue {
+export interface IntervalWithSettableEndpoints extends Interval {
     /**
      * The start of the interval.
      */
