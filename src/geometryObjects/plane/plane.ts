@@ -1,4 +1,4 @@
-import type { PointObject, SettableValueObject, ValueObject, DependencyNode, GeometryObject, Plane as IPlane, LineObject, VectorObject, IntervalWithSettableEndpointsObject, IntervalWithSettableEndpointsInclusionObject, SettablePointObject, SettableVectorObject } from "../../interfaces";
+import type { PointObject, SettableValueObject, ValueObject, DependencyNode, GeometryObject, Plane as IPlane, LineObject, VectorObject, IntervalWithSettableEndpointsObject, IntervalWithSettableEndpointsInclusionObject, SettablePointObject, SettableVectorObject, LineWithSettableEquationObject } from "../../interfaces";
 
 import { MemoryMapCacheWithAutomaticCalculation } from "../../helpers/cache/memoryMapCache";
 import { DependencyNodeWithCache } from "../dependencyNode";
@@ -11,6 +11,7 @@ import { ParalellLineFromPoint } from "../line/parallelLine";
 import { PointFromCoordinates } from "../point";
 import { VectorFromCoordinates, VectorFromTwoValues } from "../vector";
 import { ClosedIntervalFromEndPoints, ClosedIntervalFromEndPointsAsValues, IntervalFromEndPoints, IntervalFromEndPointsAsValues, OpenIntervalFromEndPoints, OpenIntervalFromEndPointsAsValues } from "../interval";
+import { LineFromEquation, LineFromEquationAsValues, LineFromPointAndDirectionalVector, LineFromPointAndNormalVector } from "../line";
 /**
  * Represents a plane.
  *
@@ -88,6 +89,21 @@ export class Plane extends DependencyNodeWithCache<{}, true> implements IPlane {
         return new LineFromTwoPoints({ plane: this, point1, point2 });
     }
 
+    public createLineFromEquationAsNumbers(a: number, b: number, c: number): LineWithSettableEquationObject {
+        return new LineFromEquation({ plane: this, a, b, c });
+    }
+
+    public createLineFromEquationAsValues(a: ValueObject, b: ValueObject, c: ValueObject): LineWithSettableEquationObject {
+        return new LineFromEquationAsValues({ plane: this, a, b, c });
+    }
+
+    public createLineFromPointAndDirectionalVector(point: PointObject, directionalVector: VectorObject): LineObject {
+        return new LineFromPointAndDirectionalVector({ plane: this, point, directionalVector });
+    }
+
+    public createLineFromPointAndNormalVector(point: PointObject, normalVector: VectorObject): LineObject {
+        return new LineFromPointAndNormalVector({ plane: this, point, normalVector: normalVector });
+    }
 
     public constructPerpendicularLineFromPoint(line: LineObject, point: PointObject): LineObject {
         return new PerpendicularLineFromPoint({ plane: this, line, point });

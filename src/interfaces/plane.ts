@@ -1,13 +1,13 @@
 import type { GeometryObject } from "./geometryObject";
 import type { DependencyNode } from "./dependencyNode";
-import type { IntervalWithSettableEndpointsInclusionObject, IntervalWithSettableEndpointsObject, IntervalWithSettableEndpointsValueObject, LineObject, PointObject, SettablePointObject, SettableValueObject, SettableVectorObject, ValueObject, VectorObject } from "./synthetic";
+import type { IntervalWithSettableEndpointsInclusionObject, IntervalWithSettableEndpointsObject, IntervalWithSettableEndpointsValueObject, LineObject, LineWithSettableEquationObject, PointObject, SettablePointObject, SettableValueObject, SettableVectorObject, ValueObject, VectorObject } from "./synthetic";
 
 
 /**
  * Main GeometryJS object. Represents a 2D plane. 
  */
 export interface Plane extends DependencyNode, Iterable<GeometryObject> {
-    
+
     /**
      * Links an object to this plane.
      * @param object Object to link to this plane.
@@ -119,7 +119,7 @@ export interface Plane extends DependencyNode, Iterable<GeometryObject> {
      * @group Object creation
      */
     createOpenIntervalFromEndpointsAsNumbers(start: number, end: number): IntervalWithSettableEndpointsValueObject;
-    
+
     /**
      * Creates a line attached to this plane.
      * @param point1 First point of the line.
@@ -127,6 +127,40 @@ export interface Plane extends DependencyNode, Iterable<GeometryObject> {
      * @group Object creation
      */
     createLineFromTwoPoints(point1: PointObject, point2: PointObject): LineObject;
+
+    /**
+     * Creates a line attached to this plane from an equation in the form of ax + by + c = 0 with a, b, c being values.
+     * @param a Value for the a coefficient of the line equation.
+     * @param b Value for the b coefficient of the line equation.
+     * @param c Value for the c coefficient of the line equation.
+     * @group Object creation
+     */
+    createLineFromEquationAsValues(a: ValueObject, b: ValueObject, c: ValueObject): LineObject;
+
+    /**
+     * Creates a line attached to this plane from an equation in the form of ax + by + c = 0 with a, b, c being numbers.
+     * @param a The a coefficient of the line equation.
+     * @param b The b coefficient of the line equation.
+     * @param c The c coefficient of the line equation.
+     * @group Object creation
+     */
+    createLineFromEquationAsNumbers(a: number, b: number, c: number): LineWithSettableEquationObject;
+
+    /**
+     * Creates a line attached to this plane from a point and a directional vector.
+     * @param point A point on the line.
+     * @param directionalVector The directional vector of the line.
+     * @group Object creation
+     */
+    createLineFromPointAndDirectionalVector(point: PointObject, directionalVector: VectorObject): LineObject;
+
+    /**
+     * Creates a line attached to this plane from a point and a normal vector.
+     * @param point A point on the line.
+     * @param normalVector The normal vector of the line.
+     * @group Object creation
+     */
+    createLineFromPointAndNormalVector(point: PointObject, normalVector: VectorObject): LineObject;
 
     /**
      * Constructs a perpendicular line to the given line, passing through the given point.
