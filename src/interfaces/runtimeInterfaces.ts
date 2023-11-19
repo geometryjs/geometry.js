@@ -264,3 +264,28 @@ export const IntervalWithSettableEndpointsValueObject = [...IntervalWithSettable
  * Represents the synthetic {@link Synthetic.BareReadonlyVectorObject | BareReadonlyVectorObject} interface at runtime.
  */
 export const SettablePointObject = [...SettablePoint, ...PointObject] as const;
+
+/**
+ * Represents the synthetic {@link Synthetic.LineWithSettableEquationObject | LineWithSettableEquationObject} interface at runtime.
+ */
+export const LineWithSettableEquationObject = [...LineWithSettableEquation, ...LineObject] as const;
+
+/**
+ * Represents the synthetic {@link Synthetic.LineWithSettableArbitraryPointsObject | LineWithSettableArbitraryPointsObject} interface at runtime.
+ */
+export const LineWithSettableArbitraryPointsObject = [...LineWithSettableArbitraryPoints, ...LineObject] as const;
+
+/**
+ * Represents the synthetic {@link Synthetic.LineWithSettableDirectionalVectorObject | LineWithSettableDirectionalVectorObject} interface at runtime.
+ */
+export const LineWithSettableDirectionalVectorObject = [...LineWithSettableDirectionalVector, ...LineObject] as const;
+
+/**
+ * Represents the synthetic {@link Synthetic.LineWithSettableNormalVectorObject | LineWithSettableNormalVectorObject} interface at runtime.
+ */
+export const LineWithSettableNormalVectorObject = [...LineWithSettableNormalVector, ...LineObject] as const;
+
+/**
+ * Represents the synthetic {@link Synthetic.LineWithSettableXAxisAngleObject | LineWithSettableXAxisAngleObject} interface at runtime.
+ */
+export const LineWithSettableXAxisAngleObject = [...LineWithSettableXAxisAngle, ...LineObject] as const;
