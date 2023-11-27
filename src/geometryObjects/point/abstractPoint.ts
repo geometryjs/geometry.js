@@ -10,13 +10,13 @@ import { UnboundVector } from "../vector";
  * 
  * @group Point
  */
-export abstract class AbstractPoint extends GeometryObject<{ x: number; y: number; dist: number }> implements Point {
+export abstract class AbstractPoint extends GeometryObject<{ x: number; y: number; dist: number, nonExistantState: boolean }> implements Point {
     protected abstract getX(): number;
     protected abstract getY(): number;
 
     constructor(parameters: { dependencies: Iterable<DependencyNode>, plane: Plane }) {
         super({
-            cache: new MemoryMapCacheWithAutomaticCalculation<{ x: number; y: number, dist: number }>({
+            cache: new MemoryMapCacheWithAutomaticCalculation({
                 x: () => {
                     return this.getX();
                 },
@@ -26,6 +26,9 @@ export abstract class AbstractPoint extends GeometryObject<{ x: number; y: numbe
                 dist: () => {
                     return PYTHAGOREAN_THEOREM.perform({ values: [this.x, this.y] }).distance;
                 },
+                nonExistantState: () => {
+                    return Number.isNaN(this.x) || Number.isNaN(this.y);
+                }
             }),
             implementedInterfaces: Interfaces.Point,
             ...parameters,
@@ -43,6 +46,9 @@ export abstract class AbstractPoint extends GeometryObject<{ x: number; y: numbe
         return this.cache.readValue("dist");
     }
 
+    public exists(): boolean {
+        return !this.cache.readValue("nonExistantState") && super.exists();
+    }
     toVector(): Vector {
         return UnboundVector.fromBare([this.x, this.y]);
     }

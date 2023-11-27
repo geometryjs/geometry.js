@@ -55,6 +55,15 @@ describe("PointFromTwoValues", () => {
 
         expect(point.info.canCauseUpdate).toBe(false);
     });
+
+    test("exists", () => {
+        const x = new SettableValue({ value: 3, plane });
+        const y = new SettableValue({ value: 4, plane});
+
+        const point = new PointFromTwoValues({ x, y, plane });
+
+        expect(point.exists()).toBe(true);
+    })
 });
 
 describe("PointFromCoordinates", () => {
@@ -92,6 +101,16 @@ describe("PointFromCoordinates", () => {
         point1.x = 5;
         point2.y = 6;
         expect(a).not.toBe(line.a);
+    });
+
+    test("exists", () => {
+        const point = plane.createPointFromCoordinates(1, 2);
+
+        expect(point.exists()).toBe(true);
+
+        point.x = NaN;
+
+        expect(point.exists()).toBe(false);
     });
 });
 

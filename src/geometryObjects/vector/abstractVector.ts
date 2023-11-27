@@ -11,7 +11,7 @@ import * as Procedures from "../../procedures";
  *
  * @group Vector
  */
-export abstract class AbstractVector extends GeometryObject<{ x: number; y: number }> implements IVector, IGeometryObject {
+export abstract class AbstractVector extends GeometryObject<{ x: number; y: number, nonExistantState: boolean }> implements IVector, IGeometryObject {
     protected abstract getX(): number;
     protected abstract getY(): number;
     public readonly lenght: 2 = 2;
@@ -25,6 +25,9 @@ export abstract class AbstractVector extends GeometryObject<{ x: number; y: numb
                 y: () => {
                     return this.getY();
                 },
+                nonExistantState: () => {
+                    return Number.isNaN(this.x) || Number.isNaN(this.y) || !Number.isFinite(this.x) || !Number.isFinite(this.y) || this.x === 0 && this.y === 0;
+                }
             }),
             implementedInterfaces: [...Interfaces.Vector, ...Interfaces.BareVector],
             ...parameters,
@@ -54,6 +57,10 @@ export abstract class AbstractVector extends GeometryObject<{ x: number; y: numb
 
     public toBare(): BareReadonlyVector {
         return [this.x, this.y];
+    }
+
+    public exists(): boolean {
+        return !this.cache.readValue("nonExistantState") && super.exists();
     }
 
     add(vector: IVector): IVector {

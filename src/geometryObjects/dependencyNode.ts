@@ -59,6 +59,15 @@ export class DependencyNode implements IDependencyNode {
     get deepDependants(): Iterable<IDependencyNode> {
         return this.getDeepDependantsDFS();
     }
+
+    public exists(): boolean {
+        for (const dependency of this.dependencies) {
+            if (!dependency.exists()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
 
 /**

@@ -1,10 +1,10 @@
-import type { Line, LineWithSettableEquation, SingleParametricCurve } from "../../../../src/interfaces";
+import type { Line, LineObject, LineWithSettableEquation, SingleParametricCurve } from "../../../../src/interfaces";
 
 import { UnboundLine } from "../../../../src/geometryObjects/line";
 import { UnboundPoint } from "../../../../src/geometryObjects/point";
 import { UnboundVector } from "../../../../src/geometryObjects/vector";
 
-import { createPlane } from "../../../../src/";
+import { createPlane, isDependencyNode} from "../../../../src/";
 
 
 describe("Line", () => {
@@ -39,6 +39,13 @@ describe("Line", () => {
         plane.constructPerpendicularLineFromPoint(plane.createLineFromTwoPoints(point1, point2), point1),
     ]
 
+    const invalidLineObjects: LineObject[] = [
+        plane.createLineFromEquationAsNumbers(0, 0, 0),
+        plane.createLineFromEquationAsNumbers(0, 0, 3),
+        plane.createLineFromEquationAsNumbers(NaN, 0, 0),
+        plane.createLineFromEquationAsNumbers(0, NaN, 0),
+        plane.createLineFromEquationAsNumbers(1, 0, NaN),
+    ]
 
     test.each(lines)("should be defined", (line) => {
         expect(line).toBeDefined();
@@ -110,5 +117,15 @@ describe("Line", () => {
         expect(line.a).toBe(newA);
         expect(line.b).toBe(newB);
         expect(line.c).toBe(newC);
+    });
+
+    test.each(lines)("should exist if is dependency node", (line) => {
+        if (isDependencyNode(line)) {
+            expect(line.exists()).toBe(true);
+        }
+    });
+
+    test.each(invalidLineObjects)("should not exist", (line) => {
+        expect(line.exists()).toBe(false);
     });
 })
