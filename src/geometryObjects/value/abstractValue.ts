@@ -8,13 +8,13 @@ import * as Interfaces from "../../interfaces/runtimeInterfaces";
  *
  * @group Value
  */
-export abstract class AbstractValue extends GeometryObject<{ val: number }> implements IValue {
+export abstract class AbstractValue extends GeometryObject<{ value: number }> implements IValue {
     protected abstract getValue(): number;
 
     constructor(parameters: { readonly dependencies: Iterable<DependencyNode>; readonly plane: Plane }) {
         super({
-            cache: new MemoryMapCacheWithAutomaticCalculation<{ val: number }>({
-                val: () => {
+            cache: new MemoryMapCacheWithAutomaticCalculation({
+                value: () => {
                     return this.getValue();
                 },
             }),
