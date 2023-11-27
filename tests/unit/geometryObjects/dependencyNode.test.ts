@@ -12,6 +12,11 @@ class DependencyNodeWithUpdateFuncition extends DependencyNode {
         this.updateFunction();
         super.update();
     }
+    public notExist = false;
+
+    public exists(): boolean {
+        return super.exists() && !this.notExist;
+    }
 
     get dependencies(): Iterable<DependencyNodeWithUpdateFuncition> {
         return super.dependencies as Iterable<DependencyNodeWithUpdateFuncition>;
@@ -92,6 +97,19 @@ describe("DependencyNode", () => {
             expect(dependant.updateFunction).toBeCalled();
             dependant.updateFunction.mockClear();
         }
+    });
+
+    test("exists", () => {
+        expect(root.exists()).toBe(true);
+        for (const dependant of root.dependants) {
+            expect(dependant.exists()).toBe(true);
+        }
+        root.notExist = true;
+        expect(root.exists()).toBe(false);
+        for (const dependant of root.dependants) {
+            expect(dependant.exists()).toBe(false);
+        }
+        root.notExist = false;
     });
 });
 
