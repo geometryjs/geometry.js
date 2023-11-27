@@ -16,7 +16,7 @@ export abstract class AbstractPoint extends GeometryObject<{ x: number; y: numbe
 
     constructor(parameters: { dependencies: Iterable<DependencyNode>, plane: Plane }) {
         super({
-            cache: new MemoryMapCacheWithAutomaticCalculation<{ x: number; y: number, dist: number }>({
+            cache: new MemoryMapCacheWithAutomaticCalculation({
                 x: () => {
                     return this.getX();
                 },
