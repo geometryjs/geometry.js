@@ -31,4 +31,10 @@ export interface DependencyNode {
      */
     registerDependant(dependant: DependencyNode): void;
 
+    /**
+     * Returns `true` if the node exists, `false` otherwise.  
+     * `false` is returned when a node, that normally exists, encounters a special case where it does not exist.
+     */
+    exists(): boolean;
+
 }
