@@ -35,7 +35,7 @@ export abstract class AbstractInterval extends GeometryObject<{ end: number; sta
                     return this.end - this.start;
                 },
                 nonExistantState: () => {
-                    return this.end < this.start || Number.isNaN(this.end) || Number.isNaN(this.start);
+                    return this.end < this.start || Number.isNaN(this.end) || Number.isNaN(this.start) || this.end === this.start && this.endIncluded !== this.startIncluded;
                 }
             }),
             ...parameters,
