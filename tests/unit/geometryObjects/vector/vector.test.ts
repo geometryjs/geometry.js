@@ -1,6 +1,7 @@
 import { Plane } from "../../../../src/geometryObjects";
 import { UnboundVector } from "../../../../src/geometryObjects/vector";
-import { SettableVector, Vector } from "../../../../src/interfaces";
+import type { SettableVector, Vector, VectorObject } from "../../../../src/interfaces";
+import { isDependencyNode } from "../../../../src";
 
 describe("UnboundVector", () => {
     test("can be created", () => {
@@ -85,6 +86,20 @@ describe("Vector", () => {
         plane.createVectorFromTwoValues(plane.createReadonlyValue(0), plane.createReadonlyValue(10)),
         ...settableVectors
     ]
+
+    const invalidVectors: VectorObject[] = [
+        plane.createVectorFromCoordinates(NaN, 0),
+        plane.createVectorFromCoordinates(0, NaN),
+        plane.createVectorFromCoordinates(0, 0),
+        plane.createVectorFromCoordinates(Infinity, 0),
+        plane.createVectorFromCoordinates(0, Infinity),
+        plane.createVectorFromCoordinates(Infinity, Infinity),
+        plane.createVectorFromCoordinates(-Infinity, -Infinity),
+        plane.createVectorFromCoordinates(-Infinity, 0),
+        plane.createVectorFromCoordinates(0, -Infinity),
+        plane.createVectorFromCoordinates(-Infinity, Infinity),
+        plane.createVectorFromCoordinates(Infinity, -Infinity),
+    ];
     test.each(vectors)("can be converted to bare vector", (vector) => {
         expect(vector.toBare()).toStrictEqual([vector.x, vector.y]);
     });
@@ -153,6 +168,16 @@ describe("Vector", () => {
         vector.y = 4;
         expect(vector.x).toBe(3);
         expect(vector.y).toBe(4);
+    });
+
+    test.each(vectors)("exists if is a dependency node", (vector) => {
+        if (isDependencyNode(vector)) {
+            expect(vector.exists()).toBe(true);
+        }
+    });
+
+    test.each(invalidVectors)("does not exist", (vector) => {
+        expect(vector.exists()).toBe(false);
     });
 
     
