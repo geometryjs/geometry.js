@@ -11,7 +11,7 @@ import { REALS, Y_UNIT_VECTOR } from "../../constants";
 /**
  * Represents common behaviour of bound lines.
  */
-export abstract class AbstractLine extends GeometryObject<{ point1: Point, point2: Point, normalVector: Vector, directionalVector: Vector, a: number, b: number, c: number, xAxisAngle: number }> implements Line, IGeometryObject, DependencyNode {
+export abstract class AbstractLine extends GeometryObject<{ point1: Point, point2: Point, normalVector: Vector, directionalVector: Vector, a: number, b: number, c: number, xAxisAngle: number, nonExistantState: boolean }> implements Line, IGeometryObject, DependencyNode {
     get arbitraryPoint1(): Point {
         return this.cache.readValue("point1");
     }
@@ -48,6 +48,9 @@ export abstract class AbstractLine extends GeometryObject<{ point1: Point, point
         return this.cache.readValue("xAxisAngle");
     }
 
+    public exists(): boolean {
+        return !this.cache.readValue("nonExistantState") && super.exists();
+    }
     atParameterValue(t: number): Point {
         return this.evaluate(t);
     }
@@ -101,6 +104,9 @@ export abstract class AbstractLineFromTwoPoints extends AbstractLine {
                         line1Vector: this.normalVector.toBare(),
                         line2Vector: Y_UNIT_VECTOR.toBare()
                     }).angle;
+                },
+                nonExistantState: () => {
+                    return false;
                 }
             }),
             implementedInterfaces: [...Interfaces.Line, ...Interfaces.SingleParametricCurve, ...Interfaces.Evaluatable],
@@ -158,6 +164,9 @@ export abstract class AbstractLineFromEquation extends AbstractLine {
                         line1Vector: this.normalVector.toBare(),
                         line2Vector: Y_UNIT_VECTOR.toBare()
                     }).angle;
+                },
+                nonExistantState: () => {
+                    return this.a === 0 && this.b === 0 && this.c !== 0 || this.a === 0 && this.b === 0 && this.c === 0 || Number.isNaN(this.a) || Number.isNaN(this.b) || Number.isNaN(this.c);
                 }
             }),
             implementedInterfaces: [...Interfaces.Line, ...Interfaces.SingleParametricCurve, ...Interfaces.Evaluatable],
@@ -208,6 +217,9 @@ export abstract class AbstractLineFromPointAndDirectionalVector extends Abstract
                         line1Vector: this.normalVector.toBare(),
                         line2Vector: Y_UNIT_VECTOR.toBare()
                     }).angle;
+                },
+                nonExistantState: () => {
+                    return false;
                 }
             }),
             implementedInterfaces: [...Interfaces.Line, ...Interfaces.SingleParametricCurve, ...Interfaces.Evaluatable],
@@ -258,6 +270,9 @@ export abstract class AbstractLineFromPointAndNormalVector extends AbstractLine 
                         line1Vector: this.normalVector.toBare(),
                         line2Vector: Y_UNIT_VECTOR.toBare()
                     }).angle;
+                },
+                nonExistantState: () => {
+                    return false;
                 }
             }),
             implementedInterfaces: [...Interfaces.Line, ...Interfaces.SingleParametricCurve, ...Interfaces.Evaluatable],
