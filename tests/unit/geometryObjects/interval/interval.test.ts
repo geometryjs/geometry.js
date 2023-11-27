@@ -1,7 +1,9 @@
 import { NEGATIVE_REALS, NOT_NEGATIVE_REALS, NOT_POSITIVE_REALS, POSITIVE_REALS, REALS } from "../../../../src/constants";
 import { Plane } from "../../../../src/geometryObjects";
 import { UnboundInterval } from "../../../../src/geometryObjects/interval"
-import { Evaluatable, Interval, IntervalWithSettableEndpointsInclusionObject, IntervalWithSettableEndpointsObject, IntervalWithSettableEndpointsValueObject } from "../../../../src/interfaces";
+import { DependencyNodeObject, Evaluatable, Interval, IntervalWithSettableEndpointsInclusionObject, IntervalWithSettableEndpointsObject, IntervalWithSettableEndpointsValueObject } from "../../../../src/interfaces";
+import { isDependencyNode } from "../../../../src";
+
 describe("UnboundInterval", () => {
     test("can be created", () => {
         const interval = new UnboundInterval({
@@ -95,6 +97,14 @@ describe("Interval", () => {
         plane.createIntervalFromEndpointsAsValues(plane.createValue(1), false, plane.createValue(2), true),
     ];
 
+    const invalidIntervals: (Interval & Evaluatable<number, boolean> & DependencyNodeObject)[] = [
+        plane.createIntervalFromEndpointsAsNumbers(1, true, 1, false),
+        plane.createIntervalFromEndpointsAsNumbers(1, false, -1, false),
+        plane.createIntervalFromEndpointsAsNumbers(1, true, -1, true),
+        plane.createIntervalFromEndpointsAsNumbers(1, false, 1, true),
+        plane.createIntervalFromEndpointsAsNumbers(NaN, true, 1, false),
+    ]
+
     test.each(intervals)("is inside", (interval) => {
         const values = [1, 2, -1, 0, 1.5, 2.5, 3];
         values.forEach(value => {
@@ -109,4 +119,16 @@ describe("Interval", () => {
     test.each(intervals)("length", (interval) => {
         expect(interval.length).toBe(interval.end - interval.start);
     });
+
+    test.each(intervals)("exists", (interval) => {
+        if (isDependencyNode(interval)) {
+            expect(interval.exists()).toBe(true);
+        }
+    });
+
+    test.each(invalidIntervals)("invalid intervals", (interval) => {
+        expect(interval.exists()).toBe(false);
+    });
+
+
 })
