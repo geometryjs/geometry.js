@@ -43,4 +43,14 @@ describe("SettableValue", () => {
         
         expect(value.info.canCauseUpdate).toBe(true);
     });
+
+    test("exists", () => {
+        const value = new SettableValue({ value: 1, plane });
+        
+        expect(value.exists()).toBe(true);
+
+        value.value = NaN;
+
+        expect(value.exists()).toBe(false);
+    });
 });

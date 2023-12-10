@@ -1,7 +1,8 @@
-import { PythagoreanTheorem } from "./pythagoreanTheorem";
+export { LINE_ANGLE, VECTOR_ANGLE} from "./angle";
+export { PYTHAGOREAN_THEOREM } from "./pythagoreanTheorem";
+export { VECTOR_ADDITION, VECTOR_BY_SCALAR_MULTIPLICATION, VECTOR_DOT_PRODUCT, VECTOR_MAGNITUDE, VECTOR_NORMALIZATION, VECTOR_SUBTRACTION } from "./vectorOperations";
 
-/**
- * A procedure for the Pythagorean Theorem.
- * @see {@link PythagoreanTheorem}
- */
-export const PYTHAGOREAN_THEOREM = new PythagoreanTheorem();
+
+
+
+

@@ -7,6 +7,12 @@ export * from "./point";
 export * from "./procedure";
 export * from "./transformer";
 export * from "./value";
+export * from "./vector";
+export * from "./line";
+export * from "./interval";
+export * from "./parametricCurve";
+export * from "./union";
+export * from "./enum";
 
 // Synthetic
 export * from "./synthetic";

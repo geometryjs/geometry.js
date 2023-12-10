@@ -6,11 +6,31 @@ const x = plane.createValue(1);
 const y = plane.createReadonlyValue(2);
 const point = plane.createPointFromTwoValues(x, y);
 
+const onlyXPoint = {
+    x: 1
+}
+const onlyYPoint = {
+    y: 2
+}
+
 const string = "testing_string";
 const number = 1;
 const object = { a: 1 };
 const array = [1, 2, 3];
 const bigint = BigInt(1);
+
+const objectWithWeirdProperties = {
+    getImplementedInterfaces: "not a function",
+}
+const onlySettableValue = Object.defineProperty({}, "value", {
+    set(v) {
+        
+    },
+});
+const stringValue = {
+    value: "testing_string",
+    plane,
+}
 
 describe("isGeometryObject", () => {
     test("positive", () => {
@@ -24,6 +44,7 @@ describe("isGeometryObject", () => {
         expect(isGeometryObject(object)).toBe(false);
         expect(isGeometryObject(array)).toBe(false);
         expect(isGeometryObject(bigint)).toBe(false);
+        expect(isGeometryObject(objectWithWeirdProperties)).toBe(false);
     });
 });
 
@@ -40,6 +61,7 @@ describe("isValue", () => {
         expect(isValue(array)).toBe(false);
         expect(isValue(bigint)).toBe(false);
         expect(isValue(point)).toBe(false);
+        expect(isValue(stringValue)).toBe(false);
     });
 });
 
@@ -56,6 +78,7 @@ describe("isValueObject", () => {
         expect(isValueObject(array)).toBe(false);
         expect(isValueObject(bigint)).toBe(false);
         expect(isValueObject(point)).toBe(false);
+        expect(isValueObject(stringValue)).toBe(false);
     });
 });
 
@@ -72,6 +95,7 @@ describe("isSettableValue", () => {
         expect(isSettableValue(array)).toBe(false);
         expect(isSettableValue(bigint)).toBe(false);
         expect(isSettableValue(point)).toBe(false);
+        expect(isSettableValue(onlySettableValue)).toBe(false);
     });
 });
 
@@ -103,6 +127,8 @@ describe("isPoint", () => {
         expect(isPoint(object)).toBe(false);
         expect(isPoint(array)).toBe(false);
         expect(isPoint(bigint)).toBe(false);
+        expect(isPoint(onlyXPoint)).toBe(false);
+        expect(isPoint(onlyYPoint)).toBe(false);
     });
 });
 
@@ -134,6 +160,18 @@ describe("isDependencyNode", () => {
         expect(isDependencyNode(object)).toBe(false);
         expect(isDependencyNode(array)).toBe(false);
         expect(isDependencyNode(bigint)).toBe(false);
+        expect(isDependencyNode({
+            dependencies: []
+        })).toBe(false);
+        expect(isDependencyNode({
+            dependencies: [],
+            dependants: []
+        })).toBe(false);
+        expect(isDependencyNode({
+            dependencies: [],
+            dependants: [],
+            deepDependencies: []
+        })).toBe(false);
     });
 });
 
