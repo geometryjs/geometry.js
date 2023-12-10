@@ -23,16 +23,28 @@ export class DependencyNode implements IDependencyNode {
     }
 
     private *getDeepDependenciesDFS(): Iterable<IDependencyNode> {
-        for (const dependency of this.dependencies) {
-            yield dependency;
-            yield* dependency.dependencies;
+        const visited: Set<IDependencyNode> = new Set();
+        const stack: IDependencyNode[] = [...this.dependencies];
+        while (stack.length > 0) {
+            const node = stack.pop()!;
+            if (!visited.has(node)) {
+                visited.add(node);
+                yield node;
+                stack.push(...node.dependencies);
+            }
         }
     }
 
     private *getDeepDependantsDFS(): Iterable<IDependencyNode> {
-        for (const dependant of this.dependants) {
-            yield dependant;
-            yield* dependant.dependants;
+        const visited: Set<IDependencyNode> = new Set();
+        const stack: IDependencyNode[] = [...this.dependants];
+        while (stack.length > 0) {
+            const node = stack.pop()!;
+            if (!visited.has(node)) {
+                visited.add(node);
+                yield node;
+                stack.push(...node.dependants);
+            }
         }
     }
 
