@@ -12,6 +12,7 @@ import type { Interval as IInterval, IntervalWithSettableEndpoints as IIntervalW
 import type { SingleParametricCurve as ISingleParametricCurve } from "./parametricCurve";
 import type { Line as ILine, LineWithSettableEquation as ILineWithSettableEquation, LineWithSettableXAxisAngle as ILineWithSettableXAxisAngle } from "./line";
 import type { Union as IUnion } from "./union";
+import type { EnumObject as IEnumObject } from "./enum";
 
 import type * as Synthetic from "./synthetic";
 
@@ -140,6 +141,10 @@ export const LineWithSettableXAxisAngle = ["LineWithSettableXAxisAngle", ...Line
  */
 export const Union = ["Union"] as const;
 
+/**
+ * Represents the {@link IEnumObject | EnumObject} interface at runtime.
+ */
+export const EnumObject = ["EnumObject", ...DependencyNode, ...GeometryObject] as const;
 
 /**
  * General type for all constants, that represent interfaces at runtime.
@@ -170,6 +175,7 @@ export type Interface = Readonly<
     | (typeof LineWithSettableEquation)[number]
     | (typeof LineWithSettableXAxisAngle)[number]
     | (typeof Union)[number]
+    | (typeof EnumObject)[number]
 >;
 
 // Synthetic interfaces
