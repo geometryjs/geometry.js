@@ -11,7 +11,7 @@ export * from "./vector";
 export * from "./line";
 export * from "./interval";
 export * from "./parametricCurve";
-
+export * from "./union";
 // Synthetic
 export * from "./synthetic";
 
