@@ -14,10 +14,10 @@ export interface EnumObject<States extends Record<string, DependencyNodeObject>>
     /**
      * The current state of the enum.
      */ 
-    readonly state: States[keyof States];
+    readonly currentState: States[keyof States];
 
     /**
      * The name of the current state.
      */
-    readonly stateName: keyof States;
+    readonly currentStateName: keyof States;
 }
