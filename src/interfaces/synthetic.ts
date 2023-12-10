@@ -12,6 +12,7 @@ import type { SettableValue, Value } from "./value";
 import type { SettableVector, Vector } from "./vector";
 import type { Line, LineWithSettableEquation, LineWithSettableXAxisAngle } from "./line";
 import { Evaluatable } from "./evaluatable";
+import { Union } from "./union";
 
 /**
  * Interface, that combines the {@link Value}, {@link DependencyNode} and {@link GeometryObject} interfaces.
@@ -111,10 +112,16 @@ export interface SettablePointObject extends SettablePoint, DependencyNode, Geom
  */
 export interface LineWithSettableEquationObject extends LineWithSettableEquation, DependencyNode, GeometryObject { }
 
-
 /**
  * Interface, that combines the {@link LineWithSettableXAxisAngle}, {@link DependencyNode} and {@link GeometryObject} interfaces.
  * 
  * @group Synthetic
  */
 export interface LineWithSettableXAxisAngleObject extends LineWithSettableXAxisAngle, DependencyNode, GeometryObject {}
+
+/**
+ * Interface, that combines the {@link Union}, {@link DependencyNode} and {@link GeometryObject} interfaces.
+ * 
+ * @group Synthetic
+ */
+export interface UnionObject<Object, Objects extends Object[]> extends DependencyNode, GeometryObject, Union<Object, Objects> {}

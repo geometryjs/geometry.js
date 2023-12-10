@@ -11,6 +11,7 @@ import type { Vector as IVector, SettableVector as ISettableVector, BareReadonly
 import type { Interval as IInterval, IntervalWithSettableEndpoints as IIntervalWithSettableEndpoints, IntervalWithSettableEndpointsInclusion as IIntervalWithSettableEndpointsInclusion, IntervalWithSettableEndpointsValue as IIntervalWithSettableEndpointsValue } from "./interval";
 import type { SingleParametricCurve as ISingleParametricCurve } from "./parametricCurve";
 import type { Line as ILine, LineWithSettableEquation as ILineWithSettableEquation, LineWithSettableXAxisAngle as ILineWithSettableXAxisAngle } from "./line";
+import type { Union as IUnion } from "./union";
 
 import type * as Synthetic from "./synthetic";
 
@@ -134,6 +135,11 @@ export const LineWithSettableEquation = ["LineWithSettableEquation", ...Line] as
  */
 export const LineWithSettableXAxisAngle = ["LineWithSettableXAxisAngle", ...Line] as const;
 
+/**
+ * Represents the {@link IUnion | Union} interface at runtime.
+ */
+export const Union = ["Union"] as const;
+
 
 /**
  * General type for all constants, that represent interfaces at runtime.
@@ -163,6 +169,7 @@ export type Interface = Readonly<
     | (typeof SettablePoint)[number]
     | (typeof LineWithSettableEquation)[number]
     | (typeof LineWithSettableXAxisAngle)[number]
+    | (typeof Union)[number]
 >;
 
 // Synthetic interfaces
@@ -256,3 +263,8 @@ export const LineWithSettableEquationObject = [...LineWithSettableEquation, ...L
  * Represents the synthetic {@link Synthetic.LineWithSettableXAxisAngleObject | LineWithSettableXAxisAngleObject} interface at runtime.
  */
 export const LineWithSettableXAxisAngleObject = [...LineWithSettableXAxisAngle, ...LineObject] as const;
+
+/**
+ * Represents the synthetic {@link Synthetic.UnionObject | UnionObject} interface at runtime.
+ */
+export const UnionObject = [...Union, ...DependencyNode, ...GeometryObject] as const;
