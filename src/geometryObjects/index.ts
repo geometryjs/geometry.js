@@ -8,3 +8,4 @@ export * from "./interval";
 export * from "./union";
 export * from "./enum";
 export * from "./line";
+export * from "./intersections";

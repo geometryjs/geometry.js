@@ -1,4 +1,4 @@
-import type { DependencyNode, DependencyNodeObject, GeometryObject, Point, PointObject, SettableValue, SettableValueObject, Value, ValueObject } from "./interfaces";
+import type { DependencyNode, DependencyNodeObject, GeometryObject, Line, Point, PointObject, SettableValue, SettableValueObject, Value, ValueObject } from "./interfaces";
 
 import { getPropertyDescriptor } from "./helpers/getPropertyDescriptor";
 import { inIterable } from "./helpers/iterable";
