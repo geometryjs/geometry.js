@@ -7,3 +7,4 @@ export * from "./vector";
 export * from "./interval";
 export * from "./union";
 export * from "./enum";
+export * from "./line";
