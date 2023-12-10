@@ -9,10 +9,10 @@ import { GeometryObject } from "../geometryObject";
 export abstract class AbstractUnion<Objects extends GeometryObject[], CacheRecords extends Record<string, Some | null> = Record<string, Some | null>> extends GeometryObject<CacheRecords> implements Union<GeometryObject, Objects> {
     protected abstract getObjects(): Objects;
     
-    constructor(parameters: { dependencies: DependencyNodeObject[], plane: Plane, cache: IterableCache<CacheRecords, true> }) {
+    constructor(parameters: { dependencies: DependencyNodeObject[], plane: Plane, cache: IterableCache<CacheRecords, true>, implementedInterfaces: Iterable<Runtime.Interface> }) {
         super({
-            implementedInterfaces: [...Runtime.Union],
-            ...parameters
+            ...parameters,
+            implementedInterfaces: [...Runtime.Union, ...parameters.implementedInterfaces]
         });
     }
 
