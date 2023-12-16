@@ -5,7 +5,7 @@ import type { Evaluatable, Procedure as IProcedure } from "../interfaces";
  * @template Input - The type of the input data.
  * @template Output - The type of the output data.
  */
-export class Procedure<Input extends Record<string, any>, Output extends Record<string, any>> implements IProcedure<Input, Output>, Evaluatable<Input, Output> {
+export class Procedure<Input extends Record<string, any>, Output extends Record<string, any> | null> implements IProcedure<Input, Output>, Evaluatable<Input, Output> {
     private readonly procedureName: string;
     private readonly procedure: (input: Input) => Output;
 
