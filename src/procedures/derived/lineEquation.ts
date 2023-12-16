@@ -1,3 +1,4 @@
+import { isEqual } from "../../helpers/equality/float";
 import type { BareReadonlyVector, Point } from "../../interfaces";
 
 import { Procedure } from "../procedure";
@@ -23,3 +24,32 @@ export class LineCCoefficient extends Procedure<{ normalVector: BareReadonlyVect
  * @see {@link LineCCoefficient}
  */
 export const LINE_C_COEFFICIENT = new LineCCoefficient();
+
+/**
+ * Checks whether two lines are parallel.
+ * @see [Lines Parallel Procedure Documentation](../../../docs/procedures/linesParallel.md)
+ */
+export class LinesParallel extends Procedure<{ lines: { a: number, b: number, c: number }[] }, { parallel: boolean }> {
+    constructor() {
+        super({
+            name: "Lines Parallel",
+            procedure: ({ lines }) => {
+                // TODO: Handle case where lines is empty
+                const firstLine = lines[0]!;
+                for (let i = 1; i < lines.length; i++) {
+                    const line = lines[i]!;
+                    if (!isEqual(firstLine.a * line.b, firstLine.b * line.a)) {
+                        return { parallel: false };
+                    }
+                }
+                return { parallel: true };
+            },
+        })
+    }
+}
+
+/**
+ * Checks whether two lines are parallel.
+ * @see {@link LinesParallel}
+ */
+export const LINES_PARALLEL = new LinesParallel();
