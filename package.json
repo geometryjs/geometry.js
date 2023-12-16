@@ -9,6 +9,7 @@
   },
   "scripts": {
     "test": "npx jest --passWithNoTests --coverage",
+    "test:w": "npx jest --watch",
     "build": "npx tsc",
     "docs": "npx typedoc --options typedoc.json",
     "prepublish": "npm run test && npm run build"
