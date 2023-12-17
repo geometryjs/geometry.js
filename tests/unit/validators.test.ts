@@ -15,11 +15,11 @@ const unboundLine = UnboundLine.fromLine(line);
 const interval = plane.createClosedIntervalFromEndpointsAsNumbers(1, 2);
 const unboundInterval = new UnboundInterval(interval);
 
-const virtualNullObject : NullObject = {
+const virtualNullObject: NullObject = {
     objectType: "null",
     virtual: true
 }
-const nonVirtualNullObject : NullObject = {
+const nonVirtualNullObject: NullObject = {
     objectType: "null",
     virtual: false
 }
@@ -43,7 +43,7 @@ const objectWithWeirdProperties = {
 }
 const onlySettableValue = Object.defineProperty({}, "value", {
     set(v) {
-        
+
     },
 });
 const stringValue = {
@@ -214,12 +214,12 @@ describe("isObjectWithType", () => {
         expect(isObjectWithType(x)).toBe(true);
         expect(isObjectWithType(y)).toBe(true);
         expect(isObjectWithType(plane)).toBe(true);
-        expect(isObjectWithType(point)).toBe(true);     
+        expect(isObjectWithType(point)).toBe(true);
         expect(isObjectWithType(vector)).toBe(true);
         expect(isObjectWithType(line)).toBe(true);
         expect(isObjectWithType(unboundPoint)).toBe(true);
         expect(isObjectWithType(unboundVector)).toBe(true);
-        expect(isObjectWithType(unboundLine)).toBe(true);   
+        expect(isObjectWithType(unboundLine)).toBe(true);
     });
     test("negative", () => {
         expect(isObjectWithType(string)).toBe(false);
@@ -227,7 +227,7 @@ describe("isObjectWithType", () => {
         expect(isObjectWithType(object)).toBe(false);
         expect(isObjectWithType(array)).toBe(false);
         expect(isObjectWithType(bigint)).toBe(false);
-        expect(isObjectWithType({objectType: 1})).toBe(false);
+        expect(isObjectWithType({ objectType: 1 })).toBe(false);
     });
 });
 
@@ -341,6 +341,11 @@ describe("isVector", () => {
         expect(isVector(y)).toBe(false);
         expect(isVector(unboundLine)).toBe(false);
         expect(isVector(unboundInterval)).toBe(false);
+        expect(isVector(point)).toBe(false);
+        expect(isVector(unboundPoint)).toBe(false);
+        expect(isVector(interval)).toBe(false);
+        expect(isVector(unboundInterval)).toBe(false);
+        expect(isVector(number)).toBe(false);
     });
 });
 
@@ -356,6 +361,11 @@ describe("isLine", () => {
         expect(isLine(y)).toBe(false);
         expect(isLine(unboundVector)).toBe(false);
         expect(isLine(unboundInterval)).toBe(false);
+        expect(isLine(point)).toBe(false);
+        expect(isLine(unboundPoint)).toBe(false);
+        expect(isLine(interval)).toBe(false);
+        expect(isLine(unboundInterval)).toBe(false);
+        expect(isLine(number)).toBe(false);
     });
 });
 
@@ -371,6 +381,11 @@ describe("isInterval", () => {
         expect(isInterval(y)).toBe(false);
         expect(isInterval(unboundVector)).toBe(false);
         expect(isInterval(unboundLine)).toBe(false);
+        expect(isInterval(point)).toBe(false);
+        expect(isInterval(unboundPoint)).toBe(false);
+        expect(isInterval(line)).toBe(false);
+        expect(isInterval(unboundLine)).toBe(false);
+        expect(isInterval(number)).toBe(false);
     });
 });
 
@@ -386,5 +401,10 @@ describe("isNullObject", () => {
         expect(isNull(y)).toBe(false);
         expect(isNull(unboundVector)).toBe(false);
         expect(isNull(unboundLine)).toBe(false);
+        expect(isNull(point)).toBe(false);
+        expect(isNull(unboundPoint)).toBe(false);
+        expect(isNull(line)).toBe(false);
+        expect(isNull(unboundLine)).toBe(false);
+        expect(isNull(number)).toBe(false);
     });
 });
