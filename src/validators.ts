@@ -1,4 +1,4 @@
-import type { DependencyNode, DependencyNodeObject, GeometryObject, Line, Point, PointObject, SettableValue, SettableValueObject, Value, ValueObject } from "./interfaces";
+import type { DependencyNode, DependencyNodeObject, GeometryObject, IntervalObject, Line, LineObject, Point, PointObject, SettableValue, SettableValueObject, Value, ValueObject, VectorObject } from "./interfaces";
 
 import { getPropertyDescriptor } from "./helpers/getPropertyDescriptor";
 import { inIterable } from "./helpers/iterable";
@@ -141,6 +141,42 @@ export function isSettableValueObject(object: unknown): object is SettableValueO
 export function isPointObject(object: unknown): object is PointObject {
     if (!isGeometryObject(object)) return false;
     if (!inIterable(object.getImplementedInterfaces(), "Point")) return false;
+
+    return true;
+}
+
+/**
+ * Checks whether an unknown object is a {@link LineObject}.
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link LineObject}.
+ */
+export function isLineObject(object: unknown): object is LineObject {
+    if (!isGeometryObject(object)) return false;
+    if (!inIterable(object.getImplementedInterfaces(), "Line")) return false;
+
+    return true;
+}
+
+/**
+ * Checks whether an unknown object is a {@link VectorObject}. 
+ * @param object An unknown object. 
+ * @returns Whether the object is a {@link VectorObject}.
+ */
+export function isVectorObject(object: unknown): object is VectorObject {
+    if (!isGeometryObject(object)) return false;
+    if (!inIterable(object.getImplementedInterfaces(), "Vector")) return false;
+
+    return true;
+}
+
+/**
+ * Checks whether an unknown object is a {@link IntervalObject}.
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link IntervalObject}.
+ */
+export function isIntervalObject(object: unknown): object is IntervalObject {
+    if (!isGeometryObject(object)) return false;
+    if (!inIterable(object.getImplementedInterfaces(), "Interval")) return false;
 
     return true;
 }
