@@ -1,4 +1,4 @@
-import type { DependencyNode, DependencyNodeObject, GeometryObject, Interval, IntervalObject, Line, LineObject, Point, PointObject, SettableValue, SettableValueObject, Value, ValueObject, Vector, VectorObject } from "./interfaces";
+import type { DependencyNode, DependencyNodeObject, GeometryObject, Interval, IntervalObject, Line, LineObject, NonVirtualObject, Point, PointObject, SettableValue, SettableValueObject, Union, Value, ValueObject, Vector, VectorObject } from "./interfaces";
 
 import { getPropertyDescriptor } from "./helpers/getPropertyDescriptor";
 import { inIterable } from "./helpers/iterable";
@@ -270,4 +270,15 @@ export function isInterval(object: unknown): object is Interval {
     if (!isObjectWithType(object)) return false; // Not an ObjectWithType
 
     return object.objectType === "interval";
+}
+
+/**
+ * Checks whether an unknown object is a {@link Union}.
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link Union}.
+ */
+export function isUnion(object: unknown): object is Union<NonVirtualObject[]> {
+    if (!isObjectWithType(object)) return false; // Not an ObjectWithType
+
+    return object.objectType === "union";
 }
