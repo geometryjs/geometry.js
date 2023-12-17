@@ -1,4 +1,4 @@
-import type { PointObject, SettableValueObject, ValueObject, DependencyNode, GeometryObject, Plane as IPlane, LineObject, VectorObject, IntervalWithSettableEndpointsObject, IntervalWithSettableEndpointsInclusionObject, SettablePointObject, SettableVectorObject, LineWithSettableEquationObject } from "../../interfaces";
+import type { PointObject, SettableValueObject, ValueObject, DependencyNode, GeometryObject, Plane as IPlane, LineObject, VectorObject, IntervalWithSettableEndpointsObject, IntervalWithSettableEndpointsInclusionObject, SettablePointObject, SettableVectorObject, LineWithSettableEquationObject, NonVirtualObject } from "../../interfaces";
 
 import { MemoryMapCacheWithAutomaticCalculation } from "../../helpers/cache/memoryMapCache";
 import { DependencyNodeWithCache } from "../dependencyNode";
@@ -116,4 +116,8 @@ export class Plane extends DependencyNodeWithCache<{}, true> implements IPlane {
 
     public readonly objectType = "plane";
     public readonly virtual = false;
+
+    public equals(other: NonVirtualObject): boolean {
+        return other === this;
+    }
 }
