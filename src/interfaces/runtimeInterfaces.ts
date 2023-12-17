@@ -13,7 +13,7 @@ import type { SingleParametricCurve as ISingleParametricCurve } from "./parametr
 import type { Line as ILine, LineWithSettableEquation as ILineWithSettableEquation, LineWithSettableXAxisAngle as ILineWithSettableXAxisAngle } from "./line";
 import type { Union as IUnion } from "./union";
 import type { EnumObject as IEnumObject } from "./enum";
-import type { NonVirtualObject as INonVirtualObject, VirtualObject as IVirtualObject, ObjectWithType as IObjectWithType } from "./objectWithType";
+import type { NonVirtualObject as INonVirtualObject, VirtualObject as IVirtualObject, ObjectWithType as IObjectWithType, NullObject as INullObject } from "./objectWithType";
 
 import type * as Synthetic from "./synthetic";
 
@@ -162,6 +162,10 @@ export const Union = ["Union", ...NonVirtualObject] as const;
  */
 export const EnumObject = ["EnumObject", ...DependencyNode, ...GeometryObject] as const;
 
+/**
+ * Represents the {@link INullObject | NullObject} interface at runtime.
+ */
+export const NullObject = ["NullObject", ...ObjectWithType] as const;
 
 /**
  * General type for all constants, that represent interfaces at runtime.
@@ -196,6 +200,7 @@ export type Interface = Readonly<
     | (typeof ObjectWithType)[number]
     | (typeof NonVirtualObject)[number]
     | (typeof VirtualObject)[number]
+    | (typeof NullObject)[number]
 >;
 
 // Synthetic interfaces
