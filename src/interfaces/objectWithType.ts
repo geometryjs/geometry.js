@@ -1,7 +1,7 @@
 /**
  * Represents a non-virtual object.
  */
-export interface NonVirtualObject {
+export interface NonVirtualObject extends ObjectWithType {
     /**
      * Describes the type of this object.  
      * This type is used when generic objects are used for calculations, and the type of the object is not known.  
@@ -13,12 +13,20 @@ export interface NonVirtualObject {
      * Whether this object is virtual.
      */
     readonly virtual: false;
+
+    /**
+     * Whether this object is equal to another object.  
+     * If the objects are of a different type, this method should return false.  
+     * If the objects are of the same type, this method should return true if the objects are equal, and false if they are not.
+     * @param other The object to compare to.
+     */
+    equals(other: NonVirtualObject): boolean;
 }
 
 /**
  * Represents a virtual object.
  */
-export interface VirtualObject {
+export interface VirtualObject extends ObjectWithType{
     /**
      * Describes the type of this object.  
      * This type is used when generic objects are used for calculations, and the type of the object is not known.  
@@ -67,7 +75,6 @@ export interface ObjectWithType {
      * This is dependant on from what calculation this object is the result of.
      */
     readonly virtual: boolean;
-
 }
 
 /**
