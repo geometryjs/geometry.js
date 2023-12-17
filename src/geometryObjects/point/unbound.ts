@@ -27,6 +27,9 @@ export class UnboundPoint implements Point {
         return UnboundVector.fromBare([this.x, this.y]);
     }
 
+    public readonly objectType = "point";
+    public readonly virtual = false;
+
     /**
      * Creates an unbound point from a vector.
      * @param vector The vector to create the point from.

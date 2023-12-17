@@ -52,4 +52,7 @@ export abstract class AbstractPoint extends GeometryObject<{ x: number; y: numbe
     toVector(): Vector {
         return UnboundVector.fromBare([this.x, this.y]);
     }
+
+    public readonly objectType = "point";
+    public readonly virtual = false;
 }
