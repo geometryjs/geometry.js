@@ -96,6 +96,9 @@ export abstract class AbstractVector extends GeometryObject<{ x: number; y: numb
             vector2: vector.toBare(),
         }).product;
     }
+
+    public readonly objectType = "vector";
+    public readonly virtual = true;
 }
 
 

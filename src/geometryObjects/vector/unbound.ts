@@ -66,6 +66,9 @@ export class UnboundVector implements Vector {
         }).product;
     }
 
+    public readonly objectType = "vector";
+    public readonly virtual = true;
+
     static fromBare(bareVector: BareReadonlyVector): Vector {
         return new UnboundVector({
             x: bareVector[0],
