@@ -9,3 +9,4 @@ export * from "./union";
 export * from "./enum";
 export * from "./line";
 export * from "./intersections";
+export * from "./nullObject";
