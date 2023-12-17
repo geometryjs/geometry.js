@@ -1,10 +1,17 @@
-import { isDependencyNode, isDependencyNodeObject, isGeometryObject, isPoint, isPointObject, isSettableValue, isSettableValueObject, isValue, isValueObject } from "../../src/validators";
+import { isDependencyNode, isDependencyNodeObject, isGeometryObject, isNonVirtualObject, isObjectWithType, isPoint, isPointObject, isSettableValue, isSettableValueObject, isValue, isValueObject, isVirtualObject } from "../../src/validators";
 import { Plane } from "../../src/geometryObjects/plane/plane";
+import { UnboundLine, UnboundPoint, UnboundVector } from "../../src/geometryObjects";
 
 const plane = new Plane();
 const x = plane.createValue(1);
 const y = plane.createReadonlyValue(2);
 const point = plane.createPointFromTwoValues(x, y);
+const vector = plane.createVectorFromTwoValues(x, y);
+const line = plane.createLineFromPointAndDirectionalVector(point, vector);
+const unboundPoint = UnboundPoint.fromPoint(point);
+const unboundVector = UnboundVector.fromVector(vector);
+const unboundLine = UnboundLine.fromLine(line);
+
 
 const onlyXPoint = {
     x: 1
@@ -187,5 +194,60 @@ describe("isDependencyNodeObject", () => {
         expect(isDependencyNodeObject(object)).toBe(false);
         expect(isDependencyNodeObject(array)).toBe(false);
         expect(isDependencyNodeObject(bigint)).toBe(false);
+    });
+});
+
+describe("isObjectWithType", () => {
+    test("positive", () => {
+        expect(isObjectWithType(x)).toBe(true);
+        expect(isObjectWithType(y)).toBe(true);
+        expect(isObjectWithType(plane)).toBe(true);
+        expect(isObjectWithType(point)).toBe(true);     
+        expect(isObjectWithType(vector)).toBe(true);
+        expect(isObjectWithType(line)).toBe(true);
+        expect(isObjectWithType(unboundPoint)).toBe(true);
+        expect(isObjectWithType(unboundVector)).toBe(true);
+        expect(isObjectWithType(unboundLine)).toBe(true);   
+    });
+    test("negative", () => {
+        expect(isObjectWithType(string)).toBe(false);
+        expect(isObjectWithType(number)).toBe(false);
+        expect(isObjectWithType(object)).toBe(false);
+        expect(isObjectWithType(array)).toBe(false);
+        expect(isObjectWithType(bigint)).toBe(false);
+    });
+});
+
+describe("isVirtualObject", () => {
+    test("positive", () => {
+        expect(isVirtualObject(vector)).toBe(true);
+        expect(isVirtualObject(x)).toBe(true);
+        expect(isVirtualObject(y)).toBe(true);
+    });
+
+    test("negative", () => {
+        expect(isVirtualObject(point)).toBe(false);
+        expect(isVirtualObject(line)).toBe(false);
+        expect(isVirtualObject(plane)).toBe(false);
+        expect(isVirtualObject(unboundPoint)).toBe(false);
+        expect(isVirtualObject(unboundVector)).toBe(false);
+        expect(isVirtualObject(unboundLine)).toBe(false);
+    });
+});
+
+describe("isNonVirutalObject", () => {
+    test("positive", () => {
+        expect(isNonVirtualObject(point)).toBe(true);
+        expect(isNonVirtualObject(line)).toBe(true);
+        expect(isNonVirtualObject(plane)).toBe(true);
+        expect(isNonVirtualObject(unboundPoint)).toBe(true);
+        expect(isNonVirtualObject(unboundVector)).toBe(true);
+        expect(isNonVirtualObject(unboundLine)).toBe(true);
+    });
+
+    test("negative", () => {
+        expect(isNonVirtualObject(vector)).toBe(false);
+        expect(isNonVirtualObject(x)).toBe(false);
+        expect(isNonVirtualObject(y)).toBe(false);
     });
 });
