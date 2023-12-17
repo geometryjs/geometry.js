@@ -1,7 +1,9 @@
+import { VirtualObject } from "./objectWithType";
+
 /**
  * Represents an interval the real numbers.
  */
-export interface Interval {
+export interface Interval extends VirtualObject {
     /**
      * The start of the interval.
      */
@@ -32,6 +34,11 @@ export interface Interval {
      * @param value The value to check.
      */
     isInside(value: number): boolean;
+
+    /**
+     * This object is of type interval.
+     */
+    readonly objectType: "interval";
 }
 
 export interface IntervalWithSettableEndpointsInclusion extends Interval {

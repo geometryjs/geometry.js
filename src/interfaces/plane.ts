@@ -1,12 +1,13 @@
 import type { GeometryObject } from "./geometryObject";
 import type { DependencyNode } from "./dependencyNode";
 import type { IntervalWithSettableEndpointsInclusionObject, IntervalWithSettableEndpointsObject, IntervalWithSettableEndpointsValueObject, LineObject, LineWithSettableEquationObject, PointObject, SettablePointObject, SettableValueObject, SettableVectorObject, ValueObject, VectorObject } from "./synthetic";
+import { NonVirtualObject } from "./objectWithType";
 
 
 /**
  * Main GeometryJS object. Represents a 2D plane. 
  */
-export interface Plane extends DependencyNode, Iterable<GeometryObject> {
+export interface Plane extends DependencyNode, Iterable<GeometryObject>, NonVirtualObject {
 
     /**
      * Links an object to this plane.
@@ -177,4 +178,9 @@ export interface Plane extends DependencyNode, Iterable<GeometryObject> {
      * @group Object construction
      */
     constructParallelLineFromPoint(line: LineObject, point: PointObject): LineObject;
+
+    /**
+     * This object is of type plane.
+     */
+    readonly objectType: "plane";
 }

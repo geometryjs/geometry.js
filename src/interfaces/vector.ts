@@ -1,3 +1,5 @@
+import { VirtualObject } from "./objectWithType";
+
 /**
  * A simple tuple of two numbers representing a readonly vector.
  * This can be used when you don't need the extra functionality of the Vector class and you may create a lot of vectors as creating the class is more expensive than creating the tuple.
@@ -17,7 +19,7 @@ export type BareVector = [number, number];
 /**
  * Represents a vector with functions to manipulate it.
  */
-export interface Vector {
+export interface Vector extends VirtualObject {
     /**
      * The x component of the vector.
      */
@@ -79,7 +81,10 @@ export interface Vector {
      */
     dotProduct(vector: Vector): number;
 
-
+    /**
+     * This object is of type vector.
+     */
+    readonly objectType: "vector";
 
 }
 
