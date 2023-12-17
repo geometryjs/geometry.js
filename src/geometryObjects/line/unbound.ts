@@ -1,6 +1,9 @@
+import { Procedures } from "../..";
 import { REALS, Y_UNIT_VECTOR } from "../../constants";
-import type {  Interval, Line, Point, Vector } from "../../interfaces";
+import { isZero } from "../../helpers/equality/float";
+import type {  Interval, Line, NonVirtualObject, Point, Vector } from "../../interfaces";
 import { Derived, Foundational } from "../../procedures";
+import { isLine } from "../../validators";
 import { UnboundPoint } from "../point";
 import { UnboundVector } from "../vector";
 
@@ -44,6 +47,16 @@ export class UnboundLine implements Line {
 
     evaluate(input: number): Point {
         return UnboundPoint.fromVector(this.arbitraryPoint1.toVector().add(this.directionalVector.multiplyByScalar(input)));
+    }
+
+    equals(other: NonVirtualObject): boolean {
+        if (!isLine(other)) return false;
+        const { distance } = Procedures.Foundational.LINE_FROM_LINE_DISTANCE.perform({
+            line1: this,
+            line2: other
+        });
+
+        return isZero(distance);
     }
 
     public readonly objectType = "line";
