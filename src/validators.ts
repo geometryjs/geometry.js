@@ -149,6 +149,8 @@ export function isPointObject(object: unknown): object is PointObject {
  * Checks whether an unknown object is a {@link LineObject}.
  * @param object An unknown object.
  * @returns Whether the object is a {@link LineObject}.
+ * 
+ * @group Validators
  */
 export function isLineObject(object: unknown): object is LineObject {
     if (!isGeometryObject(object)) return false;
@@ -161,6 +163,8 @@ export function isLineObject(object: unknown): object is LineObject {
  * Checks whether an unknown object is a {@link VectorObject}. 
  * @param object An unknown object. 
  * @returns Whether the object is a {@link VectorObject}.
+ * 
+ * @group Validators
  */
 export function isVectorObject(object: unknown): object is VectorObject {
     if (!isGeometryObject(object)) return false;
@@ -173,6 +177,8 @@ export function isVectorObject(object: unknown): object is VectorObject {
  * Checks whether an unknown object is a {@link IntervalObject}.
  * @param object An unknown object.
  * @returns Whether the object is a {@link IntervalObject}.
+ * 
+ * @group Validators
  */
 export function isIntervalObject(object: unknown): object is IntervalObject {
     if (!isGeometryObject(object)) return false;
