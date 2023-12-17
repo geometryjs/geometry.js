@@ -1,6 +1,6 @@
-import { isDependencyNode, isDependencyNodeObject, isGeometryObject, isNonVirtualObject, isObjectWithType, isPoint, isPointObject, isSettableValue, isSettableValueObject, isValue, isValueObject, isVirtualObject } from "../../src/validators";
+import { isDependencyNode, isDependencyNodeObject, isGeometryObject, isIntervalObject, isLineObject, isNonVirtualObject, isObjectWithType, isPoint, isPointObject, isSettableValue, isSettableValueObject, isValue, isValueObject, isVectorObject, isVirtualObject } from "../../src/validators";
 import { Plane } from "../../src/geometryObjects/plane/plane";
-import { UnboundLine, UnboundPoint, UnboundVector } from "../../src/geometryObjects";
+import { UnboundInterval, UnboundLine, UnboundPoint, UnboundVector } from "../../src/geometryObjects";
 
 const plane = new Plane();
 const x = plane.createValue(1);
@@ -11,6 +11,8 @@ const line = plane.createLineFromPointAndDirectionalVector(point, vector);
 const unboundPoint = UnboundPoint.fromPoint(point);
 const unboundVector = UnboundVector.fromVector(vector);
 const unboundLine = UnboundLine.fromLine(line);
+const interval = plane.createClosedIntervalFromEndpointsAsNumbers(1, 2);
+const unboundInterval = new UnboundInterval(interval)
 
 
 const onlyXPoint = {
@@ -251,5 +253,53 @@ describe("isNonVirutalObject", () => {
         expect(isNonVirtualObject(y)).toBe(false);
         expect(isNonVirtualObject(unboundVector)).toBe(false);
 
+    });
+});
+
+describe("isLineObject", () => {
+    test("positive", () => {
+        expect(isLineObject(line)).toBe(true);
+    });
+
+    test("negative", () => {
+        expect(isLineObject(point)).toBe(false);
+        expect(isLineObject(vector)).toBe(false);
+        expect(isLineObject(x)).toBe(false);
+        expect(isLineObject(y)).toBe(false);
+        expect(isLineObject(unboundPoint)).toBe(false);
+        expect(isLineObject(unboundVector)).toBe(false);
+        expect(isLineObject(unboundLine)).toBe(false);
+    });
+});
+
+describe("isVectorObject", () => {
+    test("positive", () => {
+        expect(isVectorObject(vector)).toBe(true);
+    });
+
+    test("negative", () => {
+        expect(isVectorObject(point)).toBe(false);
+        expect(isVectorObject(line)).toBe(false);
+        expect(isVectorObject(x)).toBe(false);
+        expect(isVectorObject(y)).toBe(false);
+        expect(isVectorObject(unboundPoint)).toBe(false);
+        expect(isVectorObject(unboundLine)).toBe(false);
+        expect(isVectorObject(unboundVector)).toBe(false);
+    });
+});
+
+describe("isIntervalObject", () => {
+    test("positive", () => {
+        expect(isIntervalObject(interval)).toBe(true);
+    });
+
+    test("negative", () => {
+        expect(isIntervalObject(point)).toBe(false);
+        expect(isIntervalObject(line)).toBe(false);
+        expect(isIntervalObject(x)).toBe(false);
+        expect(isIntervalObject(y)).toBe(false);
+        expect(isIntervalObject(unboundPoint)).toBe(false);
+        expect(isIntervalObject(unboundLine)).toBe(false);
+        expect(isIntervalObject(unboundInterval)).toBe(false);
     });
 });
