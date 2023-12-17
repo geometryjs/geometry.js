@@ -1,8 +1,7 @@
-import type { DependencyNode, DependencyNodeObject, GeometryObject, Interval, IntervalObject, Line, LineObject, NonVirtualObject, Point, PointObject, SettableValue, SettableValueObject, Union, Value, ValueObject, Vector, VectorObject } from "./interfaces";
+import type { NullObject, ObjectWithType, VirtualObject, DependencyNode, DependencyNodeObject, GeometryObject, Interval, IntervalObject, Line, LineObject, NonVirtualObject, Point, PointObject, SettableValue, SettableValueObject, Union, Value, ValueObject, Vector, VectorObject } from "./interfaces";
 
 import { getPropertyDescriptor } from "./helpers/getPropertyDescriptor";
 import { inIterable } from "./helpers/iterable";
-import { NullObject, ObjectWithType, VirtualObject } from "./interfaces/objectWithType";
 /**
  * Checks whether an unknown object is a {@link GeometryObject}.
  * @param object An unknown object.
