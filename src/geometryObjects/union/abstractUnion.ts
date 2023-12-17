@@ -1,5 +1,6 @@
 import type { Some } from "../../helpers/types";
-import { Runtime, type DependencyNodeObject, type IterableCache, type Plane, type Union, NonVirtualGeometryObject } from "../../interfaces";
+import { Runtime, type DependencyNodeObject, type IterableCache, type Plane, type Union, NonVirtualGeometryObject, NonVirtualObject } from "../../interfaces";
+import { isUnion } from "../../validators";
 
 import { GeometryObject } from "../geometryObject";
 
@@ -22,4 +23,15 @@ export abstract class AbstractUnion<Objects extends NonVirtualGeometryObject[], 
 
     public readonly objectType = "union";
     public readonly virtual = false;
+
+    public equals(other: NonVirtualObject): boolean {
+        if (!isUnion(other)) return false;
+
+        return this.objects.every(object => {
+            return other.objects.some(otherObject => {
+                return object.equals(otherObject);
+            })
+        });
+        
+    }
 }
