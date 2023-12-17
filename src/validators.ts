@@ -167,7 +167,7 @@ export function isObjectWithType(object: unknown): object is ObjectWithType {
  * 
  * @group Validators
  */
-export function isObjectWithTypeVirtual(object: ObjectWithType): object is VirtualObject {
+export function isVirtualObject(object: ObjectWithType): object is VirtualObject {
     return object.virtual;
 }
 
@@ -178,6 +178,6 @@ export function isObjectWithTypeVirtual(object: ObjectWithType): object is Virtu
  * 
  * @group Validators
  */
-export function isObjectWithTypeNonVirtual(object: ObjectWithType): object is VirtualObject {
+export function isNonVirtualObject(object: ObjectWithType): object is VirtualObject {
     return !object.virtual;
 }
