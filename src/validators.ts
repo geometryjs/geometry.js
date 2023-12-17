@@ -2,6 +2,7 @@ import type { DependencyNode, DependencyNodeObject, GeometryObject, Line, Point,
 
 import { getPropertyDescriptor } from "./helpers/getPropertyDescriptor";
 import { inIterable } from "./helpers/iterable";
+import { ObjectWithType, VirtualObject } from "./interfaces/objectWithType";
 /**
  * Checks whether an unknown object is a {@link GeometryObject}.
  * @param object An unknown object.
@@ -142,4 +143,41 @@ export function isPointObject(object: unknown): object is PointObject {
     if (!inIterable(object.getImplementedInterfaces(), "Point")) return false;
 
     return true;
+}
+
+/**
+ * Checks whether an unknown object is a {@link ObjectWithType}.
+ * @param object An unknown object.  
+ * @returns Whether the object is a {@link ObjectWithType}.
+ * 
+ * @group Validators
+ */
+export function isObjectWithType(object: unknown): object is ObjectWithType {
+    if (typeof object !== "object" || object === null) return false; // Not an object
+    if (!getPropertyDescriptor(object, "objectType")) return false; // Not an ObjectWithType
+    if (typeof (object as { objectType: any }).objectType !== "string") return false; // Not an ObjectWithType
+
+    return true;
+}
+
+/**
+ * Checks whether an {@link ObjectWithType} is a {@link VirtualObject}.
+ * @param object An object with type.
+ * @returns If the object is a {@link VirtualObject}.
+ * 
+ * @group Validators
+ */
+export function isObjectWithTypeVirtual(object: ObjectWithType): object is VirtualObject {
+    return object.virtual;
+}
+
+/**
+ * Checks whether an {@link ObjectWithType} is a {@link VirtualObject}.
+ * @param object An object with type.
+ * @returns If the object is a {@link VirtualObject}.
+ * 
+ * @group Validators
+ */
+export function isObjectWithTypeNonVirtual(object: ObjectWithType): object is VirtualObject {
+    return !object.virtual;
 }
