@@ -33,6 +33,25 @@ export interface VirtualObject {
 }
 
 /**
+ * Represents a null object.  
+ * A null object can be the result of a calculation that has no result.
+ */
+export interface NullObject {
+    /**
+     * Describes the type of this object.  
+     * This type is used when generic objects are used for calculations, and the type of the object is not known.  
+     * Example of this can be an intersection calculation.
+     */
+    objectType: "null";
+
+    /**
+     * Whether this object is virtual.  
+     * This is dependant on from what calculation this object is the result of.
+     */
+    virtual: boolean;
+} 
+
+/**
  * Represents an object that is either virtual or non-virtual.
  * 
  * @interface
