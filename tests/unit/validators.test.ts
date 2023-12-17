@@ -215,6 +215,7 @@ describe("isObjectWithType", () => {
         expect(isObjectWithType(object)).toBe(false);
         expect(isObjectWithType(array)).toBe(false);
         expect(isObjectWithType(bigint)).toBe(false);
+        expect(isObjectWithType({objectType: 1})).toBe(false);
     });
 });
 
