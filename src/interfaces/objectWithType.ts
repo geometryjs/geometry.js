@@ -53,8 +53,6 @@ export interface NullObject {
 
 /**
  * Represents an object that is either virtual or non-virtual.
- * 
- * @interface
  */
 export type ObjectWithType = NonVirtualObject | VirtualObject;
 
