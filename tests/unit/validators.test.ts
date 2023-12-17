@@ -1,6 +1,6 @@
-import { isDependencyNode, isDependencyNodeObject, isGeometryObject, isInterval, isIntervalObject, isLine, isLineObject, isNonVirtualObject, isNull, isObjectWithType, isPoint, isPointObject, isSettableValue, isSettableValueObject, isValue, isValueObject, isVector, isVectorObject, isVirtualObject } from "../../src/validators";
+import { isDependencyNode, isDependencyNodeObject, isGeometryObject, isInterval, isIntervalObject, isLine, isLineObject, isNonVirtualObject, isNull, isObjectWithType, isPoint, isPointObject, isSettableValue, isSettableValueObject, isUnion, isValue, isValueObject, isVector, isVectorObject, isVirtualObject } from "../../src/validators";
 import { Plane } from "../../src/geometryObjects/plane/plane";
-import { UnboundInterval, UnboundLine, UnboundPoint, UnboundVector } from "../../src/geometryObjects";
+import { UnboundInterval, UnboundLine, UnboundPoint, UnboundUnion, UnboundVector } from "../../src/geometryObjects";
 import { NullObject } from "../../src/interfaces/objectWithType";
 
 const plane = new Plane();
@@ -14,7 +14,7 @@ const unboundVector = UnboundVector.fromVector(vector);
 const unboundLine = UnboundLine.fromLine(line);
 const interval = plane.createClosedIntervalFromEndpointsAsNumbers(1, 2);
 const unboundInterval = new UnboundInterval(interval);
-
+const union = new UnboundUnion([unboundPoint, unboundLine]);
 const virtualNullObject: NullObject = {
     objectType: "null",
     virtual: true
@@ -408,3 +408,22 @@ describe("isNullObject", () => {
         expect(isNull(number)).toBe(false);
     });
 });
+
+describe("isUnion", () => {
+    test("positive", () => {
+        expect(isUnion(union)).toBe(true);
+    });
+
+    test("negative", () => {
+        expect(isUnion(vector)).toBe(false);
+        expect(isUnion(x)).toBe(false);
+        expect(isUnion(y)).toBe(false);
+        expect(isUnion(unboundVector)).toBe(false);
+        expect(isUnion(unboundLine)).toBe(false);
+        expect(isUnion(point)).toBe(false);
+        expect(isUnion(unboundPoint)).toBe(false);
+        expect(isUnion(line)).toBe(false);
+        expect(isUnion(unboundLine)).toBe(false);
+        expect(isUnion(number)).toBe(false);
+    });
+})
