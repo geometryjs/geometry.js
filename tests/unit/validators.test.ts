@@ -223,6 +223,7 @@ describe("isVirtualObject", () => {
         expect(isVirtualObject(vector)).toBe(true);
         expect(isVirtualObject(x)).toBe(true);
         expect(isVirtualObject(y)).toBe(true);
+        expect(isVirtualObject(unboundVector)).toBe(true);
     });
 
     test("negative", () => {
@@ -230,7 +231,6 @@ describe("isVirtualObject", () => {
         expect(isVirtualObject(line)).toBe(false);
         expect(isVirtualObject(plane)).toBe(false);
         expect(isVirtualObject(unboundPoint)).toBe(false);
-        expect(isVirtualObject(unboundVector)).toBe(false);
         expect(isVirtualObject(unboundLine)).toBe(false);
     });
 });
@@ -241,7 +241,6 @@ describe("isNonVirutalObject", () => {
         expect(isNonVirtualObject(line)).toBe(true);
         expect(isNonVirtualObject(plane)).toBe(true);
         expect(isNonVirtualObject(unboundPoint)).toBe(true);
-        expect(isNonVirtualObject(unboundVector)).toBe(true);
         expect(isNonVirtualObject(unboundLine)).toBe(true);
     });
 
@@ -249,5 +248,7 @@ describe("isNonVirutalObject", () => {
         expect(isNonVirtualObject(vector)).toBe(false);
         expect(isNonVirtualObject(x)).toBe(false);
         expect(isNonVirtualObject(y)).toBe(false);
+        expect(isNonVirtualObject(unboundVector)).toBe(false);
+
     });
 });
