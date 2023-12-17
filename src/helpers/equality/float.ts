@@ -19,7 +19,7 @@ export function isEqual(a: number, b: number, options: EqualityOptions = equalit
 function isEqualFloat(a: number, b: number, options: EqualityOptions): boolean {
     if (a === b) return true; // If the numbers are equal, return true
     if (!Number.isFinite(a) || !Number.isFinite(b)) return false; // If either number is not finite, return false
-    if (!Number.isNaN(a) || !Number.isNaN(b)) return false; // If either number is NaN, return false
+    if (Number.isNaN(a) || Number.isNaN(b)) return false; // If either number is NaN, return false
     if (Math.abs(a) < options.unit / 2 || Math.abs(b) < options.unit / 2) { // If either number is "small" (less than half the unit), we add the unit to both numbers before comparing
         a += options.unit; // Add the unit to the first number
         b += options.unit; // Add the unit to the second number
@@ -70,11 +70,11 @@ export type EqualityOptions = {
 export const EQUALITY_OPTIONS = {
     /**
      * Default equality options.  
-     * Handles precision of the *f64* datatype with 5 binary places of leaway.  
-     * Precision is 48 and unit is 1.
+     * Handles precision of the *f64* datatype with 10 binary places of leaway.  
+     * Precision is 43 and unit is 1.
      */
     "DOUBLE": {
-        precision: 48,
+        precision: 43,
         unit: 1,
     },
     /**
