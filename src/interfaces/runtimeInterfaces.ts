@@ -256,7 +256,7 @@ export const IntervalWithSettableEndpointsInclusionObject = [...IntervalWithSett
 export const IntervalWithSettableEndpointsValueObject = [...IntervalWithSettableEndpointsValue, ...DependencyNode, ...GeometryObject] as const;
 
 /**
- * Represents the synthetic {@link Synthetic.BareReadonlyVectorObject | BareReadonlyVectorObject} interface at runtime.
+ * Represents the synthetic {@link Synthetic.SettablePointObject | SettablePointObject} interface at runtime.
  */
 export const SettablePointObject = [...SettablePoint, ...PointObject] as const;
 
