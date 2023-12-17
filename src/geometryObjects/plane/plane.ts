@@ -112,4 +112,8 @@ export class Plane extends DependencyNodeWithCache<{}, true> implements IPlane {
     public constructParallelLineFromPoint(line: LineObject, point: PointObject): LineObject {
         return new ParalellLineFromPoint({ plane: this, line, point });
     }
+
+
+    public readonly objectType = "plane";
+    public readonly virtual = false;
 }
