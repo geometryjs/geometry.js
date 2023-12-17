@@ -1,12 +1,12 @@
 import type { Interface } from "./runtimeInterfaces";
 import type { DependencyNode } from "./dependencyNode";
 import type { Plane } from "./plane";
-import type { Runtime } from ".";
+import type { ObjectWithType, Runtime } from ".";
 
 /**
  * Represents a GeometryJS object, usually paired with a {@link DependencyNode} interface.
  */
-export interface GeometryObject {
+export interface GeometryObject extends ObjectWithType {
     /**
      * Returns the {@link Runtime | runtime representation}interfaces implemented by this object.
      */
