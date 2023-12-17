@@ -46,6 +46,9 @@ export class UnboundLine implements Line {
         return UnboundPoint.fromVector(this.arbitraryPoint1.toVector().add(this.directionalVector.multiplyByScalar(input)));
     }
 
+    public readonly objectType = "line";
+    public readonly virtual = false;
+
     /**
      * Creates an unbound line from a given line.
      * @param line The line to convert to an unbound line

@@ -58,6 +58,9 @@ export abstract class AbstractLine extends GeometryObject<{ point1: Point, point
     evaluate(input: number): Point {
         return UnboundPoint.fromVector(this.arbitraryPoint1.toVector().add(this.directionalVector.multiplyByScalar(input)));
     }
+
+    public readonly objectType = "line";
+    public readonly virtual = false;
 }
 
 /**
