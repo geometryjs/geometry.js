@@ -13,6 +13,7 @@ export * from "./interval";
 export * from "./parametricCurve";
 export * from "./union";
 export * from "./enum";
+export * from "./objectWithType";
 
 // Synthetic
 export * from "./synthetic";
