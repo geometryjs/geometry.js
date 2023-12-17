@@ -1,6 +1,8 @@
-import { NonVirtualObject, NullObject } from "../../../interfaces";
-import { isNull } from "../../../validators";
+import { NonVirtualObject, NullObject, Point } from "../../../interfaces";
+import { isLine, isNull, isPoint } from "../../../validators";
 import { UnboundNullObject } from "../../nullObject";
+import { intersectionLineLine } from "./lineLine";
+import { intersectionPointPoint } from "./pointPoint";
 
 // Intersections with null objects
 /**
@@ -25,8 +27,16 @@ export function intersection(nullObject: NullObject, object: NonVirtualObject): 
  */
 export function intersection(object: NonVirtualObject, nullObject: NullObject): NullObject;
 
+/**
+ * If the points are equal, returns a point, otherwise returns a null object.
+ * @param point1 First point
+ * @param point2 Second point
+ */
+export function intersection(point1: Point, point2: Point): Point | NullObject;
 
 export function intersection(a: NonVirtualObject | NullObject, b: NonVirtualObject | NullObject): NonVirtualObject | NullObject {
     if (isNull(a) || isNull(b)) return UnboundNullObject.createNonVirtual();
+    if (isPoint(a) && isPoint(b)) return intersectionPointPoint(a, b);
+    if (isLine(a) && isLine(b)) return intersectionLineLine(a, b);
     throw new Error("Not implemented"); // TODO: Use custom error
 }
