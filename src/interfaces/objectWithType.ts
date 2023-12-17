@@ -7,12 +7,12 @@ export interface NonVirtualObject {
      * This type is used when generic objects are used for calculations, and the type of the object is not known.  
      * Example of this can be an intersection calculation.
      */
-    objectType: NonVirtualObjectType;
+    readonly objectType: NonVirtualObjectType;
 
     /**
      * Whether this object is virtual.
      */
-    virtual: false;
+    readonly virtual: false;
 }
 
 /**
@@ -24,12 +24,12 @@ export interface VirtualObject {
      * This type is used when generic objects are used for calculations, and the type of the object is not known.  
      * Example of this can be an intersection calculation.
      */
-    objectType: VirtualObjectType;
+    readonly objectType: VirtualObjectType;
 
     /**
      * Whether this object is virtual.
      */
-    virtual: true;
+    readonly virtual: true;
 }
 
 /**
@@ -42,13 +42,13 @@ export interface NullObject {
      * This type is used when generic objects are used for calculations, and the type of the object is not known.  
      * Example of this can be an intersection calculation.
      */
-    objectType: "null";
+    readonly objectType: "null";
 
     /**
      * Whether this object is virtual.  
      * This is dependant on from what calculation this object is the result of.
      */
-    virtual: boolean;
+    readonly virtual: boolean;
 } 
 
 /**
@@ -60,13 +60,13 @@ export interface ObjectWithType {
      * This type is used when generic objects are used for calculations, and the type of the object is not known.  
      * Example of this can be an intersection calculation.
      */
-    objectType: ObjectType;
+    readonly objectType: ObjectType;
 
     /**
      * Whether this object is virtual.  
      * This is dependant on from what calculation this object is the result of.
      */
-    virtual: boolean;
+    readonly virtual: boolean;
 
 }
 
