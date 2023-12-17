@@ -13,8 +13,24 @@ import type { SingleParametricCurve as ISingleParametricCurve } from "./parametr
 import type { Line as ILine, LineWithSettableEquation as ILineWithSettableEquation, LineWithSettableXAxisAngle as ILineWithSettableXAxisAngle } from "./line";
 import type { Union as IUnion } from "./union";
 import type { EnumObject as IEnumObject } from "./enum";
+import type { NonVirtualObject as INonVirtualObject, VirtualObject as IVirtualObject, ObjectWithType as IObjectWithType } from "./objectWithType";
 
 import type * as Synthetic from "./synthetic";
+
+/**
+ * Represents the {@link IObjectWithType | ObjectWithType} interface at runtime.
+ */
+export const ObjectWithType = ["ObjectWithType"] as const;
+
+/**
+ * Represents the {@link INonVirtualObject | NonVirtualObject} interface at runtime.
+ */
+export const NonVirtualObject = ["NonVirtualObject", ...ObjectWithType] as const;
+
+/**
+ * Represents the {@link IVirtualObject | VirtualObject} interface at runtime.
+ */
+export const VirtualObject = ["VirtualObject", ...ObjectWithType] as const;
 
 /**
  * Represents the {@link ICache | Cache} interface at runtime.
@@ -39,7 +55,7 @@ export const DependencyNode = ["DependencyNode"] as const;
 /**
  * Represents the {@link IGeometryObject | GeometryObject} interface at runtime.
  */
-export const GeometryObject = ["GeometryObject"] as const;
+export const GeometryObject = ["GeometryObject", ...ObjectWithType] as const;
 
 /**
  * Represents the {@link IPlane | Plane} interface at runtime.
@@ -64,17 +80,17 @@ export const Value = ["Value"] as const;
 /**
  * Represents the {@link ISettableValue | SettableValue} interface at runtime.
  */
-export const SettableValue = ["SettableValue", ...Value] as const;
+export const SettableValue = ["SettableValue", ...Value, ...VirtualObject] as const;
 
 /**
  * Represents the {@link IPoint | Point} interface at runtime.
  */
-export const Point = ["Point"] as const;
+export const Point = ["Point", ...NonVirtualObject] as const;
 
 /**
  * Represents the {@link IVector | Vector} interface at runtime.
  */
-export const Vector = ["Vector"] as const;
+export const Vector = ["Vector", ...VirtualObject] as const;
 
 /**
  * Represents the {@link ISettableVector | SettableVector} interface at runtime.
@@ -94,7 +110,7 @@ export const BareVector = ["BareVector"] as const;
 /**
  * Represents the {@link IInterval | Interval} interface at runtime.
  */
-export const Interval = ["Interval"] as const;
+export const Interval = ["Interval", ...VirtualObject] as const;
 
 /**
  * Represents the {@link ISingleParametricCurve | SingleParametricCurve} interface at runtime.
@@ -104,7 +120,7 @@ export const SingleParametricCurve = ["SingleParametricCurve", ...Evaluatable] a
 /**
  * Represents the {@link ILine | Line} interface at runtime.
  */
-export const Line = ["Line", ...SingleParametricCurve, ...Evaluatable] as const;
+export const Line = ["Line", ...SingleParametricCurve, ...Evaluatable, ...NonVirtualObject] as const;
 
 /**
  * Represents the {@link IIntervalWithSettableEndpoints | IntervalWithSettableEndpoints} interface at runtime.
@@ -139,12 +155,13 @@ export const LineWithSettableXAxisAngle = ["LineWithSettableXAxisAngle", ...Line
 /**
  * Represents the {@link IUnion | Union} interface at runtime.
  */
-export const Union = ["Union"] as const;
+export const Union = ["Union", ...NonVirtualObject] as const;
 
 /**
  * Represents the {@link IEnumObject | EnumObject} interface at runtime.
  */
 export const EnumObject = ["EnumObject", ...DependencyNode, ...GeometryObject] as const;
+
 
 /**
  * General type for all constants, that represent interfaces at runtime.
@@ -176,6 +193,9 @@ export type Interface = Readonly<
     | (typeof LineWithSettableXAxisAngle)[number]
     | (typeof Union)[number]
     | (typeof EnumObject)[number]
+    | (typeof ObjectWithType)[number]
+    | (typeof NonVirtualObject)[number]
+    | (typeof VirtualObject)[number]
 >;
 
 // Synthetic interfaces
