@@ -112,6 +112,18 @@ describe("PointFromCoordinates", () => {
 
         expect(point.exists()).toBe(false);
     });
+
+    test("has objectType of point", () => {
+        const point = plane.createPointFromCoordinates(1, 2);
+
+        expect(point.objectType).toBe("point");
+    });
+
+    test("is not virutal", () => {
+        const point = plane.createPointFromCoordinates(1, 2);
+
+        expect(point.virtual).toBe(false);
+    });
 });
 
 describe("UnboundPoint", () => {
@@ -157,5 +169,17 @@ describe("UnboundPoint", () => {
 
         expect(point.x).toBe(1);
         expect(point.y).toBe(2);
+    });
+
+    test("has objectType of point", () => {
+        const point = UnboundPoint.fromBareVector([1, 2]);
+
+        expect(point.objectType).toBe("point");
+    });
+
+    test("is not virutal", () => {
+        const point = UnboundPoint.fromBareVector([1, 2]);
+
+        expect(point.virtual).toBe(false);
     });
 });
