@@ -1,4 +1,4 @@
-import type { IterableCache, GeometryObject as IGeometryObject, DependencyNode, Plane, ObjectType } from "../interfaces";
+import type { IterableCache, GeometryObject as IGeometryObject, DependencyNode, Plane, ObjectType, ObjectWithType } from "../interfaces";
 import type { Some } from "../helpers/types/general";
 
 import { DependencyNodeWithCache } from "./dependencyNode";
@@ -10,7 +10,7 @@ import * as Interfaces from "../interfaces/runtimeInterfaces";
  * @template CacheRecords The records the object caches.
  * @group General
  */
-export abstract class GeometryObject<CacheRecords extends Record<string, Some | null> = Record<string, Some | null>> extends DependencyNodeWithCache<CacheRecords, true> implements IGeometryObject, DependencyNode {
+export abstract class GeometryObject<CacheRecords extends Record<string, Some | null> = Record<string, Some | null>> extends DependencyNodeWithCache<CacheRecords, true> implements IGeometryObject, DependencyNode, ObjectWithType {
     private readonly implementedInterfaces: Set<Interfaces.Interface> = new Set([...Interfaces.GeometryObject, ...Interfaces.DependencyNode]);
     public readonly plane: Plane;
 
