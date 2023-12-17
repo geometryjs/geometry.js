@@ -59,7 +59,6 @@ describe("Interval from endpoints", () => {
         interval.endIncluded = true;
         expect(interval.startIncluded).toBe(true);
         expect(interval.endIncluded).toBe(true);
-        expect(interval.objectType).toBe("interval");
     });
 
     test.each([...settableIntervals, ...settableValueIntervals])("can change endpoints", (interval) => {
@@ -67,7 +66,6 @@ describe("Interval from endpoints", () => {
         interval.end = 4;
         expect(interval.start).toBe(3);
         expect(interval.end).toBe(4);
-        expect(interval.objectType).toBe("interval");
     });
 });
 
@@ -133,5 +131,12 @@ describe("Interval", () => {
         expect(interval.exists()).toBe(false);
     });
 
+    test.each(intervals)("should have objectType of interval", (interval) => {
+        expect(interval.objectType).toBe("interval");
+    });
+
+    test.each(intervals)("should be virtual", (interval) => {
+        expect(interval.virtual).toBe(true);
+    });
 
 })
