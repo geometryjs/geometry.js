@@ -9,6 +9,18 @@ describe("ReadonlyValue", () => {
         expect(value.value).toBe(1);
         expect(value.info.canCauseUpdate).toBe(false);
     });
+
+    test("is of objectType value", () => {
+        const value = new ReadonlyValue({ value: 1, plane });
+        
+        expect(value.objectType).toBe("value");
+    });
+
+    test("is virtual", () => {
+        const value = new ReadonlyValue({ value: 1, plane });
+        
+        expect(value.virtual).toBe(true);
+    });
 });
 
 import { SettableValue } from "../../../../src/geometryObjects/value/settableValue";
@@ -52,5 +64,17 @@ describe("SettableValue", () => {
         value.value = NaN;
 
         expect(value.exists()).toBe(false);
+    });
+
+    test("is of objectType value", () => {
+        const value = new SettableValue({ value: 1, plane });
+        
+        expect(value.objectType).toBe("value");
+    });
+
+    test("is virtual", () => {
+        const value = new SettableValue({ value: 1, plane });
+        
+        expect(value.virtual).toBe(true);
     });
 });
