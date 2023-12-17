@@ -1,4 +1,4 @@
-import type { DependencyNode, DependencyNodeObject, GeometryObject, IntervalObject, Line, LineObject, Point, PointObject, SettableValue, SettableValueObject, Value, ValueObject, Vector, VectorObject } from "./interfaces";
+import type { DependencyNode, DependencyNodeObject, GeometryObject, Interval, IntervalObject, Line, LineObject, Point, PointObject, SettableValue, SettableValueObject, Value, ValueObject, Vector, VectorObject } from "./interfaces";
 
 import { getPropertyDescriptor } from "./helpers/getPropertyDescriptor";
 import { inIterable } from "./helpers/iterable";
@@ -266,7 +266,7 @@ export function isNull(object: unknown): object is NullObject {
  * 
  * @group Validators
  */
-export function isInterval(object: unknown): object is IntervalObject {
+export function isInterval(object: unknown): object is Interval {
     if (!isObjectWithType(object)) return false; // Not an ObjectWithType
 
     return object.objectType === "interval";
