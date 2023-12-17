@@ -1,8 +1,8 @@
-import type { DependencyNode, DependencyNodeObject, GeometryObject, IntervalObject, Line, LineObject, Point, PointObject, SettableValue, SettableValueObject, Value, ValueObject, VectorObject } from "./interfaces";
+import type { DependencyNode, DependencyNodeObject, GeometryObject, IntervalObject, Line, LineObject, Point, PointObject, SettableValue, SettableValueObject, Value, ValueObject, Vector, VectorObject } from "./interfaces";
 
 import { getPropertyDescriptor } from "./helpers/getPropertyDescriptor";
 import { inIterable } from "./helpers/iterable";
-import { ObjectWithType, VirtualObject } from "./interfaces/objectWithType";
+import { NullObject, ObjectWithType, VirtualObject } from "./interfaces/objectWithType";
 /**
  * Checks whether an unknown object is a {@link GeometryObject}.
  * @param object An unknown object.
@@ -51,23 +51,6 @@ export function isSettableValue(object: unknown): object is SettableValue {
 
     if (typeof descriptor.get !== "function" && typeof descriptor.value !== "number") return false; // Not a SettableValue
     if (typeof descriptor.set !== "function" && typeof descriptor.value !== "number") return false; // Not a SettableValue
-
-    return true;
-}
-
-/**
- * Checks whether an unknown object is a {@link Point}.
- * @param object An unknown object.
- * @returns Whether the object is a {@link Point}.
- *
- * @group Validators
- */
-export function isPoint(object: unknown): object is Point {
-    if (typeof object !== "object" || object === null) return false; // Not an object
-
-    if (!("x" in object)) return false; // Not a Point
-
-    if (!("y" in object)) return false; // Not a Point
 
     return true;
 }
@@ -222,4 +205,69 @@ export function isVirtualObject(object: ObjectWithType): object is VirtualObject
  */
 export function isNonVirtualObject(object: ObjectWithType): object is VirtualObject {
     return !object.virtual;
+}
+
+/**
+ * Checks whether an unknown object is a {@link Vector}.
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link Vector}.
+ * 
+ * @group Validators
+ */
+export function isVector(object: unknown): object is Vector {
+    if (!isObjectWithType(object)) return false; // Not an ObjectWithType
+
+    return object.objectType === "vector";
+}
+
+/**
+ * Checks whether an unknown object is a {@link Point}.
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link Point}.
+ * 
+ * @group Validators
+ */
+export function isPoint(object: unknown): object is Point {
+    if (!isObjectWithType(object)) return false; // Not an ObjectWithType
+
+    return object.objectType === "point";
+}
+
+/**
+ * Checks whether an unknown object is a {@link Line}.
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link Line}.
+ * 
+ * @group Validators
+ */
+export function isLine(object: unknown): object is Line {
+    if (!isObjectWithType(object)) return false; // Not an ObjectWithType
+
+    return object.objectType === "line";
+}
+
+/**
+ * Checks whether an unknown object is a {@link NullObject}.
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link NullObject}.
+ * 
+ * @group Validators
+ */
+export function isNull(object: unknown): object is NullObject {
+    if (!isObjectWithType(object)) return false; // Not an ObjectWithType
+
+    return object.objectType === "null";
+}
+
+/**
+ * Checks whether an unknown object is a {@link Interval}.
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link Interval}.
+ * 
+ * @group Validators
+ */
+export function isInterval(object: unknown): object is IntervalObject {
+    if (!isObjectWithType(object)) return false; // Not an ObjectWithType
+
+    return object.objectType === "interval";
 }
