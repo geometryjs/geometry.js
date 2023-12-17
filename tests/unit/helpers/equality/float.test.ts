@@ -12,7 +12,7 @@ describe("Float equality", () => {
         [0.0001, 0, false],
         [1e50, 1e50 + 1, true],
         [1.00000000001, 1.00000000002, false],
-        [1.00000000001, NaN, false],
+        [NaN, NaN, false],
         [1.000000000000001, 1.000000000000002, true],
         [2 / 3, 2 / 3, true],
         [Math.sqrt(2), Math.sqrt(2) / 2 * 3 / 6 * 4, true],

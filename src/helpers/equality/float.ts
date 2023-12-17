@@ -19,7 +19,6 @@ export function isEqual(a: number, b: number, options: EqualityOptions = equalit
 function isEqualFloat(a: number, b: number, options: EqualityOptions): boolean {
     if (a === b) return true; // If the numbers are equal, return true
     if (!Number.isFinite(a) || !Number.isFinite(b)) return false; // If either number is not finite, return false
-    if (Number.isNaN(a) || Number.isNaN(b)) return false; // If either number is NaN, return false
     if (Math.abs(a) < options.unit / 2 || Math.abs(b) < options.unit / 2) { // If either number is "small" (less than half the unit), we add the unit to both numbers before comparing
         a += options.unit; // Add the unit to the first number
         b += options.unit; // Add the unit to the second number
