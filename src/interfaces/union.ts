@@ -1,10 +1,10 @@
-import { NonVirtualObject, ObjectWithType } from "./objectWithType";
+import { NonVirtualObject } from "./objectWithType";
 
 /**
  * A union is a collection of objects that are combined into a single object.  
  * When returned by a function or method, it is to be handled as a single object.
  */
-export interface Union<Objects extends ObjectWithType[]> extends NonVirtualObject { 
+export interface Union<Objects extends NonVirtualObject[]> extends NonVirtualObject { 
     /**
      * The objects that make up the union.
      */
