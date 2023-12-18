@@ -51,12 +51,12 @@ export class UnboundLine implements Line {
 
     equals(other: NonVirtualObject): boolean {
         if (!isLine(other)) return false;
-        const { distance } = Procedures.Foundational.LINE_FROM_LINE_DISTANCE.perform({
+        const intersection = Procedures.Derived.LINE_LINE_INTERSECTION.perform({
             line1: this,
             line2: other
         });
 
-        return isZero(distance);
+        return intersection.objectType === "line";
     }
 
     public readonly objectType = "line";
