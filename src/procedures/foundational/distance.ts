@@ -34,7 +34,11 @@ export class LineFromLineDistance extends Procedure<{ line1: { a: number, b: num
             name: "Line From Line Distance",
             procedure: ({ line1, line2 }) => { 
                 if (!LINES_PARALLEL.perform({ lines: [line1, line2] }).parallel) return { distance: 0 };
-                return { distance: Math.abs(line1.c - line2.c) / Math.sqrt(line1.a ** 2 + line1.b ** 2) };
+                const a = line1.a;
+                const b = line1.b;
+                const c1 = line1.c;
+                const c2 = line2.c * (a / line2.a);
+                return { distance: Math.abs(c1 - c2) / Math.sqrt(a ** 2 + b ** 2)};
             }
         });
     }
