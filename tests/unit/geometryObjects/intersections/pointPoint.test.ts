@@ -37,10 +37,15 @@ describe("Bound intersection of Point and Point", () => {
 
     test("Intersection of two different points is a null object", () => {
         expect(intersectionObject1.currentState.objectType).toBe("null");
+        expect(intersectionObject1.states.none.exists()).toBe(true);
+        expect(intersectionObject1.states.point.exists()).toBe(false);
+        expect(intersectionObject1.states.none.virtual).toBe(false);
     });
 
     test("Intersection of two equal points is a point", () => {
         expect(intersectionObject2.currentState.objectType).toBe("point");
+        expect(intersectionObject2.states.none.exists()).toBe(false);
+        expect(intersectionObject2.states.point.exists()).toBe(true);
     });
 
     test("Intersection of two equal points has the correct coordinates", () => {
