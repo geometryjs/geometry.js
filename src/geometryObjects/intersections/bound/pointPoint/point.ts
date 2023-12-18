@@ -17,7 +17,7 @@ export class PointPointIntersectionPoint extends AbstractPoint {
     }
 
     public exists(): boolean {
-        return this.intersectionObject.pointsAreEqual() && super.exists();    
+        return this.intersectionObject.pointsAreEqual() && this.intersectionObject.exists();    
     }
 
     protected getX(): number {

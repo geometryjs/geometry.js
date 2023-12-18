@@ -27,6 +27,6 @@ export class LineLineIntersectionPoint extends AbstractPoint {
         return y;
     }
     public exists(): boolean {
-        return this.intersectionObject.getObjectType() === "point" && super.exists();
+        return this.intersectionObject.getObjectType() === "point" && this.intersectionObject.exists();
     }
 }

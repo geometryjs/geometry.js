@@ -35,6 +35,6 @@ export class LineLineIntersectionLine extends AbstractLineFromEquation {
     }
 
     public exists(): boolean {
-        return this.intersectionObject.getObjectType() === "line" && super.exists();
+        return this.intersectionObject.getObjectType() === "line" && this.intersectionObject.exists();
     }
 } 
