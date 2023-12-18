@@ -132,4 +132,4 @@ export interface UnionObject<Objects extends NonVirtualObject[]> extends Depende
  * 
  * @group Synthetic
  */
-export interface NullObjectDependencyNode extends NullObject, DependencyNode, GeometryObject<"null"> {}
+export interface NullObjectDependencyNode<Virtual extends boolean = boolean> extends NullObject<Virtual>, DependencyNode, GeometryObject<"null", Virtual> {}

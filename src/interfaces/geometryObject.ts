@@ -6,7 +6,7 @@ import type { NonVirtualObject, NonVirtualObjectType, ObjectType, ObjectWithType
 /**
  * Represents a GeometryJS object, usually paired with a {@link DependencyNode} interface.
  */
-export interface GeometryObject<Type extends ObjectType = ObjectType> extends ObjectWithType {
+export interface GeometryObject<Type extends ObjectType = ObjectType, Virtual extends boolean = boolean> extends ObjectWithType<Type, Virtual> {
     /**
      * Returns the {@link Runtime | runtime representation}interfaces implemented by this object.
      */
@@ -21,11 +21,6 @@ export interface GeometryObject<Type extends ObjectType = ObjectType> extends Ob
      * Returns information about this object.
      */
     readonly info: GeometryObjectInfo;
-
-    /**
-     * Type of this object
-     */
-    readonly objectType: Type;
 }
 
 /**
