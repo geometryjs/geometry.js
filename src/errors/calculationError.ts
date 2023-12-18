@@ -1,3 +1,4 @@
+import { ObjectWithType } from "../interfaces";
 import { GeometryJsError } from "./geometryJsError";
 
 /**
@@ -30,11 +31,16 @@ export class NotImplementedCalculationError extends CalculationError {
  * An error for when an intersection calculation operation fails because a specific case is not implemented.
  */
 export class NotImplementedIntersectionCalculationError extends NotImplementedCalculationError {
-    constructor(parameters: { message: string, id: string, description?: string, name?: string }) {
+    public readonly object1: ObjectWithType;
+    public readonly object2: ObjectWithType;
+
+    constructor(parameters: { message: string, id: string, description?: string, name?: string, object1: ObjectWithType, object2: ObjectWithType }) {
         super({
             ...parameters,
             name: parameters.name ?? 'NotImplementedIntersectionCalculationError',
             id: "Intr." + parameters.id,
         });
+        this.object1 = parameters.object1;
+        this.object2 = parameters.object2;
     }
 }
