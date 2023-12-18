@@ -1,13 +1,13 @@
 import { MemoryMapCacheWithAutomaticCalculation } from "../../../../helpers";
 import { isEqual } from "../../../../helpers/equality/float";
-import type { Plane, PointObject } from "../../../../interfaces";
+import type { NullObject, NullObjectDependencyNode, Plane, PointObject } from "../../../../interfaces";
 import { AbstractEnum } from "../../../enum";
 import { PointPointIntersectionNull } from "./nullObject";
 import { PointPointIntersectionPoint } from "./point";
 
 export { PointPointIntersectionNull, PointPointIntersectionPoint };
 export class PointPointIntersection extends AbstractEnum<{
-    "none": PointPointIntersectionNull,
+    "none": NullObjectDependencyNode<false>,
     "point": PointObject,
 }, {
     equal: boolean
@@ -22,7 +22,7 @@ export class PointPointIntersection extends AbstractEnum<{
             dependencies: [parameters.point1, parameters.point2],
             cache: new MemoryMapCacheWithAutomaticCalculation<{ equal: boolean }>({
                 equal: () => {
-                    return isEqual(this.point1.x, this.point2.x) && isEqual(this.point1.y, this.point2.y);
+                    return this.point1.equals(this.point2);
                 }
             }),
             implementedInterfaces: [],

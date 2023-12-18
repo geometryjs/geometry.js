@@ -2,7 +2,7 @@ import { MemoryMapCache, MemoryMapCacheWithAutomaticCalculation } from "../../he
 import { DependencyNodeObject, NullObject, Plane, Runtime } from "../../interfaces";
 import { GeometryObject } from "../geometryObject";
 
-export abstract class AbstractNullObject extends GeometryObject<{}> implements NullObject {
+export abstract class AbstractNullObject<Virtual extends boolean = boolean> extends GeometryObject<{}> implements NullObject<Virtual> {
     public readonly objectType = "null";
     constructor(parameters: { plane: Plane, dependencies: DependencyNodeObject[] }) {
         super({
@@ -11,9 +11,9 @@ export abstract class AbstractNullObject extends GeometryObject<{}> implements N
             ...parameters,
         })
     }
-    protected abstract isVirtual(): boolean;
+    protected abstract isVirtual(): Virtual;
     protected abstract doesExist(): boolean;
-    public get virtual(): boolean {
+    public get virtual(): Virtual {
         return this.isVirtual();
     }
 

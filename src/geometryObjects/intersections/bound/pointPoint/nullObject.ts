@@ -7,7 +7,7 @@ import { AbstractNullObject } from "../../../nullObject";
  * Case of the Point Point intersection.
  * Exists if the points are not equal and thus have no intersection.
  */
-export class PointPointIntersectionNull extends AbstractNullObject {
+export class PointPointIntersectionNull extends AbstractNullObject<false> {
     protected readonly intersectionObject: PointPointIntersection;
     constructor(parameters: { plane: Plane, intersectionObject: PointPointIntersection }) {
         super({
@@ -17,7 +17,7 @@ export class PointPointIntersectionNull extends AbstractNullObject {
         this.intersectionObject = parameters.intersectionObject;
     }
 
-    protected isVirtual(): boolean {
+    protected isVirtual(): false {
         return false;
     }
     protected doesExist(): boolean {
