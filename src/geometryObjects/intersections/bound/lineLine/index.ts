@@ -2,6 +2,7 @@ import { MemoryMapCacheWithAutomaticCalculation } from "../../../../helpers";
 import type { LineObject, NullObjectDependencyNode, Plane, PointObject } from "../../../../interfaces";
 import { Derived } from "../../../../procedures";
 import { AbstractEnum } from "../../../enum";
+import { LineLineIntersectionLine } from "./line";
 import { LineLineIntersectionNull } from "./nullObject";
 import { LineLineIntersectionPoint } from "./point";
 
@@ -19,7 +20,7 @@ export class LineLineIntersection extends AbstractEnum<{
     protected readonly line1: LineObject;
     protected readonly line2: LineObject;
 
-    protected readonly lineIntersection;
+    protected readonly lineIntersection: LineLineIntersectionLine;
     protected readonly nullObjectIntersection: LineLineIntersectionNull;
     protected readonly pointIntersection: LineLineIntersectionPoint;
 
@@ -49,6 +50,7 @@ export class LineLineIntersection extends AbstractEnum<{
 
         this.nullObjectIntersection = new LineLineIntersectionNull({ plane: parameters.plane, intersectionObject: this });
         this.pointIntersection = new LineLineIntersectionPoint({ plane: parameters.plane, intersectionObject: this });
+        this.lineIntersection = new LineLineIntersectionLine({ plane: parameters.plane, intersectionObject: this });
     }
 
     protected getStates(): { none: NullObjectDependencyNode<false>; point: PointObject; line: LineObject; } {
