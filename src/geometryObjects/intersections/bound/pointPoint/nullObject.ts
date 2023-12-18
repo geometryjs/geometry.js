@@ -1,6 +1,5 @@
 import type { PointPointIntersection } from ".";
-import { MemoryMapCacheWithAutomaticCalculation } from "../../../../helpers";
-import { Plane, Runtime } from "../../../../interfaces";
+import { Plane } from "../../../../interfaces";
 import { AbstractNullObject } from "../../../nullObject";
 
 /**
