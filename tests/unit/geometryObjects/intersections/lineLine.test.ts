@@ -29,7 +29,10 @@ describe("Bound intersection of Line and Line", () => {
     const intersectionObject1 = plane.constructIntersection(line1, line3);
     const intersectionObject2 = plane.constructIntersection(line1, line1);
     const intersectionObject3 = plane.constructIntersection(line1, line2);
-
+    test("Has intersection", () => { 
+        expect(intersectionObject1.getIntersection()).toBeDefined();
+        expect(intersectionObject2.getIntersection()).toBeDefined();
+    });
     test("The null object is not virutal", () => {
         expect(intersectionObject1.states.none.virtual).toBe(false);
     });
@@ -41,6 +44,24 @@ describe("Bound intersection of Line and Line", () => {
         expect(intersectionObject1.states.none.exists()).toBe(true);
         expect(intersectionObject1.states.point.exists()).toBe(false);
         expect(intersectionObject1.states.line.exists()).toBe(false);
+
+        expect(() => {
+            intersectionObject1.states.line.a;
+        }).toThrow();
+        expect(() => {
+            intersectionObject1.states.line.b;
+        }).toThrow();
+        expect(() => {
+            intersectionObject1.states.line.c;
+        }).toThrow();
+
+        expect(() => {
+            intersectionObject1.states.point.x;
+        }).toThrow();
+
+        expect(() => {
+            intersectionObject1.states.point.y;
+        }).toThrow();
     });
 
     test("Intersection of two equal lines is a line", () => {
@@ -48,6 +69,10 @@ describe("Bound intersection of Line and Line", () => {
         expect(intersectionObject2.states.none.exists()).toBe(false);
         expect(intersectionObject2.states.point.exists()).toBe(false);
         expect(intersectionObject2.states.line.exists()).toBe(true);
+
+        expect(intersectionObject2.states.line.a).toBeDefined();
+        expect(intersectionObject2.states.line.b).toBeDefined();
+        expect(intersectionObject2.states.line.c).toBeDefined();
     });
 
     test("Intersection of two lines is a point", () => {
@@ -55,6 +80,9 @@ describe("Bound intersection of Line and Line", () => {
         expect(intersectionObject3.states.none.exists()).toBe(false);
         expect(intersectionObject3.states.point.exists()).toBe(true);
         expect(intersectionObject3.states.line.exists()).toBe(false);
+
+        expect(intersectionObject3.states.point.x).toBeDefined();
+        expect(intersectionObject3.states.point.y).toBeDefined();
     });
 
 });
