@@ -1,4 +1,4 @@
-import { NonVirtualObject, NullObject, Point } from "../../../interfaces";
+import { Line, NonVirtualObject, NullObject, Point } from "../../../interfaces";
 import { isLine, isNull, isPoint } from "../../../validators";
 import { UnboundNullObject } from "../../nullObject";
 import { intersectionLineLine } from "./lineLine";
@@ -33,6 +33,13 @@ export function intersection(object: NonVirtualObject, nullObject: NullObject): 
  * @param point2 Second point
  */
 export function intersection(point1: Point, point2: Point): Point | NullObject;
+
+/**
+ * Returns the intersection of the lines
+ * @param line1 First line
+ * @param line2 Second line
+ */
+export function intersection(line1: Line, line2: Line): Line | Point | NullObject;
 
 export function intersection(a: NonVirtualObject | NullObject, b: NonVirtualObject | NullObject): NonVirtualObject | NullObject {
     if (isNull(a) || isNull(b)) return UnboundNullObject.createNonVirtual();
