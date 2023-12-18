@@ -3,8 +3,8 @@ import { Plane } from "../../../../interfaces";
 import { AbstractNullObject } from "../../../nullObject";
 
 /**
- * Case of the Point Point intersection.
- * Exists if the points are not equal and thus have no intersection.
+ * Case of the Line Line intersection.
+ * Exists if the lines are parallel but not equal.
  */
 export class LineLineIntersectionNull extends AbstractNullObject<false> {
     protected readonly intersectionObject: LineLineIntersection;
