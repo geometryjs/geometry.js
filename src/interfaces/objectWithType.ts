@@ -44,7 +44,7 @@ export interface VirtualObject extends ObjectWithType{
  * Represents a null object.  
  * A null object can be the result of a calculation that has no result.
  */
-export interface NullObject {
+export interface NullObject<Virtual extends boolean> {
     /**
      * Describes the type of this object.  
      * This type is used when generic objects are used for calculations, and the type of the object is not known.  
@@ -56,7 +56,7 @@ export interface NullObject {
      * Whether this object is virtual.  
      * This is dependant on from what calculation this object is the result of.
      */
-    readonly virtual: boolean;
+    readonly virtual: Virtual;
 } 
 
 /**
