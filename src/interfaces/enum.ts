@@ -5,7 +5,7 @@ import { DependencyNodeObject } from "./synthetic";
 /**
  * An Enum represents a set of objects out of which only one can exist at a time.
  */
-export interface EnumObject<States extends Record<string, DependencyNodeObject | null>> extends DependencyNode, GeometryObject {
+export interface EnumObject<States extends Record<string, DependencyNodeObject>> extends DependencyNode, GeometryObject {
     /**
      * The states of the enum.
      */
