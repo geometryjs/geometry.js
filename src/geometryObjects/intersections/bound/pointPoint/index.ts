@@ -15,8 +15,8 @@ export class PointPointIntersection extends AbstractEnum<{
     protected readonly point1: PointObject;
     protected readonly point2: PointObject;
 
-    protected readonly nullObject: PointPointIntersectionNull;
-    protected readonly point: PointPointIntersectionPoint;
+    protected readonly nullObjectIntersection: PointPointIntersectionNull;
+    protected readonly pointIntersection: PointPointIntersectionPoint;
     constructor(parameters: { point1: PointObject, point2: PointObject, plane: Plane }) {
         super({
             dependencies: [parameters.point1, parameters.point2],
@@ -31,8 +31,8 @@ export class PointPointIntersection extends AbstractEnum<{
         this.point1 = parameters.point1;
         this.point2 = parameters.point2;
 
-        this.nullObject = new PointPointIntersectionNull({ plane: parameters.plane, intersectionObject: this });
-        this.point = new PointPointIntersectionPoint({ plane: parameters.plane, intersectionObject: this });
+        this.nullObjectIntersection = new PointPointIntersectionNull({ plane: parameters.plane, intersectionObject: this });
+        this.pointIntersection = new PointPointIntersectionPoint({ plane: parameters.plane, intersectionObject: this });
     }
     /**
      * Returns true if the points are equal.
@@ -58,7 +58,7 @@ export class PointPointIntersection extends AbstractEnum<{
 
     protected getStates() {
         return {
-            "none": this.nullObject,
+            "none": this.nullObjectIntersection,
             "point": this.point1,
         };
     }
