@@ -1,4 +1,5 @@
 import type { LineLineIntersection } from ".";
+import { ExistanceViolationError } from "../../../../errors";
 import type { Plane } from "../../../../interfaces";
 import { AbstractPoint } from "../../../point";
 
@@ -17,12 +18,20 @@ export class LineLineIntersectionPoint extends AbstractPoint {
     }
 
     protected getX(): number {
-        if (!this.exists()) throw new Error("Getting the value of a non-existant point"); // TODO: Change to custom error
+        if (!this.exists()) throw new ExistanceViolationError({
+            message: "Accessing parameter `x` of a non-existant point.",
+            id: "LLI_P_x",
+            description: "Reading properties of non-existant objects is not allowed. Check for existance using the `exists()` method first."
+        });
         const { x } = this.intersectionObject.getIntersection() as { x: number, y: number };
         return x;
     }
     protected getY(): number {
-        if (!this.exists()) throw new Error("Getting the value of a non-existant point"); // TODO: Change to custom error
+        if (!this.exists()) throw new ExistanceViolationError({
+            message: "Accessing parameter `y` of a non-existant point.",
+            id: "LLI_P_y",
+            description: "Reading properties of non-existant objects is not allowed. Check for existance using the `exists()` method first."
+        });
         const { y } = this.intersectionObject.getIntersection() as { x: number, y: number };
         return y;
     }
