@@ -12,6 +12,9 @@ import { PointFromCoordinates } from "../point";
 import { VectorFromCoordinates, VectorFromTwoValues } from "../vector";
 import { ClosedIntervalFromEndPoints, ClosedIntervalFromEndPointsAsValues, IntervalFromEndPoints, IntervalFromEndPointsAsValues, OpenIntervalFromEndPoints, OpenIntervalFromEndPointsAsValues } from "../interval";
 import { LineFromEquation, LineFromEquationAsValues, LineFromPointAndDirectionalVector, LineFromPointAndNormalVector } from "../line";
+import { isLineObject, isPointObject } from "../../validators";
+import { PointPointIntersection } from "../intersections";
+import { LineLineIntersection } from "../intersections/bound/lineLine";
 /**
  * Represents a plane.
  *
@@ -119,5 +122,12 @@ export class Plane extends DependencyNodeWithCache<{}, true> implements IPlane {
 
     public equals(other: NonVirtualObject): boolean {
         return other === this;
+    }
+
+
+    public constructIntersection(object1: GeometryObject, object2: GeometryObject): any { // Any here is only acceptable, beacuse the type of this class should never be accessed directly. It should only be accessed via the interface. The interface has all the overloads correctly typed. 
+        if (isPointObject(object1) && isPointObject(object2)) return new PointPointIntersection({ plane: this, point1: object1, point2: object2 });
+        if (isLineObject(object1) && isLineObject(object2)) return new LineLineIntersection({ plane: this, line1: object1, line2: object2 });
+        throw new Error("Not implemented."); // TODO: Replace with custom error
     }
 }
