@@ -62,7 +62,7 @@ export class PointPointIntersection extends AbstractEnum<{
     protected getStates() {
         return {
             "none": this.nullObjectIntersection,
-            "point": this.point1,
+            "point": this.pointIntersection,
         };
     }
     protected getCurrentStateName() {
