@@ -33,4 +33,7 @@ export abstract class AbstractValue extends GeometryObject<{ value: number, nonE
     public exists(): boolean {
         return !this.cache.readValue("nonExistantState") && super.exists();
     }
+
+    public readonly objectType = "value";
+    public readonly virtual = true;
 }

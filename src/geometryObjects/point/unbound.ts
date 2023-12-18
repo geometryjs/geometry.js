@@ -1,6 +1,8 @@
-import type { BareReadonlyVector, Point, Vector } from "../../interfaces";
+import { isEqual } from "../../helpers/equality/float";
+import type { BareReadonlyVector, NonVirtualObject, Point, Vector } from "../../interfaces";
 
 import * as Procedures from "../../procedures";
+import { isPoint } from "../../validators";
 import { UnboundVector } from "../vector";
 
 /**
@@ -26,6 +28,14 @@ export class UnboundPoint implements Point {
     toVector(): Vector {
         return UnboundVector.fromBare([this.x, this.y]);
     }
+
+    equals(other: NonVirtualObject): boolean {
+        if (!isPoint(other)) return false;
+        return isEqual(this.x, other.x) && isEqual(this.y, other.y);
+    }
+
+    public readonly objectType = "point";
+    public readonly virtual = false;
 
     /**
      * Creates an unbound point from a vector.

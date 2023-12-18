@@ -1,4 +1,4 @@
-import type { DependencyNode, DependencyNodeObject, GeometryObject, Point, PointObject, SettableValue, SettableValueObject, Value, ValueObject } from "./interfaces";
+import type { NullObject, ObjectWithType, VirtualObject, DependencyNode, DependencyNodeObject, GeometryObject, Interval, IntervalObject, Line, LineObject, NonVirtualObject, Point, PointObject, SettableValue, SettableValueObject, Union, Value, ValueObject, Vector, VectorObject } from "./interfaces";
 
 import { getPropertyDescriptor } from "./helpers/getPropertyDescriptor";
 import { inIterable } from "./helpers/iterable";
@@ -50,23 +50,6 @@ export function isSettableValue(object: unknown): object is SettableValue {
 
     if (typeof descriptor.get !== "function" && typeof descriptor.value !== "number") return false; // Not a SettableValue
     if (typeof descriptor.set !== "function" && typeof descriptor.value !== "number") return false; // Not a SettableValue
-
-    return true;
-}
-
-/**
- * Checks whether an unknown object is a {@link Point}.
- * @param object An unknown object.
- * @returns Whether the object is a {@link Point}.
- *
- * @group Validators
- */
-export function isPoint(object: unknown): object is Point {
-    if (typeof object !== "object" || object === null) return false; // Not an object
-
-    if (!("x" in object)) return false; // Not a Point
-
-    if (!("y" in object)) return false; // Not a Point
 
     return true;
 }
@@ -142,4 +125,159 @@ export function isPointObject(object: unknown): object is PointObject {
     if (!inIterable(object.getImplementedInterfaces(), "Point")) return false;
 
     return true;
+}
+
+/**
+ * Checks whether an unknown object is a {@link LineObject}.
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link LineObject}.
+ * 
+ * @group Validators
+ */
+export function isLineObject(object: unknown): object is LineObject {
+    if (!isGeometryObject(object)) return false;
+    if (!inIterable(object.getImplementedInterfaces(), "Line")) return false;
+
+    return true;
+}
+
+/**
+ * Checks whether an unknown object is a {@link VectorObject}. 
+ * @param object An unknown object. 
+ * @returns Whether the object is a {@link VectorObject}.
+ * 
+ * @group Validators
+ */
+export function isVectorObject(object: unknown): object is VectorObject {
+    if (!isGeometryObject(object)) return false;
+    if (!inIterable(object.getImplementedInterfaces(), "Vector")) return false;
+
+    return true;
+}
+
+/**
+ * Checks whether an unknown object is a {@link IntervalObject}.
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link IntervalObject}.
+ * 
+ * @group Validators
+ */
+export function isIntervalObject(object: unknown): object is IntervalObject {
+    if (!isGeometryObject(object)) return false;
+    if (!inIterable(object.getImplementedInterfaces(), "Interval")) return false;
+
+    return true;
+}
+
+/**
+ * Checks whether an unknown object is a {@link ObjectWithType}.
+ * @param object An unknown object.  
+ * @returns Whether the object is a {@link ObjectWithType}.
+ * 
+ * @group Validators
+ */
+export function isObjectWithType(object: unknown): object is ObjectWithType {
+    if (typeof object !== "object" || object === null) return false; // Not an object
+    if (!getPropertyDescriptor(object, "objectType")) return false; // Not an ObjectWithType
+    if (typeof (object as { objectType: any }).objectType !== "string") return false; // Not an ObjectWithType
+
+    return true;
+}
+
+/**
+ * Checks whether an {@link ObjectWithType} is a {@link VirtualObject}.
+ * @param object An object with type.
+ * @returns If the object is a {@link VirtualObject}.
+ * 
+ * @group Validators
+ */
+export function isVirtualObject(object: ObjectWithType): object is VirtualObject {
+    return object.virtual;
+}
+
+/**
+ * Checks whether an {@link ObjectWithType} is a {@link VirtualObject}.
+ * @param object An object with type.
+ * @returns If the object is a {@link VirtualObject}.
+ * 
+ * @group Validators
+ */
+export function isNonVirtualObject(object: ObjectWithType): object is VirtualObject {
+    return !object.virtual;
+}
+
+/**
+ * Checks whether an unknown object is a {@link Vector}.
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link Vector}.
+ * 
+ * @group Validators
+ */
+export function isVector(object: unknown): object is Vector {
+    if (!isObjectWithType(object)) return false; // Not an ObjectWithType
+
+    return object.objectType === "vector";
+}
+
+/**
+ * Checks whether an unknown object is a {@link Point}.
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link Point}.
+ * 
+ * @group Validators
+ */
+export function isPoint(object: unknown): object is Point {
+    if (!isObjectWithType(object)) return false; // Not an ObjectWithType
+
+    return object.objectType === "point";
+}
+
+/**
+ * Checks whether an unknown object is a {@link Line}.
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link Line}.
+ * 
+ * @group Validators
+ */
+export function isLine(object: unknown): object is Line {
+    if (!isObjectWithType(object)) return false; // Not an ObjectWithType
+
+    return object.objectType === "line";
+}
+
+/**
+ * Checks whether an unknown object is a {@link NullObject}.
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link NullObject}.
+ * 
+ * @group Validators
+ */
+export function isNull(object: unknown): object is NullObject {
+    if (!isObjectWithType(object)) return false; // Not an ObjectWithType
+
+    return object.objectType === "null";
+}
+
+/**
+ * Checks whether an unknown object is a {@link Interval}.
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link Interval}.
+ * 
+ * @group Validators
+ */
+export function isInterval(object: unknown): object is Interval {
+    if (!isObjectWithType(object)) return false; // Not an ObjectWithType
+
+    return object.objectType === "interval";
+}
+
+/**
+ * Checks whether an unknown object is a {@link Union}.
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link Union}.
+ */
+export function isUnion(object: unknown): object is Union<NonVirtualObject[]> {
+    if (!isObjectWithType(object)) return false; // Not an ObjectWithType
+
+    return object.objectType === "union";
 }

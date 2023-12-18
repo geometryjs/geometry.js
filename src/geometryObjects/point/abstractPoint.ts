@@ -1,10 +1,12 @@
-import type { Point, Plane, DependencyNode, Vector } from "../../interfaces";
+import type { Point, Plane, DependencyNode, Vector, NonVirtualObject } from "../../interfaces";
 
 import { MemoryMapCacheWithAutomaticCalculation } from "../../helpers/cache/memoryMapCache";
 import { GeometryObject } from "../geometryObject";
 import * as Interfaces from "../../interfaces/runtimeInterfaces";
 import { PYTHAGOREAN_THEOREM } from "../../procedures/foundational";
 import { UnboundVector } from "../vector";
+import { isPoint } from "../../validators";
+import { isEqual } from "../../helpers/equality/float";
 /**
  * Defines all the common functionality of a point.
  * 
@@ -52,4 +54,12 @@ export abstract class AbstractPoint extends GeometryObject<{ x: number; y: numbe
     toVector(): Vector {
         return UnboundVector.fromBare([this.x, this.y]);
     }
+
+    equals(other: NonVirtualObject): boolean {
+        if (!isPoint(other)) return false;
+        return isEqual(this.x, other.x) && isEqual(this.y, other.y);
+    }
+
+    public readonly objectType = "point";
+    public readonly virtual = false;
 }

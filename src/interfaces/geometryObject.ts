@@ -1,12 +1,12 @@
 import type { Interface } from "./runtimeInterfaces";
 import type { DependencyNode } from "./dependencyNode";
 import type { Plane } from "./plane";
-import type { Runtime } from ".";
+import type { NonVirtualObject, NonVirtualObjectType, ObjectType, ObjectWithType, Runtime, VirtualObjectType } from ".";
 
 /**
  * Represents a GeometryJS object, usually paired with a {@link DependencyNode} interface.
  */
-export interface GeometryObject {
+export interface GeometryObject<Type extends ObjectType = ObjectType, Virtual extends boolean = boolean> extends ObjectWithType<Type, Virtual> {
     /**
      * Returns the {@link Runtime | runtime representation}interfaces implemented by this object.
      */
@@ -21,6 +21,22 @@ export interface GeometryObject {
      * Returns information about this object.
      */
     readonly info: GeometryObjectInfo;
+}
+
+/**
+ * Represents a non-virtual GeometryJS object, usually paired with a {@link DependencyNode} interface.
+ */
+export interface NonVirtualGeometryObject<Type extends NonVirtualObjectType = NonVirtualObjectType> extends GeometryObject<Type>, NonVirtualObject {
+    readonly virtual: false;
+    readonly objectType: Type;
+}
+
+/**
+ * Represents a virtual GeometryJS object, usually paired with a {@link DependencyNode} interface.
+ */
+export interface VirtualGeometryObject<Type extends VirtualObjectType = VirtualObjectType> extends GeometryObject<Type> {
+    readonly virtual: true;
+    readonly objectType: Type;
 }
 
 /**

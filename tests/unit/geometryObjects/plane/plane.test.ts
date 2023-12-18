@@ -31,6 +31,14 @@ describe("Plane", () => {
         plane.ulinkObject(object);
         expect([...plane]).not.toContain(object);
     });
+    test.concurrent("virtual", () => {
+        const plane = new Plane();
+        expect(plane.virtual).toBe(false);
+    })
+    test.concurrent("objectType", () => {
+        const plane = new Plane();
+        expect(plane.objectType).toBe("plane");
+    });
 });
 
 describe("Plane create methods", () => {

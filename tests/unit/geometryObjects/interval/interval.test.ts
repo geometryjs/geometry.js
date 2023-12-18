@@ -13,6 +13,7 @@ describe("UnboundInterval", () => {
             endIncluded: false
         });
         expect(interval).toBeDefined();
+        expect(interval.objectType).toBe("interval");
     });
 });
 
@@ -130,5 +131,12 @@ describe("Interval", () => {
         expect(interval.exists()).toBe(false);
     });
 
+    test.each(intervals)("should have objectType of interval", (interval) => {
+        expect(interval.objectType).toBe("interval");
+    });
+
+    test.each(intervals)("should be virtual", (interval) => {
+        expect(interval.virtual).toBe(true);
+    });
 
 })

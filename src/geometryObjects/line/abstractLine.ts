@@ -1,4 +1,4 @@
-import type { Point, GeometryObject as IGeometryObject, Line, DependencyNode, SingleParametricCurve, Plane, Evaluatable, Vector, Interval } from "../../interfaces";
+import type { Point, GeometryObject as IGeometryObject, Line, DependencyNode, SingleParametricCurve, Plane, Evaluatable, Vector, Interval, NonVirtualObject } from "../../interfaces";
 
 import { MemoryMapCacheWithAutomaticCalculation } from "../../helpers";
 import { GeometryObject } from "../geometryObject";
@@ -7,6 +7,8 @@ import { UnboundPoint } from "../point";
 import * as Procedures from "../../procedures";
 import { UnboundVector } from "../vector";
 import { REALS, Y_UNIT_VECTOR } from "../../constants";
+import { isLine } from "../../validators";
+import { isZero } from "../../helpers/equality/float";
 
 /**
  * Represents common behaviour of bound lines.
@@ -58,6 +60,18 @@ export abstract class AbstractLine extends GeometryObject<{ point1: Point, point
     evaluate(input: number): Point {
         return UnboundPoint.fromVector(this.arbitraryPoint1.toVector().add(this.directionalVector.multiplyByScalar(input)));
     }
+    equals(other: NonVirtualObject): boolean {
+        if (!isLine(other)) return false;
+        const intersection = Procedures.Derived.LINE_LINE_INTERSECTION.perform({
+            line1: this,
+            line2: other
+        });
+
+        return intersection.objectType === "line";
+    }
+
+    public readonly objectType = "line";
+    public readonly virtual = false;
 }
 
 /**

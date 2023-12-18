@@ -81,4 +81,7 @@ export abstract class AbstractInterval extends GeometryObject<{ end: number; sta
     evaluate(parameter: number): boolean {
         return this.isInside(parameter);
     }
+
+    public readonly objectType = "interval";
+    public readonly virtual = true;
 }

@@ -128,4 +128,12 @@ describe("Line", () => {
     test.each(invalidLineObjects)("should not exist", (line) => {
         expect(line.exists()).toBe(false);
     });
+
+    test.each(lines)("should be of type line", (line) => {
+        expect(line.objectType).toBe("line");
+    });
+
+    test.each(lines)("should not be virtual", (line) => {
+        expect(line.virtual).toBe(false);
+    });
 })

@@ -1,4 +1,5 @@
 import { Evaluatable } from "./evaluatable";
+import { NonVirtualObject } from "./objectWithType";
 import { SingleParametricCurve } from "./parametricCurve";
 import { Point } from "./point";
 import { Vector } from "./vector";
@@ -6,7 +7,7 @@ import { Vector } from "./vector";
 /**
  * Interface for a line
  */
-export interface Line extends Evaluatable<number, Point>, SingleParametricCurve {
+export interface Line extends Evaluatable<number, Point>, SingleParametricCurve, NonVirtualObject {
     /**
      * The a coefficient of the line equation in the form of ax + by + c = 0.
      */
@@ -47,6 +48,11 @@ export interface Line extends Evaluatable<number, Point>, SingleParametricCurve 
      * The postitve angle of the line with the x-axis.
      */
     readonly xAxisAngle: number;
+
+    /**
+     * This object's type, which is "line".
+     */
+    readonly objectType: "line";
 }
 
 /**

@@ -2,8 +2,8 @@ import { Some } from "../../helpers/types";
 import { Runtime, type DependencyNodeObject, type EnumObject, type IterableCache, type Plane } from "../../interfaces";
 import { GeometryObject } from "../geometryObject";
 
-export abstract class AbstractEnum<States extends Record<string, DependencyNodeObject>, CacheRecords extends Record<string, Some | null> = Record<string, Some | null>> extends GeometryObject<CacheRecords> implements EnumObject<States>{
-    
+export abstract class AbstractEnum<States extends Record<string, DependencyNodeObject>, CacheRecords extends Record<string, Some | null> = Record<string, Some | null>> extends GeometryObject<CacheRecords> implements EnumObject<States> {
+
     protected abstract getStates(): States;
     protected abstract getCurrentStateName(): keyof States;
     protected getCurrentState(): States[keyof States] {
@@ -28,4 +28,7 @@ export abstract class AbstractEnum<States extends Record<string, DependencyNodeO
     public get currentState(): States[keyof States] {
         return this.getCurrentState();
     }
+
+    public readonly virtual = false;
+    public readonly objectType = "enum";
 }

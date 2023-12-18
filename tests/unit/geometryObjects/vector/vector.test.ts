@@ -180,5 +180,12 @@ describe("Vector", () => {
         expect(vector.exists()).toBe(false);
     });
 
+    test.each(vectors)("is virtual", (vector) => {
+        expect(vector.virtual).toBe(true);
+    });
+
+    test.each(vectors)("is of type vector", (vector) => {
+        expect(vector.objectType).toBe("vector");
+    });
     
 });

@@ -36,4 +36,7 @@ export class UnboundInterval implements Interval, Evaluatable<number, boolean> {
     evaluate(input: number): boolean {
         return this.isInside(input);
     }
+
+    public readonly objectType = "interval";
+    public readonly virtual = true;
 }
