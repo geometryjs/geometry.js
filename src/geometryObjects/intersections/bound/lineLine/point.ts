@@ -17,12 +17,12 @@ export class LineLineIntersectionPoint extends AbstractPoint {
     }
 
     protected getX(): number {
-        if (this.intersectionObject.getObjectType() !== "point") throw new Error("Getting the value of a non-existant point"); // TODO: Change to custom error
+        if (!this.exists()) throw new Error("Getting the value of a non-existant point"); // TODO: Change to custom error
         const { x } = this.intersectionObject.getIntersection() as { x: number, y: number };
         return x;
     }
     protected getY(): number {
-        if (this.intersectionObject.getObjectType() !== "point") throw new Error("Getting the value of a non-existant point"); // TODO: Change to custom error
+        if (!this.exists()) throw new Error("Getting the value of a non-existant point"); // TODO: Change to custom error
         const { y } = this.intersectionObject.getIntersection() as { x: number, y: number };
         return y;
     }
