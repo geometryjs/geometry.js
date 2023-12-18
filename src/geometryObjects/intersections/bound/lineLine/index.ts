@@ -3,6 +3,7 @@ import type { LineObject, NullObjectDependencyNode, Plane, PointObject } from ".
 import { Derived } from "../../../../procedures";
 import { AbstractEnum } from "../../../enum";
 import { LineLineIntersectionNull } from "./nullObject";
+import { LineLineIntersectionPoint } from "./point";
 
 /**
  * Intersection of two lines.
@@ -18,9 +19,9 @@ export class LineLineIntersection extends AbstractEnum<{
     protected readonly line1: LineObject;
     protected readonly line2: LineObject;
 
-    protected readonly LineIntersection;
+    protected readonly lineIntersection;
     protected readonly nullObjectIntersection: LineLineIntersectionNull;
-    protected readonly pointIntersection;
+    protected readonly pointIntersection: LineLineIntersectionPoint;
 
     constructor(parameters: { line1: LineObject, line2: LineObject, plane: Plane }) {
         super({
@@ -46,14 +47,15 @@ export class LineLineIntersection extends AbstractEnum<{
         this.line1 = parameters.line1;
         this.line2 = parameters.line2;
 
-        this.LineIntersection = new LineLineIntersectionNull({ plane: parameters.plane, intersectionObject: this });
+        this.nullObjectIntersection = new LineLineIntersectionNull({ plane: parameters.plane, intersectionObject: this });
+        this.pointIntersection = new LineLineIntersectionPoint({ plane: parameters.plane, intersectionObject: this });
     }
 
     protected getStates(): { none: NullObjectDependencyNode<false>; point: PointObject; line: LineObject; } {
         return {
             none: this.nullObjectIntersection,
             point: this.pointIntersection,
-            line: this.LineIntersection
+            line: this.lineIntersection
         };
     }
 
