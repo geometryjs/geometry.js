@@ -1,11 +1,14 @@
 import { MemoryMapCacheWithAutomaticCalculation } from "../../../../helpers";
-import { isEqual } from "../../../../helpers/equality/float";
-import type { NullObject, NullObjectDependencyNode, Plane, PointObject } from "../../../../interfaces";
+import type {  NullObjectDependencyNode, Plane, PointObject } from "../../../../interfaces";
 import { AbstractEnum } from "../../../enum";
 import { PointPointIntersectionNull } from "./nullObject";
 import { PointPointIntersectionPoint } from "./point";
 
 export { PointPointIntersectionNull, PointPointIntersectionPoint };
+
+/**
+ * Intersection of two points.
+ */
 export class PointPointIntersection extends AbstractEnum<{
     "none": NullObjectDependencyNode<false>,
     "point": PointObject,
