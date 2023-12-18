@@ -299,3 +299,8 @@ export const LineWithSettableXAxisAngleObject = [...LineWithSettableXAxisAngle, 
  * Represents the synthetic {@link Synthetic.UnionObject | UnionObject} interface at runtime.
  */
 export const UnionObject = [...Union, ...DependencyNode, ...GeometryObject] as const;
+
+/**
+ * Represents the synthetic {@link Synthetic.NullObjectDependencyNode | NullObjectDependencyNode} interface at runtime.
+ */
+export const NullObjectDependencyNode = [...NullObject, ...DependencyNode, ...GeometryObject] as const;

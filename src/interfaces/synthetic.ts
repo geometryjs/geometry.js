@@ -13,7 +13,7 @@ import type { SettableVector, Vector } from "./vector";
 import type { Line, LineWithSettableEquation, LineWithSettableXAxisAngle } from "./line";
 import { Evaluatable } from "./evaluatable";
 import { Union } from "./union";
-import { NonVirtualObject } from "./objectWithType";
+import { NonVirtualObject, NullObject } from "./objectWithType";
 
 /**
  * Interface, that combines the {@link Value}, {@link DependencyNode} and {@link GeometryObject} interfaces.
@@ -126,3 +126,10 @@ export interface LineWithSettableXAxisAngleObject extends LineWithSettableXAxisA
  * @group Synthetic
  */
 export interface UnionObject<Objects extends NonVirtualObject[]> extends DependencyNode, NonVirtualGeometryObject<"union">, Union<Objects> {}
+
+/**
+ * Interface, that combines the {@link NullObject}, {@link DependencyNode} and {@link GeometryObject} interfaces.
+ * 
+ * @group Synthetic
+ */
+export interface NullObjectDependencyNode extends NullObject, DependencyNode, GeometryObject<"null"> {}
