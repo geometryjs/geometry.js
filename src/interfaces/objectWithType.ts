@@ -85,7 +85,7 @@ export type ObjectType = NonVirtualObjectType | VirtualObjectType;
 /**
  * Non virtual object types. Non virtual objects are objects that are physically placable in the plane.
  */
-export type NonVirtualObjectType = "point" | "line" | "plane" | "null" | "union";
+export type NonVirtualObjectType = "point" | "line" | "plane" | "null" | "union" | "enum";
 
 /**
  * Virual object types. Virtual objects are objects that are not physically placable in the plane.
