@@ -1,3 +1,4 @@
+import { NotImplementedIntersectionCalculationError } from "../../../errors/calculationError";
 import { Line, NonVirtualObject, NullObject, Point } from "../../../interfaces";
 import { isLine, isNull, isPoint } from "../../../validators";
 import { UnboundNullObject } from "../../nullObject";
@@ -45,5 +46,11 @@ export function intersection(a: NonVirtualObject | NullObject, b: NonVirtualObje
     if (isNull(a) || isNull(b)) return UnboundNullObject.createNonVirtual();
     if (isPoint(a) && isPoint(b)) return intersectionPointPoint(a, b);
     if (isLine(a) && isLine(b)) return intersectionLineLine(a, b);
-    throw new Error("Not implemented"); // TODO: Use custom error
+    throw new NotImplementedIntersectionCalculationError({
+        message: `An intersection between ${a.objectType} and ${b.objectType} is not implemented.`,
+        id: "INFU",
+        object1: a,
+        object2: b,
+        description: "Calculating the intersection between these two objects is not supported. Check the type of the objects and refer to documentation for more information." 
+    })
 }
