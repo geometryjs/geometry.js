@@ -5,8 +5,11 @@ import { GeometryJsError } from "./geometryJsError";
  */
 export class ReadError extends GeometryJsError {
     constructor(parameters: { message: string, id: string, description?: string, name?: string }) {
-        super(parameters);
-        this.name = parameters.name ?? 'ReadError';
+        super({
+            ...parameters,
+            name: parameters.name ?? 'ReadError',
+            id: "Rd." + parameters.id,
+        });
     }
 }
 
@@ -15,7 +18,10 @@ export class ReadError extends GeometryJsError {
  */
 export class ExistanceViolationError extends ReadError {
     constructor(parameters: { message: string, id: string, description?: string, name?: string }) {
-        super(parameters);
-        this.name = parameters.name ?? 'ExistanceViolationError';
+        super({
+            ...parameters,
+            name: parameters.name ?? 'ExistanceViolationError',
+            id: "ExV." + parameters.id,
+        });
     }
 }

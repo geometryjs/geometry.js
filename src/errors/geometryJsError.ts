@@ -20,7 +20,7 @@ export class GeometryJsError extends Error {
     constructor(parameters: { message: string, id: string, description?: string, name?: string }) {
         super(parameters.message);
         this.name = parameters.name ?? 'GeometryJsError';
-        this.id = parameters.id;
+        this.id = "GJS." + parameters.id;
         this.description = parameters.description;
         Object.setPrototypeOf(this, new.target.prototype);
 
