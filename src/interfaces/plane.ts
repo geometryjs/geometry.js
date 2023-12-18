@@ -2,6 +2,8 @@ import type { GeometryObject } from "./geometryObject";
 import type { DependencyNode } from "./dependencyNode";
 import type { IntervalWithSettableEndpointsInclusionObject, IntervalWithSettableEndpointsObject, IntervalWithSettableEndpointsValueObject, LineObject, LineWithSettableEquationObject, PointObject, SettablePointObject, SettableValueObject, SettableVectorObject, ValueObject, VectorObject } from "./synthetic";
 import { NonVirtualObject } from "./objectWithType";
+import { LineLineIntersection } from "../geometryObjects/intersections/bound/lineLine";
+import { PointPointIntersection } from "../geometryObjects";
 
 
 /**
@@ -183,4 +185,18 @@ export interface Plane extends DependencyNode, Iterable<GeometryObject>, NonVirt
      * This object is of type plane.
      */
     readonly objectType: "plane";
+
+    /**
+     * Constructs an intersection of two points.
+     * @param point1 The first point.
+     * @param point2 The second point.
+     */
+    constructIntersection(point1: PointObject, point2: PointObject): PointPointIntersection;
+    
+    /**
+     * Constructs an intersection of two lines.
+     * @param line1 The first line.
+     * @param line2 The second line.
+     */
+    constructIntersection(line1: LineObject, line2: LineObject): LineLineIntersection;
 }
