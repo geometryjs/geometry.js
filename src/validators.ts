@@ -293,5 +293,11 @@ export function isUnion(object: unknown): object is Union<NonVirtualObject[]> {
  * @group Validators
  */
 export function isEqualityOptions(object: unknown): object is EqualityOptions {
+    if (getPropertyDescriptor(object, "precision") === undefined) return false; // Not an EqualityOptions
+    if (typeof (object as { precision: any }).precision !== "number") return false; // Not an EqualityOptions
 
+    if (getPropertyDescriptor(object, "unit") === undefined) return false; // Not an EqualityOptions
+    if (typeof (object as { unit: any }).unit !== "number") return false; // Not an EqualityOptions
+
+    return true;
 }
