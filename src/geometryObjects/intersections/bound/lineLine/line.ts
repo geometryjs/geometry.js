@@ -18,31 +18,19 @@ export class LineLineIntersectionLine extends AbstractLineFromEquation {
     }
 
     protected getA(): number {
-        if (!this.exists()) throw new ExistanceViolationError({
-            message: "Accessing parameter `a` of a non-existant line.",
-            id: "LLI_L_a",
-            description: "Reading properties of non-existant objects is not allowed. Check for existance using the `exists()` method first."
-        });
+        if (!this.exists()) return NaN;
         const { a } = this.intersectionObject.getIntersection() as { a: number, b: number, c: number };
         return a;
     }
 
     protected getB(): number {
-        if (!this.exists()) throw new ExistanceViolationError({
-            message: "Accessing parameter `b` of a non-existant line.",
-            id: "LLI_L_b",
-            description: "Reading properties of non-existant objects is not allowed. Check for existance using the `exists()` method first."
-        });
+        if (!this.exists()) return NaN;
         const { b } = this.intersectionObject.getIntersection() as { a: number, b: number, c: number };
         return b;
     }
 
     protected getC(): number {
-        if (!this.exists()) throw new ExistanceViolationError({
-            message: "Accessing parameter `c` of a non-existant line.",
-            id: "LLI_L_c",
-            description: "Reading properties of non-existant objects is not allowed. Check for existance using the `exists()` method first."
-        });
+        if (!this.exists()) return NaN;
         const { c } = this.intersectionObject.getIntersection() as { a: number, b: number, c: number };
         return c;
     }

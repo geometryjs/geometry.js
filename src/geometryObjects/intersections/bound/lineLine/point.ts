@@ -18,20 +18,12 @@ export class LineLineIntersectionPoint extends AbstractPoint {
     }
 
     protected getX(): number {
-        if (!this.exists()) throw new ExistanceViolationError({
-            message: "Accessing parameter `x` of a non-existant point.",
-            id: "LLI_P_x",
-            description: "Reading properties of non-existant objects is not allowed. Check for existance using the `exists()` method first."
-        });
+        if (!this.exists()) return NaN;
         const { x } = this.intersectionObject.getIntersection() as { x: number, y: number };
         return x;
     }
     protected getY(): number {
-        if (!this.exists()) throw new ExistanceViolationError({
-            message: "Accessing parameter `y` of a non-existant point.",
-            id: "LLI_P_y",
-            description: "Reading properties of non-existant objects is not allowed. Check for existance using the `exists()` method first."
-        });
+        if (!this.exists()) return NaN;
         const { y } = this.intersectionObject.getIntersection() as { x: number, y: number };
         return y;
     }
