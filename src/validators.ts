@@ -2,6 +2,7 @@ import type { NullObject, ObjectWithType, VirtualObject, DependencyNode, Depende
 
 import { getPropertyDescriptor } from "./helpers/getPropertyDescriptor";
 import { inIterable } from "./helpers/iterable";
+import { EqualityOptions } from "./helpers/equality/float";
 /**
  * Checks whether an unknown object is a {@link GeometryObject}.
  * @param object An unknown object.
@@ -275,9 +276,22 @@ export function isInterval(object: unknown): object is Interval {
  * Checks whether an unknown object is a {@link Union}.
  * @param object An unknown object.
  * @returns Whether the object is a {@link Union}.
+ * 
+ * @group Validators
  */
 export function isUnion(object: unknown): object is Union<NonVirtualObject[]> {
     if (!isObjectWithType(object)) return false; // Not an ObjectWithType
 
     return object.objectType === "union";
+}
+
+/**
+ * Checks whether an unknown object is a {@link EqualityOptions}.
+ * @param object An unknown object.
+ * @returns Whether the object is a {@link EqualityOptions}.
+ * 
+ * @group Validators
+ */
+export function isEqualityOptions(object: unknown): object is EqualityOptions {
+
 }
