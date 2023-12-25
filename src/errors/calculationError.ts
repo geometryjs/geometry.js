@@ -44,3 +44,16 @@ export class NotImplementedIntersectionCalculationError extends NotImplementedCa
         this.object2 = parameters.object2;
     }
 }
+
+/**
+ * An error for when a calculation operation requires a non-zero vector but a zero vector is given.
+ */
+export class ZeroVectorError extends CalculationError {
+    constructor(parameters: { message: string, id: string, description?: string, name?: string }) {
+        super({
+            ...parameters,
+            name: parameters.name ?? 'ZeroVectorError',
+            id: "ZeroVect." + parameters.id,
+        });
+    }
+}
