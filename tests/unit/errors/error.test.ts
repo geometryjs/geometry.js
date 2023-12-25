@@ -1,6 +1,9 @@
 import { GeometryJsError } from '../../../src/errors';
 describe("Geomtery JS Error", () => {
-    const error = new GeometryJsError("Test Error");
+    const error = new GeometryJsError({
+        message: "Test Error",
+        id: "TestError",
+    });
 
     test("should be an instance of Error", () => {
         expect(error).toBeInstanceOf(Error);

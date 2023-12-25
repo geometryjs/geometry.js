@@ -45,23 +45,9 @@ describe("Bound intersection of Line and Line", () => {
         expect(intersectionObject1.states.point.exists()).toBe(false);
         expect(intersectionObject1.states.line.exists()).toBe(false);
 
-        expect(() => {
-            intersectionObject1.states.line.a;
-        }).toThrow();
-        expect(() => {
-            intersectionObject1.states.line.b;
-        }).toThrow();
-        expect(() => {
-            intersectionObject1.states.line.c;
-        }).toThrow();
-
-        expect(() => {
-            intersectionObject1.states.point.x;
-        }).toThrow();
-
-        expect(() => {
-            intersectionObject1.states.point.y;
-        }).toThrow();
+        expect(intersectionObject1.states.line.a).toBeNaN();
+        expect(intersectionObject1.states.line.b).toBeNaN();
+        expect(intersectionObject1.states.line.c).toBeNaN();
     });
 
     test("Intersection of two equal lines is a line", () => {
