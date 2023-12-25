@@ -34,7 +34,6 @@ export class LinesParallel extends Procedure<{ lines: { a: number, b: number, c:
         super({
             name: "Lines Parallel",
             procedure: ({ lines }) => {
-                // TODO: Handle case where lines is empty
                 const firstLine = lines[0]!;
                 for (let i = 1; i < lines.length; i++) {
                     const line = lines[i]!;
