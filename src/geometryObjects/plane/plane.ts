@@ -15,6 +15,7 @@ import { LineFromEquation, LineFromEquationAsValues, LineFromPointAndDirectional
 import { isLineObject, isPointObject } from "../../validators";
 import { PointPointIntersection } from "../intersections";
 import { LineLineIntersection } from "../intersections/bound/lineLine";
+import { NotImplementedIntersectionConstructionError } from "../../errors/constructionError";
 /**
  * Represents a plane.
  *
@@ -128,6 +129,12 @@ export class Plane extends DependencyNodeWithCache<{}, true> implements IPlane {
     public constructIntersection(object1: GeometryObject, object2: GeometryObject): any { // Any here is only acceptable, beacuse the type of this class should never be accessed directly. It should only be accessed via the interface. The interface has all the overloads correctly typed. 
         if (isPointObject(object1) && isPointObject(object2)) return new PointPointIntersection({ plane: this, point1: object1, point2: object2 });
         if (isLineObject(object1) && isLineObject(object2)) return new LineLineIntersection({ plane: this, line1: object1, line2: object2 });
-        throw new Error("Not implemented."); // TODO: Replace with custom error
+        throw new NotImplementedIntersectionConstructionError({
+            message: `An intersection between ${object1.objectType} and ${object2.objectType} is not implemented.`,
+            id: "INME",
+            object1,
+            object2,
+            description: "Constructing the intersection between these two objects is not supported. Check the type of the objects and refer to documentation for more information."
+        });
     }
 }

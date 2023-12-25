@@ -1,4 +1,5 @@
 import type { LineLineIntersection } from ".";
+import { ExistanceViolationError } from "../../../../errors";
 import type { Plane } from "../../../../interfaces";
 import { AbstractPoint } from "../../../point";
 
@@ -17,12 +18,12 @@ export class LineLineIntersectionPoint extends AbstractPoint {
     }
 
     protected getX(): number {
-        if (!this.exists()) throw new Error("Getting the value of a non-existant point"); // TODO: Change to custom error
+        if (!this.exists()) return NaN;
         const { x } = this.intersectionObject.getIntersection() as { x: number, y: number };
         return x;
     }
     protected getY(): number {
-        if (!this.exists()) throw new Error("Getting the value of a non-existant point"); // TODO: Change to custom error
+        if (!this.exists()) return NaN;
         const { y } = this.intersectionObject.getIntersection() as { x: number, y: number };
         return y;
     }

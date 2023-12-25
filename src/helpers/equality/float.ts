@@ -1,3 +1,4 @@
+import { assertIsEqualityOptions } from "../assertors";
 
 
 /**
@@ -143,7 +144,7 @@ let equalityOptions: EqualityOptions = EQUALITY_OPTIONS.DOUBLE;
  * @param options The new global equality options.
  */
 export function setEqualityOptions(options: EqualityOptions): void {
-    // TODO: Validate options
+    assertIsEqualityOptions(options, "SetEqOpt");
     equalityOptions = options;
 }
 

@@ -1,3 +1,4 @@
+import { ZeroVectorError } from "../../errors/calculationError";
 import { LINES_PARALLEL } from "../derived/lineEquation";
 import { Procedure } from "../procedure";
 
@@ -10,7 +11,11 @@ export class PointFromLineDistance extends Procedure<{ point: { x: number, y: nu
         super({
             name: "Point From Line Distance",
             procedure: ({ point, line }) => {
-                // TODO: Handle case where line is made of zero vectors
+                if (line.a === 0 && line.b === 0) throw new ZeroVectorError({
+                    message: "Vector cannot be zero",
+                    description: "When calculating the distance between a point and a line, the line's normal vector cannot be zero.",
+                    id: "PFLD-ZeroVect"
+                })
                 return {
                     distance: Math.abs(line.a * point.x + line.b * point.y + line.c) / Math.sqrt(line.a ** 2 + line.b ** 2)
                 }

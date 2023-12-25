@@ -1,4 +1,5 @@
 import type { LineLineIntersection } from ".";
+import { ExistanceViolationError } from "../../../../errors";
 import type { Plane } from "../../../../interfaces";
 import { AbstractLineFromEquation } from "../../../line";
 
@@ -17,19 +18,19 @@ export class LineLineIntersectionLine extends AbstractLineFromEquation {
     }
 
     protected getA(): number {
-        if (!this.exists()) throw new Error("Getting the value of a non-existant line"); // TODO: Change to custom error
+        if (!this.exists()) return NaN;
         const { a } = this.intersectionObject.getIntersection() as { a: number, b: number, c: number };
         return a;
     }
 
     protected getB(): number {
-        if (!this.exists()) throw new Error("Getting the value of a non-existant line"); // TODO: Change to custom error
+        if (!this.exists()) return NaN;
         const { b } = this.intersectionObject.getIntersection() as { a: number, b: number, c: number };
         return b;
     }
 
     protected getC(): number {
-        if (!this.exists()) throw new Error("Getting the value of a non-existant line"); // TODO: Change to custom error
+        if (!this.exists()) return NaN;
         const { c } = this.intersectionObject.getIntersection() as { a: number, b: number, c: number };
         return c;
     }
