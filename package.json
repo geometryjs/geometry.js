@@ -1,6 +1,6 @@
 {
   "name": "@jiricekcz/geometry.js",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Object-oriented typescript library for analytic geometry",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -9,6 +9,7 @@
   },
   "scripts": {
     "test": "npx jest --passWithNoTests --coverage",
+    "test:w": "npx jest --watch",
     "build": "npx tsc",
     "docs": "npx typedoc --options typedoc.json",
     "prepublish": "npm run test && npm run build"

@@ -8,15 +8,18 @@ import * as Interfaces from "../../interfaces/runtimeInterfaces";
  *
  * @group Value
  */
-export abstract class AbstractValue extends GeometryObject<{ val: number }> implements IValue {
+export abstract class AbstractValue extends GeometryObject<{ value: number, nonExistantState: boolean }> implements IValue {
     protected abstract getValue(): number;
 
     constructor(parameters: { readonly dependencies: Iterable<DependencyNode>; readonly plane: Plane }) {
         super({
-            cache: new MemoryMapCacheWithAutomaticCalculation<{ val: number }>({
-                val: () => {
+            cache: new MemoryMapCacheWithAutomaticCalculation({
+                value: () => {
                     return this.getValue();
                 },
+                nonExistantState: () => {
+                    return Number.isNaN(this.value);
+                }
             }),
             implementedInterfaces: [...Interfaces.Value],
             ...parameters,
@@ -24,6 +27,13 @@ export abstract class AbstractValue extends GeometryObject<{ val: number }> impl
     }
 
     public get value(): number {
-        return this.cache.readValue("val");
+        return this.cache.readValue("value");
     }
+
+    public exists(): boolean {
+        return !this.cache.readValue("nonExistantState") && super.exists();
+    }
+
+    public readonly objectType = "value";
+    public readonly virtual = true;
 }

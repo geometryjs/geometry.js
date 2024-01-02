@@ -34,6 +34,11 @@ export * as Helpers from "./helpers";
  */
 export * as Objects from "./geometryObjects";
 
+/**
+ * Constants used by the library and/or exported for the user.
+ */
+export * as Constants from "./constants";
+
 export * from "./factories";
 export * from "./validators";
 // Internal code

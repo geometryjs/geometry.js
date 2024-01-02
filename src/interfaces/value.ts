@@ -1,11 +1,18 @@
+import { VirtualObject } from "./objectWithType";
+
 /**
  * Value holds a number value.
  */
-export interface Value {
+export interface Value extends VirtualObject {
     /**
      * Returns the value of this object.
      */
     readonly value: number;
+
+    /**
+     * This object is of type value.
+     */
+    readonly objectType: "value";
 } 
 
 /**

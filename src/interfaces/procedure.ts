@@ -3,7 +3,7 @@
  * @template Input - The input data type.
  * @template Output - The output data type.
  */
-export interface Procedure<Input extends Record<string, any>, Output extends Record<string, any>> {
+export interface Procedure<Input extends Record<string, any>, Output extends Record<string, any> | null> {
     /**
      * Performs the procedure.
      */

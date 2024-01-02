@@ -31,9 +31,17 @@ describe("Plane", () => {
         plane.ulinkObject(object);
         expect([...plane]).not.toContain(object);
     });
+    test.concurrent("virtual", () => {
+        const plane = new Plane();
+        expect(plane.virtual).toBe(false);
+    })
+    test.concurrent("objectType", () => {
+        const plane = new Plane();
+        expect(plane.objectType).toBe("plane");
+    });
 });
 
-describe("Plane facotry methods", () => {
+describe("Plane create methods", () => {
     const plane = new Plane();
     test("createReadonlyValue", () => {
         const value = plane.createReadonlyValue(1);
@@ -55,5 +63,30 @@ describe("Plane facotry methods", () => {
         expect(plane).toContain(point);
     });
 
+    test("createLineFromTwoPoints", () => {
+        const point1 = plane.createPointFromTwoValues(plane.createValue(1), plane.createValue(1));
+        const point2 = plane.createPointFromTwoValues(plane.createValue(1), plane.createValue(1));
+        const line = plane.createLineFromTwoPoints(point1, point2);
+        expect(line.plane).toBe(plane);
+        expect(plane).toContain(line);
+    });
+});
 
+describe("plane construct methods", () => {
+    test("constructParallelLineFromPoint", () => {
+        const plane = new Plane();
+        const line = plane.createLineFromTwoPoints(plane.createPointFromTwoValues(plane.createValue(1), plane.createValue(1)), plane.createPointFromTwoValues(plane.createValue(1), plane.createValue(1)));
+        const parallelLine = plane.constructParallelLineFromPoint(line, plane.createPointFromTwoValues(plane.createValue(1), plane.createValue(1)));
+        expect(parallelLine).toBeDefined();
+        expect(parallelLine.plane).toBe(plane);
+        expect(plane).toContain(parallelLine);
+    });
+    test("constructPerpendicularLineFromPoint", () => {
+        const plane = new Plane();
+        const line = plane.createLineFromTwoPoints(plane.createPointFromTwoValues(plane.createValue(1), plane.createValue(1)), plane.createPointFromTwoValues(plane.createValue(1), plane.createValue(1)));
+        const perpendicularLine = plane.constructPerpendicularLineFromPoint(line, plane.createPointFromTwoValues(plane.createValue(1), plane.createValue(1)));
+        expect(perpendicularLine).toBeDefined();
+        expect(perpendicularLine.plane).toBe(plane);
+        expect(plane).toContain(perpendicularLine);
+    });
 });

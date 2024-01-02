@@ -1,7 +1,12 @@
 import { GeometryObject } from "../../../src/geometryObjects/geometryObject";
 import { Plane } from "../../../src/geometryObjects/plane/plane";
 import { MemoryMapCacheWithAutomaticCalculation } from "../../../src/helpers/cache/memoryMapCache";
+import { ObjectType } from "../../../src/interfaces";
 import * as Interfaces from "../../../src/interfaces/runtimeInterfaces";
+class ImleGO extends GeometryObject<{}> {
+    public objectType: ObjectType = "interval";
+    public virtual: boolean = true;
+}
 describe("GeometryObject", () => {
     const plane = new Plane();
     test.concurrent.each([
@@ -22,7 +27,8 @@ describe("GeometryObject", () => {
         [[...Interfaces.Evaluatable, ...Interfaces.Procedure, ...Interfaces.Transformer, ...Interfaces.IterableCache, ...Interfaces.Cache, ...Interfaces.DependencyNode, ...Interfaces.GeometryObject]],
         [[...Interfaces.Evaluatable, ...Interfaces.Procedure, ...Interfaces.Transformer, ...Interfaces.IterableCache, ...Interfaces.Cache, ...Interfaces.DependencyNode, ...Interfaces.GeometryObject, ...Interfaces.Plane]],
     ])("implementedInterfaces", (interfaces) => {
-        const geometryObject = new GeometryObject<{}>({
+        
+        const geometryObject = new ImleGO({
             dependencies: [],
             cache: new MemoryMapCacheWithAutomaticCalculation<{}>({}),
             implementedInterfaces: interfaces,
@@ -38,7 +44,7 @@ describe("GeometryObject", () => {
     });
 
     test("info", () => {
-        const geometryObject = new GeometryObject<{}>({
+        const geometryObject = new ImleGO({
             dependencies: [],
             cache: new MemoryMapCacheWithAutomaticCalculation<{}>({}),
             implementedInterfaces: Interfaces.Plane,

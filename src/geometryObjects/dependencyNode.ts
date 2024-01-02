@@ -23,16 +23,28 @@ export class DependencyNode implements IDependencyNode {
     }
 
     private *getDeepDependenciesDFS(): Iterable<IDependencyNode> {
-        for (const dependency of this.dependencies) {
-            yield dependency;
-            yield* dependency.dependencies;
+        const visited: Set<IDependencyNode> = new Set();
+        const stack: IDependencyNode[] = [...this.dependencies];
+        while (stack.length > 0) {
+            const node = stack.pop()!;
+            if (!visited.has(node)) {
+                visited.add(node);
+                yield node;
+                stack.push(...node.dependencies);
+            }
         }
     }
 
     private *getDeepDependantsDFS(): Iterable<IDependencyNode> {
-        for (const dependant of this.dependants) {
-            yield dependant;
-            yield* dependant.dependants;
+        const visited: Set<IDependencyNode> = new Set();
+        const stack: IDependencyNode[] = [...this.dependants];
+        while (stack.length > 0) {
+            const node = stack.pop()!;
+            if (!visited.has(node)) {
+                visited.add(node);
+                yield node;
+                stack.push(...node.dependants);
+            }
         }
     }
 
@@ -59,10 +71,21 @@ export class DependencyNode implements IDependencyNode {
     get deepDependants(): Iterable<IDependencyNode> {
         return this.getDeepDependantsDFS();
     }
+
+    public exists(): boolean {
+        for (const dependency of this.dependencies) {
+            if (!dependency.exists()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
 
 /**
  * Represents a node in the dependency tree. Node has a cache that is cleared when the node is updated.
+ * 
+ * @group General
  */
 export class DependencyNodeWithCache<CacheRecords extends Record<string, Some | null> = Record<string, Some | null>, CacheNonEmpty extends true | false = false> extends DependencyNode {
     protected readonly cache: IterableCache<CacheRecords, CacheNonEmpty>;
