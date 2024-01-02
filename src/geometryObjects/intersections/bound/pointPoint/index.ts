@@ -1,10 +1,11 @@
 import { MemoryMapCacheWithAutomaticCalculation } from "../../../../helpers";
-import type {  NullObjectDependencyNode, Plane, PointObject } from "../../../../interfaces";
+import type { NullObjectDependencyNode, Plane, PointObject } from "../../../../interfaces";
 import { AbstractEnum } from "../../../enum";
 import { PointPointIntersectionNull } from "./nullObject";
 import { PointPointIntersectionPoint } from "./point";
 
-export { PointPointIntersectionNull, PointPointIntersectionPoint };
+export * from "./nullObject";
+export * from "./point";
 
 /**
  * Intersection of two points.

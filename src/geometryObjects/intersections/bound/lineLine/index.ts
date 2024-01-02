@@ -6,6 +6,9 @@ import { LineLineIntersectionLine } from "./line";
 import { LineLineIntersectionNull } from "./nullObject";
 import { LineLineIntersectionPoint } from "./point";
 
+export * from "./line";
+export * from "./nullObject";
+export * from "./point";
 /**
  * Intersection of two lines.
  */

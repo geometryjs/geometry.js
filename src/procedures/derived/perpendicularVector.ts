@@ -3,7 +3,7 @@ import { Procedure } from "../procedure";
 
 /**
  * Creates a vector perpendicular to the given vector.
- * @see [Perpendicular Vector Procedure Documentation](../../../docs/procedures/perpendicularVector.md)
+ * @see [Perpendicular Vector Procedure Documentation](../../../docs/wiki/procedures/Perpendicual-Vector.md)
  */
 export class PerpendicularVector extends Procedure<{ vector: BareReadonlyVector; direction: "positive" | "negative" }, { perpendicularVector: BareVector }> {
     constructor() {

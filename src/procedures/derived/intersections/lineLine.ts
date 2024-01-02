@@ -6,7 +6,7 @@ import { LINES_PARALLEL } from "../lineEquation";
 /**
  * Calculates the intersection of two lines.
  * 
- * @see [Line Line Intersection Procedure Documentation](../../../docs/procedures/intersections/lineLine.md)
+ * @see [Line Line Intersection Procedure Documentation](../../../docs/wiki/procedures/Line-Line-Intersection.md)
  */
 export class LineLineIntersection extends Procedure<{ line1: { a: number, b: number, c: number }, line2: { a: number, b: number, c: number } }, { intersection: { x: number, y: number }, objectType: "point" } | { intersection: { a: number, b: number, c: number }, objectType: "line" } | { intersection: null, objectType: "null" }> {
     constructor() {
