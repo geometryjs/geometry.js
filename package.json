@@ -1,6 +1,6 @@
 {
   "name": "@jiricekcz/geometry.js",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Object-oriented typescript library for analytic geometry",
   "main": "build/index.js",
   "types": "build/index.d.ts",
